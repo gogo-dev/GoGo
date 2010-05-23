@@ -52,6 +52,10 @@ else(MSVC)
   add_definitions(-DDEBUG -g -O3 -Wall -ansi -pedantic)
 endif(MSVC)
 
+# Add Source groups for lazy windows users.
+source_group("Header Files" REGULAR_EXPRESSION .*\\.h)
+source_group("Source Files" REGULAR_EXPRESSION .*\\.cxx|.*\\.cpp)
+
 enable_testing()
 add_subdirectory(gogo/src)
 add_subdirectory(gogo/test)
