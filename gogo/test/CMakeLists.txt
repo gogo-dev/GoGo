@@ -1,4 +1,4 @@
-source_group(test REGULAR_EXPRESSION *.*)
+source_group(src REGULAR_EXPRESSION "*.(h|c(pp)?)$")
 
 set(TESTS
 	test_build_environment
