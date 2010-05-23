@@ -1,0 +1,2 @@
+The root directory for the gogo gunz emulator. All gogo project files go in
+here. Source goes in the src/ subdir, and tests go in the test/ dir.
