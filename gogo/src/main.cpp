@@ -1,6 +1,5 @@
 #include <cstdlib>
 #include <boost/cstdint.hpp>
-#include "TestClass.h"
 #include "Structures.h"
 
 using namespace boost;

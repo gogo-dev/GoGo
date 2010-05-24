@@ -1,0 +1,1 @@
+ctest --output-on-failure
