@@ -6,6 +6,7 @@ set(GOGO_SRC
 	PacketParameters.cpp
 	Structures.h
 	PacketCrypt.h
+	PacketCrypt.cpp
 	# Feel free to add more source files when they're added.
 )
 
