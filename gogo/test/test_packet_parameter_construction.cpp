@@ -77,7 +77,8 @@ static void test_uint32()
 
 static void test_floating_point()
 {
-	// Serialization testing skipped because floats are stupid and unrepresentable.
+	// Serialization testing skipped because floats are stupid and
+	// unrepresentable.
 	floating_point packit(0.3f);
 
 	BOOST_CHECK(packit.get_type() == 0x02);
