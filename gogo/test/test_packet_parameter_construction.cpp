@@ -39,7 +39,7 @@ std::ostream& operator<<(std::ostream& stream,
 {
 	stream << "[";
 
-	for(typename std::vector<unsigned char>::const_iterator i = toOutput.begin(); i != toOutput.end(); ++i)
+	for(std::vector<unsigned char>::const_iterator i = toOutput.begin(); i != toOutput.end(); ++i)
 	{
 		tuple<char, char> splitNum = hexify(*i);
 		stream << " " << splitNum.get<0>() << splitNum.get<1>();
