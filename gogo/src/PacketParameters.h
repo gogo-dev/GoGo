@@ -13,7 +13,7 @@
 namespace packet
 {
 	// Represents a raw segment of a packet.
-	typedef std::vector<uint8_t> serial_parameter;
+	typedef std::vector<boost::uint8_t> serial_parameter;
 
 	class Parameter
 	{
