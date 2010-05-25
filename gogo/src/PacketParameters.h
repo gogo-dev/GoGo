@@ -80,10 +80,12 @@ namespace packet
 	{
 	private:
 		std::string value;
+		boost::uint16_t paramLen;
 
 	public:
 		string(const char* value);
 		string(const std::string& value);
+		string(const char* value, boost::uint16_t len);
 		serial_parameter serialize() const;
 	};
 

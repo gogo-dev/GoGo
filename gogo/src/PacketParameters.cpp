@@ -129,12 +129,26 @@ namespace packet
 	string::string(const char* _value)
 		: value(_value)
 	{
+		paramLen = 0;
 		type = 0x04;
 	}
 
 	string::string(const std::string& _value)
 		: value(_value)
 	{
+		paramLen = 0;
+		type = 0x04;
+	}
+
+	string::string(const char* _value, boost::uint16_t len)
+		: value(_value)
+	{
+		if (value.length() > len)
+		{
+			value[len-1] = 0;
+		}
+		paramLen = len;
+		value.resize(paramLen);
 		type = 0x04;
 	}
 
@@ -144,13 +158,25 @@ namespace packet
 			return ::packet::string("[string too large]").serialize();
 
 		serial_parameter serialized;
+		uint16_t len;
+		uint8_t* rawPointer;
+		if (paramLen == 0)
+		{
+			len = static_cast<uint16_t>(value.size() + 1);
+			serialized.resize(2 + len);
+			rawPointer = &(serialized[0]);
+			memcpy(rawPointer, &len, sizeof(len));
+			memcpy(rawPointer + sizeof(len), &(value[0]), len);
 
-		uint16_t len = static_cast<uint16_t>(value.size() + 1);
-		serialized.resize(2 + len);
-		uint8_t* rawPointer = &(serialized[0]);
+		}
+		else
+		{
+			len = paramLen; 
+			serialized.resize(len);
+			rawPointer = &(serialized[0]);
+			memcpy(rawPointer, &(value[0]), len);
 
-		memcpy(rawPointer, &len, sizeof(len));
-		memcpy(rawPointer + sizeof(len), &(value[0]), len);
+		}
 
 		return serialized;
 	}

@@ -51,6 +51,16 @@ static void test_boolean()
 	BOOST_CHECK(packit.get_type() == 0x03);
 }
 
+static void test_string_len()
+{
+	packet::string packit("test", 10);
+
+	uint8_t expected[] = {
+		't', 'e', 's', 't', 0x0, 0x0, 0x0, 0x0, 0x0
+	};
+
+	check_array_equal(&(packit.serialize()[0]), expected, countof(expected));
+}
 static void test_string()
 {
 	packet::string packit("test");
@@ -61,6 +71,8 @@ static void test_string()
 
 	check_array_equal(&(packit.serialize()[0]), expected, countof(expected));
 	BOOST_CHECK(packit.get_type() == 0x04);
+
+	test_string_len();
 }
 
 static void test_position()
