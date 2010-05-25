@@ -45,7 +45,7 @@ inline std::string stringify(boost::uint8_t* data, size_t len)
 	return retVal;
 }
 
-inline void check_array_equal(uint8_t* a, uint8_t* b, size_t len)
+inline void check_array_equal(boost::uint8_t* a, boost::uint8_t* b, size_t len)
 {
 	for(size_t i = 0; i < len; ++i)
 	{
