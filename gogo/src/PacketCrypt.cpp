@@ -10,15 +10,14 @@ namespace packet
 	{
 		uint8_t a, b;
 
-		for (int i = 0; i < length; ++i)
+		packet += index;
+
+		for(int i = 0; i < length; ++i)
 		{
-			a = packet[index + i];
-			a ^= 0xF0;
+			a = packet[i] ^ 0xF0;
 			b = a & 0x1F;
-			a >>= 5;
-			b <<= 3;
-			b = a | b;
-			packet[index + i] = b ^ key[i % 32];
+			b = (a >> 5) | (b << 3);
+			packet[i] = b ^ key[i % 32];
 		}
 
 		return packet;
@@ -30,16 +29,15 @@ namespace packet
 		uint16_t a;
 		uint8_t  b;
 
+		packet += index;
+
 		for(int i = 0; i < length; ++i)
 		{
-			a = packet[index + i];
-			a ^= key[i % 32];
-			a <<= 5;
+			a = (packet[i] ^ key[i & 0x1F]) << 5;
 
 			b = (uint8_t)(a >> 8);
-			b |= (uint8_t)(a & 0xFF);
-			b ^= 0xF0;
-			packet[index + i] = b;
+			b = (b | a) ^ 0xF0;
+			packet[i] = b;
 		}
 
 		return packet;
