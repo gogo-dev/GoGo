@@ -4,7 +4,3 @@ ones is at the bottom of the help screen):
 cd build
 cmake .. -G "YOUR COOL GENERATOR NAME"
 [your project files are in the build directory now]
-
-Just as a sidenote, in order to build this project, you will need a version of
-gcc that is greater than or equal to 4.5.0, or a version of msvc greater than
-or equal to the 2010 version of the compiler.
