@@ -1,32 +1,34 @@
 #include "PacketCrypt.h"
 #include <boost/cstdint.hpp>
 
+using namespace boost;
+
 namespace packet
 {
-	unsigned char* decrypt(unsigned char* packet, int length, int index,
-		const unsigned char* key)
+	uint8_t* decrypt(uint8_t* packet, int length, int index,
+		const uint8_t* key)
 	{
-		boost::uint8_t a, b;
+		uint8_t a, b;
 
 		for (int i = 0; i < length; ++i)
 		{
 			a = packet[index + i];
 			a ^= 0xF0;
-			b = (boost::uint8_t)(a & 0x1F);
+			b = a & 0x1F;
 			a >>= 5;
 			b <<= 3;
-			b = (boost::uint8_t) (a | b);
-			packet[index + i] = (boost::uint8_t) (b ^ key[i % 32]);
+			b = a | b;
+			packet[index + i] = b ^ key[i % 32];
 		}
 
 		return packet;
 	}
 
-	unsigned char* encrypt(unsigned char* packet, int length, int index,
-		const unsigned char* key)
+	uint8_t* encrypt(uint8_t* packet, int length, int index,
+		const uint8_t* key)
 	{
-		boost::uint16_t a;
-		boost::uint8_t  b;
+		uint16_t a;
+		uint8_t  b;
 
 		for(int i = 0; i < length; ++i)
 		{
@@ -34,10 +36,10 @@ namespace packet
 			a ^= key[i % 32];
 			a <<= 5;
 
-			b = (boost::uint8_t)(a >> 8);
-			b |= (boost::uint8_t)(a & 0xFF);
+			b = (uint8_t)(a >> 8);
+			b |= (uint8_t)(a & 0xFF);
 			b ^= 0xF0;
-			packet[index + i] = (boost::uint8_t)b;
+			packet[index + i] = b;
 		}
 
 		return packet;

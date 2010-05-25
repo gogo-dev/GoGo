@@ -130,9 +130,9 @@ static void test_blob()
 	blob packit (3, 8);
 	for (int i = 0; i < 3; ++i)
 	{
-		packit.addParam (packet::int16 (0x8899));
-		packit.addParam (packet::int16 (0x7766));
-		packit.addParam (packet::int32 (0x22334455));
+		packit.addParam(packet::int16((int16_t)0x8899));
+		packit.addParam(packet::int16((int16_t)0x7766));
+		packit.addParam(packet::int32(0x22334455));
 	}
 	
 
@@ -163,7 +163,7 @@ static void test_uint8()
 		0x01
 	};
 
-//	check_array_equal(&(packit.serialize()[0]), expected, countof(expected));
+	check_array_equal(&(packit.serialize()[0]), expected, countof(expected));
 }
 
 static void test_int16()
@@ -176,7 +176,7 @@ static void test_int16()
 		0x23, 0x01
 	};
 
-//	check_array_equal(&(packit.serialize()[0]), expected, countof(expected));
+	check_array_equal(&(packit.serialize()[0]), expected, countof(expected));
 }
 
 static void test_uint16()
@@ -189,7 +189,7 @@ static void test_uint16()
 		0x23, 0x01
 	};
 
-//	check_array_equal(&(packit.serialize()[0]), expected, countof(expected));
+	check_array_equal(&(packit.serialize()[0]), expected, countof(expected));
 }
 
 int test_main(int, char**)

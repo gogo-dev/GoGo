@@ -3,6 +3,7 @@
 #include <string>
 #include <boost/cstdint.hpp>
 #include <boost/tuple/tuple.hpp>
+#include <cstring>
 
 /*
  * This file handles all the packet parameter type definitions. It is provided

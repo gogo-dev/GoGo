@@ -49,7 +49,7 @@ if(MSVC)
   # TODO: Add any msvc flags you want in here. Optimization would be good ;)
 else(MSVC)
   # TODO: Any add gcc flags you want in here. Optimization would be good ;)
-  add_definitions(-DDEBUG -g -O3 -Wall -ansi -pedantic)
+  add_definitions(-DDEBUG -g -O4 -Wall -ansi -pedantic -pipe)
 endif(MSVC)
 
 # Add Source groups for lazy windows users.
