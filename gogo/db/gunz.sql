@@ -1,16 +1,7 @@
 /*
-Navicat MySQL Data Transfer
-
-Source Server         : localhost
-Source Server Version : 50141
-Source Host           : localhost:3306
-Source Database       : gunz
-
 Target Server Type    : MYSQL
 Target Server Version : 50141
 File Encoding         : 65001
-
-Date: 2010-05-24 11:38:48
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -30,10 +21,6 @@ CREATE TABLE `account` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of account
--- ----------------------------
-
--- ----------------------------
 -- Table structure for `account_inventory`
 -- ----------------------------
 DROP TABLE IF EXISTS `account_inventory`;
@@ -44,10 +31,6 @@ CREATE TABLE `account_inventory` (
   KEY `accountinv` (`aid`),
   CONSTRAINT `accountinv` FOREIGN KEY (`aid`) REFERENCES `account` (`aid`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of account_inventory
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for `character`
@@ -71,10 +54,6 @@ CREATE TABLE `character` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of character
--- ----------------------------
-
--- ----------------------------
 -- Table structure for `character_inventory`
 -- ----------------------------
 DROP TABLE IF EXISTS `character_inventory`;
@@ -87,10 +66,6 @@ CREATE TABLE `character_inventory` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of character_inventory
--- ----------------------------
-
--- ----------------------------
 -- Table structure for `clan`
 -- ----------------------------
 DROP TABLE IF EXISTS `clan`;
@@ -100,10 +75,6 @@ CREATE TABLE `clan` (
   `cwpoints` int(11) NOT NULL DEFAULT '1000',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of clan
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for `clan_members`
@@ -118,7 +89,3 @@ CREATE TABLE `clan_members` (
   CONSTRAINT `CharID` FOREIGN KEY (`charid`) REFERENCES `character` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `ClanID` FOREIGN KEY (`clanid`) REFERENCES `clan` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of clan_members
--- ----------------------------
