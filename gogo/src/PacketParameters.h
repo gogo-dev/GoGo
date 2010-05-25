@@ -148,21 +148,40 @@ namespace packet
 		{
 			struct
 			{
-				uint32_t high;
-				uint32_t low;
+				boost::uint32_t high;
+				boost::uint32_t low;
 			} part;
-			uint64_t quad;
+			boost::uint64_t quad;
 		} value;
 
 	public:
-		MUID(uint32_t low, uint32_t high);
-		MUID(uint64_t full);
+		MUID(boost::uint32_t low, boost::uint32_t high);
+		MUID(boost::uint64_t full);
 		// TODO(Clark): A constructor for the common MUID class.
 		serial_parameter serialize() const;
 	};
 	
 	// TODO(Clark): SKIPPED - Blob Implementation. I don't
 	// really know =/ Jacob - help me out here?
+	class blob : public Parameter
+	{
+	private:
+		boost::uint32_t totalSize;
+		boost::uint32_t elementSize;
+		boost::uint32_t elementCount;
+		std::vector<boost::uint8_t> elementData; 
+
+		static boost::uint8_t *mempcpy (void *src, const void *dest, size_t len)
+		{
+			memcpy (src, dest, len);
+			return ((boost::uint8_t *)src) + len;
+		}
+	public:
+		blob(boost::uint32_t eleCount, boost::uint32_t eleSize); 
+		void addParam (const packet::Parameter& param);
+		serial_parameter serialize() const;
+	};
+
 	
 	// This refers to the [x, y, z] vector, not the expandable array.
 	class vector : public Parameter

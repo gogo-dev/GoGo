@@ -184,9 +184,9 @@ struct MUID
 struct AccountInfo
 {
 	boost::uint32_t AccountId;
-	std::string AccountName;
-	UserGrade AccountAccess;
-	PremiumGrade AccountPremium;
+	char AccountName[32];
+	boost::uint8_t AccountAccess;
+	boost::uint8_t AccountPremium;
 };
 
 struct Item
@@ -244,3 +244,4 @@ struct MMatchWorldItem
     boost::uint32_t nLifeTime;
     boost::uint32_t nQuestItemID;
 };
+

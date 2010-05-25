@@ -265,7 +265,43 @@ namespace packet
 	}
 
 	// TODO(Clark): Blob implementation goes here!
+	blob::blob (boost::uint32_t eleCount, boost::uint32_t eleSize)
+	{ 
+		totalSize = (eleCount * eleSize) + 8;
+		elementSize = eleSize;
+		elementCount = eleCount;
+
+		type = 0xA;
+	}
 	
+	void blob::addParam (const packet::Parameter &param)
+	{
+		serial_parameter serialParam = param.serialize();
+		elementData.reserve (elementData.size() + serialParam.size());
+		
+		for (serial_parameter::iterator i = serialParam.begin(); i < serialParam.end();  ++i)
+		{
+			elementData.push_back (*i);
+		}
+	}
+
+	serial_parameter blob::serialize() const
+	{
+		serial_parameter serialized;
+		serialized.resize (totalSize + 12);//just incase?
+
+		uint8_t* rawPointer = &(serialized[0]);
+		rawPointer = mempcpy (rawPointer, &totalSize, sizeof(uint32_t));
+		rawPointer = mempcpy (rawPointer, &elementSize, sizeof(uint32_t));
+		rawPointer = mempcpy (rawPointer, &elementCount, sizeof(uint32_t));
+
+		for (uint32_t i = 0; i < elementData.size(); ++i)
+		{
+			rawPointer = mempcpy (rawPointer, &(elementData.at(i)), sizeof(uint8_t));
+		}
+
+		return serialized;
+	}
 	vector::vector(uint16_t x, uint16_t y, uint16_t z)
 		: value(x, y, z)
 	{
