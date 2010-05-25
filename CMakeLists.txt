@@ -45,11 +45,15 @@ set(MYSQL++_VERSION 3.0)
 find_package(MySQL++ ${MYSQL++_VERSION} REQUIRED)
 include_directories(${MYSQL++_INCLUDE_DIR})
 
+# Add the "include" folder to the compiler search path to make everyone's life
+# easier.
+include_directories("include")
+
 if(MSVC)
   # TODO: Add any msvc flags you want in here. Optimization would be good ;)
 else(MSVC)
   # TODO: Any add gcc flags you want in here. Optimization would be good ;)
-  add_definitions(-DDEBUG -g -O4 -Wall -ansi -pedantic -pipe)
+  add_definitions(-DDEBUG -g -O0 -Wall -ansi -pedantic -pipe)
 endif(MSVC)
 
 # Add Source groups for lazy windows users.
@@ -59,3 +63,6 @@ source_group("Source Files" REGULAR_EXPRESSION .*\\.cxx|.*\\.cpp)
 enable_testing()
 add_subdirectory(gogo/src)
 add_subdirectory(gogo/test)
+
+add_subdirectory(util/src)
+add_subdirectory(util/test)

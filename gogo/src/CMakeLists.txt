@@ -1,5 +1,3 @@
-include_directories(.)
-
 set(GOGO_SRC
 	main.cpp
 	PacketParameters.h

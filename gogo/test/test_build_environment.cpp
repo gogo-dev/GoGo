@@ -1,6 +1,6 @@
 #include <cstdlib>
 
-#include "test.h"
+#include <test.h>
 
 int test_main(int, char**)
 {

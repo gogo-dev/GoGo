@@ -8,7 +8,7 @@
 #include <boost/cstdint.hpp>
 #include <boost/test/minimal.hpp>
 
-#include "test.h"
+#include <test.h>
 
 using namespace std;
 using namespace boost;
@@ -22,8 +22,25 @@ static const uint8_t key[] = {
 	0x51, 0x05, 0x82, 0x09, 0x74, 0x94, 0x45, 0x92
 };
 
+static void test_encrypt()
+{
+	uint8_t toEncrypt[] = {
+		0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88
+	};
+
+	uint8_t expected[] = {
+		0xF4, 0x9C, 0xBD, 0xBC, 0x30, 0x37, 0xEC, 0x93
+	};
+
+	check_array_equal(
+		encrypt(toEncrypt, countof(toEncrypt), 0, key),
+		expected, countof(expected)
+	);
+}
+
 static void test_long_encryption()
 {
+	// The decimal part of "e" directly in hex. (2.718281...)
 	uint8_t toEncrypt[] = {
 		0x71, 0x82, 0x81, 0x82, 0x84, 0x59, 0x04, 0x52, 
 		0x35, 0x36, 0x02, 0x87, 0x47, 0x13, 0x52, 0x66, 
@@ -35,8 +52,8 @@ static void test_long_encryption()
 		0x03, 0x05, 0x99, 0x21, 0x81, 0x74, 0x13, 0x59
 	};
 
-	encrypt(toEncrypt, countof(toEncrypt), 0, key);
-
+	
+	// I'm not even sure if this is right: Jacob? Help me out here?
 	uint8_t expected[] = {
 		0xF8, 0x88, 0xEB, 0x64, 0x0A, 0xD0, 0x82, 0xC8,
                 0x32, 0xA6, 0xFC, 0x8C, 0x7E, 0xE2, 0x5E, 0x8E,
@@ -48,26 +65,29 @@ static void test_long_encryption()
                 0xBA, 0xF0, 0x93, 0xF5, 0x4E, 0xEC, 0x3A, 0x89
 	};
 
-	check_array_equal(toEncrypt, expected, countof(expected));
-}
-
-static void test_encrypt()
-{
-	uint8_t toEncrypt[] = {
-		0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88
-	};
-
-	encrypt(toEncrypt, countof(toEncrypt), 0, key);
-
-	uint8_t expected[] = {
-		0xF4, 0x9C, 0xBD, 0xBC, 0x30, 0x37, 0xEC, 0x93
-	};
-
-	check_array_equal(toEncrypt, expected, countof(expected));
-	test_long_encryption();
+	check_array_equal(
+		encrypt(toEncrypt, countof(toEncrypt), 0, key),
+		expected, countof(expected)
+	);
 }
 
 static void test_decrypt()
+{
+	uint8_t toDecrypt[] = {
+		0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88
+	};
+
+	uint8_t expected[] = {
+		0x3E, 0xD7, 0x47, 0x83, 0x7E, 0xEC, 0xAB, 0x50
+	};
+
+	check_array_equal(
+		decrypt(toDecrypt, countof(toDecrypt), 0, key),
+		expected, countof(expected)
+	);
+}
+
+static void test_long_decryption()
 {
 }
 
@@ -75,7 +95,10 @@ int test_main(int, char**)
 {
 	// Don't forget to call your test functions from here!
 	test_encrypt();
+	test_long_encryption();
+
 	test_decrypt();
+	test_long_decryption();
 
 	return 0;
 }

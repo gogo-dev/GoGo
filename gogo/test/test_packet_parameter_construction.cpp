@@ -1,7 +1,7 @@
 #include "../src/PacketParameters.h"
 #include "../src/PacketParameters.cpp"
 
-#include "test.h"
+#include <test.h>
 
 using namespace boost;
 using namespace packet;
