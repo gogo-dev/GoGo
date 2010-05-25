@@ -1,0 +1,3 @@
+mOpcodes.Add(attribute.Opcode, new HandlerDelegate(new HandlerDelegate.PacketProcessor((Action<Client, PacketReader>)Delegate.CreateDelegate(typeof(Action<Client,PacketReader>), method)), attribute.Flag));
+
+<3
