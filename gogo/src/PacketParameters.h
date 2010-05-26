@@ -88,10 +88,10 @@ namespace packet
 		// NOTE: The parameter MUST have enough room for the header.
 		// This will return a pointer to where you can begin outputting the payload,
 		// immediately after the length header.
-		static uint8_t* output_length_header(uint16_t len, serial_parameter* out);
+		static boost::uint8_t* output_length_header(boost::uint16_t len, serial_parameter* out);
 
-		serial_parameter serialize_fixed(uint16_t len) const;
-		serial_parameter serialize_dynamic(uint16_t len) const;
+		serial_parameter serialize_fixed(boost::uint16_t len) const;
+		serial_parameter serialize_dynamic(boost::uint16_t len) const;
 
 	public:
 		string(const char* value);
