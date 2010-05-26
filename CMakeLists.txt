@@ -44,6 +44,7 @@ include_directories(${MYSQL_INCLUDE_DIR})
 set(MYSQL++_VERSION 3.0)
 find_package(MySQL++ ${MYSQL++_VERSION} REQUIRED)
 include_directories(${MYSQL++_INCLUDE_DIR})
+link_libraries(${MYSQL++_LIBRARIES})
 
 # Add the "include" folder to the compiler search path to make everyone's life
 # easier.
