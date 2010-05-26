@@ -17,7 +17,7 @@ namespace packet
 			a = packet[i] ^ 0xF0;
 			b = a & 0x1F;
 			b = (a >> 5) | (b << 3);
-			packet[i] = b ^ key[i % 32];
+			packet[i] = b ^ key[i & 0x1F];
 		}
 
 		return packet;
