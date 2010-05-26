@@ -34,7 +34,6 @@ else()
 		COMPONENTS filesystem iostreams program_options regex
 		serialization signals thread wave) # python isn't used b/c that requires linking to a python library. Too much work ;)
 	include_directories(${Boost_INCLUDE_DIR})
-	link_directories(${Boost_LIBRARY_DIRS})	
 endif()
 
 set(MYSQL_VERSION 5.0)
@@ -44,7 +43,6 @@ include_directories(${MYSQL_INCLUDE_DIR})
 set(MYSQL++_VERSION 3.0)
 find_package(MySQL++ ${MYSQL++_VERSION} REQUIRED)
 include_directories(${MYSQL++_INCLUDE_DIR})
-link_libraries(${MYSQL++_LIBRARIES})
 
 # Add the "include" folder to the compiler search path to make everyone's life
 # easier.

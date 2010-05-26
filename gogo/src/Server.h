@@ -1,8 +1,7 @@
 #pragma once
-#include <boost/shared_array.hpp>
+#include <boost/shared_ptr.hpp>
 #include <boost/cstdint.hpp>
 #include <boost/asio.hpp>
-#include <boost/bind.hpp>
 #include "Client.h"
  
 class Server
@@ -12,8 +11,8 @@ public:
 	void start_accept();
 
 private:
-	void handle_accept(ClientPtr, const boost::system::error_code&);
+	void handle_accept(boost::shared_ptr<Client> client, const boost::system::error_code& error);
 
-	boost::asio::ip::tcp::acceptor mAcceptor;
-	boost::uint64_t mClientId;
+	boost::asio::ip::tcp::acceptor acceptor;
+	boost::uint64_t clientId;
 };
