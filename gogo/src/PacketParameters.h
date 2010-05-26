@@ -81,6 +81,17 @@ namespace packet
 	private:
 		std::string value;
 		boost::uint16_t paramLen;
+		bool hasFixedLength;
+
+	private:
+		// Outputs the "length" of the blob to the top of the serial_parameter.
+		// NOTE: The parameter MUST have enough room for the header.
+		// This will return a pointer to where you can begin outputting the payload,
+		// immediately after the length header.
+		static uint8_t* output_length_header(uint16_t len, serial_parameter* out);
+
+		serial_parameter serialize_fixed(uint16_t len) const;
+		serial_parameter serialize_dynamic(uint16_t len) const;
 
 	public:
 		string(const char* value);
@@ -93,14 +104,14 @@ namespace packet
 	{
 	private:
 		boost::tuple<float, float, float> value;
-		
+
 	// This class must not be instantiated directly. Use one of its
 	// descendants (position or direction). It is provided merely as a
 	// convenience.
 	protected:
 		float_tuple(float x, float y, float z);
 		float_tuple(const boost::tuple<float, float, float>& value);
-		
+
 	public:
 		serial_parameter serialize() const;
 	};
@@ -163,29 +174,25 @@ namespace packet
 		// TODO(Clark): A constructor for the common MUID class.
 		serial_parameter serialize() const;
 	};
-	
-	// TODO(Clark): SKIPPED - Blob Implementation. I don't
-	// really know =/ Jacob - help me out here?
+
 	class blob : public Parameter
 	{
 	private:
 		boost::uint32_t totalSize;
 		boost::uint32_t elementSize;
 		boost::uint32_t elementCount;
-		std::vector<boost::uint8_t> elementData; 
+		std::vector<boost::uint8_t> elementData;
 
-		static boost::uint8_t *mempcpy (void *src, const void *dest, size_t len)
-		{
-			memcpy (src, dest, len);
-			return ((boost::uint8_t *)src) + len;
-		}
+	private:
+		static boost::uint8_t *mempcpy (void *src, const void *dest, size_t len);
+
 	public:
-		blob(boost::uint32_t eleCount, boost::uint32_t eleSize); 
+		blob(boost::uint32_t eleCount, boost::uint32_t eleSize);
 		void addParam (const packet::Parameter& param);
 		serial_parameter serialize() const;
 	};
 
-	
+
 	// This refers to the [x, y, z] vector, not the expandable array.
 	class vector : public Parameter
 	{
@@ -219,7 +226,7 @@ namespace packet
 		int16(boost::int16_t value);
 		serial_parameter serialize() const;
 	};
-	
+
 	class uint16 : public Parameter
 	{
 	private:

@@ -4,6 +4,8 @@
 #include <cstring>	// For memcpy and size_t
 #include <cassert>	// for assert, of course!
 
+#include <util.h>
+
 using namespace std;
 using namespace boost;
 
@@ -119,66 +121,84 @@ namespace packet
 	serial_parameter boolean::serialize() const
 	{
 		serial_parameter serialized;
-		serialized.resize(sizeof(value));
-
-		serialized[0] = value ? 1 : 0;
-
+		serialized.push_back(value ? 1 : 0);
 		return serialized;
 	}
 
 	string::string(const char* _value)
 		: value(_value)
 	{
-		paramLen = 0;
+		hasFixedLength = false;
+
 		type = 0x04;
 	}
 
 	string::string(const std::string& _value)
 		: value(_value)
 	{
-		paramLen = 0;
+		hasFixedLength = false;
+
 		type = 0x04;
 	}
 
 	string::string(const char* _value, boost::uint16_t len)
-		: value(_value)
+		: value(_value), paramLen(len), hasFixedLength(true)
 	{
-		if (value.length() > len)
-		{
-			value[len-1] = 0;
-		}
-		paramLen = len;
-		value.resize(paramLen);
+		assert((len != 0) && "Wat.");
+
 		type = 0x04;
+	}
+
+	uint8_t* string::output_length_header(uint16_t len, serial_parameter* out)
+	{
+		assert(out->capacity() >= sizeof(len));
+
+		uint16 result = uint16(len);
+		memory::copy(out, &(result.serialize()[0]), sizeof(len));
+
+		return &((*out)[sizeof(len)]);
+	}
+
+	serial_parameter string::serialize_fixed(uint16_t len) const
+	{
+		if(len > paramLen)
+			return ::packet::string("[string too large]").serialize();
+
+		serial_parameter serialized;
+		serialized.resize(paramLen);
+
+		uint8_t* rawPointer = &(serialized[0]);
+
+		rawPointer = memory::pcopy(rawPointer, value.c_str(), len);
+		memory::set(rawPointer, 0x00, paramLen - len);
+
+		return serialized;
+	}
+
+	serial_parameter string::serialize_dynamic(uint16_t len) const
+	{
+		serial_parameter serialized;
+		serialized.resize(sizeof(uint16_t) + len);
+
+		uint8_t* rawPointer = &(serialized[0]);
+
+		rawPointer = memory::pcopy(rawPointer, &len, sizeof(len));
+		memory::copy(rawPointer, value.c_str(), len);
+
+		return serialized;
 	}
 
 	serial_parameter string::serialize() const
 	{
-		if((value.size() + 1) > 0xFFFF)
+		size_t bigSize = value.size() + 1;
+
+		// TODO: Truncate the string instead. (Will this have a major performance penalty?)
+		if(bigSize > 0xFFFF)
 			return ::packet::string("[string too large]").serialize();
 
-		serial_parameter serialized;
-		uint16_t len;
-		uint8_t* rawPointer;
-		if (paramLen == 0)
-		{
-			len = static_cast<uint16_t>(value.size() + 1);
-			serialized.resize(2 + len);
-			rawPointer = &(serialized[0]);
-			memcpy(rawPointer, &len, sizeof(len));
-			memcpy(rawPointer + sizeof(len), &(value[0]), len);
-
-		}
-		else
-		{
-			len = paramLen; 
-			serialized.resize(len);
-			rawPointer = &(serialized[0]);
-			memcpy(rawPointer, &(value[0]), len);
-
-		}
-
-		return serialized;
+		return hasFixedLength
+				? serialize_fixed(static_cast<uint16_t>(bigSize))
+				: serialize_dynamic(static_cast<uint16_t>(bigSize));
 	}
 
 	// Note the omission of a type. It is the subclasses responsibility to define one.
@@ -290,41 +310,42 @@ namespace packet
 		return serialized;
 	}
 
-	// TODO(Clark): Blob implementation goes here!
+	boost::uint8_t* blob::mempcpy(void *src, const void *dest, size_t len)
+	{
+		memcpy(src, dest, len);
+		return (boost::uint8_t*)(src) + len;
+	}
+
 	blob::blob (boost::uint32_t eleCount, boost::uint32_t eleSize)
-	{ 
+	{
 		totalSize = (eleCount * eleSize) + 8;
 		elementSize = eleSize;
 		elementCount = eleCount;
 
 		type = 0xA;
 	}
-	
-	void blob::addParam (const packet::Parameter &param)
+
+	void blob::addParam(const packet::Parameter &param)
 	{
 		serial_parameter serialParam = param.serialize();
 		elementData.reserve (elementData.size() + serialParam.size());
-		
-		for (serial_parameter::iterator i = serialParam.begin(); i < serialParam.end();  ++i)
-		{
-			elementData.push_back (*i);
-		}
+
+		for(serial_parameter::iterator i = serialParam.begin(); i < serialParam.end();  ++i)
+			elementData.push_back(*i);
 	}
 
 	serial_parameter blob::serialize() const
 	{
 		serial_parameter serialized;
-		serialized.resize (totalSize + 12);//just incase?
+		serialized.resize (totalSize + 12);
 
 		uint8_t* rawPointer = &(serialized[0]);
-		rawPointer = mempcpy (rawPointer, &totalSize, sizeof(uint32_t));
-		rawPointer = mempcpy (rawPointer, &elementSize, sizeof(uint32_t));
-		rawPointer = mempcpy (rawPointer, &elementCount, sizeof(uint32_t));
+		rawPointer = mempcpy(rawPointer, &totalSize, sizeof(uint32_t));
+		rawPointer = mempcpy(rawPointer, &elementSize, sizeof(uint32_t));
+		rawPointer = mempcpy(rawPointer, &elementCount, sizeof(uint32_t));
 
 		for (uint32_t i = 0; i < elementData.size(); ++i)
-		{
 			rawPointer = mempcpy (rawPointer, &(elementData.at(i)), sizeof(uint8_t));
-		}
 
 		return serialized;
 	}

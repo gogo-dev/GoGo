@@ -51,7 +51,7 @@ static void test_boolean()
 	BOOST_CHECK(packit.get_type() == 0x03);
 }
 
-static void test_string_len()
+static void test_fixed_string()
 {
 	packet::string packit("test", 10);
 
@@ -61,7 +61,7 @@ static void test_string_len()
 
 	check_array_equal(&(packit.serialize()[0]), expected, countof(expected));
 }
-static void test_string()
+static void test_dynamic_string()
 {
 	packet::string packit("test");
 
@@ -71,8 +71,6 @@ static void test_string()
 
 	check_array_equal(&(packit.serialize()[0]), expected, countof(expected));
 	BOOST_CHECK(packit.get_type() == 0x04);
-
-	test_string_len();
 }
 
 static void test_position()
@@ -125,7 +123,7 @@ static void test_blob()
 		32, 0, 0, 0, //totalSize
 		8, 0, 0, 0, //elementSize
 		3,  0, 0, 0, //elementCount
-		
+
 		0x99, 0x88, //int16
 		0x66, 0x77, //int16
 		0x55, 0x44, 0x33, 0x22, //int32
@@ -138,7 +136,7 @@ static void test_blob()
 		0x66, 0x77, //int16
 		0x55, 0x44, 0x33, 0x22 //int32
 	};
-	
+
 	blob packit (3, 8);
 	for (int i = 0; i < 3; ++i)
 	{
@@ -146,7 +144,7 @@ static void test_blob()
 		packit.addParam(packet::int16((int16_t)0x7766));
 		packit.addParam(packet::int32(0x22334455));
 	}
-	
+
 
 	check_array_equal (&(packit.serialize()[0]), expected, countof(expected));
 
@@ -211,7 +209,8 @@ int test_main(int, char**)
 	test_uint32();
 	test_floating_point();
 	test_boolean();
-	test_string();
+	test_fixed_string();
+	test_dynamic_string();
 	test_position();
 	test_direction();
 	test_color();
