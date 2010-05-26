@@ -1,8 +1,8 @@
 #include "PacketParameters.h"
 
-#include <algorithm>	// For std::swap
-#include <cstring>	// For memcpy and size_t
-#include <cassert>	// for assert, of course!
+#include <algorithm> // For std::swap
+#include <cstring>   // For size_t
+#include <cassert>   // for assert, of course!
 
 #include <util.h>
 
@@ -81,7 +81,7 @@ namespace packet
 		uint8_t* rawPointer = &(serialized[0]);
 		int32_t correctedValue = fix_endianness(value);
 
-		memcpy(rawPointer, &correctedValue, sizeof(value));
+		memory::copy(rawPointer, &correctedValue, sizeof(value));
 
 		return serialized;
 	}
@@ -100,7 +100,7 @@ namespace packet
 		uint8_t* rawPointer = &(serialized[0]);
 		uint32_t correctedValue = fix_endianness(value);
 
-		memcpy(rawPointer, &correctedValue, sizeof(value));
+		memory::copy(rawPointer, &correctedValue, sizeof(value));
 
 		return serialized;
 	}
@@ -117,7 +117,11 @@ namespace packet
 		serialized.resize(sizeof(value));
 
 		uint8_t* rawPointer = &(serialized[0]);
-		memcpy(rawPointer, &value, sizeof(value));
+
+		// I'm going to go out on a limb here and say floats have bad endian-ness.
+		float correctedValue = fix_endianness(value);
+
+		memory::copy(rawPointer, &correctedValue, sizeof(value));
 
 		return serialized;
 	}
@@ -131,7 +135,7 @@ namespace packet
 	serial_parameter boolean::serialize() const
 	{
 		serial_parameter serialized;
-		serialized.push_back(value ? 1 : 0);
+		serialized.push_back(value ? 0x01 : 0x00);
 		return serialized;
 	}
 
@@ -229,9 +233,13 @@ namespace packet
 
 		uint8_t* rawPointer = &(serialized[0]);
 
-		memcpy(rawPointer + (0 * sizeof(float)), &(value.get<0>()), sizeof(float));
-		memcpy(rawPointer + (1 * sizeof(float)), &(value.get<1>()), sizeof(float));
-		memcpy(rawPointer + (2 * sizeof(float)), &(value.get<2>()), sizeof(float));
+		float correctedValues[] = {
+			fix_endianness(value.get<0>()),
+			fix_endianness(value.get<1>()),
+			fix_endianness(value.get<2>())
+		};
+
+		memory::copy(rawPointer, correctedValues, sizeof(correctedValues));
 
 		return serialized;
 	}
@@ -287,7 +295,9 @@ namespace packet
 
 		uint8_t* rawPointer = &(serialized[0]);
 
-		memcpy(rawPointer, &(value.raw), sizeof(value.raw));
+		uint32_t fixedValue = fix_endianness(value.raw);
+
+		memory::copy(rawPointer, &(fixedValue), sizeof(fixedValue));
 
 		return serialized;
 	}
@@ -313,20 +323,15 @@ namespace packet
 		serialized.resize(sizeof(value.quad));
 
 		uint8_t* rawPointer = &(serialized[0]);
+
 		uint64_t fixedValue = fix_endianness(value.quad);
 
-		memcpy(rawPointer, &fixedValue, sizeof(fixedValue));
+		memory::copy(rawPointer, &fixedValue, sizeof(fixedValue));
 
 		return serialized;
 	}
 
-	boost::uint8_t* blob::mempcpy(void *src, const void *dest, size_t len)
-	{
-		memcpy(src, dest, len);
-		return (boost::uint8_t*)(src) + len;
-	}
-
-	blob::blob (boost::uint32_t eleCount, boost::uint32_t eleSize)
+	blob::blob(boost::uint32_t eleCount, boost::uint32_t eleSize)
 	{
 		totalSize = (eleCount * eleSize) + 8;
 		elementSize = eleSize;
@@ -338,7 +343,7 @@ namespace packet
 	void blob::addParam(const packet::Parameter &param)
 	{
 		serial_parameter serialParam = param.serialize();
-		elementData.reserve (elementData.size() + serialParam.size());
+		elementData.reserve(elementData.size() + serialParam.size());
 
 		for(serial_parameter::iterator i = serialParam.begin(); i < serialParam.end();  ++i)
 			elementData.push_back(*i);
@@ -350,12 +355,12 @@ namespace packet
 		serialized.resize (totalSize + 12);
 
 		uint8_t* rawPointer = &(serialized[0]);
-		rawPointer = mempcpy(rawPointer, &totalSize, sizeof(uint32_t));
-		rawPointer = mempcpy(rawPointer, &elementSize, sizeof(uint32_t));
-		rawPointer = mempcpy(rawPointer, &elementCount, sizeof(uint32_t));
+		rawPointer = memory::pcopy(rawPointer, &totalSize, sizeof(uint32_t));
+		rawPointer = memory::pcopy(rawPointer, &elementSize, sizeof(uint32_t));
+		rawPointer = memory::pcopy(rawPointer, &elementCount, sizeof(uint32_t));
 
 		for (uint32_t i = 0; i < elementData.size(); ++i)
-			rawPointer = mempcpy (rawPointer, &(elementData.at(i)), sizeof(uint8_t));
+			rawPointer = memory::pcopy(rawPointer, &(elementData[i]), sizeof(uint8_t));
 
 		return serialized;
 	}
@@ -378,9 +383,13 @@ namespace packet
 
 		uint8_t* rawPointer = &(serialized[0]);
 
-		memcpy(rawPointer + (0 * sizeof(uint16_t)), &(value.get<0>()), sizeof(uint16_t));
-		memcpy(rawPointer + (1 * sizeof(uint16_t)), &(value.get<1>()), sizeof(uint16_t));
-		memcpy(rawPointer + (2 * sizeof(uint16_t)), &(value.get<2>()), sizeof(uint16_t));
+		uint16_t fixedValues[] = {
+			fix_endianness(value.get<0>()),
+			fix_endianness(value.get<1>()),
+			fix_endianness(value.get<2>())
+		};
+
+		memory::copy(rawPointer, fixedValues, sizeof(fixedValues));
 
 		return serialized;
 	}
@@ -413,9 +422,10 @@ namespace packet
 		serialized.resize(sizeof(value));
 
 		uint8_t* rawPointer = &(serialized[0]);
+
 		int16_t fixedValue = fix_endianness(value);
 
-		memcpy(rawPointer, &fixedValue, sizeof(value));
+		memory::copy(rawPointer, &fixedValue, sizeof(value));
 
 		return serialized;
 	}
@@ -432,9 +442,10 @@ namespace packet
 		serialized.resize(sizeof(value));
 
 		uint8_t* rawPointer = &(serialized[0]);
+
 		uint16_t fixedValue = fix_endianness(value);
 
-		memcpy(rawPointer, &fixedValue, sizeof(value));
+		memory::copy(rawPointer, &fixedValue, sizeof(value));
 
 		return serialized;
 	}
