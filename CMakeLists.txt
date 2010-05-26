@@ -51,7 +51,7 @@ include_directories("include")
 
 if(MSVC)
   # TODO: Add any msvc flags you want in here. Optimization would be good ;)
-  add_definitions(/EHa)
+  add_definitions(/EHa -D_WIN32_WINNT=0x0501)
 else(MSVC)
   # TODO: Any add gcc flags you want in here. Optimization would be good ;)
   add_definitions(-DDEBUG -g -O0 -Wall -ansi -pedantic -pipe)
