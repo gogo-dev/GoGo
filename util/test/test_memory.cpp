@@ -30,10 +30,24 @@ void test_mempcpy()
 	BOOST_CHECK(result == (destArray + countof(destArray)));
 }
 
+void test_memset()
+{
+	uint8_t sourceArray[] = {
+		0x11, 0x11, 0x11, 0x11, 0x11
+	};
+
+	uint8_t expected[] = {
+		0x00, 0x00, 0x00, 0x00, 0x11
+	};
+
+	check_array_equal(memory::set(sourceArray, 0x00, 4), expected, countof(sourceArray));
+}
+
 int test_main(int, char**)
 {
 	test_memcpy();
 	test_mempcpy();
+	test_memset();
 
 	return 0;
 }

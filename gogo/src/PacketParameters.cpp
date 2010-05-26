@@ -16,10 +16,27 @@ static inline bool machine_little_endian()
 	return *(const unsigned char*)(&number) == 0x01;
 }
 
+template <typename IntType>
+static IntType reverse_endianness(IntType num)
+{
+	// The lowest and highest bytes.
+	unsigned char* low = reinterpret_cast<unsigned char*>(&num);
+	unsigned char* high = low + sizeof(IntType) - 1;
+
+	while(low < high)
+	{
+		swap(*low, *high);
+		--high;
+		++low;
+	}
+
+	return num;
+}
+
 // Use this function to reverse the endianness of a number so it can be used to
 // send to a windows machine from ANY computer.
 template <typename IntType>
-static IntType reverse_endianness(IntType num)
+static IntType fix_endianness(IntType num)
 {
 	// Gunz requires all packets to be little-endian. On most platforms,
 	// this is a realistic goal. On some, however, bits are stored in
@@ -27,21 +44,10 @@ static IntType reverse_endianness(IntType num)
 
 	// Of course, the swapping can be skipped if we're already
 	// little-endian.
-	if(!machine_little_endian())
-	{
-		// The lowest and highest bytes.
-		unsigned char* low = reinterpret_cast<unsigned char*>(&num);
-		unsigned char* high = low + sizeof(IntType) - 1;
-
-		while(low < high)
-		{
-			swap(*low, *high);
-			--high;
-			++low;
-		}
-	}
-
-	return num;
+	if(machine_little_endian())
+		return num;
+	else
+		return reverse_endianness(num);
 }
 
 namespace packet
@@ -53,7 +59,11 @@ namespace packet
 
 	uint8_t Parameter::get_type() const
 	{
-		assert((type != -1) && "A packet seems to have not registered a type. This is very bad and MUST be fixed.");
+		assert(
+			(type != -1) &&
+			"A packet seems to have not registered a type. This is very bad and MUST be fixed."
+		);
+
 		return type;
 	}
 
@@ -69,7 +79,7 @@ namespace packet
 		serialized.resize(sizeof(value));
 
 		uint8_t* rawPointer = &(serialized[0]);
-		int32_t correctedValue = reverse_endianness(value);
+		int32_t correctedValue = fix_endianness(value);
 
 		memcpy(rawPointer, &correctedValue, sizeof(value));
 
@@ -88,7 +98,7 @@ namespace packet
 		serialized.resize(sizeof(value));
 
 		uint8_t* rawPointer = &(serialized[0]);
-		uint32_t correctedValue = reverse_endianness(value);
+		uint32_t correctedValue = fix_endianness(value);
 
 		memcpy(rawPointer, &correctedValue, sizeof(value));
 
@@ -303,7 +313,7 @@ namespace packet
 		serialized.resize(sizeof(value.quad));
 
 		uint8_t* rawPointer = &(serialized[0]);
-		uint64_t fixedValue = reverse_endianness(value.quad);
+		uint64_t fixedValue = fix_endianness(value.quad);
 
 		memcpy(rawPointer, &fixedValue, sizeof(fixedValue));
 
@@ -403,7 +413,7 @@ namespace packet
 		serialized.resize(sizeof(value));
 
 		uint8_t* rawPointer = &(serialized[0]);
-		int16_t fixedValue = reverse_endianness(value);
+		int16_t fixedValue = fix_endianness(value);
 
 		memcpy(rawPointer, &fixedValue, sizeof(value));
 
@@ -422,7 +432,7 @@ namespace packet
 		serialized.resize(sizeof(value));
 
 		uint8_t* rawPointer = &(serialized[0]);
-		uint16_t fixedValue = reverse_endianness(value);
+		uint16_t fixedValue = fix_endianness(value);
 
 		memcpy(rawPointer, &fixedValue, sizeof(value));
 
