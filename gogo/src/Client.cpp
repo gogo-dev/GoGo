@@ -8,7 +8,7 @@ Client::Client(Logger* _logger, boost::asio::io_service &service)
 
 void Client::start()
 {
-	logger->print(
+	logger->info(
 		(boost::format("Connection from \"%1%\".") %
 			socket.remote_endpoint().address().to_string()
 		).str()

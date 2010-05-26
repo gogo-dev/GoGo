@@ -6,8 +6,8 @@ using namespace boost;
 
 Server::Server(
 	Logger* _logger,
-	boost::asio::io_service& service,
-	const boost::asio::ip::tcp::endpoint& endpoint
+	asio::io_service& service,
+	const asio::ip::tcp::endpoint& endpoint
 )
 	: logger(_logger), acceptor(service, endpoint)
 {
@@ -19,7 +19,7 @@ void Server::start_accept()
 {
 	shared_ptr<Client> client(new Client(logger, acceptor.io_service()));
 
-	logger->print("Starting to accept...");
+	logger->info("Starting to accept...");
 
 	acceptor.async_accept(
 		client->socket,
