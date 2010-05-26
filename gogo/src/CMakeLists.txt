@@ -6,6 +6,10 @@ set(GOGO_SRC
 	Structures.cpp
 	PacketCrypt.h
 	PacketCrypt.cpp
+	Client.h
+	Client.cpp
+	Server.h
+	Server.cpp
 	# Feel free to add more source files when they're added.
 )
 
