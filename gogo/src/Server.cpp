@@ -29,7 +29,7 @@ void Server::start_accept()
 
 void Server::handle_accept(shared_ptr<Client> client, const boost::system::error_code& error)
 {
-	if(error == 0)
+	if(!error)
 	{
 		client->start();
 		start_accept();
