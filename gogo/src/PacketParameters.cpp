@@ -1,7 +1,7 @@
 #include "PacketParameters.h"
 
 #include <algorithm> // For std::swap
-#include <cstring>   // For size_t
+#include <cstddef>   // For size_t
 #include <cassert>   // for assert, of course!
 
 #include <util/memory.h>
@@ -60,7 +60,7 @@ namespace packet
 	uint8_t Parameter::get_type() const
 	{
 		assert(
-			(type != -1) &&
+			(type != uint8_t(-1)) &&
 			"A packet seems to have not registered a type. This is very bad and MUST be fixed."
 		);
 
