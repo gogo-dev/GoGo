@@ -1,7 +1,9 @@
 #include "Client.h"
 #include <boost/format.hpp>
 
-Client::Client(Logger* _logger, boost::asio::io_service &service)
+using namespace boost;
+
+Client::Client(Logger* _logger, asio::io_service &service)
 	: socket(service), logger(_logger)
 {
 }
@@ -9,8 +11,6 @@ Client::Client(Logger* _logger, boost::asio::io_service &service)
 void Client::start()
 {
 	logger->info(
-		(boost::format("Connection from \"%1%\".") %
-			socket.remote_endpoint().address().to_string()
-		).str()
+		format("Connection from [%1%]") % socket.remote_endpoint().address().to_string()
 	);
 }
