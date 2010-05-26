@@ -8,8 +8,8 @@ using namespace boost;
 int main()
 {
 	boost::asio::io_service io_service;
-	boost::asio::ip::tcp::endpoint endpoint (boost::asio::ip::tcp::v4(), 6000);
-	Server *server = new Server(io_service, endpoint);
+	boost::asio::ip::tcp::endpoint endpoint(boost::asio::ip::tcp::v4(), 6000);
+	Server server(io_service, endpoint);
 	io_service.run();
 	return 0;
 }
