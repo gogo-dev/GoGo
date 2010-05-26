@@ -1,7 +1,9 @@
 set(UTIL_SRC
-	memory.h
+	ConsoleLogger.cpp
 	# More sources here!
 )
 
-# Restore this when we have some (ANY?) .cpp files in util.
-#add_library(util ${UTIL_SRC})
+add_library(util ${UTIL_SRC})
+target_link_libraries(util
+	${Boost_LIBRARIES}
+)

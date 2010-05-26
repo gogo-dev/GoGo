@@ -1,5 +1,5 @@
 #include <test.h>
-#include "../src/memory.h"
+#include <util/memory.h>
 
 using namespace boost;
 
@@ -25,7 +25,6 @@ void test_mempcpy()
 	int destArray[countof(sourceArray)] = { 0 };
 
 	int* result = memory::pcopy(destArray, sourceArray, sizeof(sourceArray));
-
 	check_array_equal(sourceArray, destArray, sizeof(sourceArray));
 	BOOST_CHECK(result == (destArray + countof(destArray)));
 }

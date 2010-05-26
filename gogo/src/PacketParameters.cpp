@@ -4,7 +4,7 @@
 #include <cstring>   // For size_t
 #include <cassert>   // for assert, of course!
 
-#include <util.h>
+#include <util/memory.h>
 
 using namespace std;
 using namespace boost;
