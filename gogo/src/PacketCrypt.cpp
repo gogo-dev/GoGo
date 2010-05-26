@@ -20,7 +20,7 @@ namespace packet
 			packet[i] = b ^ key[i & 0x1F];
 		}
 
-		return packet;
+		return packet - index;
 	}
 
 	uint8_t* encrypt(uint8_t* packet, int length, int index,
@@ -34,12 +34,11 @@ namespace packet
 		for(int i = 0; i < length; ++i)
 		{
 			a = (packet[i] ^ key[i & 0x1F]) << 5;
-
 			b = (uint8_t)(a >> 8);
 			b = (b | a) ^ 0xF0;
 			packet[i] = b;
 		}
 
-		return packet;
+		return packet - index;
 	}
 }
