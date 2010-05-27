@@ -1,9 +1,3 @@
-/*
-Target Server Type    : MYSQL
-Target Server Version : 50141
-File Encoding         : 65001
-*/
-
 SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 -- Table structure for `account`
@@ -28,9 +22,11 @@ CREATE TABLE `account_inventory` (
   `itemid` int(11) NOT NULL,
   `aid` int(11) NOT NULL,
   `expireson` datetime NOT NULL,
+  PRIMARY KEY (`itemid`),
   KEY `accountinv` (`aid`),
   CONSTRAINT `accountinv` FOREIGN KEY (`aid`) REFERENCES `account` (`aid`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 -- ----------------------------
 -- Table structure for `character`
@@ -54,14 +50,36 @@ CREATE TABLE `character` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Table structure for `character_equip`
+-- ----------------------------
+DROP TABLE IF EXISTS `character_equip`;
+CREATE TABLE `character_equip` (
+  `charid` int(11) NOT NULL DEFAULT '0',
+  `head_slot` int(11) NOT NULL DEFAULT '0',
+  `chest_slot` int(11) NOT NULL DEFAULT '0',
+  `hands_slot` int(11) NOT NULL,
+  `legs_slot` int(11) NOT NULL,
+  `Feet_slot` int(11) NOT NULL,
+  `fingerl_slot` int(11) NOT NULL,
+  `fingerr_slot` int(11) NOT NULL,
+  `melee_slot` int(11) NOT NULL,
+  `primary_slot` int(11) NOT NULL,
+  `secondary_slot` int(11) NOT NULL,
+  `custom1_slot` int(11) NOT NULL,
+  `custom2_slot` int(11) NOT NULL,
+  PRIMARY KEY (`charid`),
+  CONSTRAINT `equipk` FOREIGN KEY (`charid`) REFERENCES `character` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
 -- Table structure for `character_inventory`
 -- ----------------------------
 DROP TABLE IF EXISTS `character_inventory`;
 CREATE TABLE `character_inventory` (
-  `itemid` int(11) NOT NULL DEFAULT '0',
   `charid` int(11) NOT NULL DEFAULT '0',
+  `itemid` int(11) NOT NULL DEFAULT '0',
   `expireson` datetime NOT NULL,
-  KEY `CharInv` (`charid`),
+  PRIMARY KEY (`charid`),
   CONSTRAINT `CharInv` FOREIGN KEY (`charid`) REFERENCES `character` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -76,6 +94,7 @@ CREATE TABLE `clan` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
+
 -- ----------------------------
 -- Table structure for `clan_members`
 -- ----------------------------
@@ -84,8 +103,9 @@ CREATE TABLE `clan_members` (
   `clanid` smallint(5) NOT NULL DEFAULT '0',
   `charid` int(11) NOT NULL DEFAULT '0',
   `clangrade` tinyint(3) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`clanid`,`charid`),
   KEY `CharID` (`charid`),
-  KEY `ClanID` (`clanid`),
   CONSTRAINT `CharID` FOREIGN KEY (`charid`) REFERENCES `character` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `ClanID` FOREIGN KEY (`clanid`) REFERENCES `clan` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
