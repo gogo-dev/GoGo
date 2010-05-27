@@ -2,6 +2,7 @@
 #include <boost/cstdint.hpp>
 #include <boost/test/minimal.hpp>
 #include <string>
+#include <sstream>
 
 #define countof(arr) (sizeof(arr)/sizeof((arr)[0]))
 
@@ -42,6 +43,34 @@ inline std::string stringify(boost::uint8_t* data, size_t len)
 	retVal[retVal.length() - 1] = ']';
 
 	return retVal;
+}
+
+template <typename T>
+inline std::string stringify(const T& data)
+{
+	std::ostringstream strStream;
+	strStream << data;
+	return strStream.str();
+}
+
+#define check_equal(a, b) \
+	do_check_equal(a, b, __FILE__, __LINE__, BOOST_CURRENT_FUNCTION)
+
+template <typename T>
+inline void do_check_equal(
+	T a, T b,
+	const char* file, int line, const char* function)
+{
+	if(a != b)
+	{
+		boost::minimal_test::report_error(
+			(stringify(a) + " != " + stringify(b)).c_str(),
+			file,
+			line,
+			function,
+			true
+		);
+	}
 }
 
 #define check_array_equal(a, b, len) \
