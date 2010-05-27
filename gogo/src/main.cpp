@@ -1,21 +1,44 @@
 #include <util/ConsoleLogger.h>
 
 #include <cstdlib>
+#include <exception>
 #include <boost/asio.hpp>
-
 #include "Structures.h"
 #include "Server.h"
 
+#include <boost/thread.hpp>
+
 using namespace boost;
+using namespace boost::asio;
+
+static void run_server_on(uint16_t port, Logger* logger)
+{
+	io_service service(thread::hardware_concurrency());
+	ip::tcp::endpoint endpoint(ip::tcp::v4(), port);
+
+	Server server(logger, service, endpoint);
+
+	// This loop ensures that the server is restarted if we get any shenanigans
+	// happening. Hopefully, we won't make segfaulting a regular problem =/
+	for(;;)
+	{
+		try
+		{
+			service.run();
+			break;	// If this is hit, the IO service exited without a hitch.
+		}
+		catch(const std::exception& ex)
+		{
+			logger->error(format("Fatal error, server restarting: %1%") % ex.what());
+		}
+	}
+}
 
 int main()
 {
 	ConsoleLogger logger;
 
-	boost::asio::io_service io_service;
-	boost::asio::ip::tcp::endpoint endpoint(boost::asio::ip::tcp::v4(), 6000);
+	run_server_on(6000, &logger);
 
-	Server server(&logger, io_service, endpoint);
-	io_service.run();
 	return 0;
 }

@@ -28,8 +28,8 @@ void ConsoleLogger::print_line(const char* toOutput, color c)
 	printf("%s\n", toOutput);
 
 #else		// POSIX
-	if     (c == RED)    printf("\033[0;31m%s\033[0m\n", toOutput);
-	else if(c == YELLOW) printf("\033[0;33m%s\033[0m\n", toOutput);
+	if     (c == RED)    printf("\033[1;31m%s\033[0m\n", toOutput);
+	else if(c == YELLOW) printf("\033[1;33m%s\033[0m\n", toOutput);
 	else if(c == WHITE)  printf("\033[0;37m%s\033[0m\n", toOutput);
 #endif
 }

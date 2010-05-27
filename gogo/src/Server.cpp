@@ -13,13 +13,13 @@ Server::Server(
 {
 	clientID = 0;
 	start_accept();
+
+	logger->info(format("GoGo has initialized and is running on port %1%!") % endpoint.port());
 }
 
 void Server::start_accept()
 {
 	shared_ptr<Client> client(new Client(logger, acceptor.io_service()));
-
-	logger->info("Starting to accept...");
 
 	acceptor.async_accept(
 		client->socket,
@@ -33,5 +33,9 @@ void Server::handle_accept(shared_ptr<Client> client, const boost::system::error
 	{
 		client->start();
 		start_accept();
+	}
+	else
+	{
+		logger->warning("New connection could not be made.");
 	}
 }
