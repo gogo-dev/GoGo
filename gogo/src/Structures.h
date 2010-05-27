@@ -1,4 +1,5 @@
 //! This is our misc/general structures.
+#pragma once
 #include <string>
 #include <list>
 #include "PacketParameters.h"
