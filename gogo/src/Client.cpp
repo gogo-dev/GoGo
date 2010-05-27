@@ -39,7 +39,7 @@ void Client::send_handshake()
 	memory::copy(cryptkey+8, &clientid, 8);
 	memory::copy(cryptkey+16, &IV[0], 16);
 
-	//Now the fun time, packet craetion.
+	//Now the fun time, packet creations.
 	memory::copy(packet+10, cryptkey+4, 12);
 	memory::copy(packet+22, cryptkey+0, 4);
 
@@ -51,6 +51,5 @@ void Client::send_handshake()
 		memcpy(cryptkey+(i*4), &tempValue3 ,4);
 	}
 
-	//TODO: Add sending
-	
+	socket.send (boost::asio::buffer (packet, 26));
 }
