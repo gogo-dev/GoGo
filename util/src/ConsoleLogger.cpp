@@ -23,7 +23,7 @@ void ConsoleLogger::print_line(const char* toOutput, color c)
 {
 	mutex::scoped_lock(consoleLock);
 
-#if WIN32	// Micro$hit
+#if WIN32 // Micro$hit
 
 	static HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
 
@@ -35,7 +35,7 @@ void ConsoleLogger::print_line(const char* toOutput, color c)
 
 	SetConsoleTextAttribute(console, 15);
 
-#else		// POSIX
+#else     // POSIX
 	if     (c == RED)    printf("\033[1;31m%s\033[0m\n", toOutput);
 	else if(c == YELLOW) printf("\033[1;33m%s\033[0m\n", toOutput);
 	else if(c == WHITE)  printf("\033[0;37m%s\033[0m\n", toOutput);
