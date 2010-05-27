@@ -23,7 +23,6 @@ void ConsoleLogger::print_line(const char* toOutput, color c)
 {
 	mutex::scoped_lock(consoleLock);
 
-	// TODO(Jacob): Implement colors on Windows.
 #if WIN32	// Micro$hit
 
 	HANDLE console = GetStdHandle (STD_OUTPUT_HANDLE);
