@@ -6,13 +6,14 @@
 #include <util/Logger.h>
 
 #include "Client.h"
+#include "MUIDSanta.h"
 
 class Server
 {
 private:
 	Logger* logger;
 	boost::asio::ip::tcp::acceptor acceptor;
-	boost::uint64_t clientID;
+	MUIDSanta santa;
 
 private:
 	void handle_accept(

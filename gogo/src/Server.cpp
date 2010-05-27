@@ -11,7 +11,6 @@ Server::Server(
 )
 	: logger(_logger), acceptor(service, endpoint)
 {
-	clientID = 0;
 	start_accept();
 
 	logger->info(format("GoGo has initialized and is running on port %1%!") % endpoint.port());
@@ -19,7 +18,7 @@ Server::Server(
 
 void Server::start_accept()
 {
-	shared_ptr<Client> client(new Client(logger, acceptor.io_service()));
+	shared_ptr<Client> client(new Client(logger, acceptor.io_service(), &santa));
 
 	acceptor.async_accept(
 		client->socket,
