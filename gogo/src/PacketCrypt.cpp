@@ -42,19 +42,22 @@ namespace packet
 		return packet - index;
 	}
 
-	uint16_t checksum(unsigned char* packet, int length, int index)
+	uint16_t checksum(const uint8_t* packet, int length, int index)
 	{
-		uint32_t intermediateValues[4] = {0};
+		uint32_t t[4] = { 0 };
+
+		packet += index;
 
 		for (int i = 0; i < 4; ++i)
-			intermediateValues[0] += packet[index + i];
-		
+			t[0] += *packet++;
+
+		packet += 2;
 		for (int i = 6; i < length; ++i)
-			intermediateValues[1] += packet[index + i];
+			t[1] += *packet++;
 
-		intermediateValues[2] = intermediateValues[1] - intermediateValues[0];
-		intermediateValues[3] = intermediateValues[2] >> 0x10;
+		t[2] = t[1] - t[0];
+		t[3] = t[2] >> 0x10;
 
-		return (uint16_t)(intermediateValues[2] + intermediateValues[3]);
+		return (uint16_t)(t[2] + t[3]);
 	}
 }

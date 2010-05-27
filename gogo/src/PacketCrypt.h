@@ -17,5 +17,5 @@ namespace packet
 
 	// Takes a packet, the packet length, the index to start checksumming
 	// and checksums the packet. The return value is the checksummeed value.
-	boost::uint16_t checksum(boost::uint8_t* packet, int length, int index);
+	boost::uint16_t checksum(const boost::uint8_t* packet, int length, int index);
 }
