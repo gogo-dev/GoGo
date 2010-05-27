@@ -175,12 +175,7 @@ enum PacketErrorCode
     PEC_CHANNEL_INVALID_LEVEL = 300022
 };
 
-
-struct MUID
-{
-	boost::uint32_t uidLow;
-	boost::uint32_t uidHigh;
-};
+typedef boost::uint64_t MUID;
 
 struct AccountInfo
 {
@@ -226,7 +221,7 @@ struct CharacterInfo
 	packet::blob blobify();
 };
 
-struct MMatchWorldItem   
+struct MMatchWorldItem
 {
     boost::uint16_t nUID;
     boost::uint16_t nItemID;

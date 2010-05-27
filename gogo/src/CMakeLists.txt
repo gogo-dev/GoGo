@@ -10,6 +10,8 @@ set(GOGO_SRC
 	Client.cpp
 	Server.h
 	Server.cpp
+	MUIDSanta.h
+	MUIDSanta.cpp
 	# Feel free to add more source files when they're added.
 )
 

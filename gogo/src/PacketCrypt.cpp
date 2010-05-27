@@ -52,6 +52,7 @@ namespace packet
 			t[0] += *packet++;
 
 		packet += 2;
+
 		for (int i = 6; i < length; ++i)
 			t[1] += *packet++;
 
