@@ -25,7 +25,22 @@ void ConsoleLogger::print_line(const char* toOutput, color c)
 
 	// TODO(Jacob): Implement colors on Windows.
 #if WIN32	// Micro$hit
+
+	HANDLE console = GetStdHandle (STD_OUTPUT_HANDLE);
+	switch (c)
+	{
+		case RED:
+			SetConsoleTextAttribute (console, 12);
+			break;
+		case YELLOW:
+			SetConsoleTextAttribute (console, 14);
+			break;
+		case WHITE:
+			SetConsoleTextAttribute (console, 15);
+			break;
+	}
 	printf("%s\n", toOutput);
+	SetConsoleTextAttribute (console, 15);
 
 #else		// POSIX
 	if     (c == RED)    printf("\033[1;31m%s\033[0m\n", toOutput);
