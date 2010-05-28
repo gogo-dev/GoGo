@@ -76,27 +76,26 @@ namespace packet
 			serial_parameter serialize() const;
 	};
 
+	class blob_string : public Parameter
+	{
+	private:
+		std::string value;
+		boost::uint16_t len;
+
+	public:
+		blob_string(const char* value, boost::uint16_t len);
+		serial_parameter serialize() const;
+	};
+
 	class string : public Parameter
 	{
 		private:
 			std::string value;
-			boost::uint16_t paramLen;
-			bool hasFixedLength;
-
-		private:
-			// Outputs the "length" of the blob to the top of the serial_parameter.
-			// NOTE: The parameter MUST have enough room for the header.
-			// This will return a pointer to where you can begin outputting the payload,
-			// immediately after the length header.
-			static boost::uint8_t* output_length_header(boost::uint16_t len, serial_parameter* out);
-
-			serial_parameter serialize_fixed(boost::uint16_t len) const;
-			serial_parameter serialize_dynamic(boost::uint16_t len) const;
 
 		public:
 			string(const char* value);
 			string(const std::string& value);
-			string(const char* value, boost::uint16_t len);
+
 			serial_parameter serialize() const;
 	};
 

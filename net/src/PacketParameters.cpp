@@ -139,58 +139,57 @@ namespace packet
 		return serialized;
 	}
 
+	blob_string::blob_string(const char* _value, boost::uint16_t _len)
+		: value(_value)
+	{
+		// The type is left uninitialized on purpose. This way, we will be
+		// aware of any shenanigans with accessing a blob_string's type,
+		// as it should NEVER be necessary.
+
+		assert((_len != 0) && "Wat.");
+
+		len = _len;
+	}
+
+	serial_parameter blob_string::serialize() const
+	{
+		size_t bigSize = value.length() + 1;
+		if(bigSize > len)
+			return blob_string("[string too large]", len).serialize();
+
+		serial_parameter serialized;
+		serialized.resize(len);
+
+		uint8_t* rawPointer = &(serialized[0]);
+
+		rawPointer = memory::pcopy(rawPointer, value.c_str(), len);
+		memory::set(rawPointer, 0x00, len - bigSize - 1);
+
+		return serialized;
+	}
+
+
 	string::string(const char* _value)
 		: value(_value)
 	{
-		hasFixedLength = false;
-
 		type = 0x04;
 	}
 
 	string::string(const std::string& _value)
 		: value(_value)
 	{
-		hasFixedLength = false;
-
 		type = 0x04;
 	}
 
-	string::string(const char* _value, boost::uint16_t len)
-		: value(_value), paramLen(len), hasFixedLength(true)
+	serial_parameter string::serialize() const
 	{
-		assert((len != 0) && "Wat.");
+		size_t bigSize = value.size() + 1;
+		uint16_t len = static_cast<uint16_t>(bigSize);
 
-		type = 0x04;
-	}
-
-	uint8_t* string::output_length_header(uint16_t len, serial_parameter* out)
-	{
-		assert(out->capacity() >= sizeof(len));
-
-		uint16 result = uint16(len);
-		memory::copy(out, &(result.serialize()[0]), sizeof(len));
-
-		return &((*out)[sizeof(len)]);
-	}
-
-	serial_parameter string::serialize_fixed(uint16_t len) const
-	{
-		if(len > paramLen)
+		// TODO: Truncate the string instead. (Will this have a major performance penalty?)
+		if(bigSize > 0xFFFF)
 			return ::packet::string("[string too large]").serialize();
 
-		serial_parameter serialized;
-		serialized.resize(paramLen);
-
-		uint8_t* rawPointer = &(serialized[0]);
-
-		rawPointer = memory::pcopy(rawPointer, value.c_str(), len);
-		memory::set(rawPointer, 0x00, paramLen - len);
-
-		return serialized;
-	}
-
-	serial_parameter string::serialize_dynamic(uint16_t len) const
-	{
 		serial_parameter serialized;
 		serialized.resize(sizeof(uint16_t) + len);
 
@@ -200,19 +199,6 @@ namespace packet
 		memory::copy(rawPointer, value.c_str(), len);
 
 		return serialized;
-	}
-
-	serial_parameter string::serialize() const
-	{
-		size_t bigSize = value.size() + 1;
-
-		// TODO: Truncate the string instead. (Will this have a major performance penalty?)
-		if(bigSize > 0xFFFF)
-			return ::packet::string("[string too large]").serialize();
-
-		return hasFixedLength
-		? serialize_fixed(static_cast<uint16_t>(bigSize))
-		: serialize_dynamic(static_cast<uint16_t>(bigSize));
 	}
 
 	// Note the omission of a type. It is the subclasses responsibility to define one.

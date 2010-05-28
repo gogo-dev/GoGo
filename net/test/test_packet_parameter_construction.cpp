@@ -50,26 +50,32 @@ static void test_boolean()
 	BOOST_CHECK(packit.get_type() == 0x03);
 }
 
-static void test_fixed_string()
+static void test_blob_string()
 {
-	packet::string packit("test", 10);
+	packet::blob_string packit("test", 10);
+	packet::serial_parameter serialized = packit.serialize();
 
 	uint8_t expected[] = {
-		't', 'e', 's', 't', 0x0, 0x0, 0x0, 0x0, 0x0
+		't', 'e', 's', 't', 0x00, 0x00, 0x00, 0x00,
+		0x00, 0x00
 	};
 
 	check_array_equal(&(packit.serialize()[0]), expected, countof(expected));
+	check_equal(serialized.capacity(), sizeof(expected));
 }
-static void test_dynamic_string()
+static void test_string()
 {
 	packet::string packit("test");
+	packet::serial_parameter serialized = packit.serialize();
 
 	uint8_t expected[] = {
 		0x05, 0x00, 't', 'e', 's', 't', 0x00
 	};
 
-	check_array_equal(&(packit.serialize()[0]), expected, countof(expected));
+	check_array_equal(&(serialized[0]), expected, countof(expected));
 	BOOST_CHECK(packit.get_type() == 0x04);
+
+	check_equal(serialized.capacity(), sizeof(expected));
 }
 
 static void test_position()
@@ -208,8 +214,8 @@ int test_main(int, char**)
 	test_uint32();
 	test_floating_point();
 	test_boolean();
-	test_fixed_string();
-	test_dynamic_string();
+	test_blob_string();
+	test_string();
 	test_position();
 	test_direction();
 	test_color();
