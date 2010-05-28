@@ -1,6 +1,7 @@
 #pragma once
 #include <boost/asio.hpp>
 #include <boost/array.hpp>
+#include <boost/cstdint.hpp>
 #include <util/Logger.h>
 
 #include "Structures.h"

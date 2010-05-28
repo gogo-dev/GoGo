@@ -2,27 +2,19 @@
 
 using namespace std;
 
-MySQLGunzDB::MySQLGunzDB(std::string host, std::string user, std::string password, std::string port)
+MySQLGunzDB::MySQLGunzDB(const char* host, const char* user, const char* password, const char* port)
 {
-	//start the connection
-			gunzconn.connect(
-							host.c_str(),
-							user.c_str(),
-							password.c_str(),
-							port.c_str()
-							);
+	gunzconn.connect(host, user, password, port);
 }
 
 MySQLGunzDB::~MySQLGunzDB()
 {
-
-
 }
 
-void MySQLGunzDB::GetAccountInfoForLogin(const std::string &user, const std::string &password)
+void MySQLGunzDB::GetAccountInfoForLogin(const char* /*user*/, const char* /*password*/)
 {
 
-	//todo: fill this in
+	//TODO(Specials): fill this in
 
 	return;
 

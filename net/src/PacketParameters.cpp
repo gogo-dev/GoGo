@@ -1,4 +1,4 @@
-#include "PacketParameters.h"
+#include <net/PacketParameters.h>
 
 #include <algorithm> // For std::swap
 #include <cstddef>   // For size_t
@@ -60,8 +60,8 @@ namespace packet
 	uint8_t Parameter::get_type() const
 	{
 		assert(
-			(type != uint8_t(-1)) &&
-			"A packet seems to have not registered a type. This is very bad and MUST be fixed."
+		(type != uint8_t(-1)) &&
+		"A packet seems to have not registered a type. This is very bad and MUST be fixed."
 		);
 
 		return type;
@@ -211,8 +211,8 @@ namespace packet
 			return ::packet::string("[string too large]").serialize();
 
 		return hasFixedLength
-				? serialize_fixed(static_cast<uint16_t>(bigSize))
-				: serialize_dynamic(static_cast<uint16_t>(bigSize));
+		? serialize_fixed(static_cast<uint16_t>(bigSize))
+		: serialize_dynamic(static_cast<uint16_t>(bigSize));
 	}
 
 	// Note the omission of a type. It is the subclasses responsibility to define one.
@@ -257,13 +257,13 @@ namespace packet
 	}
 
 	direction::direction(float x, float y, float z)
-		: float_tuple(x, y, z)
+	: float_tuple(x, y, z)
 	{
 		type = 0x07;
 	}
 
 	direction::direction(const tuple<float, float, float>& _value)
-		: float_tuple(_value)
+	: float_tuple(_value)
 	{
 		type = 0x07;
 	}

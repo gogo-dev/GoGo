@@ -6,13 +6,12 @@
 class MySQLGunzDB : public GunzDB
 {
 	private:
+		mysqlpp::Connection gunzconn;
 
 	public:
-		/* Connection constructor/connecting/reconnecting/disconnecting */
-		static mysqlpp::Connection gunzconn;
-		MySQLGunzDB(std::string host, std::string user, std::string password, std::string port);
+		MySQLGunzDB(const char* host, const char* user, const char* password, const char* port);
 		~MySQLGunzDB();
 
-		/* Login Process related functions*/
-		void GetAccountInfoForLogin(const std::string& user, const std::string& password);
+		// Login Process related functions
+		void GetAccountInfoForLogin(const char* user, const char* password);
 };

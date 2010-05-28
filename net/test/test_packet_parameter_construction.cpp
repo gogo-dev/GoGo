@@ -1,5 +1,4 @@
-#include "../src/PacketParameters.h"
-#include "../src/PacketParameters.cpp"
+#include <net/PacketParameters.h>
 
 #include <test.h>
 

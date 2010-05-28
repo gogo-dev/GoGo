@@ -4,6 +4,39 @@
 
 using namespace boost;
 
+namespace
+{
+	struct Handshake
+	{
+		boost::uint16_t Header;
+		boost::uint32_t Size;
+		MUID ServerId;
+		MUID PlayerId;
+		boost::uint32_t Timestamp; // Not ever used; MAIET is retarded. We just set this to 0x0DEADCA7 to be cool.
+
+		Handshake();
+		Handshake(MUID server, MUID player);
+	};
+}
+
+Handshake::Handshake()
+{
+	Header = 10;
+	Size = 26;
+	ServerId = 0;
+	PlayerId = 0;
+	Timestamp = 0x0DEADCA7;
+}
+
+Handshake::Handshake(MUID server, MUID player)
+{
+	Header = 10;
+	Size = 26;
+	ServerId = server;
+	PlayerId = player;
+	Timestamp = 0x0DEADCA7;
+}
+
 Client::Client(Logger* _logger, asio::io_service &service, MUIDSanta* _santa)
 	: socket(service), logger(_logger), santa(_santa)
 {

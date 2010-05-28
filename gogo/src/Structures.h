@@ -1,8 +1,7 @@
-//! This is our misc/general structures.
+// This file contains general-purpose structures and enumerations that are global throughout
+// all of GoGo. Do your best to keep things out of this file. It kinda ruins encapsulation.
 #pragma once
-#include <string>
-#include <list>
-#include "PacketParameters.h"
+#include <boost/cstdint.hpp>
 
 enum UserGrade
 {
@@ -178,20 +177,6 @@ enum PacketErrorCode
 
 typedef boost::uint64_t MUID;
 
-//Timestamp - not ever used, MAIET is just retarded so o dead cat in hex (0x0DEADCA7) seems cool!
-struct Handshake
-{
-	boost::uint16_t Header; //2
-	boost::uint32_t Size;  //6
-	MUID ServerId;        //14
-	MUID PlayerId;		 //22
-	boost::uint32_t Timestamp; //26
-
-	Handshake();
-	Handshake (MUID, MUID);
-
-};
-
 struct AccountInfo
 {
 	boost::uint32_t AccountId;
@@ -212,28 +197,6 @@ struct Item
     boost::uint32_t MaxWT;
 
 	Item() { RentHour = 0x20050800; }
-};
-
-struct CharacterInfo
-{
-	boost::uint32_t CharacterId;
-	char CharacterName[32];
-	char ClanName[16];
-	ClanGrade CharacterGrade;
-	boost::uint16_t ClanPoints;
-	boost::uint8_t CharacterMarker;
-	boost::uint16_t CharacterLevel;
-	boost::uint8_t CharacterSex;
-	boost::uint8_t CharacterHair;
-	boost::uint8_t CharacterFace;
-	boost::uint32_t CharacterXP;
-	boost::uint32_t CharacterBP;
-	Item Equipment[12];
-	UserGrade CharacterAccess;
-	boost::uint32_t ClanId;
-	std::list<Item> Inventory;
-
-	packet::blob blobify();
 };
 
 struct MMatchWorldItem

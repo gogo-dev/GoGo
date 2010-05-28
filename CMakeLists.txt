@@ -53,7 +53,7 @@ if(MSVC)
   add_definitions(/EHa -D_WIN32_WINNT=0x0501)
 else(MSVC)
   # TODO: Any add gcc flags you want in here. Optimization would be good ;)
-  add_definitions(-Wall -Wextra -Werror -Wfatal-errors -ansi -pedantic-errors -pipe)
+  add_definitions(-Wall -Wextra -Werror -Wfatal-errors -pipe)
 endif(MSVC)
 
 # Add Source groups for lazy windows users.
@@ -66,5 +66,9 @@ add_subdirectory(gogo/test)
 
 add_subdirectory(util/src)
 add_subdirectory(util/test)
-add_subdirectory(database/src)
 
+add_subdirectory(database/src)
+add_subdirectory(database/test)
+
+add_subdirectory(net/src)
+add_subdirectory(net/test)
