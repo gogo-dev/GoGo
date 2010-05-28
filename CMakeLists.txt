@@ -66,3 +66,5 @@ add_subdirectory(gogo/test)
 
 add_subdirectory(util/src)
 add_subdirectory(util/test)
+add_subdirectory(database/src)
+
