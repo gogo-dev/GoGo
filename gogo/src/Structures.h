@@ -178,6 +178,20 @@ enum PacketErrorCode
 
 typedef boost::uint64_t MUID;
 
+//Timestamp - not ever used, MAIET is just retarded so o dead cat in hex (0x0DEADCA7) seems cool!
+struct Handshake
+{
+	boost::uint16_t Header; //2
+	boost::uint32_t Size;  //6
+	MUID ServerId;        //14
+	MUID PlayerId;		 //22
+	boost::uint32_t Timestamp; //26
+
+	Handshake();
+	Handshake (MUID, MUID);
+
+};
+
 struct AccountInfo
 {
 	boost::uint32_t AccountId;

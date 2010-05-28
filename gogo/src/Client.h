@@ -19,6 +19,9 @@ private:
 public:
 	Client(Logger* logger, boost::asio::io_service& service, MUIDSanta* santa);
 	void start();
+	//Temp, used for testing!
+	static Handshake& GetHandshake(std::string ip, boost::uint64_t clientid);
+
 	~Client();
 
 private:

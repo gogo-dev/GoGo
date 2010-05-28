@@ -4,7 +4,7 @@ using namespace boost;
 
 MUIDSanta::MUIDSanta()
 {
-	next = 0;
+	next = 1;
 }
 
 MUID MUIDSanta::get()

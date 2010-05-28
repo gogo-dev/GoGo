@@ -1,5 +1,22 @@
 #include "Structures.h"
 
+Handshake::Handshake()
+{
+	Header = 10;
+	Size = 26;
+	ServerId = 0;
+	PlayerId = 0;
+	Timestamp = 0x0DEADCA7;
+}
+
+Handshake::Handshake(MUID server, MUID player)
+{
+	Header = 10;
+	Size = 26;
+	ServerId = server;
+	PlayerId = player;
+	Timestamp = 0x0DEADCA7;
+}
 packet::blob CharacterInfo::blobify()
 {
 	packet::blob charBlob(1, 146);
