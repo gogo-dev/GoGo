@@ -2,7 +2,7 @@
 #include <cstdlib>
 #include <new>
 
-// Instead of returning the number of requested bytes, we overload new to
+// Instead of returning the number of requested bytes, we overload "new" to
 // round the number of bytes up to the nearest power of two. This property
 // leads to much less memory fragmentation, although comes at the cost of
 // using up to "bytes" extra bytes of memory. This file implements that scheme.
