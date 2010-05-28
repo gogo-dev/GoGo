@@ -24,9 +24,12 @@ void Client::send_handshake()
 {
 	uint32_t unknownValue = 2;
 	uint32_t tempValues[3] = { 0 };
+	uint8_t* cryptkeyPtr = cryptkey;
 
 	uint8_t packet[26] = {
 		0x0A, 0x00, 0x1A, 0x00, 0x00, 0x00, 0x00, 0x00,
+		0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+		0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 		0x00, 0x00
 	};
 
@@ -43,10 +46,10 @@ void Client::send_handshake()
 	};
 
 	//Crypt key creation.
-	memory::copy(cryptkey, socket.remote_endpoint().address().to_v4().to_bytes().c_array(), 4);
-	memory::copy(cryptkey+4, &unknownValue, 4);
-	memory::copy(cryptkey+8, &clientid, 8);
-	memory::copy(cryptkey+16, &IV[0], 16);
+	cryptkeyPtr = memory::pcopy(cryptkeyPtr, socket.remote_endpoint().address().to_v4().to_bytes().c_array(), 4);
+	cryptkeyPtr = memory::pcopy(cryptkeyPtr, &unknownValue, sizeof(unknownValue));
+	cryptkeyPtr = memory::pcopy(cryptkeyPtr, &clientid, sizeof(clientid));
+	cryptkeyPtr = memory::pcopy(cryptkeyPtr, IV, sizeof(IV[0]));
 
 	//Now the fun time, packet creations.
 	memory::copy(packet+10, cryptkey+4, 12);
@@ -54,13 +57,13 @@ void Client::send_handshake()
 
 	for (int i = 0; i < 4; ++i)
 	{
-		memcpy(tempValues, IV[1]+(i*4), 4);
-		memcpy(tempValues + 1, cryptkey+(i*sizeof(uint32_t)), 4);
+		memcpy(tempValues, IV[1]+(i*4), sizeof(uint32_t));
+		memcpy(tempValues + 1, cryptkey+(i*sizeof(uint32_t)), sizeof(uint32_t));
 		tempValues[2] = tempValues[0] ^ tempValues[1];
-		memcpy(cryptkey+(i*4), tempValues + 2 ,4);
+		memcpy(cryptkey+(i*4), tempValues + 2 ,sizeof(uint32_t));
 	}
 
-	socket.send (boost::asio::buffer (packet, 26));
+	socket.send(boost::asio::buffer(packet, 26));
 }
 
 Client::~Client()

@@ -1,5 +1,6 @@
 set(GOGO_SRC
 	main.cpp
+	custom_new.cpp
 	PacketParameters.h
 	PacketParameters.cpp
 	Structures.h
