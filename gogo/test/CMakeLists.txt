@@ -1,7 +1,6 @@
 set(TESTS
 	test_build_environment
 	test_boost
-	test_packet_crypto
 	# Add more tests here.
 )
 

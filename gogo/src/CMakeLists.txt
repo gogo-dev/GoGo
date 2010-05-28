@@ -2,8 +2,6 @@ set(GOGO_SRC
 	main.cpp
 	custom_new.cpp
 	Structures.h
-	PacketCrypt.h
-	PacketCrypt.cpp
 	Client.h
 	Client.cpp
 	Server.h

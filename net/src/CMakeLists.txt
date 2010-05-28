@@ -1,5 +1,6 @@
 set(NET_SRC
 	PacketParameters.cpp
+	PacketCrypto.cpp
 	# Feel free to add more source files when they're added.
 )
 
