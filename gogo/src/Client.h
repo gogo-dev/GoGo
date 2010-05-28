@@ -1,5 +1,6 @@
 #pragma once
 #include <boost/asio.hpp>
+#include <boost/array.hpp>
 #include <util/Logger.h>
 
 #include "Structures.h"
@@ -19,8 +20,9 @@ private:
 public:
 	Client(Logger* logger, boost::asio::io_service& service, MUIDSanta* santa);
 	void start();
-	//Temp, used for testing!
-	static Handshake& GetHandshake(std::string ip, boost::uint64_t clientid);
+
+	boost::array<boost::uint8_t, 26>
+	make_handshake();
 
 	~Client();
 
