@@ -145,6 +145,7 @@ def make_packet_registry_cpp_header():
  */
 #include <net/PacketRegistry.h>
 #include <boost/format.hpp>
+#include <net/packets/all>
 
 using namespace std;
 using namespace boost;
@@ -213,7 +214,7 @@ def make_case(command):
 		0x0E : ("uint16_t", "extract_uint16")
 	}
 
-	ret = ''.join(['\t\tcase ::', command.name, '::packetID:\n'])
+	ret = ''.join(['\t\tcase ::packets::', command.name, '::packetID:\n'])
 
 	for (p, i) in zip(command.parameters, range(9999999)):
 		(type, func) = extractorMap[p.id]
@@ -258,7 +259,7 @@ def make_all_packet_types_header_header():
 
 
 def build_all_packet_types_header(commands):
-	f = open('include/net/packet_types/all', 'w')
+	f = open('include/net/packets/all', 'w')
 
 	print(make_all_packet_types_header_header(), end='', file=f)
 

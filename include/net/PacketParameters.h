@@ -4,6 +4,7 @@
 #include <boost/cstdint.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <cstddef>
+#include <util/buffer.h>
 
 /*
 * This file handles all the packet parameter type definitions. It is provided
@@ -13,9 +14,6 @@
 
 namespace packet
 {
-	// Represents a raw segment of a packet.
-	typedef std::vector<boost::uint8_t> serial_parameter;
-
 	class Parameter
 	{
 		protected:
@@ -33,7 +31,7 @@ namespace packet
 
 			// Grabs a stringified version of the subclass. Used for ezpz
 			// packet construction.
-			virtual serial_parameter serialize() const = 0;
+			virtual Buffer serialize() const = 0;
 	};
 
 	class int32 : public Parameter
@@ -43,7 +41,7 @@ namespace packet
 
 		public:
 			int32(boost::int32_t value);
-			serial_parameter serialize() const;
+			Buffer serialize() const;
 	};
 
 	class uint32 : public Parameter
@@ -53,7 +51,7 @@ namespace packet
 
 		public:
 			uint32(boost::uint32_t value);
-			serial_parameter serialize() const;
+			Buffer serialize() const;
 	};
 
 	class floating_point : public Parameter
@@ -63,17 +61,17 @@ namespace packet
 
 		public:
 			floating_point(float value);
-			serial_parameter serialize() const;
+			Buffer serialize() const;
 	};
 
 	class boolean : public Parameter
 	{
-		private:
-			bool value;
+	private:
+		bool value;
 
-		public:
-			boolean(bool value);
-			serial_parameter serialize() const;
+	public:
+		boolean(bool value);
+		Buffer serialize() const;
 	};
 
 	class blob_string : public Parameter
@@ -84,155 +82,151 @@ namespace packet
 
 	public:
 		blob_string(const char* value, boost::uint16_t len);
-		serial_parameter serialize() const;
+		Buffer serialize() const;
 	};
 
 	class string : public Parameter
 	{
-		private:
-			std::string value;
+	private:
+		std::string value;
 
-		public:
-			string(const char* value);
-			string(const std::string& value);
+	public:
+		string(const char* value);
+		string(const std::string& value);
 
-			serial_parameter serialize() const;
+		Buffer serialize() const;
 	};
 
 	class float_tuple : public Parameter
 	{
-		private:
-			boost::tuple<float, float, float> value;
+	private:
+		boost::tuple<float, float, float> value;
 
-			// This class must not be instantiated directly. Use one of its
-			// descendants (position or direction). It is provided merely as a
-			// convenience.
-		protected:
-			float_tuple(float x, float y, float z);
-			float_tuple(const boost::tuple<float, float, float>& value);
+		// This class must not be instantiated directly. Use one of its
+		// descendants (position or direction). It is provided merely as a
+		// convenience.
+	protected:
+		float_tuple(float x, float y, float z);
+		float_tuple(const boost::tuple<float, float, float>& value);
 
-		public:
-			serial_parameter serialize() const;
+	public:
+		Buffer serialize() const;
 	};
 
 	class position : public float_tuple
 	{
-		public:
-			position(float x, float y, float z);
-			position(const boost::tuple<float, float, float>& value);
+	public:
+		position(float x, float y, float z);
+		position(const boost::tuple<float, float, float>& value);
 	};
 
 	class direction : public float_tuple
 	{
-		public:
-			direction(float x, float y, float z);
-			direction(const boost::tuple<float, float, float>& value);
+	public:
+		direction(float x, float y, float z);
+		direction(const boost::tuple<float, float, float>& value);
 	};
 
 	class color : public Parameter
 	{
-		private:
-			union
+	private:
+		union
+		{
+			struct
 			{
-				struct
-				{
-					boost::uint8_t red;
-					boost::uint8_t green;
-					boost::uint8_t blue;
+				boost::uint8_t red;
+				boost::uint8_t green;
+				boost::uint8_t blue;
 					boost::uint8_t alpha;
-				} part;
-				boost::uint32_t raw;
-			} value;
+			} part;
+			boost::uint32_t raw;
+		} value;
 
-		public:
-			color(
-			boost::uint8_t red, boost::uint8_t green,
-				  boost::uint8_t blue, boost::uint8_t alpha);
+	public:
+		color(boost::uint8_t red, boost::uint8_t green,
+		      boost::uint8_t blue, boost::uint8_t alpha);
 
-				  // The uint32_t must be in the form of [rrggbbaa].
-				  color(boost::uint32_t value);
-				  serial_parameter serialize() const;
+		// The uint32_t must be in the form of [rrggbbaa].
+		color(boost::uint32_t value);
+		Buffer serialize() const;
 	};
 
 	class MUID : public Parameter
 	{
-		private:
-			union
+	private:
+		union
+		{
+			struct
 			{
-				struct
-				{
 					boost::uint32_t high;
-					boost::uint32_t low;
-				} part;
-				boost::uint64_t quad;
-			} value;
+				boost::uint32_t low;
+			} part;
+			boost::uint64_t quad;
+		} value;
 
-		public:
-			MUID(boost::uint32_t low, boost::uint32_t high);
-			MUID(boost::uint64_t full);
-			
-			serial_parameter serialize() const;
+	public:
+		MUID(boost::uint32_t low, boost::uint32_t high);
+		MUID(boost::uint64_t full);
+		
+		Buffer serialize() const;
 	};
 
 	class blob : public Parameter
 	{
-		private:
-			boost::uint32_t totalSize;
-			boost::uint32_t elementSize;
-			boost::uint32_t elementCount;
-			std::vector<boost::uint8_t> elementData;
+	private:
+		boost::uint32_t totalSize;
+		boost::uint32_t elementSize;
+		boost::uint32_t elementCount;
+		std::vector<boost::uint8_t> elementData;
 
-		private:
-			static boost::uint8_t *mempcpy (void *src, const void *dest, size_t len);
-
-		public:
-			blob(boost::uint32_t eleCount, boost::uint32_t eleSize);
-			void addParam(const packet::Parameter& param);
-			serial_parameter serialize() const;
+	public:
+		blob(boost::uint32_t eleCount, boost::uint32_t eleSize);
+		void addParam(const packet::Parameter& param);
+		Buffer serialize() const;
 	};
 
 
 	// This refers to the [x, y, z] vector, not the expandable array.
 	class vector : public Parameter
 	{
-		private:
-			typedef boost::tuple<boost::uint16_t, boost::uint16_t, boost::uint16_t> Vec;
-			Vec value;
+	private:
+		typedef boost::tuple<boost::uint16_t, boost::uint16_t, boost::uint16_t> Vec;
+		Vec value;
 
-		public:
-			vector(boost::uint16_t x, boost::uint16_t y, boost::uint16_t z);
-			vector(const Vec& value);
+	public:
+		vector(boost::uint16_t x, boost::uint16_t y, boost::uint16_t z);
+		vector(const Vec& value);
 
-			serial_parameter serialize() const;
+		Buffer serialize() const;
 	};
 
 	class uint8 : public Parameter
 	{
-		private:
-			boost::uint8_t value;
+	private:
+		boost::uint8_t value;
 
-		public:
-			uint8(boost::uint8_t value);
-			serial_parameter serialize() const;
+	public:
+		uint8(boost::uint8_t value);
+		Buffer serialize() const;
 	};
 
 	class int16 : public Parameter
 	{
-		private:
-			boost::int16_t value;
+	private:
+		boost::int16_t value;
 
-		public:
-			int16(boost::int16_t value);
-			serial_parameter serialize() const;
+	public:
+		int16(boost::int16_t value);
+		Buffer serialize() const;
 	};
 
 	class uint16 : public Parameter
 	{
-		private:
-			boost::uint16_t value;
+	private:
+		boost::uint16_t value;
 
-		public:
-			uint16(boost::uint16_t value);
-			serial_parameter serialize() const;
+	public:
+		uint16(boost::uint16_t value);
+		Buffer serialize() const;
 	};
 }

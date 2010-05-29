@@ -73,12 +73,11 @@ namespace packet
 		type = 0x00;
 	}
 
-	serial_parameter int32::serialize() const
+	Buffer int32::serialize() const
 	{
-		serial_parameter serialized;
-		serialized.resize(sizeof(value));
+		Buffer serialized(sizeof(value));
 
-		uint8_t* rawPointer = &(serialized[0]);
+		uint8_t* rawPointer = serialized.data();
 		int32_t correctedValue = fix_endianness(value);
 
 		memory::copy(rawPointer, &correctedValue, sizeof(value));
@@ -92,12 +91,11 @@ namespace packet
 		type = 0x01;
 	}
 
-	serial_parameter uint32::serialize() const
+	Buffer uint32::serialize() const
 	{
-		serial_parameter serialized;
-		serialized.resize(sizeof(value));
+		Buffer serialized(sizeof(value));
 
-		uint8_t* rawPointer = &(serialized[0]);
+		uint8_t* rawPointer = serialized.data();
 		uint32_t correctedValue = fix_endianness(value);
 
 		memory::copy(rawPointer, &correctedValue, sizeof(value));
@@ -111,14 +109,14 @@ namespace packet
 		type = 0x02;
 	}
 
-	serial_parameter floating_point::serialize() const
+	Buffer floating_point::serialize() const
 	{
-		serial_parameter serialized;
-		serialized.resize(sizeof(value));
+		Buffer serialized(sizeof(value));
 
-		uint8_t* rawPointer = &(serialized[0]);
+		uint8_t* rawPointer = serialized.data();
 
-		// I'm going to go out on a limb here and say floats have bad endian-ness.
+		// I'm going to go out on a limb here and say floats have
+		// bad endian-ness.
 		float correctedValue = fix_endianness(value);
 
 		memory::copy(rawPointer, &correctedValue, sizeof(value));
@@ -132,35 +130,34 @@ namespace packet
 		type = 0x03;
 	}
 
-	serial_parameter boolean::serialize() const
+	Buffer boolean::serialize() const
 	{
-		serial_parameter serialized;
-		serialized.push_back(value ? 0x01 : 0x00);
+		Buffer serialized(sizeof(uint8_t));
+		memory::copy(serialized.data(), &value, sizeof(uint8_t));
 		return serialized;
 	}
 
 	blob_string::blob_string(const char* _value, boost::uint16_t _len)
 		: value(_value)
 	{
-		// The type is left uninitialized on purpose. This way, we will be
-		// aware of any shenanigans with accessing a blob_string's type,
-		// as it should NEVER be necessary.
+		// The type is left uninitialized on purpose. This way, we
+		// will be aware of any shenanigans with accessing a
+		// blob_string's type, as it should NEVER be necessary.
 
 		assert((_len != 0) && "Wat.");
 
 		len = _len;
 	}
 
-	serial_parameter blob_string::serialize() const
+	Buffer blob_string::serialize() const
 	{
 		size_t bigSize = value.length() + 1;
 		if(bigSize > len)
 			return blob_string("[string too large]", len).serialize();
 
-		serial_parameter serialized;
-		serialized.resize(len);
+		Buffer serialized(len);
 
-		uint8_t* rawPointer = &(serialized[0]);
+		uint8_t* rawPointer = serialized.data();
 
 		rawPointer = memory::pcopy(rawPointer, value.c_str(), len);
 		memory::set(rawPointer, 0x00, len - bigSize - 1);
@@ -181,19 +178,19 @@ namespace packet
 		type = 0x04;
 	}
 
-	serial_parameter string::serialize() const
+	Buffer string::serialize() const
 	{
 		size_t bigSize = value.size() + 1;
 		uint16_t len = static_cast<uint16_t>(bigSize);
 
-		// TODO: Truncate the string instead. (Will this have a major performance penalty?)
+		// TODO: Truncate the string instead. (Will this have a major
+		// performance penalty?) (answer: probably not.)
 		if(bigSize > 0xFFFF)
 			return ::packet::string("[string too large]").serialize();
 
-		serial_parameter serialized;
-		serialized.resize(sizeof(uint16_t) + len);
+		Buffer serialized(sizeof(uint16_t) + len);
 
-		uint8_t* rawPointer = &(serialized[0]);
+		uint8_t* rawPointer = serialized.data();
 
 		rawPointer = memory::pcopy(rawPointer, &len, sizeof(len));
 		memory::copy(rawPointer, value.c_str(), len);
@@ -201,7 +198,8 @@ namespace packet
 		return serialized;
 	}
 
-	// Note the omission of a type. It is the subclasses responsibility to define one.
+	// Note the omission of a type. It is the subclasses responsibility to
+	// define one.
 	float_tuple::float_tuple(float x, float y, float z)
 		: value(x, y, z)
 	{
@@ -212,12 +210,11 @@ namespace packet
 	{
 	}
 
-	serial_parameter float_tuple::serialize() const
+	Buffer float_tuple::serialize() const
 	{
-		serial_parameter serialized;
-		serialized.resize(sizeof(float) * 3);
+		Buffer serialized(sizeof(float) * 3);
 
-		uint8_t* rawPointer = &(serialized[0]);
+		uint8_t* rawPointer = serialized.data();
 
 		float correctedValues[] = {
 			fix_endianness(value.get<0>()),
@@ -225,7 +222,8 @@ namespace packet
 			fix_endianness(value.get<2>())
 		};
 
-		memory::copy(rawPointer, correctedValues, sizeof(correctedValues));
+		memory::copy(rawPointer, correctedValues,
+				sizeof(correctedValues));
 
 		return serialized;
 	}
@@ -274,15 +272,12 @@ namespace packet
 		type = 0x08;
 	}
 
-	serial_parameter color::serialize() const
+	Buffer color::serialize() const
 	{
-		serial_parameter serialized;
-		serialized.resize(sizeof(value));
-
-		uint8_t* rawPointer = &(serialized[0]);
+		Buffer serialized(sizeof(value));
+		uint8_t* rawPointer = serialized.data();
 
 		uint32_t fixedValue = fix_endianness(value.raw);
-
 		memory::copy(rawPointer, &(fixedValue), sizeof(fixedValue));
 
 		return serialized;
@@ -303,15 +298,12 @@ namespace packet
 		type = 0x09;
 	}
 
-	serial_parameter MUID::serialize() const
+	Buffer MUID::serialize() const
 	{
-		serial_parameter serialized;
-		serialized.resize(sizeof(value.quad));
-
-		uint8_t* rawPointer = &(serialized[0]);
+		Buffer serialized(sizeof(value.quad));
+		uint8_t* rawPointer = serialized.data();
 
 		uint64_t fixedValue = fix_endianness(value.quad);
-
 		memory::copy(rawPointer, &fixedValue, sizeof(fixedValue));
 
 		return serialized;
@@ -328,19 +320,18 @@ namespace packet
 
 	void blob::addParam(const packet::Parameter &param)
 	{
-		serial_parameter serialParam = param.serialize();
-		elementData.reserve(elementData.size() + serialParam.size());
+		Buffer serialParam = param.serialize();
+		elementData.reserve(elementData.size() + serialParam.length());
 
-		for(serial_parameter::iterator i = serialParam.begin(); i < serialParam.end();  ++i)
-			elementData.push_back(*i);
+		for(size_t i = 0; i < serialParam.length(); ++i)
+			elementData.push_back(serialParam.data()[i]);
 	}
 
-	serial_parameter blob::serialize() const
+	Buffer blob::serialize() const
 	{
-		serial_parameter serialized;
-		serialized.resize (totalSize + 12);
+		Buffer serialized(totalSize + 12);
 
-		uint8_t* rawPointer = &(serialized[0]);
+		uint8_t* rawPointer = serialized.data();
 		rawPointer = memory::pcopy(rawPointer, &totalSize, sizeof(uint32_t));
 		rawPointer = memory::pcopy(rawPointer, &elementSize, sizeof(uint32_t));
 		rawPointer = memory::pcopy(rawPointer, &elementCount, sizeof(uint32_t));
@@ -350,6 +341,7 @@ namespace packet
 
 		return serialized;
 	}
+
 	vector::vector(uint16_t x, uint16_t y, uint16_t z)
 		: value(x, y, z)
 	{
@@ -362,12 +354,11 @@ namespace packet
 		type = 0x0B;
 	}
 
-	serial_parameter vector::serialize() const
+	Buffer vector::serialize() const
 	{
-		serial_parameter serialized;
-		serialized.resize(sizeof(uint16_t) * 3);
+		Buffer serialized(sizeof(uint16_t) * 3);
 
-		uint8_t* rawPointer = &(serialized[0]);
+		uint8_t* rawPointer = serialized.data();
 
 		uint16_t fixedValues[] = {
 			fix_endianness(value.get<0>()),
@@ -386,13 +377,10 @@ namespace packet
 		type = 0x0C;
 	}
 
-	serial_parameter uint8::serialize() const
+	Buffer uint8::serialize() const
 	{
-		serial_parameter serialized;
-		serialized.resize(sizeof(value));
-
-		serialized[0] = value;
-
+		Buffer serialized(sizeof(value));
+		serialized.data()[0] = value;	
 		return serialized;
 	}
 
@@ -402,15 +390,12 @@ namespace packet
 		type = 0x0D;
 	}
 
-	serial_parameter int16::serialize() const
+	Buffer int16::serialize() const
 	{
-		serial_parameter serialized;
-		serialized.resize(sizeof(value));
-
-		uint8_t* rawPointer = &(serialized[0]);
+		Buffer serialized(sizeof(value));
+		uint8_t* rawPointer = serialized.data();
 
 		int16_t fixedValue = fix_endianness(value);
-
 		memory::copy(rawPointer, &fixedValue, sizeof(value));
 
 		return serialized;
@@ -422,12 +407,10 @@ namespace packet
 		type = 0x0E;
 	}
 
-	serial_parameter uint16::serialize() const
+	Buffer uint16::serialize() const
 	{
-		serial_parameter serialized;
-		serialized.resize(sizeof(value));
-
-		uint8_t* rawPointer = &(serialized[0]);
+		Buffer serialized(sizeof(value));
+		uint8_t* rawPointer = serialized.data();
 
 		uint16_t fixedValue = fix_endianness(value);
 

@@ -13,7 +13,7 @@ static void test_int32()
 		0x78, 0x56, 0x34, 0x12
 	};
 
-	check_array_equal(&(packit.serialize()[0]), expected, countof(expected));
+	check_array_equal(packit.serialize().data(), expected, countof(expected));
 	BOOST_CHECK(packit.get_type() == 0x00);
 }
 
@@ -25,7 +25,7 @@ static void test_uint32()
 		0x78, 0x56, 0x34, 0x12
 	};
 
-	check_array_equal(&(packit.serialize()[0]), expected, countof(expected));
+	check_array_equal(packit.serialize().data(), expected, countof(expected));
 	BOOST_CHECK(packit.get_type() == 0x01);
 }
 
@@ -46,36 +46,36 @@ static void test_boolean()
 		0x01
 	};
 
-	check_array_equal(&(packit.serialize()[0]), expected, countof(expected));
+	check_array_equal(packit.serialize().data(), expected, countof(expected));
 	BOOST_CHECK(packit.get_type() == 0x03);
 }
 
 static void test_blob_string()
 {
 	packet::blob_string packit("test", 10);
-	packet::serial_parameter serialized = packit.serialize();
+	Buffer serialized = packit.serialize();
 
 	uint8_t expected[] = {
 		't', 'e', 's', 't', 0x00, 0x00, 0x00, 0x00,
 		0x00, 0x00
 	};
 
-	check_array_equal(&(packit.serialize()[0]), expected, countof(expected));
-	check_equal(serialized.capacity(), sizeof(expected));
+	check_array_equal(packit.serialize().data(), expected, countof(expected));
+	check_equal(serialized.length(), sizeof(expected));
 }
 static void test_string()
 {
 	packet::string packit("test");
-	packet::serial_parameter serialized = packit.serialize();
+	Buffer serialized = packit.serialize();
 
 	uint8_t expected[] = {
 		0x05, 0x00, 't', 'e', 's', 't', 0x00
 	};
 
-	check_array_equal(&(serialized[0]), expected, countof(expected));
+	check_array_equal(serialized.data(), expected, countof(expected));
 	BOOST_CHECK(packit.get_type() == 0x04);
 
-	check_equal(serialized.capacity(), sizeof(expected));
+	check_equal(serialized.length(), sizeof(expected));
 }
 
 static void test_position()
@@ -101,8 +101,8 @@ static void test_color()
 		0x01, 0x02, 0x03, 0x04
 	};
 
-	check_array_equal(&(packit1.serialize()[0]), expected, countof(expected));
-	check_array_equal(&(packit2.serialize()[0]), expected, countof(expected));
+	check_array_equal(packit1.serialize().data(), expected, countof(expected));
+	check_array_equal(packit2.serialize().data(), expected, countof(expected));
 }
 
 static void test_MUID()
@@ -117,8 +117,8 @@ static void test_MUID()
 		0x44, 0x33, 0x22, 0x11
 	};
 
-	check_array_equal(&(packit1.serialize()[0]), expected, countof(expected));
-	check_array_equal(&(packit2.serialize()[0]), expected, countof(expected));
+	check_array_equal(packit1.serialize().data(), expected, countof(expected));
+	check_array_equal(packit2.serialize().data(), expected, countof(expected));
 }
 
 static void test_blob()
@@ -151,7 +151,7 @@ static void test_blob()
 	}
 
 
-	check_array_equal (&(packit.serialize()[0]), expected, countof(expected));
+	check_array_equal (packit.serialize().data(), expected, countof(expected));
 
 }
 
@@ -165,7 +165,7 @@ static void test_vector()
 		0x11, 0x00, 0x33, 0x22, 0x55, 0x44
 	};
 
-	check_array_equal(&(packit.serialize()[0]), expected, countof(expected));
+	check_array_equal(packit.serialize().data(), expected, countof(expected));
 }
 
 static void test_uint8()
@@ -178,7 +178,7 @@ static void test_uint8()
 		0x01
 	};
 
-	check_array_equal(&(packit.serialize()[0]), expected, countof(expected));
+	check_array_equal(packit.serialize().data(), expected, countof(expected));
 }
 
 static void test_int16()
@@ -191,7 +191,7 @@ static void test_int16()
 		0x23, 0x01
 	};
 
-	check_array_equal(&(packit.serialize()[0]), expected, countof(expected));
+	check_array_equal(packit.serialize().data(), expected, countof(expected));
 }
 
 static void test_uint16()
@@ -204,7 +204,7 @@ static void test_uint16()
 		0x23, 0x01
 	};
 
-	check_array_equal(&(packit.serialize()[0]), expected, countof(expected));
+	check_array_equal(packit.serialize().data(), expected, countof(expected));
 }
 
 int test_main(int, char**)

@@ -5,9 +5,9 @@ using namespace std;
 using namespace boost;
 
 Buffer::Buffer(size_t _length)
+	: data_(new uint8_t[_length])
 {
 	length_ = _length;
-	data_ = make_shared(new uint8_t[length_]);
 }
 
 Buffer::Buffer(const void* initialData, size_t _length)
@@ -29,4 +29,8 @@ uint8_t* Buffer::data()
 size_t Buffer::length()
 {
 	return length_;
+}
+
+Buffer::~Buffer()
+{
 }
