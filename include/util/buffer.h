@@ -6,7 +6,7 @@
 class Buffer
 {
 private:
-	boost::shared_array<boost::uint8_t> data_;
+	boost::uint8_t* data_;
 	size_t length_;
 
 public:
@@ -15,7 +15,8 @@ public:
 	Buffer(const Buffer& other);
 
 	boost::uint8_t* data();
-	size_t length();
+	const boost::uint8_t* data() const;
+	size_t length() const;
 
 	~Buffer();
 };
