@@ -187,7 +187,7 @@ namespace packet
 
 		public:
 			blob(boost::uint32_t eleCount, boost::uint32_t eleSize);
-			void addParam (const packet::Parameter& param);
+			void addParam(const packet::Parameter& param);
 			serial_parameter serialize() const;
 	};
 
