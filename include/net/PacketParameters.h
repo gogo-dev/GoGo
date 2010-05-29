@@ -170,7 +170,7 @@ namespace packet
 		public:
 			MUID(boost::uint32_t low, boost::uint32_t high);
 			MUID(boost::uint64_t full);
-			// TODO(Clark): A constructor for the common MUID class.
+			
 			serial_parameter serialize() const;
 	};
 

@@ -50,10 +50,24 @@ void* operator new[](size_t bytes, std::nothrow_t) throw()
 
 void operator delete(void* mem, std::nothrow_t) throw(std::bad_alloc)
 {
-	free(mem);
+	if(mem != NULL)
+		free(mem);
 }
 
 void operator delete(void* mem) throw()
 {
-	free(mem);
+	if(mem != NULL)
+		free(mem);
+}
+
+void operator delete[](void* mem, std::nothrow_t) throw(std::bad_alloc)
+{
+	if(mem != NULL)
+		free(mem);
+}
+
+void operator delete[](void* mem) throw()
+{
+	if(mem != NULL)
+		free(mem);
 }
