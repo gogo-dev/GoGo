@@ -1664,7 +1664,7 @@ Command Help = "Request Spawn WorldItem"
 	Parameter = "ItemDropDelayTime"
 
 Command ID = 609
-Command = "Match.Request.Spawn.WorldItem"
+Command = "Match.Request.Spawn.WorldItem.UID"
 Command Help = "Request Spawn WorldItem"
 
 	Parameter Type = 0
@@ -2536,7 +2536,7 @@ Command Help = "Complete Quest"
 	Parameter = "RewardInfo"
 
 Command ID = 17A7
-Command = "Quest"
+Command = "Quest.Failed"
 Command Help = "Quest failed"
 
 Command ID = 17A9
@@ -3272,14 +3272,14 @@ Command Help = "Trigger Debug code for Agent"
 	Parameter = "strMsg"
 
 Command ID = 2717
-Command = "Peer.Ping"
+Command = "Peer.Ping.Time"
 Command Help = "Ping"
 
 	Parameter Type = 1
 	Parameter = "TimeStamp"
 
 Command ID = 2718
-Command = "Peer.Pong"
+Command = "Peer.Pong.Time"
 Command Help = "Pong"
 
 	Parameter Type = 1
@@ -3296,18 +3296,18 @@ Command Help = "make announce for scheduler."
 	Parameter = "strAnnounce"
 
 Command ID = 1B5A
-Command = "Announce."
+Command = "Announce.Schedule"
 Command Help = "send announce of scheduler."
 
 	Parameter Type = 4
 	Parameter = "strAnnounce"
 
 Command ID = 1B5B
-Command = "Switch clan server status."
+Command = "Switch clan server status.change"
 Command Help = "if server type is clan server, then this command is can chage server status."
 
 Command ID = 1B5C
-Command = "Switch clan server status."
+Command = "Switch clan server status.up."
 Command Help = "up"
 
 Command ID = 1B5D
@@ -3675,14 +3675,14 @@ Command Help = "Request my quest item list"
 	Parameter = "uid"
 
 Command ID = 5209
-Command = "Quest item"
+Command = "Quest.item.response"
 Command Help = "Response my quest item list"
 
 	Parameter Type = A
 	Parameter = "My quest item list"
 
 Command ID = 520A
-Command = "Quest item"
+Command = "Quest.item.buy"
 Command Help = "Request buy quest item"
 
 	Parameter Type = 9
@@ -3692,7 +3692,7 @@ Command Help = "Request buy quest item"
 	Parameter = "QuestItemID"
 
 Command ID = 520B
-Command = "Quest item"
+Command = "Quest.item.responsebuy"
 Command Help = "Response buy quest item"
 
 	Parameter Type = 0
@@ -3702,7 +3702,7 @@ Command Help = "Response buy quest item"
 	Parameter = "Player Bounty"
 
 Command ID = 520C
-Command = "Quest item"
+Command = "Quest.item.sell"
 Command Help = "Request sell quest item"
 
 	Parameter Type = 9
@@ -3715,7 +3715,7 @@ Command Help = "Request sell quest item"
 	Parameter = "Count"
 
 Command ID = 520D
-Command = "Quest item"
+Command = "Quest.item.responsesell"
 Command Help = "Response sell quest item"
 
 	Parameter Type = 0
@@ -3725,7 +3725,7 @@ Command Help = "Response sell quest item"
 	Parameter = "Player Bounty"
 
 Command ID = 520E
-Command = "Quest"
+Command = "Quest.Reward"
 Command Help = "Quest reward."
 
 	Parameter Type = 0
@@ -3741,7 +3741,7 @@ Command Help = "Quest reward."
 	Parameter = "Reward ZItem"
 
 Command ID = 520F
-Command = "Quest"
+Command = "Quest.Request.Sacrifice"
 Command Help = "Request drop sacrifice item"
 
 	Parameter Type = 9
@@ -3754,7 +3754,7 @@ Command Help = "Request drop sacrifice item"
 	Parameter = "ItemID"
 
 Command ID = 5210
-Command = "Quest"
+Command = "Quest.Response.Sacrifice"
 Command Help = "Response drop sacrifice item"
 
 	Parameter Type = 0
@@ -3770,7 +3770,7 @@ Command Help = "Response drop sacrifice item"
 	Parameter = "ItemID"
 
 Command ID = 5211
-Command = "Quest"
+Command = "Quest.Callback.Sacrifice"
 Command Help = "Request callback sacrifice item"
 
 	Parameter Type = 9
@@ -3783,7 +3783,7 @@ Command Help = "Request callback sacrifice item"
 	Parameter = "ItemID"
 
 Command ID = 5212
-Command = "Quest"
+Command = "Quest.Callback.Result"
 Command Help = "Request callback sacrifice item"
 
 	Parameter Type = 0
@@ -3799,14 +3799,14 @@ Command Help = "Request callback sacrifice item"
 	Parameter = "ItemID"
 
 Command ID = 5213
-Command = "Quest"
+Command = "Quest.Request.SlotInfo"
 Command Help = "Request slot info"
 
 	Parameter Type = 9
 	Parameter = "Sender"
 
 Command ID = 5214
-Command = "Quest"
+Command = "Quest.Resonse.SlotInfo"
 Command Help = "Response slot info"
 
 	Parameter Type = 9
@@ -3822,21 +3822,21 @@ Command Help = "Response slot info"
 	Parameter = "ItemID 2"
 
 Command ID = 17D5
-Command = "Quest"
+Command = "Quest.RequestLevel"
 Command Help = "Request stage quest level"
 
 	Parameter Type = 9
 	Parameter = "sender"
 
 Command ID = 17D6
-Command = "Quest"
+Command = "Quest.ResponseLevel"
 Command Help = "Response stage quest level"
 
 	Parameter Type = 0
 	Parameter = "Quest level"
 
 Command ID = 17D7
-Command = "Quest"
+Command = "Quest.Survival.Result"
 Command Help = "Send survival result"
 
 	Parameter Type = 0
@@ -3846,14 +3846,14 @@ Command Help = "Send survival result"
 	Parameter = "Point"
 
 Command ID = 17D8
-Command = "Quest"
+Command = "Quest.Survival.Ranking"
 Command Help = "Send survival top ranking list"
 
 	Parameter Type = A
 	Parameter = "Ranking list"
 
 Command ID = 17D9
-Command = "Quest"
+Command = "Quest.Survuval.PrivateRanking"
 Command Help = "Send survival private ranking"
 
 	Parameter Type = 1
@@ -3863,7 +3863,7 @@ Command Help = "Send survival private ranking"
 	Parameter = "Point"
 
 Command ID = 17AC
-Command = "Quest"
+Command = "Quest.Start.Fail"
 Command Help = "Failed start quest."
 
 	Parameter Type = 0
@@ -3880,14 +3880,14 @@ Command Help = "monster info"
 	Parameter = "monster db index"
 
 Command ID = 5216
-Command = "Quest"
+Command = "Quest.Bible.Request"
 Command Help = "request monster bible info"
 
 	Parameter Type = 9
 	Parameter = "requester"
 
 Command ID = 5217
-Command = "Quest"
+Command = "Quest.Bible.Response"
 Command Help = "response monster bible info"
 
 	Parameter Type = 9
@@ -3992,7 +3992,7 @@ Command Help = "response client seed key"
 	Parameter = "communication buffer"
 
 Command ID = 2329
-Command = "MC_REQUEST_GAMEGUARD_AUTH"
+Command = "MC_REQUEST_GAMEGUARD_AUTH_INDEX"
 Command Help = "requet new gameguard auth"
 
 	Parameter Type = 1
@@ -4008,7 +4008,7 @@ Command Help = "requet new gameguard auth"
 	Parameter = "value3"
 
 Command ID = 232A
-Command = "MC_RESPONSE_GAMEGUARD_AUTH"
+Command = "MC_RESPONSE_GAMEGUARD_AUTH_INDEX"
 Command Help = "game client response new gameguard auth to server"
 
 	Parameter Type = 1
@@ -4024,7 +4024,7 @@ Command Help = "game client response new gameguard auth to server"
 	Parameter = "value3"
 
 Command ID = 232B
-Command = "MC_REQUEST_GAMEGUARD_AUTH"
+Command = "MC_REQUEST_GAMEGUARD_AUTH_VALUE"
 Command Help = "requet new gameguard auth"
 
 	Parameter Type = 1
@@ -4040,7 +4040,7 @@ Command Help = "requet new gameguard auth"
 	Parameter = "value3"
 
 Command ID = 232C
-Command = "MC_RESPONSE_GAMEGUARD_AUTH"
+Command = "MC_RESPONSE_GAMEGUARD_AUTH_VALUE"
 Command Help = "game client response new gameguard auth to server"
 
 	Parameter Type = 1
