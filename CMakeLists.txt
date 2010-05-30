@@ -49,7 +49,7 @@ include_directories("include")
 
 if(MSVC)
   # TODO: Add any msvc flags you want in here. Optimization would be good ;)
-  add_definitions(/EHa -D_WIN32_WINNT=0x0501)
+  add_definitions(/EHa -D_WIN32_WINNT=0x0501 /bigobj)
 else(MSVC)
   # TODO: Any add gcc flags you want in here. Optimization would be good ;)
   add_definitions(-Wall -Wextra -Werror -Wfatal-errors -pipe)
