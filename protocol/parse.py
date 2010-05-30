@@ -60,12 +60,16 @@ def clean(commands):
 			p.type = get_type(p.id)
 			if p.type == None:
 				to_drop.append(c)
-			p.name = ''.join([x for x in p.name if x != ' ' if x != ')']).replace('.', '_').replace('(', '_')
+			p.name = ''.join([x for x in p.name if x != ' ' if x != ')']).replace('.', '_').replace('(', '_').replace(' ', '_')
 
 		if c.name in [x.name for x in commands if x != c]:
 			print("Warning: Conflict found ->", c.name, 'ID:', savedID)
 
-	return [c for c in commands if c not in to_drop]
+	commands = [c for c in commands if c not in to_drop]
+
+	print("Commands:\n", '\n'.join([''.join([c.name, '(', ' '.join([p.name for p in c.parameters]), ')']) for c in commands]), sep='')
+
+	return commands
 
 def parse(p):
 	c = list()
