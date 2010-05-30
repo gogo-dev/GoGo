@@ -1,0 +1,12 @@
+To generate a new protocol set, run the correct .protocol file as a parameter
+to parse.py. Sample usage for ijji.protocol is...
+
+./parse.py ijji.protocol
+
+This will generate the necessary files in the subdirectores of whatever
+directory parse.py resides in. After they're generated, feel free to add them
+to the project and add the two generated cpp files to the build. DO NOT COMMIT
+THE GENERATED FILES UNLESS THEY'VE BEEN MERGED INTO THE REST OF THE PROJECT.
+That's a lot of wasted space.
+
+Oh yeah, and sorry for the mess in parse.py - I just wanted to get it done =/
