@@ -1216,7 +1216,7 @@ Command Help = "Request Account Character Info"
     Parameter = "CharNum"
 
     Parameter Type = 0
-    Parameter = "0B"
+    Parameter = "_0B"
 
 Command ID = 6B8
 Command = "Match.ResponseAccountCharInfo"
@@ -1239,7 +1239,7 @@ Command Help = "Request Select Character"
     Parameter = "CharIndex"
 
     Parameter Type = 0
-    Parameter = "1"
+    Parameter = "one"
 
 Command ID = 6A8
 Command = "Match.ResponseSelectChar"
@@ -1285,7 +1285,7 @@ Command Help = "Request Delete Character"
     Parameter = "CharIndex"
 
     Parameter Type = 0
-    Parameter = "1"
+    Parameter = "one"
 
     Parameter Type = 4
     Parameter = "CharName"
@@ -1308,7 +1308,7 @@ Command Help = "Request Create Character"
     Parameter = "CharIndex"
 
     Parameter Type = 0
-    Parameter = "1"
+    Parameter = "one"
 
     Parameter Type = 4
     Parameter = "Name"
@@ -1498,7 +1498,7 @@ Command Help = "Request Equip Item"
     Parameter = "EquipmentSlot"
 
     Parameter Type = 0
-    Parameter = "1"
+    Parameter = "one"
 
 Command ID = 720
 Command = "MatchResponseEquipItem"
@@ -1518,7 +1518,7 @@ Command Help = "Request Takeoff Item"
     Parameter = "EquipmentSlot"
 
     Parameter Type = 0
-    Parameter = "1"
+    Parameter = "one"
 
 Command ID = 722
 Command = "MatchResponseTakeoffItem"
@@ -1597,7 +1597,7 @@ Command Help = "Response Item Gamble Result Item"
     Parameter = "ItemID"
 
     Parameter Type = 1
-    Parameter = "RentHourPeriod * 60"
+    Parameter = "RentHourPeriodTimes60"
 
 Command ID = 5FB
 Command = "Match.Request.Suicide"
@@ -2065,7 +2065,7 @@ Command Help = "Request Change ClanGrade"
     Parameter = "Grade"
 
     Parameter Type = 0
-    Parameter = "0"
+    Parameter = "zero"
 
 Command ID = 7E2
 Command = "Match.Clan.Master.ResponseChangeGrade"
