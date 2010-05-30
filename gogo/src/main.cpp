@@ -6,6 +6,8 @@
 #include "Structures.h"
 #include "Server.h"
 
+#include <database/MySQLGunzDB.h>
+
 #include <boost/thread.hpp>
 
 using namespace boost;
@@ -37,6 +39,7 @@ static void run_server_on(uint16_t port, Logger* logger)
 int main()
 {
 	ConsoleLogger logger;
+	MySQLGunzDB db("", "", "", "");
 
 	run_server_on(6000, &logger);
 

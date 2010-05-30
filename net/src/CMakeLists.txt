@@ -7,5 +7,4 @@ set(NET_SRC
 add_library(net ${NET_SRC})
 target_link_libraries(net
 	util
-	${Boost_LIBRARIES}
 )

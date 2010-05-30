@@ -12,7 +12,10 @@ set(GOGO_SRC
 )
 
 add_executable(gogo ${GOGO_SRC})
-target_link_libraries(gogo util)
-target_link_libraries(gogo ${Boost_LIBRARIES})
-target_link_libraries(gogo ${MySQL_LIBRARIES})
-target_link_libraries(gogo ${MySQL++_LIBRARIES})
+
+target_link_libraries(gogo
+	util
+	database
+	net
+	${Boost_LIBRARIES}
+)

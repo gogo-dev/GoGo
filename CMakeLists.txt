@@ -17,7 +17,6 @@ endif()
 
 set(CMAKE_MODULE_PATH
 	${CMAKE_MODULE_PATH}
-	${CMAKE_CURRENT_SOURCE_DIR}/cmake
 	${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules
 )
 
@@ -61,9 +60,6 @@ source_group("Header Files" REGULAR_EXPRESSION .*\\.h)
 source_group("Source Files" REGULAR_EXPRESSION .*\\.cxx|.*\\.cpp)
 
 enable_testing()
-add_subdirectory(gogo/src)
-add_subdirectory(gogo/test)
-
 add_subdirectory(util/src)
 add_subdirectory(util/test)
 
@@ -72,3 +68,6 @@ add_subdirectory(database/test)
 
 add_subdirectory(net/src)
 add_subdirectory(net/test)
+
+add_subdirectory(gogo/src)
+add_subdirectory(gogo/test)
