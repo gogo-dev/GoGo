@@ -172,8 +172,8 @@ uint32_t extract_uint32(const uint8_t* paramStart, const uint8_t** currentParam,
 float extract_float(const uint8_t* paramStart, const uint8_t** currentParam, uint16_t packetLength);
 bool extract_bool(const uint8_t* paramStart, const uint8_t** currentParam, uint16_t packetLength);
 string extract_string(const uint8_t* paramStart, const uint8_t** currentParam, uint16_t packetLength);
-boost::array<float, 3> extract_position(const uint8_t* paramStart, const uint8_t** currentParam, uint16_t packetLength);
-boost::array<float, 3> extract_direction(const uint8_t* paramStart, const uint8_t** currentParam, uint16_t packetLength);
+array<float, 3> extract_position(const uint8_t* paramStart, const uint8_t** currentParam, uint16_t packetLength);
+array<float, 3> extract_direction(const uint8_t* paramStart, const uint8_t** currentParam, uint16_t packetLength);
 uint32_t extract_color(const uint8_t* paramStart, const uint8_t** currentParam, uint16_t packetLength);
 uint64_t extract_MUID(const uint8_t* paramStart, const uint8_t** currentParam, uint16_t packetLength);
 tuple<shared_array<uint8_t> /* data */, size_t /* count */, size_t /* size */>
