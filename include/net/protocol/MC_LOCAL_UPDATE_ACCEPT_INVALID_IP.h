@@ -23,6 +23,11 @@ public:
 	const char* doc() const;
 	boost::uint16_t id() const;
 	Buffer serialize() const;
+
+	virtual ~MC_LOCAL_UPDATE_ACCEPT_INVALID_IP()
+	{
+	}
+
 };
 
 }

@@ -34,7 +34,7 @@ uint8_t* encrypt(uint8_t* packet, int length, int index,
 	for(int i = 0; i < length; ++i)
 	{
 		a = (packet[i] ^ key[i & 0x1F]) << 5;
-		b = (uint8_t)(a >> 8);
+		b = static_cast<uint8_t>(a >> 8);
 		b = (b | a) ^ 0xF0;
 		packet[i] = b;
 	}
@@ -60,7 +60,7 @@ uint16_t checksum(const uint8_t* packet, int length,
 	t[2] = t[1] - t[0];
 	t[3] = t[2] >> 0x10;
 
-	return (uint16_t)(t[2] + t[3]);
+	return static_cast<uint16_t>(t[2] + t[3]);
 }
 
 }

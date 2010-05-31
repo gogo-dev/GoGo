@@ -28,6 +28,11 @@ public:
 	const char* doc() const;
 	boost::uint16_t id() const;
 	Buffer serialize() const;
+
+	virtual ~MC_RESPONSE_GAMEGUARD_AUTH_VALUE()
+	{
+	}
+
 };
 
 }

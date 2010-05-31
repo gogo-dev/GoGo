@@ -11,7 +11,7 @@ MySQLGunzDB::MySQLGunzDB(Logger* log, const char* dbname, const char* host, cons
 		throw("Error connect to database.");
 		return;
 	}
-	
+
 	logger->info("Successfully connected to database.");
 }
 
@@ -19,7 +19,7 @@ MySQLGunzDB::~MySQLGunzDB()
 {
 }
 
-AccountInfo MySQLGunzDB::GetAccountInfo (const std::string& user, const std::string& password)
+AccountInfo MySQLGunzDB::GetAccountInfo(const std::string& user, const std::string& password)
 {
 	AccountInfo accountInfo;
 
@@ -34,12 +34,12 @@ AccountInfo MySQLGunzDB::GetAccountInfo (const std::string& user, const std::str
 			accountInfo.AccountId = -1;
 			return accountInfo;
 		}
-		
+
 		accountInfo.AccountId = row["aid"];
 		accountInfo.AccountAccess = row["ugradeid"];
 		accountInfo.AccountPremium = row["ugradeid"];
 		accountInfo.AccountName = user;
-		
+
 		logger->info(boost::format("Account Id: %1%. Access: %2%. Premium: %3%. Name: %4%.") % accountInfo.AccountId % (boost::uint32_t)accountInfo.AccountAccess % (boost::uint32_t)accountInfo.AccountPremium % accountInfo.AccountName);
 		return accountInfo;
 	}
@@ -68,7 +68,7 @@ std::vector<Item> MySQLGunzDB::GetEquipment (boost::uint32_t cid)
 			items.push_back (item);
 		}
 	}
-	
+
 	return items;
 }
 
@@ -77,7 +77,7 @@ std::list<Item> MySQLGunzDB::GetInventory (boost::uint32_t cid)
 	std::list<Item> items;
 	mysqlpp::Query query = gunzconn.query();
 	query << "SELECT * FROM character_inventory where charid=" << cid;
-	
+
 	mysqlpp::UseQueryResult res = query.use();
 	mysqlpp::Row row;
 
@@ -116,7 +116,7 @@ CharacterInfo MySQLGunzDB::GetCharacterInfo (boost::uint32_t cid, boost::uint8_t
 
 		charInfo.CharacterId = cid;
 		charInfo.CharacterMarker = marker;
-		charInfo.CharacterName = row["name"];
+		charInfo.CharacterName = std::string(row["name"]);
 		charInfo.ClanId = row["clanid"];
 		charInfo.CharacterLevel = row["level"];
 		charInfo.CharacterSex = row["sex"];
@@ -124,7 +124,7 @@ CharacterInfo MySQLGunzDB::GetCharacterInfo (boost::uint32_t cid, boost::uint8_t
 		charInfo.CharacterFace = row["face"];
 		charInfo.CharacterXP = row["xp"];
 		charInfo.CharacterBP = row["bp"];
-		
+
 		query.reset();
 
 		if (charInfo.ClanId > 0)
@@ -134,7 +134,7 @@ CharacterInfo MySQLGunzDB::GetCharacterInfo (boost::uint32_t cid, boost::uint8_t
 
 			if (row)
 			{
-				charInfo.ClanName = row["name"];
+				charInfo.ClanName = std::string(row["name"]);
 				charInfo.ClanPoints = row["cwpoints"];
 			}
 

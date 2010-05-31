@@ -52,7 +52,17 @@ if(MSVC)
   add_definitions(/EHa -D_WIN32_WINNT=0x0501 /bigobj)
 else(MSVC)
   # TODO: Any add gcc flags you want in here. Optimization would be good ;)
-  add_definitions(-Wall -Wextra -Wfatal-errors -pipe -ansi -pedantic)
+  add_definitions(-Wall -Wextra -Wfatal-errors -pipe -ansi -pedantic
+	  -Wnon-virtual-dtor -Wreorder -Wold-style-cast -Wchar-subscripts
+	  -Wcomment -Wformat -Wimplicit -Wmain -Wparentheses -Wno-long-long
+	  -Wshadow -Wpointer-arith -ftree-vrp)
+
+  if(CMAKE_BUILD_TYPE EQUAL Debug)
+    if(CMAKE_BUILD_TYPE EQUAL None)
+    else()
+      add_definitions(-O3 -fwhole-program -fwpa)
+    endif()
+  endif()
 endif(MSVC)
 
 # Add Source groups for lazy windows users.

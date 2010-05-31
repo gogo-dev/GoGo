@@ -23,12 +23,12 @@ Buffer::Buffer(const Buffer& other)
 	memory::copy(data_, other.data_, length_);
 }
 
-void Buffer::init_buffer(size_t length)
+void Buffer::init_buffer(size_t _length)
 {
-	length_ = length;
+	length_ = _length;
 
-	if(length > 0)
-		data_ = new uint8_t[length];
+	if(_length > 0)
+		data_ = new uint8_t[_length];
 	else
 		data_ = NULL;
 }
@@ -46,6 +46,18 @@ const uint8_t* Buffer::data() const
 size_t Buffer::length() const
 {
 	return length_;
+}
+
+bool Buffer::operator==(const Buffer& other) const
+{
+	if(length() != other.length())
+		return false;
+
+	for(size_t i = 0; i < length(); ++i)
+		if(data()[i] != other.data()[i])
+			return false;
+
+	return true;
 }
 
 Buffer::~Buffer()

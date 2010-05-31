@@ -12,4 +12,8 @@ class Logger
 		inline void info   (const boost::format& text) { return info   (text.str()); }
 		inline void warning(const boost::format& text) { return warning(text.str()); }
 		inline void error  (const boost::format& text) { return error  (text.str()); }
+
+		virtual ~Logger()
+		{
+		}
 };

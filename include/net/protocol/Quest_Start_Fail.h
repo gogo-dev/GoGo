@@ -26,6 +26,11 @@ public:
 	const char* doc() const;
 	boost::uint16_t id() const;
 	Buffer serialize() const;
+
+	virtual ~Quest_Start_Fail()
+	{
+	}
+
 };
 
 }

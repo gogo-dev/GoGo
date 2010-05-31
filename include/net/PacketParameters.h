@@ -32,6 +32,10 @@ namespace packet
 			// Grabs a stringified version of the subclass. Used for ezpz
 			// packet construction.
 			virtual Buffer serialize() const = 0;
+
+			virtual ~Parameter()
+			{
+			}
 	};
 
 	class int32 : public Parameter
@@ -167,7 +171,7 @@ namespace packet
 	public:
 		MUID(boost::uint32_t low, boost::uint32_t high);
 		MUID(boost::uint64_t full);
-		
+
 		Buffer serialize() const;
 	};
 

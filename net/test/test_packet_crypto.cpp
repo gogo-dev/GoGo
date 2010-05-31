@@ -135,7 +135,7 @@ static void test_checksum()
 	};
 
 	uint16_t value = checksum (toChecksum, countof(toChecksum), 0);
-	check_equal (value, (boost::uint16_t)0x104C);
+	check_equal (value, static_cast<boost::uint16_t>(0x104C));
 }
 
 int test_main(int, char**)

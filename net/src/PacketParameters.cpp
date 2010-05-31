@@ -13,7 +13,7 @@ using namespace boost;
 static inline bool machine_little_endian()
 {
 	int number = 1;
-	return *(const unsigned char*)(&number) == 0x01;
+	return *reinterpret_cast<const unsigned char*>(&number) == 0x01;
 }
 
 template <typename IntType>
@@ -380,7 +380,7 @@ namespace packet
 	Buffer uint8::serialize() const
 	{
 		Buffer serialized(sizeof(value));
-		serialized.data()[0] = value;	
+		serialized.data()[0] = value;
 		return serialized;
 	}
 

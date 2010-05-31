@@ -21,7 +21,7 @@ string ConsoleLogger::right_now()
 
 void ConsoleLogger::print_line(const char* toOutput, color c)
 {
-	mutex::scoped_lock(consoleLock);
+	mutex::scoped_lock lock(consoleLock);
 
 #if WIN32 // Micro$hit
 
@@ -40,7 +40,8 @@ void ConsoleLogger::print_line(const char* toOutput, color c)
 	else if(c == YELLOW) printf("\033[1;33m%s\033[0m\n", toOutput);
 	else if(c == WHITE)  printf("\033[0;37m%s\033[0m\n", toOutput);
 #else
-	#warning "You might want to add your operating system to this list so that you get color output."
+	#error "You may want to add your operating system to this list so that you get color output. Alternatively, you can remove this error with a comment."
+	printf("%s\n", toOutput);
 #endif
 }
 

@@ -22,5 +22,7 @@ public:
 
 	size_t length() const;
 
+	bool operator==(const Buffer& other) const;
+
 	~Buffer();
 };

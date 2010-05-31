@@ -123,7 +123,6 @@ static void test_MUID()
 
 static void test_blob()
 {
-	// TODO(Clark): Write the tests for the blob class.
 	uint8_t expected[] = {
 		32, 0, 0, 0, //totalSize
 		8, 0, 0, 0, //elementSize
@@ -145,8 +144,8 @@ static void test_blob()
 	blob packit (3, 8);
 	for (int i = 0; i < 3; ++i)
 	{
-		packit.addParam(packet::int16((int16_t)0x8899));
-		packit.addParam(packet::int16((int16_t)0x7766));
+		packit.addParam(packet::int16(static_cast<int16_t>(0x8899)));
+		packit.addParam(packet::int16(static_cast<int16_t>(0x7766)));
 		packit.addParam(packet::int32(0x22334455));
 	}
 

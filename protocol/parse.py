@@ -1,4 +1,5 @@
 #!/usr/bin/python3.1
+# -*- coding: iso-8859-1 -*-
 # To the poor soul reading through this file to make changes:
 # I'm sorry, and good luck. I hope you manage to make this file suck less.
 #    - Clark
@@ -37,7 +38,7 @@ def clean(commands):
 		elif paramID == 0x09:
 			return "boost::uint64_t"
 		elif paramID == 0x0A:
-			return "boost::tuple<boost::shared_array<boost::uint8_t> /* data */, size_t /* count */, size_t /* size */>"
+			return "boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>"
 		elif paramID == 0x0B:
 			return "const boost::array<boost::uint16_t, 3>&"
 		elif paramID == 0x0C:
@@ -48,7 +49,7 @@ def clean(commands):
 			return "boost::uint16_t"
 		else:
 			return None
-	
+
 	to_drop = list()
 
 	for c in commands:
@@ -101,7 +102,7 @@ def make_packet_registry_header_header():
 #include <boost/cstdint.hpp>
 #include <boost/array.hpp>
 #include <boost/tuple/tuple.hpp>
-#include <boost/shared_array.hpp>
+#include <util/buffer.h>
 
 namespace packet {
 
@@ -130,7 +131,7 @@ def build_packet_registry_header(commands):
 	f = open('include/net/PacketRegistry.h', 'w')
 
 	print(make_packet_registry_header_header(), end='', file=f)
-	
+
 	for c in commands:
 		print('\n\n\t// ', c.docstring, '\n', sep='', end='', file=f)
 		print('\tboost::signals2::signal<void (', sep='',end='', file=f)
@@ -155,7 +156,7 @@ def make_packet_registry_cpp_header():
 
 #include <boost/array.hpp>
 #include <boost/format.hpp>
-#include <boost/shared_array.hpp>
+#include <util/buffer.h>
 #include <net/PacketRegistry.h>
 #include <net/protocol/all>
 
@@ -176,7 +177,7 @@ array<float, 3> extract_position(const uint8_t* paramStart, const uint8_t** curr
 array<float, 3> extract_direction(const uint8_t* paramStart, const uint8_t** currentParam, uint16_t packetLength);
 uint32_t extract_color(const uint8_t* paramStart, const uint8_t** currentParam, uint16_t packetLength);
 uint64_t extract_MUID(const uint8_t* paramStart, const uint8_t** currentParam, uint16_t packetLength);
-tuple<shared_array<uint8_t> /* data */, size_t /* count */, size_t /* size */>
+tuple<Buffer /* data */, size_t /* count */, size_t /* size */>
 extract_blob(const uint8_t* paramStart, const uint8_t** currentParam, uint16_t packetLength);
 boost::array<uint16_t, 3> extract_vector(const uint8_t* paramStart, const uint8_t** currentParam, uint16_t packetLength);
 boost::uint8_t extract_uint8(const uint8_t* paramStart, const uint8_t** currentParam, uint16_t packetLength);
@@ -219,7 +220,7 @@ def make_case(command):
 		0x07 : ("array<float, 3>", "extract_direction"),
 		0x08 : ("uint32_t", "extract_color"),
 		0x09 : ("uint64_t", "extract_MUID"),
-		0x0A : ("tuple<shared_array<uint8_t>, size_t, size_t>", "extract_blob"),
+		0x0A : ("tuple<Buffer, size_t, size_t>", "extract_blob"),
 		0x0B : ("array<uint16_t, 3>", "extract_vector"),
 		0x0C : ("uint8_t", "extract_uint8"),
 		0x0D : ("int16_t", "extract_int16"),
@@ -259,7 +260,7 @@ def build_packet_registry_cpp(commands):
 		else:
 			end = '\n'
 		print(make_case(c), end=end, file=f);
-	
+
 	print(make_packet_registry_cpp_footer(), end='', file=f)
 
 def make_all_packet_types_header_header():
@@ -296,6 +297,10 @@ namespace protocol {
 		virtual const char* docstring() const = 0;
 		virtual boost::uint16_t id() const = 0;
 		virtual Buffer serialize() const = 0;
+
+		virtual ~Packet()
+		{
+		}
 	};
 }
 }"""
@@ -350,16 +355,21 @@ def make_constructor(command):
 
 	return retVal
 
-def make_command_header_footer():
-	return """
+def make_command_header_footer(commandName):
+	return ''.join(["""
 	const char* name() const;
 	const char* doc() const;
 	boost::uint16_t id() const;
 	Buffer serialize() const;
+
+	virtual ~""", commandName, """()
+	{
+	}
+
 };
 
 }
-}"""
+}"""])
 
 typeMap = {
 	0x00 : "packet::int32",
@@ -384,7 +394,7 @@ def build_command_header(command):
 	print(make_command_header(command.name, command.docstring), end='', sep='', file=f)
 	print(make_local_vars(command.parameters), end='', sep='', file=f)
 	print(make_constructor(command), end='', sep='', file=f)
-	print(make_command_header_footer(), end='', sep='', file=f)
+	print(make_command_header_footer(command.name), end='', sep='', file=f)
 
 def make_all_packets_cpp_header():
 	return """/*
@@ -434,7 +444,7 @@ def flesh_out_command(command):
 			ret = ''.join([ret, sep, typeMap[p.id], ' _', p.name])
 
 		ret = ''.join([ret, ')\n\t: '])
-	
+
 		for p in command.parameters:
 			sep = ', '
 			if p == command.parameters[0]:
