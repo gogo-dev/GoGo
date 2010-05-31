@@ -4,11 +4,11 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `account`;
 CREATE TABLE `account` (
-  `aid` int(11) NOT NULL DEFAULT '0',
+  `aid` int(11) UNSIGNED NOT NULL DEFAULT '0',
   `username` varchar(128) NOT NULL,
   `password` varchar(128) NOT NULL,
-  `ugradeid` tinyint(3) NOT NULL DEFAULT '0',
-  `pgradeid` tinyint(3) NOT NULL DEFAULT '0',
+  `ugradeid` tinyint(3) UNSIGNED NOT NULL DEFAULT '0',
+  `pgradeid` tinyint(3) UNSIGNED NOT NULL DEFAULT '0',
   `name` varchar(128) NOT NULL,
   `email` varchar(128) NOT NULL,
   PRIMARY KEY (`aid`)
@@ -19,8 +19,8 @@ CREATE TABLE `account` (
 -- ----------------------------
 DROP TABLE IF EXISTS `account_inventory`;
 CREATE TABLE `account_inventory` (
-  `itemid` int(11) NOT NULL,
-  `aid` int(11) NOT NULL,
+  `itemid` int(11) UNSIGNED NOT NULL,
+  `aid` int(11) UNSIGNED NOT NULL,
   `expireson` datetime NOT NULL,
   PRIMARY KEY (`itemid`),
   KEY `accountinv` (`aid`),
@@ -33,10 +33,10 @@ CREATE TABLE `account_inventory` (
 -- ----------------------------
 DROP TABLE IF EXISTS `character`;
 CREATE TABLE `character` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `accountid` int(11) NOT NULL DEFAULT '0',
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `accountid` int(11) UNSIGNED NOT NULL DEFAULT '0',
   `name` varchar(32) DEFAULT '',
-  `clanid` smallint(5) NOT NULL DEFAULT '0',
+  `clanid` smallint(5) UNSIGNED NOT NULL DEFAULT '0',
   `level` tinyint(3) NOT NULL DEFAULT '0',
   `sex` tinyint(1) NOT NULL DEFAULT '0',
   `hair` tinyint(1) NOT NULL DEFAULT '0',
@@ -54,19 +54,19 @@ CREATE TABLE `character` (
 -- ----------------------------
 DROP TABLE IF EXISTS `character_equip`;
 CREATE TABLE `character_equip` (
-  `charid` int(11) NOT NULL DEFAULT '0',
-  `head_slot` int(11) NOT NULL DEFAULT '0',
-  `chest_slot` int(11) NOT NULL DEFAULT '0',
-  `hands_slot` int(11) NOT NULL,
-  `legs_slot` int(11) NOT NULL,
-  `Feet_slot` int(11) NOT NULL,
-  `fingerl_slot` int(11) NOT NULL,
-  `fingerr_slot` int(11) NOT NULL,
-  `melee_slot` int(11) NOT NULL,
-  `primary_slot` int(11) NOT NULL,
-  `secondary_slot` int(11) NOT NULL,
-  `custom1_slot` int(11) NOT NULL,
-  `custom2_slot` int(11) NOT NULL,
+  `charid` int(11) UNSIGNED NOT NULL DEFAULT '0',
+  `head_slot` int(11) UNSIGNED NOT NULL DEFAULT '0',
+  `chest_slot` int(11) UNSIGNED NOT NULL DEFAULT '0',
+  `hands_slot` int(11) UNSIGNED NOT NULL,
+  `legs_slot` int(11) UNSIGNED NOT NULL,
+  `Feet_slot` int(11) UNSIGNED NOT NULL,
+  `fingerl_slot` int(11) UNSIGNED NOT NULL,
+  `fingerr_slot` int(11) UNSIGNED NOT NULL,
+  `melee_slot` int(11) UNSIGNED NOT NULL,
+  `primary_slot` int(11) UNSIGNED NOT NULL,
+  `secondary_slot` int(11) UNSIGNED NOT NULL,
+  `custom1_slot` int(11) UNSIGNED NOT NULL,
+  `custom2_slot` int(11) UNSIGNED NOT NULL,
   PRIMARY KEY (`charid`),
   CONSTRAINT `equipk` FOREIGN KEY (`charid`) REFERENCES `character` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -76,8 +76,8 @@ CREATE TABLE `character_equip` (
 -- ----------------------------
 DROP TABLE IF EXISTS `character_inventory`;
 CREATE TABLE `character_inventory` (
-  `charid` int(11) NOT NULL DEFAULT '0',
-  `itemid` int(11) NOT NULL DEFAULT '0',
+  `charid` int(11) UNSIGNED NOT NULL DEFAULT '0',
+  `itemid` int(11) UNSIGNED NOT NULL DEFAULT '0',
   `expireson` datetime NOT NULL,
   PRIMARY KEY (`charid`),
   CONSTRAINT `CharInv` FOREIGN KEY (`charid`) REFERENCES `character` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -88,7 +88,7 @@ CREATE TABLE `character_inventory` (
 -- ----------------------------
 DROP TABLE IF EXISTS `clan`;
 CREATE TABLE `clan` (
-  `id` smallint(5) NOT NULL AUTO_INCREMENT,
+  `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(16) DEFAULT '',
   `cwpoints` int(11) NOT NULL DEFAULT '1000',
   PRIMARY KEY (`id`)
@@ -100,9 +100,9 @@ CREATE TABLE `clan` (
 -- ----------------------------
 DROP TABLE IF EXISTS `clan_members`;
 CREATE TABLE `clan_members` (
-  `clanid` smallint(5) NOT NULL DEFAULT '0',
-  `charid` int(11) NOT NULL DEFAULT '0',
-  `clangrade` tinyint(3) NOT NULL DEFAULT '0',
+  `clanid` smallint(5) UNSIGNED NOT NULL DEFAULT '0',
+  `charid` int(11) UNSIGNED NOT NULL DEFAULT '0',
+  `clangrade` tinyint(3) UNSIGNED NOT NULL DEFAULT '0',
   PRIMARY KEY (`clanid`,`charid`),
   KEY `CharID` (`charid`),
   CONSTRAINT `CharID` FOREIGN KEY (`charid`) REFERENCES `character` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
