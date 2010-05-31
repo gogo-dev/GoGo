@@ -43,6 +43,7 @@ CREATE TABLE `character` (
   `face` tinyint(1) NOT NULL DEFAULT '0',
   `xp` int(11) NOT NULL DEFAULT '0',
   `bp` int(11) NOT NULL DEFAULT '0',
+  `marker` tinyint(1) UNSIGNED NOT NULL DEFAULT '0'
   PRIMARY KEY (`id`),
   KEY `clanstuff` (`clanid`),
   KEY `AccountID` (`accountid`),
