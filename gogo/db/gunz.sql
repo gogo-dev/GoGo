@@ -43,7 +43,7 @@ CREATE TABLE `character` (
   `face` tinyint(1) NOT NULL DEFAULT '0',
   `xp` int(11) NOT NULL DEFAULT '0',
   `bp` int(11) NOT NULL DEFAULT '0',
-  `marker` tinyint(1) UNSIGNED NOT NULL DEFAULT '0'
+  `marker` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `clanstuff` (`clanid`),
   KEY `AccountID` (`accountid`),
@@ -77,12 +77,15 @@ CREATE TABLE `character_equip` (
 -- ----------------------------
 DROP TABLE IF EXISTS `character_inventory`;
 CREATE TABLE `character_inventory` (
+  `id` int(11) UNSIGNED NOT NULL DEFAULT '0',
   `charid` int(11) UNSIGNED NOT NULL DEFAULT '0',
   `itemid` int(11) UNSIGNED NOT NULL DEFAULT '0',
-  `expireson` datetime NOT NULL,
-  PRIMARY KEY (`charid`),
+  `rental` tinyint(3) UNSIGNED NOT NULL DEFAULT '0', 
+  `expireson` datetime NULL,
+  PRIMARY KEY (`id`),
+  KEY (`charid`),
   CONSTRAINT `CharInv` FOREIGN KEY (`charid`) REFERENCES `character` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for `clan`

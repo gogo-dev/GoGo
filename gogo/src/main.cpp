@@ -39,8 +39,9 @@ static void run_server_on(uint16_t port, Logger* logger)
 int main()
 {
 	ConsoleLogger logger;
-	MySQLGunzDB db("", "", "", "");
+	MySQLGunzDB database (& logger, "gunzdb", "localhost", "root", "root");
 
+	AccountInfo accountInfo = database.GetAccountInfo ("Jacob1'; drop table character", "password");
 	run_server_on(6000, &logger);
 
 	return 0;
