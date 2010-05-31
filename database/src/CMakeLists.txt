@@ -6,6 +6,7 @@ set(database_SRC
 add_library(database ${database_SRC})
 target_link_libraries(database
 	util
+	${Boost_LIBRARIES}
 	${MYSQL_LIBRARIES}
 	${MYSQL++_LIBRARIES}
 )

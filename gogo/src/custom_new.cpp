@@ -28,7 +28,7 @@ void* operator new(size_t bytes) throw(std::bad_alloc)
 	return mem;
 }
 
-void* operator new(size_t bytes, std::nothrow_t) throw()
+void* operator new(size_t bytes, const std::nothrow_t&) throw()
 {
 	return malloc(round_up_to_pow_2(bytes));
 }
@@ -43,24 +43,12 @@ void* operator new[](size_t bytes) throw(std::bad_alloc)
 	return mem;
 }
 
-void* operator new[](size_t bytes, std::nothrow_t) throw()
+void* operator new[](size_t bytes, const std::nothrow_t&) throw()
 {
 	return malloc(round_up_to_pow_2(bytes));
 }
 
-void operator delete(void* mem, std::nothrow_t) throw(std::bad_alloc)
-{
-	if(mem != NULL)
-		free(mem);
-}
-
 void operator delete(void* mem) throw()
-{
-	if(mem != NULL)
-		free(mem);
-}
-
-void operator delete[](void* mem, std::nothrow_t) throw(std::bad_alloc)
 {
 	if(mem != NULL)
 		free(mem);

@@ -1,6 +1,7 @@
 set(TESTS
 	test_packet_parameter_construction
 	test_packet_crypto
+	test_security
 	# Add more tests here.
 )
 

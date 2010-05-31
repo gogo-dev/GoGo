@@ -1,7 +1,8 @@
 #pragma once
 #include <util/ConsoleLogger.h>
 #include "GunzDB.h"
-#include "mysql++.h"
+#include <typeinfo>	// Fixes a bug in mysql on clang++.
+#include <mysql++.h>
 
 class MySQLGunzDB : public GunzDB
 {

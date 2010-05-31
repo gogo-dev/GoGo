@@ -35,10 +35,12 @@ void ConsoleLogger::print_line(const char* toOutput, color c)
 
 	SetConsoleTextAttribute(console, 15);
 
-#else     // POSIX
+#elif __GNUC__  // POSIX
 	if     (c == RED)    printf("\033[1;31m%s\033[0m\n", toOutput);
 	else if(c == YELLOW) printf("\033[1;33m%s\033[0m\n", toOutput);
 	else if(c == WHITE)  printf("\033[0;37m%s\033[0m\n", toOutput);
+#else
+	#warning "You might want to add your operating system to this list so that you get color output."
 #endif
 }
 

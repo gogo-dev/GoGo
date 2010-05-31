@@ -52,7 +52,7 @@ if(MSVC)
   add_definitions(/EHa -D_WIN32_WINNT=0x0501 /bigobj)
 else(MSVC)
   # TODO: Any add gcc flags you want in here. Optimization would be good ;)
-  add_definitions(-Wall -Wextra -Werror -Wfatal-errors -pipe)
+  add_definitions(-Wall -Wextra -Wfatal-errors -pipe -ansi -pedantic)
 endif(MSVC)
 
 # Add Source groups for lazy windows users.
