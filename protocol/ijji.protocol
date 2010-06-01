@@ -2429,7 +2429,7 @@ Command ID = 1AF8
 Command = "Quest.Test.Finish"
 Command Help = "Finish Quest"
 
-CCommand ID = 1F5
+Command ID = 1F5
 Command = "Admin.Announce"
 Command Help = "Announce"
 
