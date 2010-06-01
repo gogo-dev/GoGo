@@ -55,12 +55,14 @@ else(MSVC)
   add_definitions(-Wall -Wextra -Wfatal-errors -pipe -ansi -pedantic
 	  -Wnon-virtual-dtor -Wreorder -Wold-style-cast -Wchar-subscripts
 	  -Wcomment -Wformat -Wimplicit -Wmain -Wparentheses -Wno-long-long
-	  -Wshadow -Wpointer-arith -ftree-vrp)
+	  -Wpointer-arith -Wcast-qual -fstack-protector -Wdisabled-optimization)
 
   if(CMAKE_BUILD_TYPE EQUAL Debug)
+    add_definitions(-O0 -fmudflapth)
+  else()
     if(CMAKE_BUILD_TYPE EQUAL None)
     else()
-      add_definitions(-O3 -fwhole-program -fwpa)
+      add_definitions(-O3 -funroll-loops -funswitch-loops)
     endif()
   endif()
 endif(MSVC)
