@@ -10,6 +10,9 @@ private:
 	mysqlpp::Connection gunzconn;
 	Logger* logger;
 
+private:
+	static std::vector<Item> GetItemsFromRow(const mysqlpp::Row& row);
+
 public:
 	MySQLGunzDB(Logger* _logger, const char* dbname, const char* host, const char* user, const char* password, unsigned int port = 3306);
 	~MySQLGunzDB();
@@ -19,6 +22,6 @@ public:
 
 	//Character process related function
 	std::vector<Item> GetEquipment (boost::uint32_t cid);
-	std::list<Item> GetInventory (boost::uint32_t cid);
-	CharacterInfo GetCharacterInfo(boost::uint32_t cid, boost::uint8_t marker);
+	std::vector<Item> GetInventory (boost::uint32_t cid);
+	CharacterInfo GetCharacterInfo(boost::uint32_t cid, boost::uint8_t slot);
 };

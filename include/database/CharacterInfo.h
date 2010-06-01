@@ -1,7 +1,7 @@
 #pragma once
 #include <boost/cstdint.hpp>
-#include <list>
 #include <vector>
+#include <string>
 #include "Item.h"
 
 struct CharacterInfo
@@ -21,5 +21,5 @@ struct CharacterInfo
 	std::vector<Item> Equipment;//12;
 	boost::uint32_t CharacterAccess;
     boost::uint32_t ClanId;
-    std::list<Item> Inventory;
+    std::vector<Item> Inventory;
 };
