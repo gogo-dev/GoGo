@@ -7,6 +7,6 @@ set(TESTS
 
 foreach(test ${TESTS})
 	add_executable(${test} ${test})
-	target_link_libraries(${test} net ${Boost_LIBRARIES})
+	target_link_libraries(${test} util net ${Boost_LIBRARIES})
 	add_test(${test} ${test})
 endforeach()
