@@ -31,71 +31,11 @@ public:
 	                              const boost::uint8_t* /* rawParameters */,
 	                              boost::uint16_t /* length */)> OnFailedParse;
 
-	// Local information
-	boost::signals2::signal<void ()> Local_Info;
-
-	// Local echo test
-	boost::signals2::signal<void (const std::string& /* Message */)> Local_Echo;
-
-	// Local Login
-	boost::signals2::signal<void (boost::uint64_t /* uidComm */, boost::uint64_t /* uidPlayer */)> Local_Login;
-
-	// This command
-	boost::signals2::signal<void ()> Help;
-
-	// Version description
-	boost::signals2::signal<void ()> Version;
-
-	// Debug Test
-	boost::signals2::signal<void ()> DebugTest;
-
-	// Enum server list
-	boost::signals2::signal<void ()> Net_Enum;
-
-	// Connect to server
-	boost::signals2::signal<void (const std::string& /* Address */)> Net_Connect;
-
-	// Disconnect to server
-	boost::signals2::signal<void ()> Net_Disconnect;
-
-	// Clear Connection
-	boost::signals2::signal<void (boost::uint64_t /* uid */)> Net_Clear;
-
-	// Check ping time
-	boost::signals2::signal<void (boost::uint64_t /* uid */)> Net_CheckPing;
-
 	// Ping
 	boost::signals2::signal<void (boost::uint32_t /* TimeStamp */)> Net_Ping;
 
 	// Pong
 	boost::signals2::signal<void (boost::uint32_t /* TimeStamp */)> Net_Pong;
-
-	// Ping
-	boost::signals2::signal<void (boost::uint32_t /* TimeStamp */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* CRCInfo */)> HShield_Ping;
-
-	// Pong
-	boost::signals2::signal<void (boost::uint32_t /* TimeStamp */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* AckMsg */)> HShield_Pong;
-
-	// On Connect
-	boost::signals2::signal<void ()> Net_OnConnect;
-
-	// On Disconnect
-	boost::signals2::signal<void ()> Net_OnDisConnect;
-
-	// On Error
-	boost::signals2::signal<void (boost::int32_t /* ErrorCode */)> Net_OnError;
-
-	// Connect to zone-server
-	boost::signals2::signal<void ()> Net_ConnectToZoneServer;
-
-	// Request Net information
-	boost::signals2::signal<void ()> Net_RequestInfo;
-
-	// Response Net information
-	boost::signals2::signal<void (const std::string& /* Information */)> Net_ResponseInfo;
-
-	// Echo test
-	boost::signals2::signal<void (const std::string& /* Message */)> Net_Echo;
 
 	// Announce Server Message
 	boost::signals2::signal<void (boost::uint32_t /* Type */, const std::string& /* Msg */)> Match_Announce;
@@ -114,18 +54,6 @@ public:
 
 	// Login from Netmarble
 	boost::signals2::signal<void (const std::string& /* CPCookie */, const std::string& /* SpareParam */, boost::int32_t /* CommandVersion */, boost::uint32_t /* nChecksumPack */)> Match_LoginNetmarble;
-
-	// Login from Netmarble Japan
-	boost::signals2::signal<void (const std::string& /* LoginID */, const std::string& /* LoginPW */, boost::int32_t /* CommandVersion */, boost::uint32_t /* nChecksumPack */)> Match_LoginNetmarbleJP;
-
-	// Login from DBAgent
-	boost::signals2::signal<void (boost::uint64_t /* CommUID */, const std::string& /* LoginID */, const std::string& /* Name */, boost::int32_t /* Sex */, bool /* bFreeLoginIP */, boost::uint32_t /* nChecksumPack */)> Match_LoginFromDBAgent;
-
-	// Login Failed from DBAgent
-	boost::signals2::signal<void (boost::uint64_t /* CommUID */, boost::int32_t /* Result */)> Match_LoginFailedFromDBAgent;
-
-	// FinH
-	boost::signals2::signal<void ()> Match_FinH;
 
 	// disconnect reason
 	boost::signals2::signal<void (boost::uint32_t /* messageid */)> MC_MATCH_DISCONNMSG;
@@ -177,9 +105,6 @@ public:
 
 	// Chat to Channel
 	boost::signals2::signal<void (boost::uint64_t /* uidChannel */, const std::string& /* PlayerName */, const std::string& /* Chat */, boost::int32_t /* nGrade */)> Channel_Chat;
-
-	// Notify to Dumb Player
-	boost::signals2::signal<void ()> Channel_PlayerDumb;
 
 	// Request the Channel Rule
 	boost::signals2::signal<void (boost::uint64_t /* uidChannel */)> Channel_Request_Rule;
@@ -420,30 +345,6 @@ public:
 
 	// Response Create Character
 	boost::signals2::signal<void (boost::int32_t /* Result */, const std::string& /* CharName */)> Match_ResponseCreateChar;
-
-	// Request Copy To TestServer
-	boost::signals2::signal<void (boost::uint64_t /* uidChar */)> Match_RequestCopyToTestServer;
-
-	// Response Copy To TestServer
-	boost::signals2::signal<void (boost::int32_t /* Result */)> Match_ResponseCopyToTestServer;
-
-	// Request Character Info Detail
-	boost::signals2::signal<void (boost::uint64_t /* uid */, const std::string& /* CharName */)> Match_RequestCharInfoDetail;
-
-	// Response Character Info Detail
-	boost::signals2::signal<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* CharInfo */)> Match_ResponseCharInfoDetail;
-
-	// Request Simple CharInfo
-	boost::signals2::signal<void (boost::uint64_t /* uid */)> Match_RequestSimpleCharInfo;
-
-	// Response Simple CharInfo
-	boost::signals2::signal<void (boost::uint64_t /* uid */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* SimpleCharInfo */)> Match_ResponseSimpleCharInfo;
-
-	// Request My Simple CharInfo
-	boost::signals2::signal<void (boost::uint64_t /* uidChar */)> Match_RequestMySimpleCharInfo;
-
-	// Response My Simple CharInfo
-	boost::signals2::signal<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* MySimpleCharInfo */)> Match_ResponseMySimpleCharInfo;
 
 	// Request Buy Item
 	boost::signals2::signal<void (boost::uint64_t /* uidChar */, boost::uint32_t /* ItemID */)> Match_RequestBuyItem;
@@ -850,38 +751,8 @@ public:
 	// Finish Quest
 	boost::signals2::signal<void ()> Quest_Test_Finish;
 
-	// BirdTest1
-	boost::signals2::signal<void (boost::int32_t /* Result */, boost::uint64_t /* uidPlayer */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* Dummy */)> Test_BirdTest1;
-
-	// PeerTest Ping
-	boost::signals2::signal<void ()> Test_PeerTest_Ping;
-
-	// PeerTest Pong
-	boost::signals2::signal<void ()> Test_PeerTest_Pong;
-
 	// Announce
 	boost::signals2::signal<void (boost::uint64_t /* uidAdmin */, const std::string& /* Msg */, boost::uint32_t /* MsgType */)> Admin_Announce;
-
-	// Ping to All Clients
-	boost::signals2::signal<void ()> Admin_PingToAll;
-
-	// Request Server Info
-	boost::signals2::signal<void (boost::uint64_t /* uidAdmin */)> Admin_RequestServerInfo;
-
-	// Response Server Info
-	boost::signals2::signal<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* ServerInfo */)> Admin_ResponseServerInfo;
-
-	// Halt Server
-	boost::signals2::signal<void (boost::uint64_t /* uidAdmin */)> Admin_Halt;
-
-	// Admin.Terminal
-	boost::signals2::signal<void (boost::uint64_t /* uidAdmin */, const std::string& /* message */)> Admin_Terminal;
-
-	// Request Update Account UGrade
-	boost::signals2::signal<void (boost::uint64_t /* uidAdmin */, const std::string& /* uidTargetCharName */)> Admin_RequestUpdateAccountUGrade;
-
-	// Response Update Account UGrade
-	boost::signals2::signal<void (boost::int32_t /* Result */, boost::uint64_t /* uidChar */)> Admin_ResponseUpdateAccountUGrade;
 
 	// Request Ban Player
 	boost::signals2::signal<void (boost::uint64_t /* uidAdmin */, const std::string& /* uidTargetCharName */)> Admin_RequestBanPlayer;
@@ -889,14 +760,8 @@ public:
 	// Response Ban Player
 	boost::signals2::signal<void (boost::int32_t /* Result */)> Admin_ResponseBanPlayer;
 
-	// Request Switch LadderGame
-	boost::signals2::signal<void (boost::uint64_t /* uidAdmin */, bool /* IsEnabled */)> Admin_RequestSwitchLadderGame;
-
 	// Hide Admin Player
 	boost::signals2::signal<void ()> Admin_Hide;
-
-	// Reload Client Hash
-	boost::signals2::signal<void ()> Admin_ReloadClientHash;
 
 	// reset all hacking block
 	boost::signals2::signal<void ()> MC_ADMIN_RESET_ALL_HACKING_BLOCK;
@@ -904,98 +769,14 @@ public:
 	// reload gamble item info
 	boost::signals2::signal<void ()> MC_ADMIN_RELOAD_GAMBLEITEM;
 
-	// dump gamble item info
-	boost::signals2::signal<void ()> MC_ADMIN_DUMP_GAMBLEITEM_LOG;
-
 	// choose admin as commander
 	boost::signals2::signal<void ()> MC_ADMIN_ASSASIN;
-
-	// Request UID
-	boost::signals2::signal<void (boost::int32_t /* Size */)> Net_RequestUID;
-
-	// Response UID
-	boost::signals2::signal<void (boost::uint64_t /* Start */, boost::uint64_t /* End */)> Net_ResponseUID;
-
-	// Peer Connection Opened
-	boost::signals2::signal<void (boost::uint64_t /* uidPlayer */)> Peer_Open;
-
-	// Change Object Weapon
-	boost::signals2::signal<void (boost::int32_t /* WeaponID */)> Peer_ObjectChangeWeapon;
-
-	// Change Object Parts
-	boost::signals2::signal<void (boost::int32_t /* PartsType */, boost::int32_t /* PartsID */)> Peer_ObjectChangeParts;
-
-	// Object Damage
-	boost::signals2::signal<void (boost::uint64_t /* TargetUID */, boost::int32_t /* Damage */)> Peer_ObjectDamage;
-
-	// Chat
-	boost::signals2::signal<void (boost::int32_t /* TeamID */, const std::string& /* Msg */)> Peer_Chat;
-
-	// ChatIcon
-	boost::signals2::signal<void (bool /* bStart */)> Peer_ChatIcon;
-
-	// React
-	boost::signals2::signal<void (float /* Time */, boost::int32_t /* ReactionID */)> Peer_Reaction;
-
-	// EnchantDamage
-	boost::signals2::signal<void (boost::uint64_t /* OwnerUID */, boost::uint64_t /* TargetUID */)> Peer_EnchantDamage;
-
-	// Shot
-	boost::signals2::signal<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* Info */)> Peer_Shot;
-
-	// ShotMelee
-	boost::signals2::signal<void (float /* Time */, const boost::array<float, 3>& /* Position */, boost::int32_t /* nShot */)> Peer_Shot_Melee;
-
-	// Reload
-	boost::signals2::signal<void ()> Peer_Reload;
-
-	// Object SpMotion
-	boost::signals2::signal<void (boost::int32_t /* SelType */)> Peer_ObjectSpMotion;
-
-	// ChangeCharacter
-	boost::signals2::signal<void ()> Peer_ChangeCharacter;
-
-	// Die
-	boost::signals2::signal<void (boost::uint64_t /* Attacker */)> Peer_Die;
-
-	// Spawn
-	boost::signals2::signal<void (const boost::array<float, 3>& /* Position */, const boost::array<float, 3>& /* Direction */)> Peer_Spawn;
-
-	// Dash
-	boost::signals2::signal<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* DashInfo */)> Peer_Dash;
-
-	// Skill
-	boost::signals2::signal<void (float /* Time */, boost::int32_t /* SkillID */, boost::int32_t /* SelType */)> Peer_ObjectSkill;
-
-	// BasicInfo
-	boost::signals2::signal<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* Info */)> Peer_CharacterBasicInfo;
-
-	// HPInfo
-	boost::signals2::signal<void (float /* fHP */)> Peer_CharacterHPInfo;
-
-	// HPAPInfo
-	boost::signals2::signal<void (float /* fHP */, float /* fAP */)> Peer_CharacterHPAPInfo;
-
-	// UDP Test on Peer-to-Peer
-	boost::signals2::signal<void ()> Peer_UDPTest;
-
-	// UDP Test Reply on Peer-to-Peer
-	boost::signals2::signal<void ()> Peer_UDPTestReply;
-
-	// Ping
-	boost::signals2::signal<void (boost::uint32_t /* TimeStamp */)> Peer_Ping;
-
-	// Pong
-	boost::signals2::signal<void (boost::uint32_t /* TimeStamp */)> Peer_Pong;
 
 	// Connect Agent to MatchServer
 	boost::signals2::signal<void (const std::string& /* Address */, boost::int32_t /* Port */)> Agent_Connect;
 
 	// Unregister Agent from MatchServer
 	boost::signals2::signal<void ()> Agent_Disconnect;
-
-	// Client login
-	boost::signals2::signal<void (boost::uint64_t /* uidComm */, boost::uint64_t /* uidPlayer */)> Agent_LocalLogin;
 
 	// Register Agent to MatchServer
 	boost::signals2::signal<void (const std::string& /* Address */, boost::int32_t /* Port */, boost::int32_t /* UDPPort */)> Match_RegisterAgent;
@@ -1020,213 +801,6 @@ public:
 
 	// Let agent to Relay Peer
 	boost::signals2::signal<void (boost::uint64_t /* PlayerUID */, boost::uint64_t /* PeerCharUID */, boost::uint64_t /* StageUID */)> Agent_RelayPeer;
-
-	// Ready to relay peer
-	boost::signals2::signal<void (boost::uint64_t /* PlayerUID */, boost::uint64_t /* PeerCharUID */)> Agent_PeerReady;
-
-	// Locate Agent to Client
-	boost::signals2::signal<void (boost::uint64_t /* AgentUID */, const std::string& /* Address */, boost::int32_t /* Port */, boost::int32_t /* UDPPort */)> Agent_LocateToClient;
-
-	// Response Login result to Client
-	boost::signals2::signal<void ()> Agent_ResponseLogin;
-
-	// Bind Client to Peer by TCP
-	boost::signals2::signal<void (boost::uint64_t /* CharUID */)> Agent_PeerBindTCP;
-
-	// Bind Client to Peer by UDP
-	boost::signals2::signal<void (boost::uint64_t /* CharUID */, const std::string& /* strLocalIP */, boost::uint32_t /* nLocalPort */, const std::string& /* strIP */, boost::uint32_t /* nPort */)> Agent_PeerBindUDP;
-
-	// Unbind Client from Peer
-	boost::signals2::signal<void (boost::uint64_t /* CharUID */)> Agent_PeerUnbind;
-
-	// Error about Agent
-	boost::signals2::signal<void (boost::int32_t /* ErrorCode */)> Agent_Error;
-
-	// Tunneling TCP
-	boost::signals2::signal<void (boost::uint64_t /* SendUID */, boost::uint64_t /* RecvUID */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* Data */)> Agent_TunnelingTCP;
-
-	// Tunneling UDP
-	boost::signals2::signal<void (boost::uint64_t /* SendUID */, boost::uint64_t /* RecvUID */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* Data */)> Agent_TunnelingUDP;
-
-	// Allow Tunneling by TCP
-	boost::signals2::signal<void ()> Agent_AllowTunnelingTCP;
-
-	// Allow Tunneling by UDP
-	boost::signals2::signal<void ()> Agent_AllowTunnelingUDP;
-
-	// Debug Ping Test for Agent
-	boost::signals2::signal<void (boost::uint64_t /* TestUID */)> Agent_DebugPing;
-
-	// Trigger Debug code for Agent
-	boost::signals2::signal<void (const std::string& /* strMsg */)> Agent_DebugTest;
-
-	// Ping
-	boost::signals2::signal<void (boost::uint32_t /* TimeStamp */)> Peer_Ping_Time;
-
-	// Pong
-	boost::signals2::signal<void (boost::uint32_t /* IPAddress */, boost::uint32_t /* TimeStamp */)> Peer_Pong_Time;
-
-	// make announce for scheduler.
-	boost::signals2::signal<void (const std::string& /* strAnnounce */)> Announce_;
-
-	// send announce of scheduler.
-	boost::signals2::signal<void (const std::string& /* strAnnounce */)> Announce_Schedule;
-
-	// if server type is clan server, then this command is can chage server status.
-	boost::signals2::signal<void ()> Switchclanserverstatus_change;
-
-	// up
-	boost::signals2::signal<void ()> Switchclanserverstatus_up_;
-
-	// stop server
-	boost::signals2::signal<void (const std::string& /* announce */)> MC_MATCH_SCHEDULE_STOP_SERVER;
-
-	// test
-	boost::signals2::signal<void (boost::int32_t /* testcode */)> test;
-
-	// connect
-	boost::signals2::signal<void (boost::uint64_t /* KeeperManagerUID */)> MC_RESPONSE_KEEPER_MANAGER_CONNECT;
-
-	// keeper manager request to keeper do that announce to it's match server
-	boost::signals2::signal<void (const std::string& /* announce */)> MC_REQUEST_KEEPERMGR_ANNOUNCE;
-
-	// keeper request to matchserver do that announce
-	boost::signals2::signal<void (const std::string& /* announce */)> MC_REQUEST_KEEPER_ANNOUNCE;
-
-	// Check ping
-	boost::signals2::signal<void ()> Checkping;
-
-	// request matchserver status from keeper
-	boost::signals2::signal<void ()> requestmatchserverstatus;
-
-	// response matchserver status
-	boost::signals2::signal<void (boost::int32_t /* isopenDB */, const std::string& /* serverreleaseversion */, boost::uint8_t /* connectedagentcount */)> responsematchserverststus;
-
-	// request download server patch file
-	boost::signals2::signal<void ()> MC_REQUEST_DOWNLOAD_SERVER_PATCH_FILE;
-
-	// request stop server
-	boost::signals2::signal<void ()> MC_REQUEST_STOP_SERVER;
-
-	// request current server state
-	boost::signals2::signal<void ()> MC_REQUEST_CONNECTION_STATE;
-
-	// response current server state
-	boost::signals2::signal<void (boost::int32_t /* resut */)> MC_RESPONSE_CONNECTION_STATE;
-
-	// request server hearbeat check
-	boost::signals2::signal<void ()> MC_REQUEST_SERVER_HEARBEAT;
-
-	// response server hearbeat check
-	boost::signals2::signal<void ()> MC_RESPONSE_SERVER_HEARHEAT;
-
-	// request start match server
-	boost::signals2::signal<void ()> MC_REQUEST_START_SERVER;
-
-	// request keeper connect to match server
-	boost::signals2::signal<void ()> MC_REQUEST_KEEPER_CONNECT_MATCHSERVER;
-
-	// response keeper connect to match server
-	boost::signals2::signal<void (boost::uint64_t /* uid */)> MC_RESPONSE_KEEPER_CONNECT_MATCHSERVER;
-
-	// request check match server heartbeat
-	boost::signals2::signal<void ()> MC_REQUEST_REFRESH_SERVER;
-
-	// request prepare patch
-	boost::signals2::signal<void ()> MC_REQUEST_PREPARE_SERVER_PATCH;
-
-	// request patching
-	boost::signals2::signal<void ()> MC_REQUEST_SERVER_PATCH;
-
-	// request last job state
-	boost::signals2::signal<void ()> MC_REQUEST_LAST_JOB_STATE;
-
-	// response last job state
-	boost::signals2::signal<void (boost::int32_t /* job */, boost::int32_t /* result */)> MC_RESPONSE_LAST_JOB_STATE;
-
-	// request config state
-	boost::signals2::signal<void ()> MC_REQUEST_CONFIG_STATE;
-
-	// response config state
-	boost::signals2::signal<void (boost::int32_t /* serverconfig */, boost::int32_t /* agentconfig */, boost::int32_t /* downloadconfig */, boost::int32_t /* prepareconfig */, boost::int32_t /* patchconfig */)> MC_RESPONSE_CONFIG_STATE;
-
-	// reqeust set one config
-	boost::signals2::signal<void (boost::int32_t /* configid */, boost::int32_t /* confingstate */)> MC_REQUEST_SET_ONE_CONFIG;
-
-	// response set one config
-	boost::signals2::signal<void (boost::int32_t /* configid */, boost::int32_t /* confingstate */)> MC_RESPONSE_SET_ONE_CONFIG;
-
-	// request stop agent
-	boost::signals2::signal<void ()> MC_REQUEST_STOP_AGENT_SERVER;
-
-	// request start agent
-	boost::signals2::signal<void ()> MC_REQUEST_START_AGENT_SERVER;
-
-	// request download agent patch file
-	boost::signals2::signal<void ()> MC_REQUEST_DOWNLOAD_AGENT_PATCH_FILE;
-
-	// request prepare agent patch
-	boost::signals2::signal<void ()> MC_REQUEST_PREPARE_AGENT_PATCH;
-
-	// request agent patch
-	boost::signals2::signal<void ()> MC_REQUEST_AGENT_PATCH;
-
-	// request reset patch job state
-	boost::signals2::signal<void ()> MC_REQUEST_RESET_PATCH;
-
-	// request disconnect match server
-	boost::signals2::signal<void ()> MC_REQUEST_DISCONNECT_SERVER;
-
-	// request restart windows
-	boost::signals2::signal<void ()> MC_REQUEST_REBOOT_WINDOWS;
-
-	// request stop server with administrator announce.
-	boost::signals2::signal<void ()> MC_REQUEST_ANNOUNCE_STOP_SERVER;
-
-	// response stop server with administrator announce.
-	boost::signals2::signal<void ()> MC_RESPONSE_ANNOUNCE_STOP_SERVER;
-
-	// reqeust keeper manager schedule
-	boost::signals2::signal<void (boost::int32_t /* type */, boost::int32_t /* year */, boost::int32_t /* month */, boost::int32_t /* day */, boost::int32_t /* hour */, boost::int32_t /* min */, boost::int32_t /* count */, boost::int32_t /* command */, const std::string& /* announce */)> MC_REQUEST_KEEPER_MANAGER_SCHEDULE;
-
-	// response keeper manager schedule
-	boost::signals2::signal<void (boost::int32_t /* commandtype */, const boost::array<boost::uint16_t, 3>& /* result */)> MC_RESPONSE_KEEPER_MANAGER_SCHEDULE;
-
-	// request current state of server and agent
-	boost::signals2::signal<void ()> MC_REQUEST_SERVER_AGENT_STATE;
-
-	// response current state of server and agent
-	boost::signals2::signal<void (boost::int32_t /* serverstate */, boost::int32_t /* agentstate */)> MC_RESPONSE_SERVER_AGENT_STATE;
-
-	// request server status
-	boost::signals2::signal<void ()> MC_REQUEST_SERVER_STATUS;
-
-	// start server.
-	boost::signals2::signal<void ()> MC_REQUEST_START_SERVER_SCHEDULE;
-
-	// request gunz client file crc32 checksum write on server.ini.
-	boost::signals2::signal<void (boost::uint32_t /* gunzclientfilecrc32checksum */)> MC_REQUEST_WRITE_CLIENT_CRC;
-
-	// response write client crc32 request
-	boost::signals2::signal<void (bool /* result */)> MC_RESPONSE_WRITE_CLIENT_CRC;
-
-	// keeper manager send to keeper request server reload server.ini file.
-	boost::signals2::signal<void (const std::string& /* filelist */)> MC_REQUEST_KEEPER_RELOAD_SERVER_CONFIG;
-
-	// keeper request server reload server.ini file
-	boost::signals2::signal<void (const std::string& /* filelist */)> MC_REQUEST_RELOAD_CONFIG;
-
-	// 4
-	boost::signals2::signal<void (const std::string& /* newhashvalue */)> MC_REQUEST_KEEPER_ADD_HASHMAP;
-
-	// 4
-	boost::signals2::signal<void (bool /* result */)> MC_RESPONSE_KEEPER_ADD_HASHMAP;
-
-	// 3
-	boost::signals2::signal<void (const std::string& /* newhashvalue */)> MC_REQUEST_ADD_HASHMAP;
-
-	// 4
-	boost::signals2::signal<void (bool /* result */)> MC_RESPONSE_ADD_HASHMAP;
 
 	// Request my quest item list
 	boost::signals2::signal<void (boost::uint64_t /* uid */)> Questitem;
@@ -1293,69 +867,6 @@ public:
 
 	// response monster bible info
 	boost::signals2::signal<void (boost::uint64_t /* requester */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* Monsterbibleinfo */)> Quest_Bible_Response;
-
-	// request connectable server list info.
-	boost::signals2::signal<void ()> MC_REQUEST_SERVER_LIST_INFO;
-
-	// response connectable server list info
-	boost::signals2::signal<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* serverlist */)> MC_RESPONSE_SERVER_LIST_INFO;
-
-	// response connected ip country code is blocked
-	boost::signals2::signal<void (const std::string& /* Countrycode */, const std::string& /* RoutingURL */)> MC_RESPONSE_BLOCK_COUNTRY_CODE_IP;
-
-	// response block ip connected.
-	boost::signals2::signal<void (const std::string& /* Comment */)> MC_RESPONSE_BLOCK_COUNTRYCODE;
-
-	// update use country filter.
-	boost::signals2::signal<void ()> MC_LOCAL_UPDATE_USE_COUNTRY_FILTER;
-
-	// get db ip to country code.
-	boost::signals2::signal<void ()> MC_LOCAL_GET_DB_IP_TO_COUNTRY;
-
-	// get db block country code.
-	boost::signals2::signal<void ()> MC_LOCAL_GET_DB_BLOCK_COUNTRY_CODE;
-
-	// get db custom ip.
-	boost::signals2::signal<void ()> MC_LOCAL_GET_DB_CUSTOM_IP;
-
-	// update ip to country code.
-	boost::signals2::signal<void ()> MC_LOCAL_UPDAET_IP_TO_COUNTRY;
-
-	// update block country code.
-	boost::signals2::signal<void ()> MC_LOCAL_UPDAET_BLOCK_COUTRYCODE;
-
-	// update custom ip.
-	boost::signals2::signal<void ()> MC_LOCAL_UPDAET_CUSTOM_IP;
-
-	// update accept invalid ip.
-	boost::signals2::signal<void ()> MC_LOCAL_UPDATE_ACCEPT_INVALID_IP;
-
-	// request new client hash value
-	boost::signals2::signal<void (const std::string& /* newrandomvalue */)> MC_REQUEST_XTRAP_HASHVALUE;
-
-	// response new client hash value
-	boost::signals2::signal<void (const std::string& /* newhashvalue */)> MC_RESPONSE_XTRAP_HASHVALUE;
-
-	// request Irrational User
-	boost::signals2::signal<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* communicationbuffer */)> MC_REQUEST_XTRAP_DETECTCRACK;
-
-	// request new client seed key
-	boost::signals2::signal<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* communicationbuffer */)> MC_REQUEST_XTRAP_SEEDKEY;
-
-	// response client seed key
-	boost::signals2::signal<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* communicationbuffer */)> MC_RESPONSE_XTRAP_SEEDKEY;
-
-	// requet new gameguard auth
-	boost::signals2::signal<void (boost::uint32_t /* index */, boost::uint32_t /* value1 */, boost::uint32_t /* value2 */, boost::uint32_t /* value3 */)> MC_REQUEST_GAMEGUARD_AUTH_INDEX;
-
-	// game client response new gameguard auth to server
-	boost::signals2::signal<void (boost::uint32_t /* index */, boost::uint32_t /* value1 */, boost::uint32_t /* value2 */, boost::uint32_t /* value3 */)> MC_RESPONSE_GAMEGUARD_AUTH_INDEX;
-
-	// requet new gameguard auth
-	boost::signals2::signal<void (boost::uint32_t /* index */, boost::uint32_t /* value1 */, boost::uint32_t /* value2 */, boost::uint32_t /* value3 */)> MC_REQUEST_GAMEGUARD_AUTH_VALUE;
-
-	// game client response new gameguard auth to server
-	boost::signals2::signal<void (boost::uint32_t /* index */, boost::uint32_t /* value1 */, boost::uint32_t /* value2 */, boost::uint32_t /* value3 */)> MC_RESPONSE_GAMEGUARD_AUTH_VALUE;
 
 	// give oneself up
 	boost::signals2::signal<void ()> MC_REQUEST_GIVE_ONESELF_UP;
