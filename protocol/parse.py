@@ -193,23 +193,13 @@ Registry::Registry()
 Registry::~Registry()
 {
 }
-
-void Registry::dispatch(uint16_t packetID,
-                              const uint8_t* parameters,
-                              uint16_t length)
-{
-	const uint8_t* paramPtr = parameters;
-
-	try {
-		switch(packetID)
-		{
 """
 
 # Just accept it. LOL.
 def make_packet_registry_cpp_footer():
-	return "\t\t}\n\t} catch(...) {\n\t\t\tthis->OnFailedParse(packetID, parameters, length);\n\t}\n}\n\n}"
+	return "\n\n}"
 
-def make_case(command):
+def make_packet_registry_functions(commands):
 	extractorMap = {
 		0x00 : ("int32_t", "extract_int32"),
 		0x01 : ("uint32_t", "extract_uint32"),
@@ -227,24 +217,52 @@ def make_case(command):
 		0x0E : ("uint16_t", "extract_uint16")
 	}
 
-	ret = ''.join(['\t\tcase protocol::', command.name, '::packetID:\n\t\t\t{\n'])
-
-	for (p, i) in zip(command.parameters, range(9999999)):
-		(type, func) = extractorMap[p.id]
-		ret = ''.join([ret, '\t\t\t\t', type, ' p', str(i), ' = ', func, '(parameters, &paramPtr, length);\n'])
-
-	ret = ''.join([ret, '\t\t\t\tthis->', command.name, '('])
-
-	for (p, i) in zip(command.parameters, range(9999999)):
-		sep = ''
-		if i == 0:
-			sep = ''
+	def make_parameter_name(default, packetParameters):
+		if len(packetParameters) > 0:
+			return default
 		else:
-			sep = ', '
+			return ''
 
-		ret = ''.join([ret, sep, 'p', str(i)])
+	ret = ""
 
-	ret = ''.join([ret, ');\n\t\t\t\tbreak;\n\t\t\t}'])
+	for c in commands:
+		ret = ''.join([ret, '\n\nstatic void do_', c.name, '(Registry* self, const uint8_t*',
+			make_parameter_name(" parameters", c.parameters),
+			", uint16_t", make_parameter_name(" length", c.parameters),
+			")\n{\n", make_parameter_name("\tconst uint8_t* paramPtr = parameters;\n\n", c.parameters)])
+
+		for (p, i) in zip(c.parameters, range(9999999)):
+			(type, func) = extractorMap[p.id]
+			ret = ''.join([ret, '\t', type, ' p', str(i), ' = ', func, '(parameters, &paramPtr, length);\n'])
+
+		ret = ''.join([ret, '\n\treturn self->', c.name, '('])
+
+		for (p, i) in zip(c.parameters, range(9999999)):
+			sep = ''
+			if i == 0:
+				sep = ''
+			else:
+				sep = ', '
+
+			ret = ''.join([ret, sep, 'p', str(i)])
+
+		ret = ''.join([ret, ');', '\n}'])
+
+	return ret
+
+def make_dispatch(commands):
+	ret = """\n\nvoid Registry::dispatch(uint16_t packetID,
+                              const uint8_t* parameters,
+                              uint16_t length)
+{
+	try {
+		switch(packetID)
+		{"""
+
+	for c in commands:
+		ret = ''.join([ret, '\n\t\t\tcase protocol::', c.name, '::packetID: return do_', c.name, '(this, parameters, length);'])
+
+	ret = ''.join([ret, '\n\t\t}\n\t} catch(...) {\n\t\tthis->OnFailedParse(packetID, parameters, length);\n\t}\n}'])
 
 	return ret
 
@@ -252,15 +270,8 @@ def build_packet_registry_cpp(commands):
 	f = open('net/src/PacketRegistry.cpp', 'w')
 
 	print(make_packet_registry_cpp_header(), end='', file=f)
-
-	for c in commands:
-		end = ''
-		if c == commands[-1]:
-			end = ''
-		else:
-			end = '\n'
-		print(make_case(c), end=end, file=f);
-
+	print(make_packet_registry_functions(commands), end='', file=f)
+	print(make_dispatch(commands), end='', file=f)
 	print(make_packet_registry_cpp_footer(), end='', file=f)
 
 def make_all_packet_types_header_header():

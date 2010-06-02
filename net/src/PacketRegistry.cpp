@@ -43,2986 +43,4600 @@ Registry::~Registry()
 {
 }
 
+
+static void do_Local_Info(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->Local_Info();
+}
+
+static void do_Local_Echo(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	std::string p0 = extract_string(parameters, &paramPtr, length);
+
+	return self->Local_Echo(p0);
+}
+
+static void do_Local_Login(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Local_Login(p0, p1);
+}
+
+static void do_Help(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->Help();
+}
+
+static void do_Version(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->Version();
+}
+
+static void do_DebugTest(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->DebugTest();
+}
+
+static void do_Net_Enum(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->Net_Enum();
+}
+
+static void do_Net_Connect(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	std::string p0 = extract_string(parameters, &paramPtr, length);
+
+	return self->Net_Connect(p0);
+}
+
+static void do_Net_Disconnect(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->Net_Disconnect();
+}
+
+static void do_Net_Clear(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Net_Clear(p0);
+}
+
+static void do_Net_CheckPing(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Net_CheckPing(p0);
+}
+
+static void do_Net_Ping(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
+
+	return self->Net_Ping(p0);
+}
+
+static void do_Net_Pong(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
+
+	return self->Net_Pong(p0);
+}
+
+static void do_HShield_Ping(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
+	tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
+
+	return self->HShield_Ping(p0, p1);
+}
+
+static void do_HShield_Pong(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
+	tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
+
+	return self->HShield_Pong(p0, p1);
+}
+
+static void do_Net_OnConnect(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->Net_OnConnect();
+}
+
+static void do_Net_OnDisConnect(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->Net_OnDisConnect();
+}
+
+static void do_Net_OnError(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Net_OnError(p0);
+}
+
+static void do_Net_ConnectToZoneServer(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->Net_ConnectToZoneServer();
+}
+
+static void do_Net_RequestInfo(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->Net_RequestInfo();
+}
+
+static void do_Net_ResponseInfo(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	std::string p0 = extract_string(parameters, &paramPtr, length);
+
+	return self->Net_ResponseInfo(p0);
+}
+
+static void do_Net_Echo(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	std::string p0 = extract_string(parameters, &paramPtr, length);
+
+	return self->Net_Echo(p0);
+}
+
+static void do_Match_Announce(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
+	std::string p1 = extract_string(parameters, &paramPtr, length);
+
+	return self->Match_Announce(p0, p1);
+}
+
+static void do_Clock_Synchronize(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
+
+	return self->Clock_Synchronize(p0);
+}
+
+static void do_Match_Login(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	std::string p0 = extract_string(parameters, &paramPtr, length);
+	std::string p1 = extract_string(parameters, &paramPtr, length);
+	int32_t p2 = extract_int32(parameters, &paramPtr, length);
+	uint32_t p3 = extract_uint32(parameters, &paramPtr, length);
+	tuple<Buffer, size_t, size_t> p4 = extract_blob(parameters, &paramPtr, length);
+
+	return self->Match_Login(p0, p1, p2, p3, p4);
+}
+
+static void do_Match_ResponseLogin(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+	std::string p1 = extract_string(parameters, &paramPtr, length);
+	array<uint16_t, 3> p2 = extract_vector(parameters, &paramPtr, length);
+	std::string p3 = extract_string(parameters, &paramPtr, length);
+	uint8_t p4 = extract_uint8(parameters, &paramPtr, length);
+	uint8_t p5 = extract_uint8(parameters, &paramPtr, length);
+	uint64_t p6 = extract_MUID(parameters, &paramPtr, length);
+	bool p7 = extract_bool(parameters, &paramPtr, length);
+	tuple<Buffer, size_t, size_t> p8 = extract_blob(parameters, &paramPtr, length);
+
+	return self->Match_ResponseLogin(p0, p1, p2, p3, p4, p5, p6, p7, p8);
+}
+
+static void do_Match_Response_Result(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Match_Response_Result(p0);
+}
+
+static void do_Match_LoginNetmarble(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	std::string p0 = extract_string(parameters, &paramPtr, length);
+	std::string p1 = extract_string(parameters, &paramPtr, length);
+	int32_t p2 = extract_int32(parameters, &paramPtr, length);
+	uint32_t p3 = extract_uint32(parameters, &paramPtr, length);
+
+	return self->Match_LoginNetmarble(p0, p1, p2, p3);
+}
+
+static void do_Match_LoginNetmarbleJP(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	std::string p0 = extract_string(parameters, &paramPtr, length);
+	std::string p1 = extract_string(parameters, &paramPtr, length);
+	int32_t p2 = extract_int32(parameters, &paramPtr, length);
+	uint32_t p3 = extract_uint32(parameters, &paramPtr, length);
+
+	return self->Match_LoginNetmarbleJP(p0, p1, p2, p3);
+}
+
+static void do_Match_LoginFromDBAgent(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	std::string p1 = extract_string(parameters, &paramPtr, length);
+	std::string p2 = extract_string(parameters, &paramPtr, length);
+	int32_t p3 = extract_int32(parameters, &paramPtr, length);
+	bool p4 = extract_bool(parameters, &paramPtr, length);
+	uint32_t p5 = extract_uint32(parameters, &paramPtr, length);
+
+	return self->Match_LoginFromDBAgent(p0, p1, p2, p3, p4, p5);
+}
+
+static void do_Match_LoginFailedFromDBAgent(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	int32_t p1 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Match_LoginFailedFromDBAgent(p0, p1);
+}
+
+static void do_Match_FinH(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->Match_FinH();
+}
+
+static void do_MC_MATCH_DISCONNMSG(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
+
+	return self->MC_MATCH_DISCONNMSG(p0);
+}
+
+static void do_MC_MATCH_LOGIN_NHNUSA(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	std::string p0 = extract_string(parameters, &paramPtr, length);
+	std::string p1 = extract_string(parameters, &paramPtr, length);
+	int32_t p2 = extract_int32(parameters, &paramPtr, length);
+	uint32_t p3 = extract_uint32(parameters, &paramPtr, length);
+	tuple<Buffer, size_t, size_t> p4 = extract_blob(parameters, &paramPtr, length);
+
+	return self->MC_MATCH_LOGIN_NHNUSA(p0, p1, p2, p3, p4);
+}
+
+static void do_MC_MATCH_LOGIN_GAMEON_JP(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	std::string p0 = extract_string(parameters, &paramPtr, length);
+	std::string p1 = extract_string(parameters, &paramPtr, length);
+	int32_t p2 = extract_int32(parameters, &paramPtr, length);
+	uint32_t p3 = extract_uint32(parameters, &paramPtr, length);
+	tuple<Buffer, size_t, size_t> p4 = extract_blob(parameters, &paramPtr, length);
+
+	return self->MC_MATCH_LOGIN_GAMEON_JP(p0, p1, p2, p3, p4);
+}
+
+static void do_Match_ObjectCache(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint8_t p0 = extract_uint8(parameters, &paramPtr, length);
+	tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
+
+	return self->Match_ObjectCache(p0, p1);
+}
+
+static void do_Match_BridgePeer(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
+	uint32_t p2 = extract_uint32(parameters, &paramPtr, length);
+
+	return self->Match_BridgePeer(p0, p1, p2);
+}
+
+static void do_Match_BridgePeerACK(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	int32_t p1 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Match_BridgePeerACK(p0, p1);
+}
+
+static void do_MatchServer_RequestRecommandedChannel(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->MatchServer_RequestRecommandedChannel();
+}
+
+static void do_MatchServer_ResponseRecommandedChannel(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->MatchServer_ResponseRecommandedChannel(p0);
+}
+
+static void do_Channel_Join(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Channel_Join(p0, p1);
+}
+
+static void do_Channel_ResponseJoin(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	int32_t p1 = extract_int32(parameters, &paramPtr, length);
+	std::string p2 = extract_string(parameters, &paramPtr, length);
+	bool p3 = extract_bool(parameters, &paramPtr, length);
+
+	return self->Channel_ResponseJoin(p0, p1, p2, p3);
+}
+
+static void do_Channel_RequestJoinFromName(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	int32_t p1 = extract_int32(parameters, &paramPtr, length);
+	int32_t p2 = extract_int32(parameters, &paramPtr, length);
+	std::string p3 = extract_string(parameters, &paramPtr, length);
+
+	return self->Channel_RequestJoinFromName(p0, p1, p2, p3);
+}
+
+static void do_Channel_Leave(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Channel_Leave(p0, p1);
+}
+
+static void do_Channel_ListStart(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	int32_t p1 = extract_int32(parameters, &paramPtr, length);
+	int32_t p2 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Channel_ListStart(p0, p1, p2);
+}
+
+static void do_Channel_ListStop(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Channel_ListStop(p0);
+}
+
+static void do_Channel_List(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
+
+	return self->Channel_List(p0);
+}
+
+static void do_Channel_Request_Chat(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
+	std::string p2 = extract_string(parameters, &paramPtr, length);
+
+	return self->Channel_Request_Chat(p0, p1, p2);
+}
+
+static void do_Channel_Chat(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	std::string p1 = extract_string(parameters, &paramPtr, length);
+	std::string p2 = extract_string(parameters, &paramPtr, length);
+	int32_t p3 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Channel_Chat(p0, p1, p2, p3);
+}
+
+static void do_Channel_PlayerDumb(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->Channel_PlayerDumb();
+}
+
+static void do_Channel_Request_Rule(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Channel_Request_Rule(p0);
+}
+
+static void do_Channel_Response_Rule(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	std::string p1 = extract_string(parameters, &paramPtr, length);
+
+	return self->Channel_Response_Rule(p0, p1);
+}
+
+static void do_Channel_RequestAllPlayerList(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
+	uint32_t p2 = extract_uint32(parameters, &paramPtr, length);
+	uint32_t p3 = extract_uint32(parameters, &paramPtr, length);
+
+	return self->Channel_RequestAllPlayerList(p0, p1, p2, p3);
+}
+
+static void do_Channel_ResponseAllPlayerList(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
+
+	return self->Channel_ResponseAllPlayerList(p0, p1);
+}
+
+static void do_Stage_Create(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	std::string p1 = extract_string(parameters, &paramPtr, length);
+	bool p2 = extract_bool(parameters, &paramPtr, length);
+	std::string p3 = extract_string(parameters, &paramPtr, length);
+
+	return self->Stage_Create(p0, p1, p2, p3);
+}
+
+static void do_Stage_RequestJoin(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Stage_RequestJoin(p0, p1);
+}
+
+static void do_Stage_RequestPrivateJoin(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
+	std::string p2 = extract_string(parameters, &paramPtr, length);
+
+	return self->Stage_RequestPrivateJoin(p0, p1, p2);
+}
+
+static void do_Stage_Join(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
+	uint32_t p2 = extract_uint32(parameters, &paramPtr, length);
+	std::string p3 = extract_string(parameters, &paramPtr, length);
+
+	return self->Stage_Join(p0, p1, p2, p3);
+}
+
+static void do_Stage_Leave(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Stage_Leave(p0);
+}
+
+static void do_Stage_Request_PlayerList(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Stage_Request_PlayerList(p0);
+}
+
+static void do_Stage_Follow(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	std::string p0 = extract_string(parameters, &paramPtr, length);
+
+	return self->Stage_Follow(p0);
+}
+
+static void do_Stage_Response_Follow(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Stage_Response_Follow(p0);
+}
+
+static void do_Stage_ResponseJoin(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Stage_ResponseJoin(p0);
+}
+
+static void do_Stage_RequirePassword(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	std::string p1 = extract_string(parameters, &paramPtr, length);
+
+	return self->Stage_RequirePassword(p0, p1);
+}
+
+static void do_RequestGameInfo(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->RequestGameInfo(p0, p1);
+}
+
+static void do_ResponseGameInfo(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
+	tuple<Buffer, size_t, size_t> p2 = extract_blob(parameters, &paramPtr, length);
+	tuple<Buffer, size_t, size_t> p3 = extract_blob(parameters, &paramPtr, length);
+
+	return self->ResponseGameInfo(p0, p1, p2, p3);
+}
+
+static void do_Stage_ResponseCreate(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Stage_ResponseCreate(p0);
+}
+
+static void do_Stage_Request_EnterBattle(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Stage_Request_EnterBattle(p0, p1);
+}
+
+static void do_Stage_EnterBattle(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint8_t p0 = extract_uint8(parameters, &paramPtr, length);
+	tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
+
+	return self->Stage_EnterBattle(p0, p1);
+}
+
+static void do_Stage_LeaveBattle(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Stage_LeaveBattle(p0);
+}
+
+static void do_Stage_Start(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
+	int32_t p2 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Stage_Start(p0, p1, p2);
+}
+
+static void do_Stage_Map(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	std::string p1 = extract_string(parameters, &paramPtr, length);
+
+	return self->Stage_Map(p0, p1);
+}
+
+static void do_Stage_Chat(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
+	std::string p2 = extract_string(parameters, &paramPtr, length);
+
+	return self->Stage_Chat(p0, p1, p2);
+}
+
+static void do_Stage_RequestQuickJoin(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
+
+	return self->Stage_RequestQuickJoin(p0, p1);
+}
+
+static void do_Stage_ResponseQuickJoin(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Stage_ResponseQuickJoin(p0, p1);
+}
+
+static void do_Stage_StageGo(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
+
+	return self->Stage_StageGo(p0);
+}
+
+static void do_Stage_State(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
+	int32_t p2 = extract_int32(parameters, &paramPtr, length);
+	int32_t p3 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Stage_State(p0, p1, p2, p3);
+}
+
+static void do_Stage_Team(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
+	uint32_t p2 = extract_uint32(parameters, &paramPtr, length);
+
+	return self->Stage_Team(p0, p1, p2);
+}
+
+static void do_Stage_Master(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Stage_Master(p0, p1);
+}
+
+static void do_Stage_ListStart(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->Stage_ListStart();
+}
+
+static void do_Stage_ListStop(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->Stage_ListStop();
+}
+
+static void do_Stage_List(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	array<uint16_t, 3> p0 = extract_vector(parameters, &paramPtr, length);
+	array<uint16_t, 3> p1 = extract_vector(parameters, &paramPtr, length);
+	tuple<Buffer, size_t, size_t> p2 = extract_blob(parameters, &paramPtr, length);
+
+	return self->Stage_List(p0, p1, p2);
+}
+
+static void do_Stage_RequestStageList(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
+	int32_t p2 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Stage_RequestStageList(p0, p1, p2);
+}
+
+static void do_Channel_RequestPlayerList(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
+	int32_t p2 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Channel_RequestPlayerList(p0, p1, p2);
+}
+
+static void do_Channel_ResponsePlayerList(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint8_t p0 = extract_uint8(parameters, &paramPtr, length);
+	uint8_t p1 = extract_uint8(parameters, &paramPtr, length);
+	tuple<Buffer, size_t, size_t> p2 = extract_blob(parameters, &paramPtr, length);
+
+	return self->Channel_ResponsePlayerList(p0, p1, p2);
+}
+
+static void do_Stage_RequestStageSetting(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Stage_RequestStageSetting(p0);
+}
+
+static void do_Stage_ResponseStageSetting(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
+	tuple<Buffer, size_t, size_t> p2 = extract_blob(parameters, &paramPtr, length);
+	int32_t p3 = extract_int32(parameters, &paramPtr, length);
+	uint64_t p4 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Stage_ResponseStageSetting(p0, p1, p2, p3, p4);
+}
+
+static void do_Stage_StageSetting(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
+	tuple<Buffer, size_t, size_t> p2 = extract_blob(parameters, &paramPtr, length);
+
+	return self->Stage_StageSetting(p0, p1, p2);
+}
+
+static void do_Stage_Launch(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	std::string p1 = extract_string(parameters, &paramPtr, length);
+
+	return self->Stage_Launch(p0, p1);
+}
+
+static void do_Stage_Finish(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Stage_Finish(p0);
+}
+
+static void do_Stage_RequestPeerList(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Stage_RequestPeerList(p0, p1);
+}
+
+static void do_Stage_ResponsePeerList(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
+
+	return self->Stage_ResponsePeerList(p0, p1);
+}
+
+static void do_Loading_Complete(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	int32_t p1 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Loading_Complete(p0, p1);
+}
+
+static void do_Match_RequestPeerRelay(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Match_RequestPeerRelay(p0, p1);
+}
+
+static void do_Match_ResponsePeerRelay(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Match_ResponsePeerRelay(p0);
+}
+
+static void do_Stage_RoundState(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	int32_t p1 = extract_int32(parameters, &paramPtr, length);
+	int32_t p2 = extract_int32(parameters, &paramPtr, length);
+	int32_t p3 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Stage_RoundState(p0, p1, p2, p3);
+}
+
+static void do_Game_Kill(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Game_Kill(p0);
+}
+
+static void do_Game_Requst_Spawn(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	array<float, 3> p1 = extract_position(parameters, &paramPtr, length);
+	array<float, 3> p2 = extract_direction(parameters, &paramPtr, length);
+
+	return self->Game_Requst_Spawn(p0, p1, p2);
+}
+
+static void do_Game_LevelUp(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	int32_t p1 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Game_LevelUp(p0, p1);
+}
+
+static void do_Game_LevelDown(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	int32_t p1 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Game_LevelDown(p0, p1);
+}
+
+static void do_Game_Dead(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
+	uint64_t p2 = extract_MUID(parameters, &paramPtr, length);
+	uint32_t p3 = extract_uint32(parameters, &paramPtr, length);
+
+	return self->Game_Dead(p0, p1, p2, p3);
+}
+
+static void do_Game_TeamBonus(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
+
+	return self->Game_TeamBonus(p0, p1);
+}
+
+static void do_Game_RequestTimeSync(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
+
+	return self->Game_RequestTimeSync(p0);
+}
+
+static void do_Game_ResponseTimeSync(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
+	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
+
+	return self->Game_ResponseTimeSync(p0, p1);
+}
+
+static void do_Game_ReportTimeSync(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
+	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
+
+	return self->Game_ReportTimeSync(p0, p1);
+}
+
+static void do_Stage_RequestForcedEntry(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Stage_RequestForcedEntry(p0, p1);
+}
+
+static void do_Stage_ResponseForcedEntry(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Stage_ResponseForcedEntry(p0);
+}
+
+static void do_Stage_RoundFinishInfo(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
+	tuple<Buffer, size_t, size_t> p2 = extract_blob(parameters, &paramPtr, length);
+	tuple<Buffer, size_t, size_t> p3 = extract_blob(parameters, &paramPtr, length);
+
+	return self->Stage_RoundFinishInfo(p0, p1, p2, p3);
+}
+
+static void do_Match_Notify(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
+
+	return self->Match_Notify(p0);
+}
+
+static void do_Match_Whisper(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	std::string p0 = extract_string(parameters, &paramPtr, length);
+	std::string p1 = extract_string(parameters, &paramPtr, length);
+	std::string p2 = extract_string(parameters, &paramPtr, length);
+
+	return self->Match_Whisper(p0, p1, p2);
+}
+
+static void do_Match_Where(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	std::string p0 = extract_string(parameters, &paramPtr, length);
+
+	return self->Match_Where(p0);
+}
+
+static void do_Match_UserOption(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
+
+	return self->Match_UserOption(p0);
+}
+
+static void do_ChatRoom_Create(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	std::string p1 = extract_string(parameters, &paramPtr, length);
+
+	return self->ChatRoom_Create(p0, p1);
+}
+
+static void do_ChatRoom_Join(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	std::string p0 = extract_string(parameters, &paramPtr, length);
+	std::string p1 = extract_string(parameters, &paramPtr, length);
+
+	return self->ChatRoom_Join(p0, p1);
+}
+
+static void do_ChatRoom_Leave(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	std::string p0 = extract_string(parameters, &paramPtr, length);
+	std::string p1 = extract_string(parameters, &paramPtr, length);
+
+	return self->ChatRoom_Leave(p0, p1);
+}
+
+static void do_ChatRoom_SelectWrite(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	std::string p0 = extract_string(parameters, &paramPtr, length);
+
+	return self->ChatRoom_SelectWrite(p0);
+}
+
+static void do_ChatRoom_Invite(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	std::string p0 = extract_string(parameters, &paramPtr, length);
+	std::string p1 = extract_string(parameters, &paramPtr, length);
+	std::string p2 = extract_string(parameters, &paramPtr, length);
+
+	return self->ChatRoom_Invite(p0, p1, p2);
+}
+
+static void do_ChatRoom_Chat(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	std::string p0 = extract_string(parameters, &paramPtr, length);
+	std::string p1 = extract_string(parameters, &paramPtr, length);
+	std::string p2 = extract_string(parameters, &paramPtr, length);
+
+	return self->ChatRoom_Chat(p0, p1, p2);
+}
+
+static void do_Match_RequestAccountCharList(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
+
+	return self->Match_RequestAccountCharList(p0);
+}
+
+static void do_Match_ResponseAccountCharList(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
+
+	return self->Match_ResponseAccountCharList(p0);
+}
+
+static void do_Match_RequestAccountCharInfo(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	array<uint16_t, 3> p0 = extract_vector(parameters, &paramPtr, length);
+	int32_t p1 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Match_RequestAccountCharInfo(p0, p1);
+}
+
+static void do_Match_ResponseAccountCharInfo(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	array<uint16_t, 3> p0 = extract_vector(parameters, &paramPtr, length);
+	tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
+
+	return self->Match_ResponseAccountCharInfo(p0, p1);
+}
+
+static void do_Match_RequestSelectChar(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
+	int32_t p2 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Match_RequestSelectChar(p0, p1, p2);
+}
+
+static void do_Match_ResponseSelectChar(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+	tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
+	tuple<Buffer, size_t, size_t> p2 = extract_blob(parameters, &paramPtr, length);
+
+	return self->Match_ResponseSelectChar(p0, p1, p2);
+}
+
+static void do_Match_RequestCharInfo(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
+
+	return self->Match_RequestCharInfo(p0, p1);
+}
+
+static void do_Match_ResponseCharInfo(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
+
+	return self->Match_ResponseCharInfo(p0, p1);
+}
+
+static void do_Match_RequestDeleteChar(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
+	int32_t p2 = extract_int32(parameters, &paramPtr, length);
+	std::string p3 = extract_string(parameters, &paramPtr, length);
+
+	return self->Match_RequestDeleteChar(p0, p1, p2, p3);
+}
+
+static void do_Match_ResponseDeleteChar(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Match_ResponseDeleteChar(p0);
+}
+
+static void do_Match_RequestCreateChar(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
+	int32_t p2 = extract_int32(parameters, &paramPtr, length);
+	std::string p3 = extract_string(parameters, &paramPtr, length);
+	uint32_t p4 = extract_uint32(parameters, &paramPtr, length);
+	uint32_t p5 = extract_uint32(parameters, &paramPtr, length);
+	uint32_t p6 = extract_uint32(parameters, &paramPtr, length);
+	uint32_t p7 = extract_uint32(parameters, &paramPtr, length);
+
+	return self->Match_RequestCreateChar(p0, p1, p2, p3, p4, p5, p6, p7);
+}
+
+static void do_Match_ResponseCreateChar(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+	std::string p1 = extract_string(parameters, &paramPtr, length);
+
+	return self->Match_ResponseCreateChar(p0, p1);
+}
+
+static void do_Match_RequestCopyToTestServer(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Match_RequestCopyToTestServer(p0);
+}
+
+static void do_Match_ResponseCopyToTestServer(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Match_ResponseCopyToTestServer(p0);
+}
+
+static void do_Match_RequestCharInfoDetail(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	std::string p1 = extract_string(parameters, &paramPtr, length);
+
+	return self->Match_RequestCharInfoDetail(p0, p1);
+}
+
+static void do_Match_ResponseCharInfoDetail(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
+
+	return self->Match_ResponseCharInfoDetail(p0);
+}
+
+static void do_Match_RequestSimpleCharInfo(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Match_RequestSimpleCharInfo(p0);
+}
+
+static void do_Match_ResponseSimpleCharInfo(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
+
+	return self->Match_ResponseSimpleCharInfo(p0, p1);
+}
+
+static void do_Match_RequestMySimpleCharInfo(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Match_RequestMySimpleCharInfo(p0);
+}
+
+static void do_Match_ResponseMySimpleCharInfo(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
+
+	return self->Match_ResponseMySimpleCharInfo(p0);
+}
+
+static void do_Match_RequestBuyItem(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
+
+	return self->Match_RequestBuyItem(p0, p1);
+}
+
+static void do_Match_ResponseBuyItem(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Match_ResponseBuyItem(p0);
+}
+
+static void do_Match_RequestSellItem(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Match_RequestSellItem(p0, p1);
+}
+
+static void do_Match_ResponseSellItem(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Match_ResponseSellItem(p0);
+}
+
+static void do_Match_RequestShopItemList(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	int32_t p1 = extract_int32(parameters, &paramPtr, length);
+	int32_t p2 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Match_RequestShopItemList(p0, p1, p2);
+}
+
+static void do_Match_ResponseShopItemList(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
+	tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
+
+	return self->Match_ResponseShopItemList(p0, p1);
+}
+
+static void do_Match_RequestCharacterItemList(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Match_RequestCharacterItemList(p0);
+}
+
+static void do_Match_RequestCharacterItemListForce(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Match_RequestCharacterItemListForce(p0);
+}
+
+static void do_Match_ResponseCharacterItemList(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+	tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
+	tuple<Buffer, size_t, size_t> p2 = extract_blob(parameters, &paramPtr, length);
+	tuple<Buffer, size_t, size_t> p3 = extract_blob(parameters, &paramPtr, length);
+
+	return self->Match_ResponseCharacterItemList(p0, p1, p2, p3);
+}
+
+static void do_MatchRequestEquipItem(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
+	uint32_t p2 = extract_uint32(parameters, &paramPtr, length);
+	int32_t p3 = extract_int32(parameters, &paramPtr, length);
+
+	return self->MatchRequestEquipItem(p0, p1, p2, p3);
+}
+
+static void do_MatchResponseEquipItem(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+
+	return self->MatchResponseEquipItem(p0);
+}
+
+static void do_MatchRequestTakeoffItem(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
+	int32_t p2 = extract_int32(parameters, &paramPtr, length);
+
+	return self->MatchRequestTakeoffItem(p0, p1, p2);
+}
+
+static void do_MatchResponseTakeoffItem(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+
+	return self->MatchResponseTakeoffItem(p0);
+}
+
+static void do_Match_RequestAccountItemList(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Match_RequestAccountItemList(p0);
+}
+
+static void do_Match_ResponseAccountItemList(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
+
+	return self->Match_ResponseAccountItemList(p0);
+}
+
+static void do_Match_RequestBringAccountItem(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	int32_t p1 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Match_RequestBringAccountItem(p0, p1);
+}
+
+static void do_Match_ResponseBringAccountItem(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Match_ResponseBringAccountItem(p0);
+}
+
+static void do_Match_RequestBringBackAccountItem(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Match_RequestBringBackAccountItem(p0, p1);
+}
+
+static void do_Match_ResponseBringBackAccountItem(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Match_ResponseBringBackAccountItem(p0);
+}
+
+static void do_Match_ExpiredRentItem(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
+
+	return self->Match_ExpiredRentItem(p0);
+}
+
+static void do_Match_ItemGamble(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Match_ItemGamble(p0);
+}
+
+static void do_Match_GambleResultItem(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
+	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
+
+	return self->Match_GambleResultItem(p0, p1);
+}
+
+static void do_Match_Request_Suicide(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Match_Request_Suicide(p0);
+}
+
+static void do_Match_Response_Suicide(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Match_Response_Suicide(p0, p1);
+}
+
+static void do_Match_Response_SuicideReserve(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->Match_Response_SuicideReserve();
+}
+
+static void do_Match_Request_Obtain_WorldItem(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	int32_t p1 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Match_Request_Obtain_WorldItem(p0, p1);
+}
+
+static void do_Match_WorldItem_Obtain(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	int32_t p1 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Match_WorldItem_Obtain(p0, p1);
+}
+
+static void do_Match_WorldItem_Spawn(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
+
+	return self->Match_WorldItem_Spawn(p0);
+}
+
+static void do_Match_Request_Spawn_WorldItem(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	int32_t p1 = extract_int32(parameters, &paramPtr, length);
+	array<float, 3> p2 = extract_position(parameters, &paramPtr, length);
+	float p3 = extract_float(parameters, &paramPtr, length);
+
+	return self->Match_Request_Spawn_WorldItem(p0, p1, p2, p3);
+}
+
+static void do_Match_Request_Spawn_WorldItem_UID(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Match_Request_Spawn_WorldItem_UID(p0);
+}
+
+static void do_Match_Reset_TeamMembers(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
+
+	return self->Match_Reset_TeamMembers(p0);
+}
+
+static void do_Match_Assign_Commander(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Match_Assign_Commander(p0, p1);
+}
+
+static void do_Match_Set_Observer(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Match_Set_Observer(p0);
+}
+
+static void do_Match_Ladder_Request_Challenge(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
+	tuple<Buffer, size_t, size_t> p2 = extract_blob(parameters, &paramPtr, length);
+
+	return self->Match_Ladder_Request_Challenge(p0, p1, p2);
+}
+
+static void do_Match_Ladder_Response_Challenge(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Match_Ladder_Response_Challenge(p0);
+}
+
+static void do_Match_Ladder_SearchRival(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->Match_Ladder_SearchRival();
+}
+
+static void do_Match_Ladder_Request_CancelChallenge(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->Match_Ladder_Request_CancelChallenge();
+}
+
+static void do_Match_Ladder_CancelChallenge(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	std::string p0 = extract_string(parameters, &paramPtr, length);
+
+	return self->Match_Ladder_CancelChallenge(p0);
+}
+
+static void do_Ladder_Prepare(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	int32_t p1 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Ladder_Prepare(p0, p1);
+}
+
+static void do_Ladder_Launch(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	std::string p1 = extract_string(parameters, &paramPtr, length);
+
+	return self->Ladder_Launch(p0, p1);
+}
+
+static void do_Match_RequestProposal(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	int32_t p1 = extract_int32(parameters, &paramPtr, length);
+	int32_t p2 = extract_int32(parameters, &paramPtr, length);
+	int32_t p3 = extract_int32(parameters, &paramPtr, length);
+	tuple<Buffer, size_t, size_t> p4 = extract_blob(parameters, &paramPtr, length);
+
+	return self->Match_RequestProposal(p0, p1, p2, p3, p4);
+}
+
+static void do_Match_ResponseProposal(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+	int32_t p1 = extract_int32(parameters, &paramPtr, length);
+	int32_t p2 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Match_ResponseProposal(p0, p1, p2);
+}
+
+static void do_Match_AskAgreement(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
+	int32_t p2 = extract_int32(parameters, &paramPtr, length);
+	int32_t p3 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Match_AskAgreement(p0, p1, p2, p3);
+}
+
+static void do_Match_ReplyAgreement(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
+	std::string p2 = extract_string(parameters, &paramPtr, length);
+	int32_t p3 = extract_int32(parameters, &paramPtr, length);
+	int32_t p4 = extract_int32(parameters, &paramPtr, length);
+	bool p5 = extract_bool(parameters, &paramPtr, length);
+
+	return self->Match_ReplyAgreement(p0, p1, p2, p3, p4, p5);
+}
+
+static void do_Match_Friend_Add(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	std::string p0 = extract_string(parameters, &paramPtr, length);
+
+	return self->Match_Friend_Add(p0);
+}
+
+static void do_Match_Friend_Remove(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	std::string p0 = extract_string(parameters, &paramPtr, length);
+
+	return self->Match_Friend_Remove(p0);
+}
+
+static void do_Match_Friend_List(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->Match_Friend_List();
+}
+
+static void do_Match_Response_FriendList(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
+
+	return self->Match_Response_FriendList(p0);
+}
+
+static void do_Match_Friend_Msg(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	std::string p0 = extract_string(parameters, &paramPtr, length);
+
+	return self->Match_Friend_Msg(p0);
+}
+
+static void do_Match_Clan_RequestCreateClan(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	int32_t p1 = extract_int32(parameters, &paramPtr, length);
+	std::string p2 = extract_string(parameters, &paramPtr, length);
+	std::string p3 = extract_string(parameters, &paramPtr, length);
+	std::string p4 = extract_string(parameters, &paramPtr, length);
+	std::string p5 = extract_string(parameters, &paramPtr, length);
+	std::string p6 = extract_string(parameters, &paramPtr, length);
+
+	return self->Match_Clan_RequestCreateClan(p0, p1, p2, p3, p4, p5, p6);
+}
+
+static void do_Match_Clan_ResponseCreateClan(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+	int32_t p1 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Match_Clan_ResponseCreateClan(p0, p1);
+}
+
+static void do_Match_Clan_AskSponsorAgreement(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+	std::string p1 = extract_string(parameters, &paramPtr, length);
+	uint64_t p2 = extract_MUID(parameters, &paramPtr, length);
+	std::string p3 = extract_string(parameters, &paramPtr, length);
+
+	return self->Match_Clan_AskSponsorAgreement(p0, p1, p2, p3);
+}
+
+static void do_Match_Clan_AnswerSponsorAgreement(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
+	std::string p2 = extract_string(parameters, &paramPtr, length);
+	bool p3 = extract_bool(parameters, &paramPtr, length);
+
+	return self->Match_Clan_AnswerSponsorAgreement(p0, p1, p2, p3);
+}
+
+static void do_Match_Clan_RequestAgreedCreateClan(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	std::string p1 = extract_string(parameters, &paramPtr, length);
+	std::string p2 = extract_string(parameters, &paramPtr, length);
+	std::string p3 = extract_string(parameters, &paramPtr, length);
+	std::string p4 = extract_string(parameters, &paramPtr, length);
+	std::string p5 = extract_string(parameters, &paramPtr, length);
+
+	return self->Match_Clan_RequestAgreedCreateClan(p0, p1, p2, p3, p4, p5);
+}
+
+static void do_Match_Clan_AgreedResponseCreateClan(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Match_Clan_AgreedResponseCreateClan(p0);
+}
+
+static void do_Match_Clan_RequestCloseClan(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	std::string p1 = extract_string(parameters, &paramPtr, length);
+
+	return self->Match_Clan_RequestCloseClan(p0, p1);
+}
+
+static void do_Match_Clan_ResponseCloseClan(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Match_Clan_ResponseCloseClan(p0);
+}
+
+static void do_Match_Clan_RequestJoinClan(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	std::string p1 = extract_string(parameters, &paramPtr, length);
+	std::string p2 = extract_string(parameters, &paramPtr, length);
+
+	return self->Match_Clan_RequestJoinClan(p0, p1, p2);
+}
+
+static void do_Match_Clan_ResponseJoinClan(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Match_Clan_ResponseJoinClan(p0);
+}
+
+static void do_Match_Clan_AskJoinAgreement(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	std::string p0 = extract_string(parameters, &paramPtr, length);
+	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
+	std::string p2 = extract_string(parameters, &paramPtr, length);
+
+	return self->Match_Clan_AskJoinAgreement(p0, p1, p2);
+}
+
+static void do_Match_Clan_AnswerJoinAgreement(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	std::string p1 = extract_string(parameters, &paramPtr, length);
+	bool p2 = extract_bool(parameters, &paramPtr, length);
+
+	return self->Match_Clan_AnswerJoinAgreement(p0, p1, p2);
+}
+
+static void do_Match_Clan_RequestAgreedJoinClan(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	std::string p1 = extract_string(parameters, &paramPtr, length);
+	std::string p2 = extract_string(parameters, &paramPtr, length);
+
+	return self->Match_Clan_RequestAgreedJoinClan(p0, p1, p2);
+}
+
+static void do_Match_Clan_ResponseAgreedJoinClan(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Match_Clan_ResponseAgreedJoinClan(p0);
+}
+
+static void do_Match_Clan_RequestLeaveClan(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Match_Clan_RequestLeaveClan(p0);
+}
+
+static void do_Match_Clan_ResponseLeaveClan(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Match_Clan_ResponseLeaveClan(p0);
+}
+
+static void do_Match_Clan_UpdateCharClanInfo(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
+
+	return self->Match_Clan_UpdateCharClanInfo(p0);
+}
+
+static void do_Match_Clan_Master_RequestChangeGrade(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	std::string p1 = extract_string(parameters, &paramPtr, length);
+	int32_t p2 = extract_int32(parameters, &paramPtr, length);
+	int32_t p3 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Match_Clan_Master_RequestChangeGrade(p0, p1, p2, p3);
+}
+
+static void do_Match_Clan_Master_ResponseChangeGrade(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Match_Clan_Master_ResponseChangeGrade(p0);
+}
+
+static void do_Match_Clan_Admin_RequestExpelMember(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	std::string p1 = extract_string(parameters, &paramPtr, length);
+
+	return self->Match_Clan_Admin_RequestExpelMember(p0, p1);
+}
+
+static void do_Match_Clan_Admin_ResponseLeaveMember(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Match_Clan_Admin_ResponseLeaveMember(p0);
+}
+
+static void do_Match_Clan_Request_Msg(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	std::string p1 = extract_string(parameters, &paramPtr, length);
+
+	return self->Match_Clan_Request_Msg(p0, p1);
+}
+
+static void do_Match_Clan_Msg(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	std::string p0 = extract_string(parameters, &paramPtr, length);
+	std::string p1 = extract_string(parameters, &paramPtr, length);
+
+	return self->Match_Clan_Msg(p0, p1);
+}
+
+static void do_Match_Clan_Request_ClanMemberList(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Match_Clan_Request_ClanMemberList(p0);
+}
+
+static void do_Match_Clan_Response_ClanMemberList(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
+
+	return self->Match_Clan_Response_ClanMemberList(p0);
+}
+
+static void do_Match_Clan_Request_Clan_Info(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	std::string p1 = extract_string(parameters, &paramPtr, length);
+
+	return self->Match_Clan_Request_Clan_Info(p0, p1);
+}
+
+static void do_Match_Clan_Response_Clan_Info(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
+
+	return self->Match_Clan_Response_Clan_Info(p0);
+}
+
+static void do_Match_Clan_Standby_ClanList(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+	int32_t p1 = extract_int32(parameters, &paramPtr, length);
+	tuple<Buffer, size_t, size_t> p2 = extract_blob(parameters, &paramPtr, length);
+
+	return self->Match_Clan_Standby_ClanList(p0, p1, p2);
+}
+
+static void do_Match_Clan_Member_Connected(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	std::string p0 = extract_string(parameters, &paramPtr, length);
+
+	return self->Match_Clan_Member_Connected(p0);
+}
+
+static void do_Match_Clan_Request_EmblemURL(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
+
+	return self->Match_Clan_Request_EmblemURL(p0);
+}
+
+static void do_Match_Clan_Response_EmblemURL(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+	int32_t p1 = extract_int32(parameters, &paramPtr, length);
+	std::string p2 = extract_string(parameters, &paramPtr, length);
+
+	return self->Match_Clan_Response_EmblemURL(p0, p1, p2);
+}
+
+static void do_Match_Clan_Local_EmblemReady(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+	std::string p1 = extract_string(parameters, &paramPtr, length);
+
+	return self->Match_Clan_Local_EmblemReady(p0, p1);
+}
+
+static void do_MC_MATCH_CLAN_ACCOUNCE_DELETE(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	std::string p0 = extract_string(parameters, &paramPtr, length);
+
+	return self->MC_MATCH_CLAN_ACCOUNCE_DELETE(p0);
+}
+
+static void do_Match_Callvote(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	std::string p0 = extract_string(parameters, &paramPtr, length);
+	std::string p1 = extract_string(parameters, &paramPtr, length);
+
+	return self->Match_Callvote(p0, p1);
+}
+
+static void do_Match_NotifyCallvote(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	std::string p0 = extract_string(parameters, &paramPtr, length);
+	std::string p1 = extract_string(parameters, &paramPtr, length);
+
+	return self->Match_NotifyCallvote(p0, p1);
+}
+
+static void do_Match_NotifyVoteResult(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	std::string p0 = extract_string(parameters, &paramPtr, length);
+	int32_t p1 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Match_NotifyVoteResult(p0, p1);
+}
+
+static void do_Match_VoteYes(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->Match_VoteYes();
+}
+
+static void do_Match_VoteNo(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->Match_VoteNo();
+}
+
+static void do_Votestop(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->Votestop();
+}
+
+static void do_Match_Broadcast_ClanRenewVictories(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	std::string p0 = extract_string(parameters, &paramPtr, length);
+	std::string p1 = extract_string(parameters, &paramPtr, length);
+	int32_t p2 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Match_Broadcast_ClanRenewVictories(p0, p1, p2);
+}
+
+static void do_Match_Broadcast_ClanInterruptVictories(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	std::string p0 = extract_string(parameters, &paramPtr, length);
+	std::string p1 = extract_string(parameters, &paramPtr, length);
+	int32_t p2 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Match_Broadcast_ClanInterruptVictories(p0, p1, p2);
+}
+
+static void do_Match_Broadcast_DuelRenewVictories(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	std::string p0 = extract_string(parameters, &paramPtr, length);
+	std::string p1 = extract_string(parameters, &paramPtr, length);
+	int32_t p2 = extract_int32(parameters, &paramPtr, length);
+	int32_t p3 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Match_Broadcast_DuelRenewVictories(p0, p1, p2, p3);
+}
+
+static void do_Match_Broadcast_DuelInterruptVictories(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	std::string p0 = extract_string(parameters, &paramPtr, length);
+	std::string p1 = extract_string(parameters, &paramPtr, length);
+	int32_t p2 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Match_Broadcast_DuelInterruptVictories(p0, p1, p2);
+}
+
+static void do_Match_Assign_Berserker(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Match_Assign_Berserker(p0);
+}
+
+static void do_Match_Duel_QueueInfo(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
+
+	return self->Match_Duel_QueueInfo(p0);
+}
+
+static void do_Match_Quest_Ping(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
+
+	return self->Match_Quest_Ping(p0);
+}
+
+static void do_Match_Quest_Pong(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
+
+	return self->Match_Quest_Pong(p0);
+}
+
+static void do_MC_QUEST_NPCLIST(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
+	int32_t p1 = extract_int32(parameters, &paramPtr, length);
+
+	return self->MC_QUEST_NPCLIST(p0, p1);
+}
+
+static void do_Event_ChangeMaster(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->Event_ChangeMaster();
+}
+
+static void do_Event_ChangePassword(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	std::string p0 = extract_string(parameters, &paramPtr, length);
+
+	return self->Event_ChangePassword(p0);
+}
+
+static void do_Event_RequestJJang(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	std::string p0 = extract_string(parameters, &paramPtr, length);
+
+	return self->Event_RequestJJang(p0);
+}
+
+static void do_Event_RemoveJJang(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	std::string p0 = extract_string(parameters, &paramPtr, length);
+
+	return self->Event_RemoveJJang(p0);
+}
+
+static void do_Event_UpdateJJang(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	bool p1 = extract_bool(parameters, &paramPtr, length);
+
+	return self->Event_UpdateJJang(p0, p1);
+}
+
+static void do_Quest_NPCSpawn(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
+	uint8_t p2 = extract_uint8(parameters, &paramPtr, length);
+	uint8_t p3 = extract_uint8(parameters, &paramPtr, length);
+
+	return self->Quest_NPCSpawn(p0, p1, p2, p3);
+}
+
+static void do_Quest_Entrust_NPC_Control(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Quest_Entrust_NPC_Control(p0, p1);
+}
+
+static void do_Quest_Checksum_NPCInfo(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
+
+	return self->Quest_Checksum_NPCInfo(p0, p1);
+}
+
+static void do_Quest_NPCDead(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Quest_NPCDead(p0, p1);
+}
+
+static void do_Quest_RefreshPlayerStatus(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->Quest_RefreshPlayerStatus();
+}
+
+static void do_Quest_NPC_AllClear(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->Quest_NPC_AllClear();
+}
+
+static void do_Quest_Round_Start(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint8_t p0 = extract_uint8(parameters, &paramPtr, length);
+
+	return self->Quest_Round_Start(p0);
+}
+
+static void do_Quest_RequestDead(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->Quest_RequestDead();
+}
+
+static void do_Quest_PlayerDead(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Quest_PlayerDead(p0);
+}
+
+static void do_Quest_ObtainQuestItem(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
+
+	return self->Quest_ObtainQuestItem(p0);
+}
+
+static void do_Quest_ObtainZItem(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
+
+	return self->Quest_ObtainZItem(p0);
+}
+
+static void do_Quest_State_Mapset(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	array<uint16_t, 3> p1 = extract_vector(parameters, &paramPtr, length);
+
+	return self->Quest_State_Mapset(p0, p1);
+}
+
+static void do_Quest_Stage_GameInfo(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	array<uint16_t, 3> p0 = extract_vector(parameters, &paramPtr, length);
+	array<uint16_t, 3> p1 = extract_vector(parameters, &paramPtr, length);
+	uint32_t p2 = extract_uint32(parameters, &paramPtr, length);
+
+	return self->Quest_Stage_GameInfo(p0, p1, p2);
+}
+
+static void do_Quest_SectorBonus(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
+	uint32_t p2 = extract_uint32(parameters, &paramPtr, length);
+
+	return self->Quest_SectorBonus(p0, p1, p2);
+}
+
+static void do_Quest_GameInfo(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
+
+	return self->Quest_GameInfo(p0);
+}
+
+static void do_Quest_Combat_State(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	array<uint16_t, 3> p0 = extract_vector(parameters, &paramPtr, length);
+
+	return self->Quest_Combat_State(p0);
+}
+
+static void do_Quest_Sector_Start(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	array<uint16_t, 3> p0 = extract_vector(parameters, &paramPtr, length);
+	uint8_t p1 = extract_uint8(parameters, &paramPtr, length);
+
+	return self->Quest_Sector_Start(p0, p1);
+}
+
+static void do_Quest_Complete(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
+
+	return self->Quest_Complete(p0);
+}
+
+static void do_Quest_Failed(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->Quest_Failed();
+}
+
+static void do_Quest_Request_Moveto_Portal(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	array<uint16_t, 3> p0 = extract_vector(parameters, &paramPtr, length);
+
+	return self->Quest_Request_Moveto_Portal(p0);
+}
+
+static void do_Quest_Moveto_Portal(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	array<uint16_t, 3> p0 = extract_vector(parameters, &paramPtr, length);
+	uint8_t p1 = extract_uint8(parameters, &paramPtr, length);
+	uint64_t p2 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Quest_Moveto_Portal(p0, p1, p2);
+}
+
+static void do_Quest_Readyto_NewSector(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Quest_Readyto_NewSector(p0);
+}
+
+static void do_Quest_Peer_NPC_BasicInfo(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
+
+	return self->Quest_Peer_NPC_BasicInfo(p0);
+}
+
+static void do_Quest_Peer_NPC_HPInfo(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+	tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
+
+	return self->Quest_Peer_NPC_HPInfo(p0, p1);
+}
+
+static void do_Quest_Peer_NPC_Attack_Melee(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Quest_Peer_NPC_Attack_Melee(p0);
+}
+
+static void do_Quest_Peer_NPC_Attack_Range(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
+
+	return self->Quest_Peer_NPC_Attack_Range(p0, p1);
+}
+
+static void do_Quest_Peer_NPC_Skill_Start(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	int32_t p1 = extract_int32(parameters, &paramPtr, length);
+	uint64_t p2 = extract_MUID(parameters, &paramPtr, length);
+	array<float, 3> p3 = extract_position(parameters, &paramPtr, length);
+
+	return self->Quest_Peer_NPC_Skill_Start(p0, p1, p2, p3);
+}
+
+static void do_Quest_Peer_NPC_Skill_Execute(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	int32_t p1 = extract_int32(parameters, &paramPtr, length);
+	uint64_t p2 = extract_MUID(parameters, &paramPtr, length);
+	array<float, 3> p3 = extract_position(parameters, &paramPtr, length);
+
+	return self->Quest_Peer_NPC_Skill_Execute(p0, p1, p2, p3);
+}
+
+static void do_Quest_Peer_NPC_Dead(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Quest_Peer_NPC_Dead(p0, p1);
+}
+
+static void do_Quest_Test_RequestNPCSpawn(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+	int32_t p1 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Quest_Test_RequestNPCSpawn(p0, p1);
+}
+
+static void do_Quest_Test_ClearNPC(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->Quest_Test_ClearNPC();
+}
+
+static void do_Quest_Test_SectorClear(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->Quest_Test_SectorClear();
+}
+
+static void do_Quest_Test_Finish(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->Quest_Test_Finish();
+}
+
+static void do_Test_BirdTest1(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
+	tuple<Buffer, size_t, size_t> p2 = extract_blob(parameters, &paramPtr, length);
+
+	return self->Test_BirdTest1(p0, p1, p2);
+}
+
+static void do_Test_PeerTest_Ping(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->Test_PeerTest_Ping();
+}
+
+static void do_Test_PeerTest_Pong(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->Test_PeerTest_Pong();
+}
+
+static void do_Admin_Announce(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	std::string p1 = extract_string(parameters, &paramPtr, length);
+	uint32_t p2 = extract_uint32(parameters, &paramPtr, length);
+
+	return self->Admin_Announce(p0, p1, p2);
+}
+
+static void do_Admin_PingToAll(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->Admin_PingToAll();
+}
+
+static void do_Admin_RequestServerInfo(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Admin_RequestServerInfo(p0);
+}
+
+static void do_Admin_ResponseServerInfo(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
+
+	return self->Admin_ResponseServerInfo(p0);
+}
+
+static void do_Admin_Halt(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Admin_Halt(p0);
+}
+
+static void do_Admin_Terminal(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	std::string p1 = extract_string(parameters, &paramPtr, length);
+
+	return self->Admin_Terminal(p0, p1);
+}
+
+static void do_Admin_RequestUpdateAccountUGrade(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	std::string p1 = extract_string(parameters, &paramPtr, length);
+
+	return self->Admin_RequestUpdateAccountUGrade(p0, p1);
+}
+
+static void do_Admin_ResponseUpdateAccountUGrade(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Admin_ResponseUpdateAccountUGrade(p0, p1);
+}
+
+static void do_Admin_RequestBanPlayer(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	std::string p1 = extract_string(parameters, &paramPtr, length);
+
+	return self->Admin_RequestBanPlayer(p0, p1);
+}
+
+static void do_Admin_ResponseBanPlayer(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Admin_ResponseBanPlayer(p0);
+}
+
+static void do_Admin_RequestSwitchLadderGame(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	bool p1 = extract_bool(parameters, &paramPtr, length);
+
+	return self->Admin_RequestSwitchLadderGame(p0, p1);
+}
+
+static void do_Admin_Hide(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->Admin_Hide();
+}
+
+static void do_Admin_ReloadClientHash(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->Admin_ReloadClientHash();
+}
+
+static void do_MC_ADMIN_RESET_ALL_HACKING_BLOCK(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->MC_ADMIN_RESET_ALL_HACKING_BLOCK();
+}
+
+static void do_MC_ADMIN_RELOAD_GAMBLEITEM(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->MC_ADMIN_RELOAD_GAMBLEITEM();
+}
+
+static void do_MC_ADMIN_DUMP_GAMBLEITEM_LOG(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->MC_ADMIN_DUMP_GAMBLEITEM_LOG();
+}
+
+static void do_MC_ADMIN_ASSASIN(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->MC_ADMIN_ASSASIN();
+}
+
+static void do_Net_RequestUID(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Net_RequestUID(p0);
+}
+
+static void do_Net_ResponseUID(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Net_ResponseUID(p0, p1);
+}
+
+static void do_Peer_Open(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Peer_Open(p0);
+}
+
+static void do_Peer_ObjectChangeWeapon(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Peer_ObjectChangeWeapon(p0);
+}
+
+static void do_Peer_ObjectChangeParts(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+	int32_t p1 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Peer_ObjectChangeParts(p0, p1);
+}
+
+static void do_Peer_ObjectDamage(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	int32_t p1 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Peer_ObjectDamage(p0, p1);
+}
+
+static void do_Peer_Chat(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+	std::string p1 = extract_string(parameters, &paramPtr, length);
+
+	return self->Peer_Chat(p0, p1);
+}
+
+static void do_Peer_ChatIcon(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	bool p0 = extract_bool(parameters, &paramPtr, length);
+
+	return self->Peer_ChatIcon(p0);
+}
+
+static void do_Peer_Reaction(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	float p0 = extract_float(parameters, &paramPtr, length);
+	int32_t p1 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Peer_Reaction(p0, p1);
+}
+
+static void do_Peer_EnchantDamage(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Peer_EnchantDamage(p0, p1);
+}
+
+static void do_Peer_Shot(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
+
+	return self->Peer_Shot(p0);
+}
+
+static void do_Peer_Shot_Melee(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	float p0 = extract_float(parameters, &paramPtr, length);
+	array<float, 3> p1 = extract_position(parameters, &paramPtr, length);
+	int32_t p2 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Peer_Shot_Melee(p0, p1, p2);
+}
+
+static void do_Peer_Reload(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->Peer_Reload();
+}
+
+static void do_Peer_ObjectSpMotion(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Peer_ObjectSpMotion(p0);
+}
+
+static void do_Peer_ChangeCharacter(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->Peer_ChangeCharacter();
+}
+
+static void do_Peer_Die(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Peer_Die(p0);
+}
+
+static void do_Peer_Spawn(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	array<float, 3> p0 = extract_position(parameters, &paramPtr, length);
+	array<float, 3> p1 = extract_direction(parameters, &paramPtr, length);
+
+	return self->Peer_Spawn(p0, p1);
+}
+
+static void do_Peer_Dash(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
+
+	return self->Peer_Dash(p0);
+}
+
+static void do_Peer_ObjectSkill(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	float p0 = extract_float(parameters, &paramPtr, length);
+	int32_t p1 = extract_int32(parameters, &paramPtr, length);
+	int32_t p2 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Peer_ObjectSkill(p0, p1, p2);
+}
+
+static void do_Peer_CharacterBasicInfo(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
+
+	return self->Peer_CharacterBasicInfo(p0);
+}
+
+static void do_Peer_CharacterHPInfo(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	float p0 = extract_float(parameters, &paramPtr, length);
+
+	return self->Peer_CharacterHPInfo(p0);
+}
+
+static void do_Peer_CharacterHPAPInfo(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	float p0 = extract_float(parameters, &paramPtr, length);
+	float p1 = extract_float(parameters, &paramPtr, length);
+
+	return self->Peer_CharacterHPAPInfo(p0, p1);
+}
+
+static void do_Peer_UDPTest(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->Peer_UDPTest();
+}
+
+static void do_Peer_UDPTestReply(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->Peer_UDPTestReply();
+}
+
+static void do_Peer_Ping(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
+
+	return self->Peer_Ping(p0);
+}
+
+static void do_Peer_Pong(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
+
+	return self->Peer_Pong(p0);
+}
+
+static void do_Agent_Connect(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	std::string p0 = extract_string(parameters, &paramPtr, length);
+	int32_t p1 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Agent_Connect(p0, p1);
+}
+
+static void do_Agent_Disconnect(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->Agent_Disconnect();
+}
+
+static void do_Agent_LocalLogin(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Agent_LocalLogin(p0, p1);
+}
+
+static void do_Match_RegisterAgent(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	std::string p0 = extract_string(parameters, &paramPtr, length);
+	int32_t p1 = extract_int32(parameters, &paramPtr, length);
+	int32_t p2 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Match_RegisterAgent(p0, p1, p2);
+}
+
+static void do_Match_UnRegisterAgent(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->Match_UnRegisterAgent();
+}
+
+static void do_Match_Agent_RequestLiveCheck(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
+	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
+	uint32_t p2 = extract_uint32(parameters, &paramPtr, length);
+
+	return self->Match_Agent_RequestLiveCheck(p0, p1, p2);
+}
+
+static void do_Match_Agent_ResponseLiveCheck(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
+
+	return self->Match_Agent_ResponseLiveCheck(p0);
+}
+
+static void do_Agent_StageReserve(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Agent_StageReserve(p0);
+}
+
+static void do_Agent_StageRelease(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Agent_StageRelease(p0);
+}
+
+static void do_Agent_StageReady(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Agent_StageReady(p0);
+}
+
+static void do_Agent_RelayPeer(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
+	uint64_t p2 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Agent_RelayPeer(p0, p1, p2);
+}
+
+static void do_Agent_PeerReady(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Agent_PeerReady(p0, p1);
+}
+
+static void do_Agent_LocateToClient(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	std::string p1 = extract_string(parameters, &paramPtr, length);
+	int32_t p2 = extract_int32(parameters, &paramPtr, length);
+	int32_t p3 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Agent_LocateToClient(p0, p1, p2, p3);
+}
+
+static void do_Agent_ResponseLogin(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->Agent_ResponseLogin();
+}
+
+static void do_Agent_PeerBindTCP(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Agent_PeerBindTCP(p0);
+}
+
+static void do_Agent_PeerBindUDP(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	std::string p1 = extract_string(parameters, &paramPtr, length);
+	uint32_t p2 = extract_uint32(parameters, &paramPtr, length);
+	std::string p3 = extract_string(parameters, &paramPtr, length);
+	uint32_t p4 = extract_uint32(parameters, &paramPtr, length);
+
+	return self->Agent_PeerBindUDP(p0, p1, p2, p3, p4);
+}
+
+static void do_Agent_PeerUnbind(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Agent_PeerUnbind(p0);
+}
+
+static void do_Agent_Error(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Agent_Error(p0);
+}
+
+static void do_Agent_TunnelingTCP(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
+	tuple<Buffer, size_t, size_t> p2 = extract_blob(parameters, &paramPtr, length);
+
+	return self->Agent_TunnelingTCP(p0, p1, p2);
+}
+
+static void do_Agent_TunnelingUDP(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
+	tuple<Buffer, size_t, size_t> p2 = extract_blob(parameters, &paramPtr, length);
+
+	return self->Agent_TunnelingUDP(p0, p1, p2);
+}
+
+static void do_Agent_AllowTunnelingTCP(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->Agent_AllowTunnelingTCP();
+}
+
+static void do_Agent_AllowTunnelingUDP(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->Agent_AllowTunnelingUDP();
+}
+
+static void do_Agent_DebugPing(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Agent_DebugPing(p0);
+}
+
+static void do_Agent_DebugTest(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	std::string p0 = extract_string(parameters, &paramPtr, length);
+
+	return self->Agent_DebugTest(p0);
+}
+
+static void do_Peer_Ping_Time(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
+
+	return self->Peer_Ping_Time(p0);
+}
+
+static void do_Peer_Pong_Time(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
+	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
+
+	return self->Peer_Pong_Time(p0, p1);
+}
+
+static void do_Announce_(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	std::string p0 = extract_string(parameters, &paramPtr, length);
+
+	return self->Announce_(p0);
+}
+
+static void do_Announce_Schedule(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	std::string p0 = extract_string(parameters, &paramPtr, length);
+
+	return self->Announce_Schedule(p0);
+}
+
+static void do_Switchclanserverstatus_change(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->Switchclanserverstatus_change();
+}
+
+static void do_Switchclanserverstatus_up_(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->Switchclanserverstatus_up_();
+}
+
+static void do_MC_MATCH_SCHEDULE_STOP_SERVER(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	std::string p0 = extract_string(parameters, &paramPtr, length);
+
+	return self->MC_MATCH_SCHEDULE_STOP_SERVER(p0);
+}
+
+static void do_test(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+
+	return self->test(p0);
+}
+
+static void do_MC_RESPONSE_KEEPER_MANAGER_CONNECT(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->MC_RESPONSE_KEEPER_MANAGER_CONNECT(p0);
+}
+
+static void do_MC_REQUEST_KEEPERMGR_ANNOUNCE(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	std::string p0 = extract_string(parameters, &paramPtr, length);
+
+	return self->MC_REQUEST_KEEPERMGR_ANNOUNCE(p0);
+}
+
+static void do_MC_REQUEST_KEEPER_ANNOUNCE(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	std::string p0 = extract_string(parameters, &paramPtr, length);
+
+	return self->MC_REQUEST_KEEPER_ANNOUNCE(p0);
+}
+
+static void do_Checkping(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->Checkping();
+}
+
+static void do_requestmatchserverstatus(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->requestmatchserverstatus();
+}
+
+static void do_responsematchserverststus(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+	std::string p1 = extract_string(parameters, &paramPtr, length);
+	uint8_t p2 = extract_uint8(parameters, &paramPtr, length);
+
+	return self->responsematchserverststus(p0, p1, p2);
+}
+
+static void do_MC_REQUEST_DOWNLOAD_SERVER_PATCH_FILE(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->MC_REQUEST_DOWNLOAD_SERVER_PATCH_FILE();
+}
+
+static void do_MC_REQUEST_STOP_SERVER(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->MC_REQUEST_STOP_SERVER();
+}
+
+static void do_MC_REQUEST_CONNECTION_STATE(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->MC_REQUEST_CONNECTION_STATE();
+}
+
+static void do_MC_RESPONSE_CONNECTION_STATE(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+
+	return self->MC_RESPONSE_CONNECTION_STATE(p0);
+}
+
+static void do_MC_REQUEST_SERVER_HEARBEAT(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->MC_REQUEST_SERVER_HEARBEAT();
+}
+
+static void do_MC_RESPONSE_SERVER_HEARHEAT(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->MC_RESPONSE_SERVER_HEARHEAT();
+}
+
+static void do_MC_REQUEST_START_SERVER(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->MC_REQUEST_START_SERVER();
+}
+
+static void do_MC_REQUEST_KEEPER_CONNECT_MATCHSERVER(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->MC_REQUEST_KEEPER_CONNECT_MATCHSERVER();
+}
+
+static void do_MC_RESPONSE_KEEPER_CONNECT_MATCHSERVER(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->MC_RESPONSE_KEEPER_CONNECT_MATCHSERVER(p0);
+}
+
+static void do_MC_REQUEST_REFRESH_SERVER(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->MC_REQUEST_REFRESH_SERVER();
+}
+
+static void do_MC_REQUEST_PREPARE_SERVER_PATCH(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->MC_REQUEST_PREPARE_SERVER_PATCH();
+}
+
+static void do_MC_REQUEST_SERVER_PATCH(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->MC_REQUEST_SERVER_PATCH();
+}
+
+static void do_MC_REQUEST_LAST_JOB_STATE(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->MC_REQUEST_LAST_JOB_STATE();
+}
+
+static void do_MC_RESPONSE_LAST_JOB_STATE(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+	int32_t p1 = extract_int32(parameters, &paramPtr, length);
+
+	return self->MC_RESPONSE_LAST_JOB_STATE(p0, p1);
+}
+
+static void do_MC_REQUEST_CONFIG_STATE(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->MC_REQUEST_CONFIG_STATE();
+}
+
+static void do_MC_RESPONSE_CONFIG_STATE(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+	int32_t p1 = extract_int32(parameters, &paramPtr, length);
+	int32_t p2 = extract_int32(parameters, &paramPtr, length);
+	int32_t p3 = extract_int32(parameters, &paramPtr, length);
+	int32_t p4 = extract_int32(parameters, &paramPtr, length);
+
+	return self->MC_RESPONSE_CONFIG_STATE(p0, p1, p2, p3, p4);
+}
+
+static void do_MC_REQUEST_SET_ONE_CONFIG(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+	int32_t p1 = extract_int32(parameters, &paramPtr, length);
+
+	return self->MC_REQUEST_SET_ONE_CONFIG(p0, p1);
+}
+
+static void do_MC_RESPONSE_SET_ONE_CONFIG(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+	int32_t p1 = extract_int32(parameters, &paramPtr, length);
+
+	return self->MC_RESPONSE_SET_ONE_CONFIG(p0, p1);
+}
+
+static void do_MC_REQUEST_STOP_AGENT_SERVER(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->MC_REQUEST_STOP_AGENT_SERVER();
+}
+
+static void do_MC_REQUEST_START_AGENT_SERVER(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->MC_REQUEST_START_AGENT_SERVER();
+}
+
+static void do_MC_REQUEST_DOWNLOAD_AGENT_PATCH_FILE(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->MC_REQUEST_DOWNLOAD_AGENT_PATCH_FILE();
+}
+
+static void do_MC_REQUEST_PREPARE_AGENT_PATCH(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->MC_REQUEST_PREPARE_AGENT_PATCH();
+}
+
+static void do_MC_REQUEST_AGENT_PATCH(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->MC_REQUEST_AGENT_PATCH();
+}
+
+static void do_MC_REQUEST_RESET_PATCH(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->MC_REQUEST_RESET_PATCH();
+}
+
+static void do_MC_REQUEST_DISCONNECT_SERVER(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->MC_REQUEST_DISCONNECT_SERVER();
+}
+
+static void do_MC_REQUEST_REBOOT_WINDOWS(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->MC_REQUEST_REBOOT_WINDOWS();
+}
+
+static void do_MC_REQUEST_ANNOUNCE_STOP_SERVER(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->MC_REQUEST_ANNOUNCE_STOP_SERVER();
+}
+
+static void do_MC_RESPONSE_ANNOUNCE_STOP_SERVER(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->MC_RESPONSE_ANNOUNCE_STOP_SERVER();
+}
+
+static void do_MC_REQUEST_KEEPER_MANAGER_SCHEDULE(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+	int32_t p1 = extract_int32(parameters, &paramPtr, length);
+	int32_t p2 = extract_int32(parameters, &paramPtr, length);
+	int32_t p3 = extract_int32(parameters, &paramPtr, length);
+	int32_t p4 = extract_int32(parameters, &paramPtr, length);
+	int32_t p5 = extract_int32(parameters, &paramPtr, length);
+	int32_t p6 = extract_int32(parameters, &paramPtr, length);
+	int32_t p7 = extract_int32(parameters, &paramPtr, length);
+	std::string p8 = extract_string(parameters, &paramPtr, length);
+
+	return self->MC_REQUEST_KEEPER_MANAGER_SCHEDULE(p0, p1, p2, p3, p4, p5, p6, p7, p8);
+}
+
+static void do_MC_RESPONSE_KEEPER_MANAGER_SCHEDULE(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+	array<uint16_t, 3> p1 = extract_vector(parameters, &paramPtr, length);
+
+	return self->MC_RESPONSE_KEEPER_MANAGER_SCHEDULE(p0, p1);
+}
+
+static void do_MC_REQUEST_SERVER_AGENT_STATE(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->MC_REQUEST_SERVER_AGENT_STATE();
+}
+
+static void do_MC_RESPONSE_SERVER_AGENT_STATE(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+	int32_t p1 = extract_int32(parameters, &paramPtr, length);
+
+	return self->MC_RESPONSE_SERVER_AGENT_STATE(p0, p1);
+}
+
+static void do_MC_REQUEST_SERVER_STATUS(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->MC_REQUEST_SERVER_STATUS();
+}
+
+static void do_MC_REQUEST_START_SERVER_SCHEDULE(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->MC_REQUEST_START_SERVER_SCHEDULE();
+}
+
+static void do_MC_REQUEST_WRITE_CLIENT_CRC(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
+
+	return self->MC_REQUEST_WRITE_CLIENT_CRC(p0);
+}
+
+static void do_MC_RESPONSE_WRITE_CLIENT_CRC(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	bool p0 = extract_bool(parameters, &paramPtr, length);
+
+	return self->MC_RESPONSE_WRITE_CLIENT_CRC(p0);
+}
+
+static void do_MC_REQUEST_KEEPER_RELOAD_SERVER_CONFIG(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	std::string p0 = extract_string(parameters, &paramPtr, length);
+
+	return self->MC_REQUEST_KEEPER_RELOAD_SERVER_CONFIG(p0);
+}
+
+static void do_MC_REQUEST_RELOAD_CONFIG(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	std::string p0 = extract_string(parameters, &paramPtr, length);
+
+	return self->MC_REQUEST_RELOAD_CONFIG(p0);
+}
+
+static void do_MC_REQUEST_KEEPER_ADD_HASHMAP(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	std::string p0 = extract_string(parameters, &paramPtr, length);
+
+	return self->MC_REQUEST_KEEPER_ADD_HASHMAP(p0);
+}
+
+static void do_MC_RESPONSE_KEEPER_ADD_HASHMAP(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	bool p0 = extract_bool(parameters, &paramPtr, length);
+
+	return self->MC_RESPONSE_KEEPER_ADD_HASHMAP(p0);
+}
+
+static void do_MC_REQUEST_ADD_HASHMAP(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	std::string p0 = extract_string(parameters, &paramPtr, length);
+
+	return self->MC_REQUEST_ADD_HASHMAP(p0);
+}
+
+static void do_MC_RESPONSE_ADD_HASHMAP(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	bool p0 = extract_bool(parameters, &paramPtr, length);
+
+	return self->MC_RESPONSE_ADD_HASHMAP(p0);
+}
+
+static void do_Questitem(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Questitem(p0);
+}
+
+static void do_Quest_item_response(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
+
+	return self->Quest_item_response(p0);
+}
+
+static void do_Quest_item_buy(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	int32_t p1 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Quest_item_buy(p0, p1);
+}
+
+static void do_Quest_item_responsebuy(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+	int32_t p1 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Quest_item_responsebuy(p0, p1);
+}
+
+static void do_Quest_item_sell(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	int32_t p1 = extract_int32(parameters, &paramPtr, length);
+	int32_t p2 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Quest_item_sell(p0, p1, p2);
+}
+
+static void do_Quest_item_responsesell(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+	int32_t p1 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Quest_item_responsesell(p0, p1);
+}
+
+static void do_Quest_Reward(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+	int32_t p1 = extract_int32(parameters, &paramPtr, length);
+	tuple<Buffer, size_t, size_t> p2 = extract_blob(parameters, &paramPtr, length);
+	tuple<Buffer, size_t, size_t> p3 = extract_blob(parameters, &paramPtr, length);
+
+	return self->Quest_Reward(p0, p1, p2, p3);
+}
+
+static void do_Quest_Request_Sacrifice(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	int32_t p1 = extract_int32(parameters, &paramPtr, length);
+	int32_t p2 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Quest_Request_Sacrifice(p0, p1, p2);
+}
+
+static void do_Quest_Response_Sacrifice(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
+	int32_t p2 = extract_int32(parameters, &paramPtr, length);
+	int32_t p3 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Quest_Response_Sacrifice(p0, p1, p2, p3);
+}
+
+static void do_Quest_Callback_Sacrifice(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	int32_t p1 = extract_int32(parameters, &paramPtr, length);
+	int32_t p2 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Quest_Callback_Sacrifice(p0, p1, p2);
+}
+
+static void do_Quest_Callback_Result(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
+	int32_t p2 = extract_int32(parameters, &paramPtr, length);
+	int32_t p3 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Quest_Callback_Result(p0, p1, p2, p3);
+}
+
+static void do_Quest_Request_SlotInfo(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Quest_Request_SlotInfo(p0);
+}
+
+static void do_Quest_Resonse_SlotInfo(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	int32_t p1 = extract_int32(parameters, &paramPtr, length);
+	uint64_t p2 = extract_MUID(parameters, &paramPtr, length);
+	int32_t p3 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Quest_Resonse_SlotInfo(p0, p1, p2, p3);
+}
+
+static void do_Quest_RequestLevel(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Quest_RequestLevel(p0);
+}
+
+static void do_Quest_ResponseLevel(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Quest_ResponseLevel(p0);
+}
+
+static void do_Quest_Survival_Result(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+	int32_t p1 = extract_int32(parameters, &paramPtr, length);
+
+	return self->Quest_Survival_Result(p0, p1);
+}
+
+static void do_Quest_Survival_Ranking(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
+
+	return self->Quest_Survival_Ranking(p0);
+}
+
+static void do_Quest_Survuval_PrivateRanking(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
+	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
+
+	return self->Quest_Survuval_PrivateRanking(p0, p1);
+}
+
+static void do_Quest_Start_Fail(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	int32_t p0 = extract_int32(parameters, &paramPtr, length);
+	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Quest_Start_Fail(p0, p1);
+}
+
+static void do_monsterinfo(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	array<uint16_t, 3> p0 = extract_vector(parameters, &paramPtr, length);
+
+	return self->monsterinfo(p0);
+}
+
+static void do_Quest_Bible_Request(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+
+	return self->Quest_Bible_Request(p0);
+}
+
+static void do_Quest_Bible_Response(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
+
+	return self->Quest_Bible_Response(p0, p1);
+}
+
+static void do_MC_REQUEST_SERVER_LIST_INFO(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->MC_REQUEST_SERVER_LIST_INFO();
+}
+
+static void do_MC_RESPONSE_SERVER_LIST_INFO(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
+
+	return self->MC_RESPONSE_SERVER_LIST_INFO(p0);
+}
+
+static void do_MC_RESPONSE_BLOCK_COUNTRY_CODE_IP(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	std::string p0 = extract_string(parameters, &paramPtr, length);
+	std::string p1 = extract_string(parameters, &paramPtr, length);
+
+	return self->MC_RESPONSE_BLOCK_COUNTRY_CODE_IP(p0, p1);
+}
+
+static void do_MC_RESPONSE_BLOCK_COUNTRYCODE(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	std::string p0 = extract_string(parameters, &paramPtr, length);
+
+	return self->MC_RESPONSE_BLOCK_COUNTRYCODE(p0);
+}
+
+static void do_MC_LOCAL_UPDATE_USE_COUNTRY_FILTER(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->MC_LOCAL_UPDATE_USE_COUNTRY_FILTER();
+}
+
+static void do_MC_LOCAL_GET_DB_IP_TO_COUNTRY(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->MC_LOCAL_GET_DB_IP_TO_COUNTRY();
+}
+
+static void do_MC_LOCAL_GET_DB_BLOCK_COUNTRY_CODE(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->MC_LOCAL_GET_DB_BLOCK_COUNTRY_CODE();
+}
+
+static void do_MC_LOCAL_GET_DB_CUSTOM_IP(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->MC_LOCAL_GET_DB_CUSTOM_IP();
+}
+
+static void do_MC_LOCAL_UPDAET_IP_TO_COUNTRY(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->MC_LOCAL_UPDAET_IP_TO_COUNTRY();
+}
+
+static void do_MC_LOCAL_UPDAET_BLOCK_COUTRYCODE(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->MC_LOCAL_UPDAET_BLOCK_COUTRYCODE();
+}
+
+static void do_MC_LOCAL_UPDAET_CUSTOM_IP(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->MC_LOCAL_UPDAET_CUSTOM_IP();
+}
+
+static void do_MC_LOCAL_UPDATE_ACCEPT_INVALID_IP(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->MC_LOCAL_UPDATE_ACCEPT_INVALID_IP();
+}
+
+static void do_MC_REQUEST_XTRAP_HASHVALUE(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	std::string p0 = extract_string(parameters, &paramPtr, length);
+
+	return self->MC_REQUEST_XTRAP_HASHVALUE(p0);
+}
+
+static void do_MC_RESPONSE_XTRAP_HASHVALUE(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	std::string p0 = extract_string(parameters, &paramPtr, length);
+
+	return self->MC_RESPONSE_XTRAP_HASHVALUE(p0);
+}
+
+static void do_MC_REQUEST_XTRAP_DETECTCRACK(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
+
+	return self->MC_REQUEST_XTRAP_DETECTCRACK(p0);
+}
+
+static void do_MC_REQUEST_XTRAP_SEEDKEY(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
+
+	return self->MC_REQUEST_XTRAP_SEEDKEY(p0);
+}
+
+static void do_MC_RESPONSE_XTRAP_SEEDKEY(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
+
+	return self->MC_RESPONSE_XTRAP_SEEDKEY(p0);
+}
+
+static void do_MC_REQUEST_GAMEGUARD_AUTH_INDEX(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
+	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
+	uint32_t p2 = extract_uint32(parameters, &paramPtr, length);
+	uint32_t p3 = extract_uint32(parameters, &paramPtr, length);
+
+	return self->MC_REQUEST_GAMEGUARD_AUTH_INDEX(p0, p1, p2, p3);
+}
+
+static void do_MC_RESPONSE_GAMEGUARD_AUTH_INDEX(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
+	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
+	uint32_t p2 = extract_uint32(parameters, &paramPtr, length);
+	uint32_t p3 = extract_uint32(parameters, &paramPtr, length);
+
+	return self->MC_RESPONSE_GAMEGUARD_AUTH_INDEX(p0, p1, p2, p3);
+}
+
+static void do_MC_REQUEST_GAMEGUARD_AUTH_VALUE(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
+	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
+	uint32_t p2 = extract_uint32(parameters, &paramPtr, length);
+	uint32_t p3 = extract_uint32(parameters, &paramPtr, length);
+
+	return self->MC_REQUEST_GAMEGUARD_AUTH_VALUE(p0, p1, p2, p3);
+}
+
+static void do_MC_RESPONSE_GAMEGUARD_AUTH_VALUE(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
+	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
+	uint32_t p2 = extract_uint32(parameters, &paramPtr, length);
+	uint32_t p3 = extract_uint32(parameters, &paramPtr, length);
+
+	return self->MC_RESPONSE_GAMEGUARD_AUTH_VALUE(p0, p1, p2, p3);
+}
+
+static void do_MC_REQUEST_GIVE_ONESELF_UP(Registry* self, const uint8_t*, uint16_t)
+{
+
+	return self->MC_REQUEST_GIVE_ONESELF_UP();
+}
+
+static void do_MC_RESPONSE_GAMBLEITEMLIST(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
+
+	return self->MC_RESPONSE_GAMBLEITEMLIST(p0);
+}
+
+static void do_MC_MATCH_ROUTE_UPDATE_STAGE_EQUIP_LOOK(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
+	int32_t p1 = extract_int32(parameters, &paramPtr, length);
+	int32_t p2 = extract_int32(parameters, &paramPtr, length);
+
+	return self->MC_MATCH_ROUTE_UPDATE_STAGE_EQUIP_LOOK(p0, p1, p2);
+}
+
+static void do_MC_REQUEST_RESOURCE_CRC32(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
+
+	return self->MC_REQUEST_RESOURCE_CRC32(p0);
+}
+
+static void do_MC_RESPONSE_RESOURCE_CRC32(Registry* self, const uint8_t* parameters, uint16_t length)
+{
+	const uint8_t* paramPtr = parameters;
+
+	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
+
+	return self->MC_RESPONSE_RESOURCE_CRC32(p0);
+}
+
 void Registry::dispatch(uint16_t packetID,
                               const uint8_t* parameters,
                               uint16_t length)
 {
-	const uint8_t* paramPtr = parameters;
-
 	try {
 		switch(packetID)
 		{
-		case protocol::Local_Info::packetID:
-			{
-				this->Local_Info();
-				break;
-			}
-		case protocol::Local_Echo::packetID:
-			{
-				std::string p0 = extract_string(parameters, &paramPtr, length);
-				this->Local_Echo(p0);
-				break;
-			}
-		case protocol::Local_Login::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
-				this->Local_Login(p0, p1);
-				break;
-			}
-		case protocol::Help::packetID:
-			{
-				this->Help();
-				break;
-			}
-		case protocol::Version::packetID:
-			{
-				this->Version();
-				break;
-			}
-		case protocol::DebugTest::packetID:
-			{
-				this->DebugTest();
-				break;
-			}
-		case protocol::Net_Enum::packetID:
-			{
-				this->Net_Enum();
-				break;
-			}
-		case protocol::Net_Connect::packetID:
-			{
-				std::string p0 = extract_string(parameters, &paramPtr, length);
-				this->Net_Connect(p0);
-				break;
-			}
-		case protocol::Net_Disconnect::packetID:
-			{
-				this->Net_Disconnect();
-				break;
-			}
-		case protocol::Net_Clear::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				this->Net_Clear(p0);
-				break;
-			}
-		case protocol::Net_CheckPing::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				this->Net_CheckPing(p0);
-				break;
-			}
-		case protocol::Net_Ping::packetID:
-			{
-				uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
-				this->Net_Ping(p0);
-				break;
-			}
-		case protocol::Net_Pong::packetID:
-			{
-				uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
-				this->Net_Pong(p0);
-				break;
-			}
-		case protocol::HShield_Ping::packetID:
-			{
-				uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
-				tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
-				this->HShield_Ping(p0, p1);
-				break;
-			}
-		case protocol::HShield_Pong::packetID:
-			{
-				uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
-				tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
-				this->HShield_Pong(p0, p1);
-				break;
-			}
-		case protocol::Net_OnConnect::packetID:
-			{
-				this->Net_OnConnect();
-				break;
-			}
-		case protocol::Net_OnDisConnect::packetID:
-			{
-				this->Net_OnDisConnect();
-				break;
-			}
-		case protocol::Net_OnError::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				this->Net_OnError(p0);
-				break;
-			}
-		case protocol::Net_ConnectToZoneServer::packetID:
-			{
-				this->Net_ConnectToZoneServer();
-				break;
-			}
-		case protocol::Net_RequestInfo::packetID:
-			{
-				this->Net_RequestInfo();
-				break;
-			}
-		case protocol::Net_ResponseInfo::packetID:
-			{
-				std::string p0 = extract_string(parameters, &paramPtr, length);
-				this->Net_ResponseInfo(p0);
-				break;
-			}
-		case protocol::Net_Echo::packetID:
-			{
-				std::string p0 = extract_string(parameters, &paramPtr, length);
-				this->Net_Echo(p0);
-				break;
-			}
-		case protocol::Match_Announce::packetID:
-			{
-				uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
-				std::string p1 = extract_string(parameters, &paramPtr, length);
-				this->Match_Announce(p0, p1);
-				break;
-			}
-		case protocol::Clock_Synchronize::packetID:
-			{
-				uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
-				this->Clock_Synchronize(p0);
-				break;
-			}
-		case protocol::Match_Login::packetID:
-			{
-				std::string p0 = extract_string(parameters, &paramPtr, length);
-				std::string p1 = extract_string(parameters, &paramPtr, length);
-				int32_t p2 = extract_int32(parameters, &paramPtr, length);
-				uint32_t p3 = extract_uint32(parameters, &paramPtr, length);
-				tuple<Buffer, size_t, size_t> p4 = extract_blob(parameters, &paramPtr, length);
-				this->Match_Login(p0, p1, p2, p3, p4);
-				break;
-			}
-		case protocol::Match_ResponseLogin::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				std::string p1 = extract_string(parameters, &paramPtr, length);
-				array<uint16_t, 3> p2 = extract_vector(parameters, &paramPtr, length);
-				std::string p3 = extract_string(parameters, &paramPtr, length);
-				uint8_t p4 = extract_uint8(parameters, &paramPtr, length);
-				uint8_t p5 = extract_uint8(parameters, &paramPtr, length);
-				uint64_t p6 = extract_MUID(parameters, &paramPtr, length);
-				bool p7 = extract_bool(parameters, &paramPtr, length);
-				tuple<Buffer, size_t, size_t> p8 = extract_blob(parameters, &paramPtr, length);
-				this->Match_ResponseLogin(p0, p1, p2, p3, p4, p5, p6, p7, p8);
-				break;
-			}
-		case protocol::Match_Response_Result::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				this->Match_Response_Result(p0);
-				break;
-			}
-		case protocol::Match_LoginNetmarble::packetID:
-			{
-				std::string p0 = extract_string(parameters, &paramPtr, length);
-				std::string p1 = extract_string(parameters, &paramPtr, length);
-				int32_t p2 = extract_int32(parameters, &paramPtr, length);
-				uint32_t p3 = extract_uint32(parameters, &paramPtr, length);
-				this->Match_LoginNetmarble(p0, p1, p2, p3);
-				break;
-			}
-		case protocol::Match_LoginNetmarbleJP::packetID:
-			{
-				std::string p0 = extract_string(parameters, &paramPtr, length);
-				std::string p1 = extract_string(parameters, &paramPtr, length);
-				int32_t p2 = extract_int32(parameters, &paramPtr, length);
-				uint32_t p3 = extract_uint32(parameters, &paramPtr, length);
-				this->Match_LoginNetmarbleJP(p0, p1, p2, p3);
-				break;
-			}
-		case protocol::Match_LoginFromDBAgent::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				std::string p1 = extract_string(parameters, &paramPtr, length);
-				std::string p2 = extract_string(parameters, &paramPtr, length);
-				int32_t p3 = extract_int32(parameters, &paramPtr, length);
-				bool p4 = extract_bool(parameters, &paramPtr, length);
-				uint32_t p5 = extract_uint32(parameters, &paramPtr, length);
-				this->Match_LoginFromDBAgent(p0, p1, p2, p3, p4, p5);
-				break;
-			}
-		case protocol::Match_LoginFailedFromDBAgent::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				int32_t p1 = extract_int32(parameters, &paramPtr, length);
-				this->Match_LoginFailedFromDBAgent(p0, p1);
-				break;
-			}
-		case protocol::Match_FinH::packetID:
-			{
-				this->Match_FinH();
-				break;
-			}
-		case protocol::MC_MATCH_DISCONNMSG::packetID:
-			{
-				uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
-				this->MC_MATCH_DISCONNMSG(p0);
-				break;
-			}
-		case protocol::MC_MATCH_LOGIN_NHNUSA::packetID:
-			{
-				std::string p0 = extract_string(parameters, &paramPtr, length);
-				std::string p1 = extract_string(parameters, &paramPtr, length);
-				int32_t p2 = extract_int32(parameters, &paramPtr, length);
-				uint32_t p3 = extract_uint32(parameters, &paramPtr, length);
-				tuple<Buffer, size_t, size_t> p4 = extract_blob(parameters, &paramPtr, length);
-				this->MC_MATCH_LOGIN_NHNUSA(p0, p1, p2, p3, p4);
-				break;
-			}
-		case protocol::MC_MATCH_LOGIN_GAMEON_JP::packetID:
-			{
-				std::string p0 = extract_string(parameters, &paramPtr, length);
-				std::string p1 = extract_string(parameters, &paramPtr, length);
-				int32_t p2 = extract_int32(parameters, &paramPtr, length);
-				uint32_t p3 = extract_uint32(parameters, &paramPtr, length);
-				tuple<Buffer, size_t, size_t> p4 = extract_blob(parameters, &paramPtr, length);
-				this->MC_MATCH_LOGIN_GAMEON_JP(p0, p1, p2, p3, p4);
-				break;
-			}
-		case protocol::Match_ObjectCache::packetID:
-			{
-				uint8_t p0 = extract_uint8(parameters, &paramPtr, length);
-				tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
-				this->Match_ObjectCache(p0, p1);
-				break;
-			}
-		case protocol::Match_BridgePeer::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
-				uint32_t p2 = extract_uint32(parameters, &paramPtr, length);
-				this->Match_BridgePeer(p0, p1, p2);
-				break;
-			}
-		case protocol::Match_BridgePeerACK::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				int32_t p1 = extract_int32(parameters, &paramPtr, length);
-				this->Match_BridgePeerACK(p0, p1);
-				break;
-			}
-		case protocol::MatchServer_RequestRecommandedChannel::packetID:
-			{
-				this->MatchServer_RequestRecommandedChannel();
-				break;
-			}
-		case protocol::MatchServer_ResponseRecommandedChannel::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				this->MatchServer_ResponseRecommandedChannel(p0);
-				break;
-			}
-		case protocol::Channel_Join::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
-				this->Channel_Join(p0, p1);
-				break;
-			}
-		case protocol::Channel_ResponseJoin::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				int32_t p1 = extract_int32(parameters, &paramPtr, length);
-				std::string p2 = extract_string(parameters, &paramPtr, length);
-				bool p3 = extract_bool(parameters, &paramPtr, length);
-				this->Channel_ResponseJoin(p0, p1, p2, p3);
-				break;
-			}
-		case protocol::Channel_RequestJoinFromName::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				int32_t p1 = extract_int32(parameters, &paramPtr, length);
-				int32_t p2 = extract_int32(parameters, &paramPtr, length);
-				std::string p3 = extract_string(parameters, &paramPtr, length);
-				this->Channel_RequestJoinFromName(p0, p1, p2, p3);
-				break;
-			}
-		case protocol::Channel_Leave::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
-				this->Channel_Leave(p0, p1);
-				break;
-			}
-		case protocol::Channel_ListStart::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				int32_t p1 = extract_int32(parameters, &paramPtr, length);
-				int32_t p2 = extract_int32(parameters, &paramPtr, length);
-				this->Channel_ListStart(p0, p1, p2);
-				break;
-			}
-		case protocol::Channel_ListStop::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				this->Channel_ListStop(p0);
-				break;
-			}
-		case protocol::Channel_List::packetID:
-			{
-				tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
-				this->Channel_List(p0);
-				break;
-			}
-		case protocol::Channel_Request_Chat::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
-				std::string p2 = extract_string(parameters, &paramPtr, length);
-				this->Channel_Request_Chat(p0, p1, p2);
-				break;
-			}
-		case protocol::Channel_Chat::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				std::string p1 = extract_string(parameters, &paramPtr, length);
-				std::string p2 = extract_string(parameters, &paramPtr, length);
-				int32_t p3 = extract_int32(parameters, &paramPtr, length);
-				this->Channel_Chat(p0, p1, p2, p3);
-				break;
-			}
-		case protocol::Channel_PlayerDumb::packetID:
-			{
-				this->Channel_PlayerDumb();
-				break;
-			}
-		case protocol::Channel_Request_Rule::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				this->Channel_Request_Rule(p0);
-				break;
-			}
-		case protocol::Channel_Response_Rule::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				std::string p1 = extract_string(parameters, &paramPtr, length);
-				this->Channel_Response_Rule(p0, p1);
-				break;
-			}
-		case protocol::Channel_RequestAllPlayerList::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
-				uint32_t p2 = extract_uint32(parameters, &paramPtr, length);
-				uint32_t p3 = extract_uint32(parameters, &paramPtr, length);
-				this->Channel_RequestAllPlayerList(p0, p1, p2, p3);
-				break;
-			}
-		case protocol::Channel_ResponseAllPlayerList::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
-				this->Channel_ResponseAllPlayerList(p0, p1);
-				break;
-			}
-		case protocol::Stage_Create::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				std::string p1 = extract_string(parameters, &paramPtr, length);
-				bool p2 = extract_bool(parameters, &paramPtr, length);
-				std::string p3 = extract_string(parameters, &paramPtr, length);
-				this->Stage_Create(p0, p1, p2, p3);
-				break;
-			}
-		case protocol::Stage_RequestJoin::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
-				this->Stage_RequestJoin(p0, p1);
-				break;
-			}
-		case protocol::Stage_RequestPrivateJoin::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
-				std::string p2 = extract_string(parameters, &paramPtr, length);
-				this->Stage_RequestPrivateJoin(p0, p1, p2);
-				break;
-			}
-		case protocol::Stage_Join::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
-				uint32_t p2 = extract_uint32(parameters, &paramPtr, length);
-				std::string p3 = extract_string(parameters, &paramPtr, length);
-				this->Stage_Join(p0, p1, p2, p3);
-				break;
-			}
-		case protocol::Stage_Leave::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				this->Stage_Leave(p0);
-				break;
-			}
-		case protocol::Stage_Request_PlayerList::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				this->Stage_Request_PlayerList(p0);
-				break;
-			}
-		case protocol::Stage_Follow::packetID:
-			{
-				std::string p0 = extract_string(parameters, &paramPtr, length);
-				this->Stage_Follow(p0);
-				break;
-			}
-		case protocol::Stage_Response_Follow::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				this->Stage_Response_Follow(p0);
-				break;
-			}
-		case protocol::Stage_ResponseJoin::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				this->Stage_ResponseJoin(p0);
-				break;
-			}
-		case protocol::Stage_RequirePassword::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				std::string p1 = extract_string(parameters, &paramPtr, length);
-				this->Stage_RequirePassword(p0, p1);
-				break;
-			}
-		case protocol::RequestGameInfo::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
-				this->RequestGameInfo(p0, p1);
-				break;
-			}
-		case protocol::ResponseGameInfo::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
-				tuple<Buffer, size_t, size_t> p2 = extract_blob(parameters, &paramPtr, length);
-				tuple<Buffer, size_t, size_t> p3 = extract_blob(parameters, &paramPtr, length);
-				this->ResponseGameInfo(p0, p1, p2, p3);
-				break;
-			}
-		case protocol::Stage_ResponseCreate::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				this->Stage_ResponseCreate(p0);
-				break;
-			}
-		case protocol::Stage_Request_EnterBattle::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
-				this->Stage_Request_EnterBattle(p0, p1);
-				break;
-			}
-		case protocol::Stage_EnterBattle::packetID:
-			{
-				uint8_t p0 = extract_uint8(parameters, &paramPtr, length);
-				tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
-				this->Stage_EnterBattle(p0, p1);
-				break;
-			}
-		case protocol::Stage_LeaveBattle::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				this->Stage_LeaveBattle(p0);
-				break;
-			}
-		case protocol::Stage_Start::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
-				int32_t p2 = extract_int32(parameters, &paramPtr, length);
-				this->Stage_Start(p0, p1, p2);
-				break;
-			}
-		case protocol::Stage_Map::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				std::string p1 = extract_string(parameters, &paramPtr, length);
-				this->Stage_Map(p0, p1);
-				break;
-			}
-		case protocol::Stage_Chat::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
-				std::string p2 = extract_string(parameters, &paramPtr, length);
-				this->Stage_Chat(p0, p1, p2);
-				break;
-			}
-		case protocol::Stage_RequestQuickJoin::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
-				this->Stage_RequestQuickJoin(p0, p1);
-				break;
-			}
-		case protocol::Stage_ResponseQuickJoin::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
-				this->Stage_ResponseQuickJoin(p0, p1);
-				break;
-			}
-		case protocol::Stage_StageGo::packetID:
-			{
-				uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
-				this->Stage_StageGo(p0);
-				break;
-			}
-		case protocol::Stage_State::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
-				int32_t p2 = extract_int32(parameters, &paramPtr, length);
-				int32_t p3 = extract_int32(parameters, &paramPtr, length);
-				this->Stage_State(p0, p1, p2, p3);
-				break;
-			}
-		case protocol::Stage_Team::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
-				uint32_t p2 = extract_uint32(parameters, &paramPtr, length);
-				this->Stage_Team(p0, p1, p2);
-				break;
-			}
-		case protocol::Stage_Master::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
-				this->Stage_Master(p0, p1);
-				break;
-			}
-		case protocol::Stage_ListStart::packetID:
-			{
-				this->Stage_ListStart();
-				break;
-			}
-		case protocol::Stage_ListStop::packetID:
-			{
-				this->Stage_ListStop();
-				break;
-			}
-		case protocol::Stage_List::packetID:
-			{
-				array<uint16_t, 3> p0 = extract_vector(parameters, &paramPtr, length);
-				array<uint16_t, 3> p1 = extract_vector(parameters, &paramPtr, length);
-				tuple<Buffer, size_t, size_t> p2 = extract_blob(parameters, &paramPtr, length);
-				this->Stage_List(p0, p1, p2);
-				break;
-			}
-		case protocol::Stage_RequestStageList::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
-				int32_t p2 = extract_int32(parameters, &paramPtr, length);
-				this->Stage_RequestStageList(p0, p1, p2);
-				break;
-			}
-		case protocol::Channel_RequestPlayerList::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
-				int32_t p2 = extract_int32(parameters, &paramPtr, length);
-				this->Channel_RequestPlayerList(p0, p1, p2);
-				break;
-			}
-		case protocol::Channel_ResponsePlayerList::packetID:
-			{
-				uint8_t p0 = extract_uint8(parameters, &paramPtr, length);
-				uint8_t p1 = extract_uint8(parameters, &paramPtr, length);
-				tuple<Buffer, size_t, size_t> p2 = extract_blob(parameters, &paramPtr, length);
-				this->Channel_ResponsePlayerList(p0, p1, p2);
-				break;
-			}
-		case protocol::Stage_RequestStageSetting::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				this->Stage_RequestStageSetting(p0);
-				break;
-			}
-		case protocol::Stage_ResponseStageSetting::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
-				tuple<Buffer, size_t, size_t> p2 = extract_blob(parameters, &paramPtr, length);
-				int32_t p3 = extract_int32(parameters, &paramPtr, length);
-				uint64_t p4 = extract_MUID(parameters, &paramPtr, length);
-				this->Stage_ResponseStageSetting(p0, p1, p2, p3, p4);
-				break;
-			}
-		case protocol::Stage_StageSetting::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
-				tuple<Buffer, size_t, size_t> p2 = extract_blob(parameters, &paramPtr, length);
-				this->Stage_StageSetting(p0, p1, p2);
-				break;
-			}
-		case protocol::Stage_Launch::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				std::string p1 = extract_string(parameters, &paramPtr, length);
-				this->Stage_Launch(p0, p1);
-				break;
-			}
-		case protocol::Stage_Finish::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				this->Stage_Finish(p0);
-				break;
-			}
-		case protocol::Stage_RequestPeerList::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
-				this->Stage_RequestPeerList(p0, p1);
-				break;
-			}
-		case protocol::Stage_ResponsePeerList::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
-				this->Stage_ResponsePeerList(p0, p1);
-				break;
-			}
-		case protocol::Loading_Complete::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				int32_t p1 = extract_int32(parameters, &paramPtr, length);
-				this->Loading_Complete(p0, p1);
-				break;
-			}
-		case protocol::Match_RequestPeerRelay::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
-				this->Match_RequestPeerRelay(p0, p1);
-				break;
-			}
-		case protocol::Match_ResponsePeerRelay::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				this->Match_ResponsePeerRelay(p0);
-				break;
-			}
-		case protocol::Stage_RoundState::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				int32_t p1 = extract_int32(parameters, &paramPtr, length);
-				int32_t p2 = extract_int32(parameters, &paramPtr, length);
-				int32_t p3 = extract_int32(parameters, &paramPtr, length);
-				this->Stage_RoundState(p0, p1, p2, p3);
-				break;
-			}
-		case protocol::Game_Kill::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				this->Game_Kill(p0);
-				break;
-			}
-		case protocol::Game_Requst_Spawn::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				array<float, 3> p1 = extract_position(parameters, &paramPtr, length);
-				array<float, 3> p2 = extract_direction(parameters, &paramPtr, length);
-				this->Game_Requst_Spawn(p0, p1, p2);
-				break;
-			}
-		case protocol::Game_LevelUp::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				int32_t p1 = extract_int32(parameters, &paramPtr, length);
-				this->Game_LevelUp(p0, p1);
-				break;
-			}
-		case protocol::Game_LevelDown::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				int32_t p1 = extract_int32(parameters, &paramPtr, length);
-				this->Game_LevelDown(p0, p1);
-				break;
-			}
-		case protocol::Game_Dead::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
-				uint64_t p2 = extract_MUID(parameters, &paramPtr, length);
-				uint32_t p3 = extract_uint32(parameters, &paramPtr, length);
-				this->Game_Dead(p0, p1, p2, p3);
-				break;
-			}
-		case protocol::Game_TeamBonus::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
-				this->Game_TeamBonus(p0, p1);
-				break;
-			}
-		case protocol::Game_RequestTimeSync::packetID:
-			{
-				uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
-				this->Game_RequestTimeSync(p0);
-				break;
-			}
-		case protocol::Game_ResponseTimeSync::packetID:
-			{
-				uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
-				uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
-				this->Game_ResponseTimeSync(p0, p1);
-				break;
-			}
-		case protocol::Game_ReportTimeSync::packetID:
-			{
-				uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
-				uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
-				this->Game_ReportTimeSync(p0, p1);
-				break;
-			}
-		case protocol::Stage_RequestForcedEntry::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
-				this->Stage_RequestForcedEntry(p0, p1);
-				break;
-			}
-		case protocol::Stage_ResponseForcedEntry::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				this->Stage_ResponseForcedEntry(p0);
-				break;
-			}
-		case protocol::Stage_RoundFinishInfo::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
-				tuple<Buffer, size_t, size_t> p2 = extract_blob(parameters, &paramPtr, length);
-				tuple<Buffer, size_t, size_t> p3 = extract_blob(parameters, &paramPtr, length);
-				this->Stage_RoundFinishInfo(p0, p1, p2, p3);
-				break;
-			}
-		case protocol::Match_Notify::packetID:
-			{
-				uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
-				this->Match_Notify(p0);
-				break;
-			}
-		case protocol::Match_Whisper::packetID:
-			{
-				std::string p0 = extract_string(parameters, &paramPtr, length);
-				std::string p1 = extract_string(parameters, &paramPtr, length);
-				std::string p2 = extract_string(parameters, &paramPtr, length);
-				this->Match_Whisper(p0, p1, p2);
-				break;
-			}
-		case protocol::Match_Where::packetID:
-			{
-				std::string p0 = extract_string(parameters, &paramPtr, length);
-				this->Match_Where(p0);
-				break;
-			}
-		case protocol::Match_UserOption::packetID:
-			{
-				uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
-				this->Match_UserOption(p0);
-				break;
-			}
-		case protocol::ChatRoom_Create::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				std::string p1 = extract_string(parameters, &paramPtr, length);
-				this->ChatRoom_Create(p0, p1);
-				break;
-			}
-		case protocol::ChatRoom_Join::packetID:
-			{
-				std::string p0 = extract_string(parameters, &paramPtr, length);
-				std::string p1 = extract_string(parameters, &paramPtr, length);
-				this->ChatRoom_Join(p0, p1);
-				break;
-			}
-		case protocol::ChatRoom_Leave::packetID:
-			{
-				std::string p0 = extract_string(parameters, &paramPtr, length);
-				std::string p1 = extract_string(parameters, &paramPtr, length);
-				this->ChatRoom_Leave(p0, p1);
-				break;
-			}
-		case protocol::ChatRoom_SelectWrite::packetID:
-			{
-				std::string p0 = extract_string(parameters, &paramPtr, length);
-				this->ChatRoom_SelectWrite(p0);
-				break;
-			}
-		case protocol::ChatRoom_Invite::packetID:
-			{
-				std::string p0 = extract_string(parameters, &paramPtr, length);
-				std::string p1 = extract_string(parameters, &paramPtr, length);
-				std::string p2 = extract_string(parameters, &paramPtr, length);
-				this->ChatRoom_Invite(p0, p1, p2);
-				break;
-			}
-		case protocol::ChatRoom_Chat::packetID:
-			{
-				std::string p0 = extract_string(parameters, &paramPtr, length);
-				std::string p1 = extract_string(parameters, &paramPtr, length);
-				std::string p2 = extract_string(parameters, &paramPtr, length);
-				this->ChatRoom_Chat(p0, p1, p2);
-				break;
-			}
-		case protocol::Match_RequestAccountCharList::packetID:
-			{
-				tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
-				this->Match_RequestAccountCharList(p0);
-				break;
-			}
-		case protocol::Match_ResponseAccountCharList::packetID:
-			{
-				tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
-				this->Match_ResponseAccountCharList(p0);
-				break;
-			}
-		case protocol::Match_RequestAccountCharInfo::packetID:
-			{
-				array<uint16_t, 3> p0 = extract_vector(parameters, &paramPtr, length);
-				int32_t p1 = extract_int32(parameters, &paramPtr, length);
-				this->Match_RequestAccountCharInfo(p0, p1);
-				break;
-			}
-		case protocol::Match_ResponseAccountCharInfo::packetID:
-			{
-				array<uint16_t, 3> p0 = extract_vector(parameters, &paramPtr, length);
-				tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
-				this->Match_ResponseAccountCharInfo(p0, p1);
-				break;
-			}
-		case protocol::Match_RequestSelectChar::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
-				int32_t p2 = extract_int32(parameters, &paramPtr, length);
-				this->Match_RequestSelectChar(p0, p1, p2);
-				break;
-			}
-		case protocol::Match_ResponseSelectChar::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
-				tuple<Buffer, size_t, size_t> p2 = extract_blob(parameters, &paramPtr, length);
-				this->Match_ResponseSelectChar(p0, p1, p2);
-				break;
-			}
-		case protocol::Match_RequestCharInfo::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
-				this->Match_RequestCharInfo(p0, p1);
-				break;
-			}
-		case protocol::Match_ResponseCharInfo::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
-				this->Match_ResponseCharInfo(p0, p1);
-				break;
-			}
-		case protocol::Match_RequestDeleteChar::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
-				int32_t p2 = extract_int32(parameters, &paramPtr, length);
-				std::string p3 = extract_string(parameters, &paramPtr, length);
-				this->Match_RequestDeleteChar(p0, p1, p2, p3);
-				break;
-			}
-		case protocol::Match_ResponseDeleteChar::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				this->Match_ResponseDeleteChar(p0);
-				break;
-			}
-		case protocol::Match_RequestCreateChar::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
-				int32_t p2 = extract_int32(parameters, &paramPtr, length);
-				std::string p3 = extract_string(parameters, &paramPtr, length);
-				uint32_t p4 = extract_uint32(parameters, &paramPtr, length);
-				uint32_t p5 = extract_uint32(parameters, &paramPtr, length);
-				uint32_t p6 = extract_uint32(parameters, &paramPtr, length);
-				uint32_t p7 = extract_uint32(parameters, &paramPtr, length);
-				this->Match_RequestCreateChar(p0, p1, p2, p3, p4, p5, p6, p7);
-				break;
-			}
-		case protocol::Match_ResponseCreateChar::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				std::string p1 = extract_string(parameters, &paramPtr, length);
-				this->Match_ResponseCreateChar(p0, p1);
-				break;
-			}
-		case protocol::Match_RequestCopyToTestServer::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				this->Match_RequestCopyToTestServer(p0);
-				break;
-			}
-		case protocol::Match_ResponseCopyToTestServer::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				this->Match_ResponseCopyToTestServer(p0);
-				break;
-			}
-		case protocol::Match_RequestCharInfoDetail::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				std::string p1 = extract_string(parameters, &paramPtr, length);
-				this->Match_RequestCharInfoDetail(p0, p1);
-				break;
-			}
-		case protocol::Match_ResponseCharInfoDetail::packetID:
-			{
-				tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
-				this->Match_ResponseCharInfoDetail(p0);
-				break;
-			}
-		case protocol::Match_RequestSimpleCharInfo::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				this->Match_RequestSimpleCharInfo(p0);
-				break;
-			}
-		case protocol::Match_ResponseSimpleCharInfo::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
-				this->Match_ResponseSimpleCharInfo(p0, p1);
-				break;
-			}
-		case protocol::Match_RequestMySimpleCharInfo::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				this->Match_RequestMySimpleCharInfo(p0);
-				break;
-			}
-		case protocol::Match_ResponseMySimpleCharInfo::packetID:
-			{
-				tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
-				this->Match_ResponseMySimpleCharInfo(p0);
-				break;
-			}
-		case protocol::Match_RequestBuyItem::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
-				this->Match_RequestBuyItem(p0, p1);
-				break;
-			}
-		case protocol::Match_ResponseBuyItem::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				this->Match_ResponseBuyItem(p0);
-				break;
-			}
-		case protocol::Match_RequestSellItem::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
-				this->Match_RequestSellItem(p0, p1);
-				break;
-			}
-		case protocol::Match_ResponseSellItem::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				this->Match_ResponseSellItem(p0);
-				break;
-			}
-		case protocol::Match_RequestShopItemList::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				int32_t p1 = extract_int32(parameters, &paramPtr, length);
-				int32_t p2 = extract_int32(parameters, &paramPtr, length);
-				this->Match_RequestShopItemList(p0, p1, p2);
-				break;
-			}
-		case protocol::Match_ResponseShopItemList::packetID:
-			{
-				tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
-				tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
-				this->Match_ResponseShopItemList(p0, p1);
-				break;
-			}
-		case protocol::Match_RequestCharacterItemList::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				this->Match_RequestCharacterItemList(p0);
-				break;
-			}
-		case protocol::Match_RequestCharacterItemListForce::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				this->Match_RequestCharacterItemListForce(p0);
-				break;
-			}
-		case protocol::Match_ResponseCharacterItemList::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
-				tuple<Buffer, size_t, size_t> p2 = extract_blob(parameters, &paramPtr, length);
-				tuple<Buffer, size_t, size_t> p3 = extract_blob(parameters, &paramPtr, length);
-				this->Match_ResponseCharacterItemList(p0, p1, p2, p3);
-				break;
-			}
-		case protocol::MatchRequestEquipItem::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
-				uint32_t p2 = extract_uint32(parameters, &paramPtr, length);
-				int32_t p3 = extract_int32(parameters, &paramPtr, length);
-				this->MatchRequestEquipItem(p0, p1, p2, p3);
-				break;
-			}
-		case protocol::MatchResponseEquipItem::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				this->MatchResponseEquipItem(p0);
-				break;
-			}
-		case protocol::MatchRequestTakeoffItem::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
-				int32_t p2 = extract_int32(parameters, &paramPtr, length);
-				this->MatchRequestTakeoffItem(p0, p1, p2);
-				break;
-			}
-		case protocol::MatchResponseTakeoffItem::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				this->MatchResponseTakeoffItem(p0);
-				break;
-			}
-		case protocol::Match_RequestAccountItemList::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				this->Match_RequestAccountItemList(p0);
-				break;
-			}
-		case protocol::Match_ResponseAccountItemList::packetID:
-			{
-				tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
-				this->Match_ResponseAccountItemList(p0);
-				break;
-			}
-		case protocol::Match_RequestBringAccountItem::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				int32_t p1 = extract_int32(parameters, &paramPtr, length);
-				this->Match_RequestBringAccountItem(p0, p1);
-				break;
-			}
-		case protocol::Match_ResponseBringAccountItem::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				this->Match_ResponseBringAccountItem(p0);
-				break;
-			}
-		case protocol::Match_RequestBringBackAccountItem::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
-				this->Match_RequestBringBackAccountItem(p0, p1);
-				break;
-			}
-		case protocol::Match_ResponseBringBackAccountItem::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				this->Match_ResponseBringBackAccountItem(p0);
-				break;
-			}
-		case protocol::Match_ExpiredRentItem::packetID:
-			{
-				tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
-				this->Match_ExpiredRentItem(p0);
-				break;
-			}
-		case protocol::Match_ItemGamble::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				this->Match_ItemGamble(p0);
-				break;
-			}
-		case protocol::Match_GambleResultItem::packetID:
-			{
-				uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
-				uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
-				this->Match_GambleResultItem(p0, p1);
-				break;
-			}
-		case protocol::Match_Request_Suicide::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				this->Match_Request_Suicide(p0);
-				break;
-			}
-		case protocol::Match_Response_Suicide::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
-				this->Match_Response_Suicide(p0, p1);
-				break;
-			}
-		case protocol::Match_Response_SuicideReserve::packetID:
-			{
-				this->Match_Response_SuicideReserve();
-				break;
-			}
-		case protocol::Match_Request_Obtain_WorldItem::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				int32_t p1 = extract_int32(parameters, &paramPtr, length);
-				this->Match_Request_Obtain_WorldItem(p0, p1);
-				break;
-			}
-		case protocol::Match_WorldItem_Obtain::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				int32_t p1 = extract_int32(parameters, &paramPtr, length);
-				this->Match_WorldItem_Obtain(p0, p1);
-				break;
-			}
-		case protocol::Match_WorldItem_Spawn::packetID:
-			{
-				tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
-				this->Match_WorldItem_Spawn(p0);
-				break;
-			}
-		case protocol::Match_Request_Spawn_WorldItem::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				int32_t p1 = extract_int32(parameters, &paramPtr, length);
-				array<float, 3> p2 = extract_position(parameters, &paramPtr, length);
-				float p3 = extract_float(parameters, &paramPtr, length);
-				this->Match_Request_Spawn_WorldItem(p0, p1, p2, p3);
-				break;
-			}
-		case protocol::Match_Request_Spawn_WorldItem_UID::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				this->Match_Request_Spawn_WorldItem_UID(p0);
-				break;
-			}
-		case protocol::Match_Reset_TeamMembers::packetID:
-			{
-				tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
-				this->Match_Reset_TeamMembers(p0);
-				break;
-			}
-		case protocol::Match_Assign_Commander::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
-				this->Match_Assign_Commander(p0, p1);
-				break;
-			}
-		case protocol::Match_Set_Observer::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				this->Match_Set_Observer(p0);
-				break;
-			}
-		case protocol::Match_Ladder_Request_Challenge::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
-				tuple<Buffer, size_t, size_t> p2 = extract_blob(parameters, &paramPtr, length);
-				this->Match_Ladder_Request_Challenge(p0, p1, p2);
-				break;
-			}
-		case protocol::Match_Ladder_Response_Challenge::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				this->Match_Ladder_Response_Challenge(p0);
-				break;
-			}
-		case protocol::Match_Ladder_SearchRival::packetID:
-			{
-				this->Match_Ladder_SearchRival();
-				break;
-			}
-		case protocol::Match_Ladder_Request_CancelChallenge::packetID:
-			{
-				this->Match_Ladder_Request_CancelChallenge();
-				break;
-			}
-		case protocol::Match_Ladder_CancelChallenge::packetID:
-			{
-				std::string p0 = extract_string(parameters, &paramPtr, length);
-				this->Match_Ladder_CancelChallenge(p0);
-				break;
-			}
-		case protocol::Ladder_Prepare::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				int32_t p1 = extract_int32(parameters, &paramPtr, length);
-				this->Ladder_Prepare(p0, p1);
-				break;
-			}
-		case protocol::Ladder_Launch::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				std::string p1 = extract_string(parameters, &paramPtr, length);
-				this->Ladder_Launch(p0, p1);
-				break;
-			}
-		case protocol::Match_RequestProposal::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				int32_t p1 = extract_int32(parameters, &paramPtr, length);
-				int32_t p2 = extract_int32(parameters, &paramPtr, length);
-				int32_t p3 = extract_int32(parameters, &paramPtr, length);
-				tuple<Buffer, size_t, size_t> p4 = extract_blob(parameters, &paramPtr, length);
-				this->Match_RequestProposal(p0, p1, p2, p3, p4);
-				break;
-			}
-		case protocol::Match_ResponseProposal::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				int32_t p1 = extract_int32(parameters, &paramPtr, length);
-				int32_t p2 = extract_int32(parameters, &paramPtr, length);
-				this->Match_ResponseProposal(p0, p1, p2);
-				break;
-			}
-		case protocol::Match_AskAgreement::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
-				int32_t p2 = extract_int32(parameters, &paramPtr, length);
-				int32_t p3 = extract_int32(parameters, &paramPtr, length);
-				this->Match_AskAgreement(p0, p1, p2, p3);
-				break;
-			}
-		case protocol::Match_ReplyAgreement::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
-				std::string p2 = extract_string(parameters, &paramPtr, length);
-				int32_t p3 = extract_int32(parameters, &paramPtr, length);
-				int32_t p4 = extract_int32(parameters, &paramPtr, length);
-				bool p5 = extract_bool(parameters, &paramPtr, length);
-				this->Match_ReplyAgreement(p0, p1, p2, p3, p4, p5);
-				break;
-			}
-		case protocol::Match_Friend_Add::packetID:
-			{
-				std::string p0 = extract_string(parameters, &paramPtr, length);
-				this->Match_Friend_Add(p0);
-				break;
-			}
-		case protocol::Match_Friend_Remove::packetID:
-			{
-				std::string p0 = extract_string(parameters, &paramPtr, length);
-				this->Match_Friend_Remove(p0);
-				break;
-			}
-		case protocol::Match_Friend_List::packetID:
-			{
-				this->Match_Friend_List();
-				break;
-			}
-		case protocol::Match_Response_FriendList::packetID:
-			{
-				tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
-				this->Match_Response_FriendList(p0);
-				break;
-			}
-		case protocol::Match_Friend_Msg::packetID:
-			{
-				std::string p0 = extract_string(parameters, &paramPtr, length);
-				this->Match_Friend_Msg(p0);
-				break;
-			}
-		case protocol::Match_Clan_RequestCreateClan::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				int32_t p1 = extract_int32(parameters, &paramPtr, length);
-				std::string p2 = extract_string(parameters, &paramPtr, length);
-				std::string p3 = extract_string(parameters, &paramPtr, length);
-				std::string p4 = extract_string(parameters, &paramPtr, length);
-				std::string p5 = extract_string(parameters, &paramPtr, length);
-				std::string p6 = extract_string(parameters, &paramPtr, length);
-				this->Match_Clan_RequestCreateClan(p0, p1, p2, p3, p4, p5, p6);
-				break;
-			}
-		case protocol::Match_Clan_ResponseCreateClan::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				int32_t p1 = extract_int32(parameters, &paramPtr, length);
-				this->Match_Clan_ResponseCreateClan(p0, p1);
-				break;
-			}
-		case protocol::Match_Clan_AskSponsorAgreement::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				std::string p1 = extract_string(parameters, &paramPtr, length);
-				uint64_t p2 = extract_MUID(parameters, &paramPtr, length);
-				std::string p3 = extract_string(parameters, &paramPtr, length);
-				this->Match_Clan_AskSponsorAgreement(p0, p1, p2, p3);
-				break;
-			}
-		case protocol::Match_Clan_AnswerSponsorAgreement::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
-				std::string p2 = extract_string(parameters, &paramPtr, length);
-				bool p3 = extract_bool(parameters, &paramPtr, length);
-				this->Match_Clan_AnswerSponsorAgreement(p0, p1, p2, p3);
-				break;
-			}
-		case protocol::Match_Clan_RequestAgreedCreateClan::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				std::string p1 = extract_string(parameters, &paramPtr, length);
-				std::string p2 = extract_string(parameters, &paramPtr, length);
-				std::string p3 = extract_string(parameters, &paramPtr, length);
-				std::string p4 = extract_string(parameters, &paramPtr, length);
-				std::string p5 = extract_string(parameters, &paramPtr, length);
-				this->Match_Clan_RequestAgreedCreateClan(p0, p1, p2, p3, p4, p5);
-				break;
-			}
-		case protocol::Match_Clan_AgreedResponseCreateClan::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				this->Match_Clan_AgreedResponseCreateClan(p0);
-				break;
-			}
-		case protocol::Match_Clan_RequestCloseClan::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				std::string p1 = extract_string(parameters, &paramPtr, length);
-				this->Match_Clan_RequestCloseClan(p0, p1);
-				break;
-			}
-		case protocol::Match_Clan_ResponseCloseClan::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				this->Match_Clan_ResponseCloseClan(p0);
-				break;
-			}
-		case protocol::Match_Clan_RequestJoinClan::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				std::string p1 = extract_string(parameters, &paramPtr, length);
-				std::string p2 = extract_string(parameters, &paramPtr, length);
-				this->Match_Clan_RequestJoinClan(p0, p1, p2);
-				break;
-			}
-		case protocol::Match_Clan_ResponseJoinClan::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				this->Match_Clan_ResponseJoinClan(p0);
-				break;
-			}
-		case protocol::Match_Clan_AskJoinAgreement::packetID:
-			{
-				std::string p0 = extract_string(parameters, &paramPtr, length);
-				uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
-				std::string p2 = extract_string(parameters, &paramPtr, length);
-				this->Match_Clan_AskJoinAgreement(p0, p1, p2);
-				break;
-			}
-		case protocol::Match_Clan_AnswerJoinAgreement::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				std::string p1 = extract_string(parameters, &paramPtr, length);
-				bool p2 = extract_bool(parameters, &paramPtr, length);
-				this->Match_Clan_AnswerJoinAgreement(p0, p1, p2);
-				break;
-			}
-		case protocol::Match_Clan_RequestAgreedJoinClan::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				std::string p1 = extract_string(parameters, &paramPtr, length);
-				std::string p2 = extract_string(parameters, &paramPtr, length);
-				this->Match_Clan_RequestAgreedJoinClan(p0, p1, p2);
-				break;
-			}
-		case protocol::Match_Clan_ResponseAgreedJoinClan::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				this->Match_Clan_ResponseAgreedJoinClan(p0);
-				break;
-			}
-		case protocol::Match_Clan_RequestLeaveClan::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				this->Match_Clan_RequestLeaveClan(p0);
-				break;
-			}
-		case protocol::Match_Clan_ResponseLeaveClan::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				this->Match_Clan_ResponseLeaveClan(p0);
-				break;
-			}
-		case protocol::Match_Clan_UpdateCharClanInfo::packetID:
-			{
-				tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
-				this->Match_Clan_UpdateCharClanInfo(p0);
-				break;
-			}
-		case protocol::Match_Clan_Master_RequestChangeGrade::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				std::string p1 = extract_string(parameters, &paramPtr, length);
-				int32_t p2 = extract_int32(parameters, &paramPtr, length);
-				int32_t p3 = extract_int32(parameters, &paramPtr, length);
-				this->Match_Clan_Master_RequestChangeGrade(p0, p1, p2, p3);
-				break;
-			}
-		case protocol::Match_Clan_Master_ResponseChangeGrade::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				this->Match_Clan_Master_ResponseChangeGrade(p0);
-				break;
-			}
-		case protocol::Match_Clan_Admin_RequestExpelMember::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				std::string p1 = extract_string(parameters, &paramPtr, length);
-				this->Match_Clan_Admin_RequestExpelMember(p0, p1);
-				break;
-			}
-		case protocol::Match_Clan_Admin_ResponseLeaveMember::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				this->Match_Clan_Admin_ResponseLeaveMember(p0);
-				break;
-			}
-		case protocol::Match_Clan_Request_Msg::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				std::string p1 = extract_string(parameters, &paramPtr, length);
-				this->Match_Clan_Request_Msg(p0, p1);
-				break;
-			}
-		case protocol::Match_Clan_Msg::packetID:
-			{
-				std::string p0 = extract_string(parameters, &paramPtr, length);
-				std::string p1 = extract_string(parameters, &paramPtr, length);
-				this->Match_Clan_Msg(p0, p1);
-				break;
-			}
-		case protocol::Match_Clan_Request_ClanMemberList::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				this->Match_Clan_Request_ClanMemberList(p0);
-				break;
-			}
-		case protocol::Match_Clan_Response_ClanMemberList::packetID:
-			{
-				tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
-				this->Match_Clan_Response_ClanMemberList(p0);
-				break;
-			}
-		case protocol::Match_Clan_Request_Clan_Info::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				std::string p1 = extract_string(parameters, &paramPtr, length);
-				this->Match_Clan_Request_Clan_Info(p0, p1);
-				break;
-			}
-		case protocol::Match_Clan_Response_Clan_Info::packetID:
-			{
-				tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
-				this->Match_Clan_Response_Clan_Info(p0);
-				break;
-			}
-		case protocol::Match_Clan_Standby_ClanList::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				int32_t p1 = extract_int32(parameters, &paramPtr, length);
-				tuple<Buffer, size_t, size_t> p2 = extract_blob(parameters, &paramPtr, length);
-				this->Match_Clan_Standby_ClanList(p0, p1, p2);
-				break;
-			}
-		case protocol::Match_Clan_Member_Connected::packetID:
-			{
-				std::string p0 = extract_string(parameters, &paramPtr, length);
-				this->Match_Clan_Member_Connected(p0);
-				break;
-			}
-		case protocol::Match_Clan_Request_EmblemURL::packetID:
-			{
-				tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
-				this->Match_Clan_Request_EmblemURL(p0);
-				break;
-			}
-		case protocol::Match_Clan_Response_EmblemURL::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				int32_t p1 = extract_int32(parameters, &paramPtr, length);
-				std::string p2 = extract_string(parameters, &paramPtr, length);
-				this->Match_Clan_Response_EmblemURL(p0, p1, p2);
-				break;
-			}
-		case protocol::Match_Clan_Local_EmblemReady::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				std::string p1 = extract_string(parameters, &paramPtr, length);
-				this->Match_Clan_Local_EmblemReady(p0, p1);
-				break;
-			}
-		case protocol::MC_MATCH_CLAN_ACCOUNCE_DELETE::packetID:
-			{
-				std::string p0 = extract_string(parameters, &paramPtr, length);
-				this->MC_MATCH_CLAN_ACCOUNCE_DELETE(p0);
-				break;
-			}
-		case protocol::Match_Callvote::packetID:
-			{
-				std::string p0 = extract_string(parameters, &paramPtr, length);
-				std::string p1 = extract_string(parameters, &paramPtr, length);
-				this->Match_Callvote(p0, p1);
-				break;
-			}
-		case protocol::Match_NotifyCallvote::packetID:
-			{
-				std::string p0 = extract_string(parameters, &paramPtr, length);
-				std::string p1 = extract_string(parameters, &paramPtr, length);
-				this->Match_NotifyCallvote(p0, p1);
-				break;
-			}
-		case protocol::Match_NotifyVoteResult::packetID:
-			{
-				std::string p0 = extract_string(parameters, &paramPtr, length);
-				int32_t p1 = extract_int32(parameters, &paramPtr, length);
-				this->Match_NotifyVoteResult(p0, p1);
-				break;
-			}
-		case protocol::Match_VoteYes::packetID:
-			{
-				this->Match_VoteYes();
-				break;
-			}
-		case protocol::Match_VoteNo::packetID:
-			{
-				this->Match_VoteNo();
-				break;
-			}
-		case protocol::Votestop::packetID:
-			{
-				this->Votestop();
-				break;
-			}
-		case protocol::Match_Broadcast_ClanRenewVictories::packetID:
-			{
-				std::string p0 = extract_string(parameters, &paramPtr, length);
-				std::string p1 = extract_string(parameters, &paramPtr, length);
-				int32_t p2 = extract_int32(parameters, &paramPtr, length);
-				this->Match_Broadcast_ClanRenewVictories(p0, p1, p2);
-				break;
-			}
-		case protocol::Match_Broadcast_ClanInterruptVictories::packetID:
-			{
-				std::string p0 = extract_string(parameters, &paramPtr, length);
-				std::string p1 = extract_string(parameters, &paramPtr, length);
-				int32_t p2 = extract_int32(parameters, &paramPtr, length);
-				this->Match_Broadcast_ClanInterruptVictories(p0, p1, p2);
-				break;
-			}
-		case protocol::Match_Broadcast_DuelRenewVictories::packetID:
-			{
-				std::string p0 = extract_string(parameters, &paramPtr, length);
-				std::string p1 = extract_string(parameters, &paramPtr, length);
-				int32_t p2 = extract_int32(parameters, &paramPtr, length);
-				int32_t p3 = extract_int32(parameters, &paramPtr, length);
-				this->Match_Broadcast_DuelRenewVictories(p0, p1, p2, p3);
-				break;
-			}
-		case protocol::Match_Broadcast_DuelInterruptVictories::packetID:
-			{
-				std::string p0 = extract_string(parameters, &paramPtr, length);
-				std::string p1 = extract_string(parameters, &paramPtr, length);
-				int32_t p2 = extract_int32(parameters, &paramPtr, length);
-				this->Match_Broadcast_DuelInterruptVictories(p0, p1, p2);
-				break;
-			}
-		case protocol::Match_Assign_Berserker::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				this->Match_Assign_Berserker(p0);
-				break;
-			}
-		case protocol::Match_Duel_QueueInfo::packetID:
-			{
-				tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
-				this->Match_Duel_QueueInfo(p0);
-				break;
-			}
-		case protocol::Match_Quest_Ping::packetID:
-			{
-				uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
-				this->Match_Quest_Ping(p0);
-				break;
-			}
-		case protocol::Match_Quest_Pong::packetID:
-			{
-				uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
-				this->Match_Quest_Pong(p0);
-				break;
-			}
-		case protocol::MC_QUEST_NPCLIST::packetID:
-			{
-				tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
-				int32_t p1 = extract_int32(parameters, &paramPtr, length);
-				this->MC_QUEST_NPCLIST(p0, p1);
-				break;
-			}
-		case protocol::Event_ChangeMaster::packetID:
-			{
-				this->Event_ChangeMaster();
-				break;
-			}
-		case protocol::Event_ChangePassword::packetID:
-			{
-				std::string p0 = extract_string(parameters, &paramPtr, length);
-				this->Event_ChangePassword(p0);
-				break;
-			}
-		case protocol::Event_RequestJJang::packetID:
-			{
-				std::string p0 = extract_string(parameters, &paramPtr, length);
-				this->Event_RequestJJang(p0);
-				break;
-			}
-		case protocol::Event_RemoveJJang::packetID:
-			{
-				std::string p0 = extract_string(parameters, &paramPtr, length);
-				this->Event_RemoveJJang(p0);
-				break;
-			}
-		case protocol::Event_UpdateJJang::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				bool p1 = extract_bool(parameters, &paramPtr, length);
-				this->Event_UpdateJJang(p0, p1);
-				break;
-			}
-		case protocol::Quest_NPCSpawn::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
-				uint8_t p2 = extract_uint8(parameters, &paramPtr, length);
-				uint8_t p3 = extract_uint8(parameters, &paramPtr, length);
-				this->Quest_NPCSpawn(p0, p1, p2, p3);
-				break;
-			}
-		case protocol::Quest_Entrust_NPC_Control::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
-				this->Quest_Entrust_NPC_Control(p0, p1);
-				break;
-			}
-		case protocol::Quest_Checksum_NPCInfo::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
-				this->Quest_Checksum_NPCInfo(p0, p1);
-				break;
-			}
-		case protocol::Quest_NPCDead::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
-				this->Quest_NPCDead(p0, p1);
-				break;
-			}
-		case protocol::Quest_RefreshPlayerStatus::packetID:
-			{
-				this->Quest_RefreshPlayerStatus();
-				break;
-			}
-		case protocol::Quest_NPC_AllClear::packetID:
-			{
-				this->Quest_NPC_AllClear();
-				break;
-			}
-		case protocol::Quest_Round_Start::packetID:
-			{
-				uint8_t p0 = extract_uint8(parameters, &paramPtr, length);
-				this->Quest_Round_Start(p0);
-				break;
-			}
-		case protocol::Quest_RequestDead::packetID:
-			{
-				this->Quest_RequestDead();
-				break;
-			}
-		case protocol::Quest_PlayerDead::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				this->Quest_PlayerDead(p0);
-				break;
-			}
-		case protocol::Quest_ObtainQuestItem::packetID:
-			{
-				uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
-				this->Quest_ObtainQuestItem(p0);
-				break;
-			}
-		case protocol::Quest_ObtainZItem::packetID:
-			{
-				uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
-				this->Quest_ObtainZItem(p0);
-				break;
-			}
-		case protocol::Quest_State_Mapset::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				array<uint16_t, 3> p1 = extract_vector(parameters, &paramPtr, length);
-				this->Quest_State_Mapset(p0, p1);
-				break;
-			}
-		case protocol::Quest_Stage_GameInfo::packetID:
-			{
-				array<uint16_t, 3> p0 = extract_vector(parameters, &paramPtr, length);
-				array<uint16_t, 3> p1 = extract_vector(parameters, &paramPtr, length);
-				uint32_t p2 = extract_uint32(parameters, &paramPtr, length);
-				this->Quest_Stage_GameInfo(p0, p1, p2);
-				break;
-			}
-		case protocol::Quest_SectorBonus::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
-				uint32_t p2 = extract_uint32(parameters, &paramPtr, length);
-				this->Quest_SectorBonus(p0, p1, p2);
-				break;
-			}
-		case protocol::Quest_GameInfo::packetID:
-			{
-				tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
-				this->Quest_GameInfo(p0);
-				break;
-			}
-		case protocol::Quest_Combat_State::packetID:
-			{
-				array<uint16_t, 3> p0 = extract_vector(parameters, &paramPtr, length);
-				this->Quest_Combat_State(p0);
-				break;
-			}
-		case protocol::Quest_Sector_Start::packetID:
-			{
-				array<uint16_t, 3> p0 = extract_vector(parameters, &paramPtr, length);
-				uint8_t p1 = extract_uint8(parameters, &paramPtr, length);
-				this->Quest_Sector_Start(p0, p1);
-				break;
-			}
-		case protocol::Quest_Complete::packetID:
-			{
-				tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
-				this->Quest_Complete(p0);
-				break;
-			}
-		case protocol::Quest_Failed::packetID:
-			{
-				this->Quest_Failed();
-				break;
-			}
-		case protocol::Quest_Request_Moveto_Portal::packetID:
-			{
-				array<uint16_t, 3> p0 = extract_vector(parameters, &paramPtr, length);
-				this->Quest_Request_Moveto_Portal(p0);
-				break;
-			}
-		case protocol::Quest_Moveto_Portal::packetID:
-			{
-				array<uint16_t, 3> p0 = extract_vector(parameters, &paramPtr, length);
-				uint8_t p1 = extract_uint8(parameters, &paramPtr, length);
-				uint64_t p2 = extract_MUID(parameters, &paramPtr, length);
-				this->Quest_Moveto_Portal(p0, p1, p2);
-				break;
-			}
-		case protocol::Quest_Readyto_NewSector::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				this->Quest_Readyto_NewSector(p0);
-				break;
-			}
-		case protocol::Quest_Peer_NPC_BasicInfo::packetID:
-			{
-				tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
-				this->Quest_Peer_NPC_BasicInfo(p0);
-				break;
-			}
-		case protocol::Quest_Peer_NPC_HPInfo::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
-				this->Quest_Peer_NPC_HPInfo(p0, p1);
-				break;
-			}
-		case protocol::Quest_Peer_NPC_Attack_Melee::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				this->Quest_Peer_NPC_Attack_Melee(p0);
-				break;
-			}
-		case protocol::Quest_Peer_NPC_Attack_Range::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
-				this->Quest_Peer_NPC_Attack_Range(p0, p1);
-				break;
-			}
-		case protocol::Quest_Peer_NPC_Skill_Start::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				int32_t p1 = extract_int32(parameters, &paramPtr, length);
-				uint64_t p2 = extract_MUID(parameters, &paramPtr, length);
-				array<float, 3> p3 = extract_position(parameters, &paramPtr, length);
-				this->Quest_Peer_NPC_Skill_Start(p0, p1, p2, p3);
-				break;
-			}
-		case protocol::Quest_Peer_NPC_Skill_Execute::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				int32_t p1 = extract_int32(parameters, &paramPtr, length);
-				uint64_t p2 = extract_MUID(parameters, &paramPtr, length);
-				array<float, 3> p3 = extract_position(parameters, &paramPtr, length);
-				this->Quest_Peer_NPC_Skill_Execute(p0, p1, p2, p3);
-				break;
-			}
-		case protocol::Quest_Peer_NPC_Dead::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
-				this->Quest_Peer_NPC_Dead(p0, p1);
-				break;
-			}
-		case protocol::Quest_Test_RequestNPCSpawn::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				int32_t p1 = extract_int32(parameters, &paramPtr, length);
-				this->Quest_Test_RequestNPCSpawn(p0, p1);
-				break;
-			}
-		case protocol::Quest_Test_ClearNPC::packetID:
-			{
-				this->Quest_Test_ClearNPC();
-				break;
-			}
-		case protocol::Quest_Test_SectorClear::packetID:
-			{
-				this->Quest_Test_SectorClear();
-				break;
-			}
-		case protocol::Quest_Test_Finish::packetID:
-			{
-				this->Quest_Test_Finish();
-				break;
-			}
-		case protocol::Test_BirdTest1::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
-				tuple<Buffer, size_t, size_t> p2 = extract_blob(parameters, &paramPtr, length);
-				this->Test_BirdTest1(p0, p1, p2);
-				break;
-			}
-		case protocol::Test_PeerTest_Ping::packetID:
-			{
-				this->Test_PeerTest_Ping();
-				break;
-			}
-		case protocol::Test_PeerTest_Pong::packetID:
-			{
-				this->Test_PeerTest_Pong();
-				break;
-			}
-		case protocol::Admin_Announce::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				std::string p1 = extract_string(parameters, &paramPtr, length);
-				uint32_t p2 = extract_uint32(parameters, &paramPtr, length);
-				this->Admin_Announce(p0, p1, p2);
-				break;
-			}
-		case protocol::Admin_PingToAll::packetID:
-			{
-				this->Admin_PingToAll();
-				break;
-			}
-		case protocol::Admin_RequestServerInfo::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				this->Admin_RequestServerInfo(p0);
-				break;
-			}
-		case protocol::Admin_ResponseServerInfo::packetID:
-			{
-				tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
-				this->Admin_ResponseServerInfo(p0);
-				break;
-			}
-		case protocol::Admin_Halt::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				this->Admin_Halt(p0);
-				break;
-			}
-		case protocol::Admin_Terminal::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				std::string p1 = extract_string(parameters, &paramPtr, length);
-				this->Admin_Terminal(p0, p1);
-				break;
-			}
-		case protocol::Admin_RequestUpdateAccountUGrade::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				std::string p1 = extract_string(parameters, &paramPtr, length);
-				this->Admin_RequestUpdateAccountUGrade(p0, p1);
-				break;
-			}
-		case protocol::Admin_ResponseUpdateAccountUGrade::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
-				this->Admin_ResponseUpdateAccountUGrade(p0, p1);
-				break;
-			}
-		case protocol::Admin_RequestBanPlayer::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				std::string p1 = extract_string(parameters, &paramPtr, length);
-				this->Admin_RequestBanPlayer(p0, p1);
-				break;
-			}
-		case protocol::Admin_ResponseBanPlayer::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				this->Admin_ResponseBanPlayer(p0);
-				break;
-			}
-		case protocol::Admin_RequestSwitchLadderGame::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				bool p1 = extract_bool(parameters, &paramPtr, length);
-				this->Admin_RequestSwitchLadderGame(p0, p1);
-				break;
-			}
-		case protocol::Admin_Hide::packetID:
-			{
-				this->Admin_Hide();
-				break;
-			}
-		case protocol::Admin_ReloadClientHash::packetID:
-			{
-				this->Admin_ReloadClientHash();
-				break;
-			}
-		case protocol::MC_ADMIN_RESET_ALL_HACKING_BLOCK::packetID:
-			{
-				this->MC_ADMIN_RESET_ALL_HACKING_BLOCK();
-				break;
-			}
-		case protocol::MC_ADMIN_RELOAD_GAMBLEITEM::packetID:
-			{
-				this->MC_ADMIN_RELOAD_GAMBLEITEM();
-				break;
-			}
-		case protocol::MC_ADMIN_DUMP_GAMBLEITEM_LOG::packetID:
-			{
-				this->MC_ADMIN_DUMP_GAMBLEITEM_LOG();
-				break;
-			}
-		case protocol::MC_ADMIN_ASSASIN::packetID:
-			{
-				this->MC_ADMIN_ASSASIN();
-				break;
-			}
-		case protocol::Net_RequestUID::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				this->Net_RequestUID(p0);
-				break;
-			}
-		case protocol::Net_ResponseUID::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
-				this->Net_ResponseUID(p0, p1);
-				break;
-			}
-		case protocol::Peer_Open::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				this->Peer_Open(p0);
-				break;
-			}
-		case protocol::Peer_ObjectChangeWeapon::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				this->Peer_ObjectChangeWeapon(p0);
-				break;
-			}
-		case protocol::Peer_ObjectChangeParts::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				int32_t p1 = extract_int32(parameters, &paramPtr, length);
-				this->Peer_ObjectChangeParts(p0, p1);
-				break;
-			}
-		case protocol::Peer_ObjectDamage::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				int32_t p1 = extract_int32(parameters, &paramPtr, length);
-				this->Peer_ObjectDamage(p0, p1);
-				break;
-			}
-		case protocol::Peer_Chat::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				std::string p1 = extract_string(parameters, &paramPtr, length);
-				this->Peer_Chat(p0, p1);
-				break;
-			}
-		case protocol::Peer_ChatIcon::packetID:
-			{
-				bool p0 = extract_bool(parameters, &paramPtr, length);
-				this->Peer_ChatIcon(p0);
-				break;
-			}
-		case protocol::Peer_Reaction::packetID:
-			{
-				float p0 = extract_float(parameters, &paramPtr, length);
-				int32_t p1 = extract_int32(parameters, &paramPtr, length);
-				this->Peer_Reaction(p0, p1);
-				break;
-			}
-		case protocol::Peer_EnchantDamage::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
-				this->Peer_EnchantDamage(p0, p1);
-				break;
-			}
-		case protocol::Peer_Shot::packetID:
-			{
-				tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
-				this->Peer_Shot(p0);
-				break;
-			}
-		case protocol::Peer_Shot_Melee::packetID:
-			{
-				float p0 = extract_float(parameters, &paramPtr, length);
-				array<float, 3> p1 = extract_position(parameters, &paramPtr, length);
-				int32_t p2 = extract_int32(parameters, &paramPtr, length);
-				this->Peer_Shot_Melee(p0, p1, p2);
-				break;
-			}
-		case protocol::Peer_Reload::packetID:
-			{
-				this->Peer_Reload();
-				break;
-			}
-		case protocol::Peer_ObjectSpMotion::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				this->Peer_ObjectSpMotion(p0);
-				break;
-			}
-		case protocol::Peer_ChangeCharacter::packetID:
-			{
-				this->Peer_ChangeCharacter();
-				break;
-			}
-		case protocol::Peer_Die::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				this->Peer_Die(p0);
-				break;
-			}
-		case protocol::Peer_Spawn::packetID:
-			{
-				array<float, 3> p0 = extract_position(parameters, &paramPtr, length);
-				array<float, 3> p1 = extract_direction(parameters, &paramPtr, length);
-				this->Peer_Spawn(p0, p1);
-				break;
-			}
-		case protocol::Peer_Dash::packetID:
-			{
-				tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
-				this->Peer_Dash(p0);
-				break;
-			}
-		case protocol::Peer_ObjectSkill::packetID:
-			{
-				float p0 = extract_float(parameters, &paramPtr, length);
-				int32_t p1 = extract_int32(parameters, &paramPtr, length);
-				int32_t p2 = extract_int32(parameters, &paramPtr, length);
-				this->Peer_ObjectSkill(p0, p1, p2);
-				break;
-			}
-		case protocol::Peer_CharacterBasicInfo::packetID:
-			{
-				tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
-				this->Peer_CharacterBasicInfo(p0);
-				break;
-			}
-		case protocol::Peer_CharacterHPInfo::packetID:
-			{
-				float p0 = extract_float(parameters, &paramPtr, length);
-				this->Peer_CharacterHPInfo(p0);
-				break;
-			}
-		case protocol::Peer_CharacterHPAPInfo::packetID:
-			{
-				float p0 = extract_float(parameters, &paramPtr, length);
-				float p1 = extract_float(parameters, &paramPtr, length);
-				this->Peer_CharacterHPAPInfo(p0, p1);
-				break;
-			}
-		case protocol::Peer_UDPTest::packetID:
-			{
-				this->Peer_UDPTest();
-				break;
-			}
-		case protocol::Peer_UDPTestReply::packetID:
-			{
-				this->Peer_UDPTestReply();
-				break;
-			}
-		case protocol::Peer_Ping::packetID:
-			{
-				uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
-				this->Peer_Ping(p0);
-				break;
-			}
-		case protocol::Peer_Pong::packetID:
-			{
-				uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
-				this->Peer_Pong(p0);
-				break;
-			}
-		case protocol::Agent_Connect::packetID:
-			{
-				std::string p0 = extract_string(parameters, &paramPtr, length);
-				int32_t p1 = extract_int32(parameters, &paramPtr, length);
-				this->Agent_Connect(p0, p1);
-				break;
-			}
-		case protocol::Agent_Disconnect::packetID:
-			{
-				this->Agent_Disconnect();
-				break;
-			}
-		case protocol::Agent_LocalLogin::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
-				this->Agent_LocalLogin(p0, p1);
-				break;
-			}
-		case protocol::Match_RegisterAgent::packetID:
-			{
-				std::string p0 = extract_string(parameters, &paramPtr, length);
-				int32_t p1 = extract_int32(parameters, &paramPtr, length);
-				int32_t p2 = extract_int32(parameters, &paramPtr, length);
-				this->Match_RegisterAgent(p0, p1, p2);
-				break;
-			}
-		case protocol::Match_UnRegisterAgent::packetID:
-			{
-				this->Match_UnRegisterAgent();
-				break;
-			}
-		case protocol::Match_Agent_RequestLiveCheck::packetID:
-			{
-				uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
-				uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
-				uint32_t p2 = extract_uint32(parameters, &paramPtr, length);
-				this->Match_Agent_RequestLiveCheck(p0, p1, p2);
-				break;
-			}
-		case protocol::Match_Agent_ResponseLiveCheck::packetID:
-			{
-				uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
-				this->Match_Agent_ResponseLiveCheck(p0);
-				break;
-			}
-		case protocol::Agent_StageReserve::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				this->Agent_StageReserve(p0);
-				break;
-			}
-		case protocol::Agent_StageRelease::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				this->Agent_StageRelease(p0);
-				break;
-			}
-		case protocol::Agent_StageReady::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				this->Agent_StageReady(p0);
-				break;
-			}
-		case protocol::Agent_RelayPeer::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
-				uint64_t p2 = extract_MUID(parameters, &paramPtr, length);
-				this->Agent_RelayPeer(p0, p1, p2);
-				break;
-			}
-		case protocol::Agent_PeerReady::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
-				this->Agent_PeerReady(p0, p1);
-				break;
-			}
-		case protocol::Agent_LocateToClient::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				std::string p1 = extract_string(parameters, &paramPtr, length);
-				int32_t p2 = extract_int32(parameters, &paramPtr, length);
-				int32_t p3 = extract_int32(parameters, &paramPtr, length);
-				this->Agent_LocateToClient(p0, p1, p2, p3);
-				break;
-			}
-		case protocol::Agent_ResponseLogin::packetID:
-			{
-				this->Agent_ResponseLogin();
-				break;
-			}
-		case protocol::Agent_PeerBindTCP::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				this->Agent_PeerBindTCP(p0);
-				break;
-			}
-		case protocol::Agent_PeerBindUDP::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				std::string p1 = extract_string(parameters, &paramPtr, length);
-				uint32_t p2 = extract_uint32(parameters, &paramPtr, length);
-				std::string p3 = extract_string(parameters, &paramPtr, length);
-				uint32_t p4 = extract_uint32(parameters, &paramPtr, length);
-				this->Agent_PeerBindUDP(p0, p1, p2, p3, p4);
-				break;
-			}
-		case protocol::Agent_PeerUnbind::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				this->Agent_PeerUnbind(p0);
-				break;
-			}
-		case protocol::Agent_Error::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				this->Agent_Error(p0);
-				break;
-			}
-		case protocol::Agent_TunnelingTCP::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
-				tuple<Buffer, size_t, size_t> p2 = extract_blob(parameters, &paramPtr, length);
-				this->Agent_TunnelingTCP(p0, p1, p2);
-				break;
-			}
-		case protocol::Agent_TunnelingUDP::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
-				tuple<Buffer, size_t, size_t> p2 = extract_blob(parameters, &paramPtr, length);
-				this->Agent_TunnelingUDP(p0, p1, p2);
-				break;
-			}
-		case protocol::Agent_AllowTunnelingTCP::packetID:
-			{
-				this->Agent_AllowTunnelingTCP();
-				break;
-			}
-		case protocol::Agent_AllowTunnelingUDP::packetID:
-			{
-				this->Agent_AllowTunnelingUDP();
-				break;
-			}
-		case protocol::Agent_DebugPing::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				this->Agent_DebugPing(p0);
-				break;
-			}
-		case protocol::Agent_DebugTest::packetID:
-			{
-				std::string p0 = extract_string(parameters, &paramPtr, length);
-				this->Agent_DebugTest(p0);
-				break;
-			}
-		case protocol::Peer_Ping_Time::packetID:
-			{
-				uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
-				this->Peer_Ping_Time(p0);
-				break;
-			}
-		case protocol::Peer_Pong_Time::packetID:
-			{
-				uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
-				uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
-				this->Peer_Pong_Time(p0, p1);
-				break;
-			}
-		case protocol::Announce_::packetID:
-			{
-				std::string p0 = extract_string(parameters, &paramPtr, length);
-				this->Announce_(p0);
-				break;
-			}
-		case protocol::Announce_Schedule::packetID:
-			{
-				std::string p0 = extract_string(parameters, &paramPtr, length);
-				this->Announce_Schedule(p0);
-				break;
-			}
-		case protocol::Switchclanserverstatus_change::packetID:
-			{
-				this->Switchclanserverstatus_change();
-				break;
-			}
-		case protocol::Switchclanserverstatus_up_::packetID:
-			{
-				this->Switchclanserverstatus_up_();
-				break;
-			}
-		case protocol::MC_MATCH_SCHEDULE_STOP_SERVER::packetID:
-			{
-				std::string p0 = extract_string(parameters, &paramPtr, length);
-				this->MC_MATCH_SCHEDULE_STOP_SERVER(p0);
-				break;
-			}
-		case protocol::test::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				this->test(p0);
-				break;
-			}
-		case protocol::MC_RESPONSE_KEEPER_MANAGER_CONNECT::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				this->MC_RESPONSE_KEEPER_MANAGER_CONNECT(p0);
-				break;
-			}
-		case protocol::MC_REQUEST_KEEPERMGR_ANNOUNCE::packetID:
-			{
-				std::string p0 = extract_string(parameters, &paramPtr, length);
-				this->MC_REQUEST_KEEPERMGR_ANNOUNCE(p0);
-				break;
-			}
-		case protocol::MC_REQUEST_KEEPER_ANNOUNCE::packetID:
-			{
-				std::string p0 = extract_string(parameters, &paramPtr, length);
-				this->MC_REQUEST_KEEPER_ANNOUNCE(p0);
-				break;
-			}
-		case protocol::Checkping::packetID:
-			{
-				this->Checkping();
-				break;
-			}
-		case protocol::requestmatchserverstatus::packetID:
-			{
-				this->requestmatchserverstatus();
-				break;
-			}
-		case protocol::responsematchserverststus::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				std::string p1 = extract_string(parameters, &paramPtr, length);
-				uint8_t p2 = extract_uint8(parameters, &paramPtr, length);
-				this->responsematchserverststus(p0, p1, p2);
-				break;
-			}
-		case protocol::MC_REQUEST_DOWNLOAD_SERVER_PATCH_FILE::packetID:
-			{
-				this->MC_REQUEST_DOWNLOAD_SERVER_PATCH_FILE();
-				break;
-			}
-		case protocol::MC_REQUEST_STOP_SERVER::packetID:
-			{
-				this->MC_REQUEST_STOP_SERVER();
-				break;
-			}
-		case protocol::MC_REQUEST_CONNECTION_STATE::packetID:
-			{
-				this->MC_REQUEST_CONNECTION_STATE();
-				break;
-			}
-		case protocol::MC_RESPONSE_CONNECTION_STATE::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				this->MC_RESPONSE_CONNECTION_STATE(p0);
-				break;
-			}
-		case protocol::MC_REQUEST_SERVER_HEARBEAT::packetID:
-			{
-				this->MC_REQUEST_SERVER_HEARBEAT();
-				break;
-			}
-		case protocol::MC_RESPONSE_SERVER_HEARHEAT::packetID:
-			{
-				this->MC_RESPONSE_SERVER_HEARHEAT();
-				break;
-			}
-		case protocol::MC_REQUEST_START_SERVER::packetID:
-			{
-				this->MC_REQUEST_START_SERVER();
-				break;
-			}
-		case protocol::MC_REQUEST_KEEPER_CONNECT_MATCHSERVER::packetID:
-			{
-				this->MC_REQUEST_KEEPER_CONNECT_MATCHSERVER();
-				break;
-			}
-		case protocol::MC_RESPONSE_KEEPER_CONNECT_MATCHSERVER::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				this->MC_RESPONSE_KEEPER_CONNECT_MATCHSERVER(p0);
-				break;
-			}
-		case protocol::MC_REQUEST_REFRESH_SERVER::packetID:
-			{
-				this->MC_REQUEST_REFRESH_SERVER();
-				break;
-			}
-		case protocol::MC_REQUEST_PREPARE_SERVER_PATCH::packetID:
-			{
-				this->MC_REQUEST_PREPARE_SERVER_PATCH();
-				break;
-			}
-		case protocol::MC_REQUEST_SERVER_PATCH::packetID:
-			{
-				this->MC_REQUEST_SERVER_PATCH();
-				break;
-			}
-		case protocol::MC_REQUEST_LAST_JOB_STATE::packetID:
-			{
-				this->MC_REQUEST_LAST_JOB_STATE();
-				break;
-			}
-		case protocol::MC_RESPONSE_LAST_JOB_STATE::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				int32_t p1 = extract_int32(parameters, &paramPtr, length);
-				this->MC_RESPONSE_LAST_JOB_STATE(p0, p1);
-				break;
-			}
-		case protocol::MC_REQUEST_CONFIG_STATE::packetID:
-			{
-				this->MC_REQUEST_CONFIG_STATE();
-				break;
-			}
-		case protocol::MC_RESPONSE_CONFIG_STATE::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				int32_t p1 = extract_int32(parameters, &paramPtr, length);
-				int32_t p2 = extract_int32(parameters, &paramPtr, length);
-				int32_t p3 = extract_int32(parameters, &paramPtr, length);
-				int32_t p4 = extract_int32(parameters, &paramPtr, length);
-				this->MC_RESPONSE_CONFIG_STATE(p0, p1, p2, p3, p4);
-				break;
-			}
-		case protocol::MC_REQUEST_SET_ONE_CONFIG::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				int32_t p1 = extract_int32(parameters, &paramPtr, length);
-				this->MC_REQUEST_SET_ONE_CONFIG(p0, p1);
-				break;
-			}
-		case protocol::MC_RESPONSE_SET_ONE_CONFIG::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				int32_t p1 = extract_int32(parameters, &paramPtr, length);
-				this->MC_RESPONSE_SET_ONE_CONFIG(p0, p1);
-				break;
-			}
-		case protocol::MC_REQUEST_STOP_AGENT_SERVER::packetID:
-			{
-				this->MC_REQUEST_STOP_AGENT_SERVER();
-				break;
-			}
-		case protocol::MC_REQUEST_START_AGENT_SERVER::packetID:
-			{
-				this->MC_REQUEST_START_AGENT_SERVER();
-				break;
-			}
-		case protocol::MC_REQUEST_DOWNLOAD_AGENT_PATCH_FILE::packetID:
-			{
-				this->MC_REQUEST_DOWNLOAD_AGENT_PATCH_FILE();
-				break;
-			}
-		case protocol::MC_REQUEST_PREPARE_AGENT_PATCH::packetID:
-			{
-				this->MC_REQUEST_PREPARE_AGENT_PATCH();
-				break;
-			}
-		case protocol::MC_REQUEST_AGENT_PATCH::packetID:
-			{
-				this->MC_REQUEST_AGENT_PATCH();
-				break;
-			}
-		case protocol::MC_REQUEST_RESET_PATCH::packetID:
-			{
-				this->MC_REQUEST_RESET_PATCH();
-				break;
-			}
-		case protocol::MC_REQUEST_DISCONNECT_SERVER::packetID:
-			{
-				this->MC_REQUEST_DISCONNECT_SERVER();
-				break;
-			}
-		case protocol::MC_REQUEST_REBOOT_WINDOWS::packetID:
-			{
-				this->MC_REQUEST_REBOOT_WINDOWS();
-				break;
-			}
-		case protocol::MC_REQUEST_ANNOUNCE_STOP_SERVER::packetID:
-			{
-				this->MC_REQUEST_ANNOUNCE_STOP_SERVER();
-				break;
-			}
-		case protocol::MC_RESPONSE_ANNOUNCE_STOP_SERVER::packetID:
-			{
-				this->MC_RESPONSE_ANNOUNCE_STOP_SERVER();
-				break;
-			}
-		case protocol::MC_REQUEST_KEEPER_MANAGER_SCHEDULE::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				int32_t p1 = extract_int32(parameters, &paramPtr, length);
-				int32_t p2 = extract_int32(parameters, &paramPtr, length);
-				int32_t p3 = extract_int32(parameters, &paramPtr, length);
-				int32_t p4 = extract_int32(parameters, &paramPtr, length);
-				int32_t p5 = extract_int32(parameters, &paramPtr, length);
-				int32_t p6 = extract_int32(parameters, &paramPtr, length);
-				int32_t p7 = extract_int32(parameters, &paramPtr, length);
-				std::string p8 = extract_string(parameters, &paramPtr, length);
-				this->MC_REQUEST_KEEPER_MANAGER_SCHEDULE(p0, p1, p2, p3, p4, p5, p6, p7, p8);
-				break;
-			}
-		case protocol::MC_RESPONSE_KEEPER_MANAGER_SCHEDULE::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				array<uint16_t, 3> p1 = extract_vector(parameters, &paramPtr, length);
-				this->MC_RESPONSE_KEEPER_MANAGER_SCHEDULE(p0, p1);
-				break;
-			}
-		case protocol::MC_REQUEST_SERVER_AGENT_STATE::packetID:
-			{
-				this->MC_REQUEST_SERVER_AGENT_STATE();
-				break;
-			}
-		case protocol::MC_RESPONSE_SERVER_AGENT_STATE::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				int32_t p1 = extract_int32(parameters, &paramPtr, length);
-				this->MC_RESPONSE_SERVER_AGENT_STATE(p0, p1);
-				break;
-			}
-		case protocol::MC_REQUEST_SERVER_STATUS::packetID:
-			{
-				this->MC_REQUEST_SERVER_STATUS();
-				break;
-			}
-		case protocol::MC_REQUEST_START_SERVER_SCHEDULE::packetID:
-			{
-				this->MC_REQUEST_START_SERVER_SCHEDULE();
-				break;
-			}
-		case protocol::MC_REQUEST_WRITE_CLIENT_CRC::packetID:
-			{
-				uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
-				this->MC_REQUEST_WRITE_CLIENT_CRC(p0);
-				break;
-			}
-		case protocol::MC_RESPONSE_WRITE_CLIENT_CRC::packetID:
-			{
-				bool p0 = extract_bool(parameters, &paramPtr, length);
-				this->MC_RESPONSE_WRITE_CLIENT_CRC(p0);
-				break;
-			}
-		case protocol::MC_REQUEST_KEEPER_RELOAD_SERVER_CONFIG::packetID:
-			{
-				std::string p0 = extract_string(parameters, &paramPtr, length);
-				this->MC_REQUEST_KEEPER_RELOAD_SERVER_CONFIG(p0);
-				break;
-			}
-		case protocol::MC_REQUEST_RELOAD_CONFIG::packetID:
-			{
-				std::string p0 = extract_string(parameters, &paramPtr, length);
-				this->MC_REQUEST_RELOAD_CONFIG(p0);
-				break;
-			}
-		case protocol::MC_REQUEST_KEEPER_ADD_HASHMAP::packetID:
-			{
-				std::string p0 = extract_string(parameters, &paramPtr, length);
-				this->MC_REQUEST_KEEPER_ADD_HASHMAP(p0);
-				break;
-			}
-		case protocol::MC_RESPONSE_KEEPER_ADD_HASHMAP::packetID:
-			{
-				bool p0 = extract_bool(parameters, &paramPtr, length);
-				this->MC_RESPONSE_KEEPER_ADD_HASHMAP(p0);
-				break;
-			}
-		case protocol::MC_REQUEST_ADD_HASHMAP::packetID:
-			{
-				std::string p0 = extract_string(parameters, &paramPtr, length);
-				this->MC_REQUEST_ADD_HASHMAP(p0);
-				break;
-			}
-		case protocol::MC_RESPONSE_ADD_HASHMAP::packetID:
-			{
-				bool p0 = extract_bool(parameters, &paramPtr, length);
-				this->MC_RESPONSE_ADD_HASHMAP(p0);
-				break;
-			}
-		case protocol::Questitem::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				this->Questitem(p0);
-				break;
-			}
-		case protocol::Quest_item_response::packetID:
-			{
-				tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
-				this->Quest_item_response(p0);
-				break;
-			}
-		case protocol::Quest_item_buy::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				int32_t p1 = extract_int32(parameters, &paramPtr, length);
-				this->Quest_item_buy(p0, p1);
-				break;
-			}
-		case protocol::Quest_item_responsebuy::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				int32_t p1 = extract_int32(parameters, &paramPtr, length);
-				this->Quest_item_responsebuy(p0, p1);
-				break;
-			}
-		case protocol::Quest_item_sell::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				int32_t p1 = extract_int32(parameters, &paramPtr, length);
-				int32_t p2 = extract_int32(parameters, &paramPtr, length);
-				this->Quest_item_sell(p0, p1, p2);
-				break;
-			}
-		case protocol::Quest_item_responsesell::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				int32_t p1 = extract_int32(parameters, &paramPtr, length);
-				this->Quest_item_responsesell(p0, p1);
-				break;
-			}
-		case protocol::Quest_Reward::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				int32_t p1 = extract_int32(parameters, &paramPtr, length);
-				tuple<Buffer, size_t, size_t> p2 = extract_blob(parameters, &paramPtr, length);
-				tuple<Buffer, size_t, size_t> p3 = extract_blob(parameters, &paramPtr, length);
-				this->Quest_Reward(p0, p1, p2, p3);
-				break;
-			}
-		case protocol::Quest_Request_Sacrifice::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				int32_t p1 = extract_int32(parameters, &paramPtr, length);
-				int32_t p2 = extract_int32(parameters, &paramPtr, length);
-				this->Quest_Request_Sacrifice(p0, p1, p2);
-				break;
-			}
-		case protocol::Quest_Response_Sacrifice::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
-				int32_t p2 = extract_int32(parameters, &paramPtr, length);
-				int32_t p3 = extract_int32(parameters, &paramPtr, length);
-				this->Quest_Response_Sacrifice(p0, p1, p2, p3);
-				break;
-			}
-		case protocol::Quest_Callback_Sacrifice::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				int32_t p1 = extract_int32(parameters, &paramPtr, length);
-				int32_t p2 = extract_int32(parameters, &paramPtr, length);
-				this->Quest_Callback_Sacrifice(p0, p1, p2);
-				break;
-			}
-		case protocol::Quest_Callback_Result::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
-				int32_t p2 = extract_int32(parameters, &paramPtr, length);
-				int32_t p3 = extract_int32(parameters, &paramPtr, length);
-				this->Quest_Callback_Result(p0, p1, p2, p3);
-				break;
-			}
-		case protocol::Quest_Request_SlotInfo::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				this->Quest_Request_SlotInfo(p0);
-				break;
-			}
-		case protocol::Quest_Resonse_SlotInfo::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				int32_t p1 = extract_int32(parameters, &paramPtr, length);
-				uint64_t p2 = extract_MUID(parameters, &paramPtr, length);
-				int32_t p3 = extract_int32(parameters, &paramPtr, length);
-				this->Quest_Resonse_SlotInfo(p0, p1, p2, p3);
-				break;
-			}
-		case protocol::Quest_RequestLevel::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				this->Quest_RequestLevel(p0);
-				break;
-			}
-		case protocol::Quest_ResponseLevel::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				this->Quest_ResponseLevel(p0);
-				break;
-			}
-		case protocol::Quest_Survival_Result::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				int32_t p1 = extract_int32(parameters, &paramPtr, length);
-				this->Quest_Survival_Result(p0, p1);
-				break;
-			}
-		case protocol::Quest_Survival_Ranking::packetID:
-			{
-				tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
-				this->Quest_Survival_Ranking(p0);
-				break;
-			}
-		case protocol::Quest_Survuval_PrivateRanking::packetID:
-			{
-				uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
-				uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
-				this->Quest_Survuval_PrivateRanking(p0, p1);
-				break;
-			}
-		case protocol::Quest_Start_Fail::packetID:
-			{
-				int32_t p0 = extract_int32(parameters, &paramPtr, length);
-				uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
-				this->Quest_Start_Fail(p0, p1);
-				break;
-			}
-		case protocol::monsterinfo::packetID:
-			{
-				array<uint16_t, 3> p0 = extract_vector(parameters, &paramPtr, length);
-				this->monsterinfo(p0);
-				break;
-			}
-		case protocol::Quest_Bible_Request::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				this->Quest_Bible_Request(p0);
-				break;
-			}
-		case protocol::Quest_Bible_Response::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
-				this->Quest_Bible_Response(p0, p1);
-				break;
-			}
-		case protocol::MC_REQUEST_SERVER_LIST_INFO::packetID:
-			{
-				this->MC_REQUEST_SERVER_LIST_INFO();
-				break;
-			}
-		case protocol::MC_RESPONSE_SERVER_LIST_INFO::packetID:
-			{
-				tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
-				this->MC_RESPONSE_SERVER_LIST_INFO(p0);
-				break;
-			}
-		case protocol::MC_RESPONSE_BLOCK_COUNTRY_CODE_IP::packetID:
-			{
-				std::string p0 = extract_string(parameters, &paramPtr, length);
-				std::string p1 = extract_string(parameters, &paramPtr, length);
-				this->MC_RESPONSE_BLOCK_COUNTRY_CODE_IP(p0, p1);
-				break;
-			}
-		case protocol::MC_RESPONSE_BLOCK_COUNTRYCODE::packetID:
-			{
-				std::string p0 = extract_string(parameters, &paramPtr, length);
-				this->MC_RESPONSE_BLOCK_COUNTRYCODE(p0);
-				break;
-			}
-		case protocol::MC_LOCAL_UPDATE_USE_COUNTRY_FILTER::packetID:
-			{
-				this->MC_LOCAL_UPDATE_USE_COUNTRY_FILTER();
-				break;
-			}
-		case protocol::MC_LOCAL_GET_DB_IP_TO_COUNTRY::packetID:
-			{
-				this->MC_LOCAL_GET_DB_IP_TO_COUNTRY();
-				break;
-			}
-		case protocol::MC_LOCAL_GET_DB_BLOCK_COUNTRY_CODE::packetID:
-			{
-				this->MC_LOCAL_GET_DB_BLOCK_COUNTRY_CODE();
-				break;
-			}
-		case protocol::MC_LOCAL_GET_DB_CUSTOM_IP::packetID:
-			{
-				this->MC_LOCAL_GET_DB_CUSTOM_IP();
-				break;
-			}
-		case protocol::MC_LOCAL_UPDAET_IP_TO_COUNTRY::packetID:
-			{
-				this->MC_LOCAL_UPDAET_IP_TO_COUNTRY();
-				break;
-			}
-		case protocol::MC_LOCAL_UPDAET_BLOCK_COUTRYCODE::packetID:
-			{
-				this->MC_LOCAL_UPDAET_BLOCK_COUTRYCODE();
-				break;
-			}
-		case protocol::MC_LOCAL_UPDAET_CUSTOM_IP::packetID:
-			{
-				this->MC_LOCAL_UPDAET_CUSTOM_IP();
-				break;
-			}
-		case protocol::MC_LOCAL_UPDATE_ACCEPT_INVALID_IP::packetID:
-			{
-				this->MC_LOCAL_UPDATE_ACCEPT_INVALID_IP();
-				break;
-			}
-		case protocol::MC_REQUEST_XTRAP_HASHVALUE::packetID:
-			{
-				std::string p0 = extract_string(parameters, &paramPtr, length);
-				this->MC_REQUEST_XTRAP_HASHVALUE(p0);
-				break;
-			}
-		case protocol::MC_RESPONSE_XTRAP_HASHVALUE::packetID:
-			{
-				std::string p0 = extract_string(parameters, &paramPtr, length);
-				this->MC_RESPONSE_XTRAP_HASHVALUE(p0);
-				break;
-			}
-		case protocol::MC_REQUEST_XTRAP_DETECTCRACK::packetID:
-			{
-				tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
-				this->MC_REQUEST_XTRAP_DETECTCRACK(p0);
-				break;
-			}
-		case protocol::MC_REQUEST_XTRAP_SEEDKEY::packetID:
-			{
-				tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
-				this->MC_REQUEST_XTRAP_SEEDKEY(p0);
-				break;
-			}
-		case protocol::MC_RESPONSE_XTRAP_SEEDKEY::packetID:
-			{
-				tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
-				this->MC_RESPONSE_XTRAP_SEEDKEY(p0);
-				break;
-			}
-		case protocol::MC_REQUEST_GAMEGUARD_AUTH_INDEX::packetID:
-			{
-				uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
-				uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
-				uint32_t p2 = extract_uint32(parameters, &paramPtr, length);
-				uint32_t p3 = extract_uint32(parameters, &paramPtr, length);
-				this->MC_REQUEST_GAMEGUARD_AUTH_INDEX(p0, p1, p2, p3);
-				break;
-			}
-		case protocol::MC_RESPONSE_GAMEGUARD_AUTH_INDEX::packetID:
-			{
-				uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
-				uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
-				uint32_t p2 = extract_uint32(parameters, &paramPtr, length);
-				uint32_t p3 = extract_uint32(parameters, &paramPtr, length);
-				this->MC_RESPONSE_GAMEGUARD_AUTH_INDEX(p0, p1, p2, p3);
-				break;
-			}
-		case protocol::MC_REQUEST_GAMEGUARD_AUTH_VALUE::packetID:
-			{
-				uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
-				uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
-				uint32_t p2 = extract_uint32(parameters, &paramPtr, length);
-				uint32_t p3 = extract_uint32(parameters, &paramPtr, length);
-				this->MC_REQUEST_GAMEGUARD_AUTH_VALUE(p0, p1, p2, p3);
-				break;
-			}
-		case protocol::MC_RESPONSE_GAMEGUARD_AUTH_VALUE::packetID:
-			{
-				uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
-				uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
-				uint32_t p2 = extract_uint32(parameters, &paramPtr, length);
-				uint32_t p3 = extract_uint32(parameters, &paramPtr, length);
-				this->MC_RESPONSE_GAMEGUARD_AUTH_VALUE(p0, p1, p2, p3);
-				break;
-			}
-		case protocol::MC_REQUEST_GIVE_ONESELF_UP::packetID:
-			{
-				this->MC_REQUEST_GIVE_ONESELF_UP();
-				break;
-			}
-		case protocol::MC_RESPONSE_GAMBLEITEMLIST::packetID:
-			{
-				tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
-				this->MC_RESPONSE_GAMBLEITEMLIST(p0);
-				break;
-			}
-		case protocol::MC_MATCH_ROUTE_UPDATE_STAGE_EQUIP_LOOK::packetID:
-			{
-				uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-				int32_t p1 = extract_int32(parameters, &paramPtr, length);
-				int32_t p2 = extract_int32(parameters, &paramPtr, length);
-				this->MC_MATCH_ROUTE_UPDATE_STAGE_EQUIP_LOOK(p0, p1, p2);
-				break;
-			}
-		case protocol::MC_REQUEST_RESOURCE_CRC32::packetID:
-			{
-				uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
-				this->MC_REQUEST_RESOURCE_CRC32(p0);
-				break;
-			}
-		case protocol::MC_RESPONSE_RESOURCE_CRC32::packetID:
-			{
-				uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
-				this->MC_RESPONSE_RESOURCE_CRC32(p0);
-				break;
-			}		}
+			case protocol::Local_Info::packetID: return do_Local_Info(this, parameters, length);
+			case protocol::Local_Echo::packetID: return do_Local_Echo(this, parameters, length);
+			case protocol::Local_Login::packetID: return do_Local_Login(this, parameters, length);
+			case protocol::Help::packetID: return do_Help(this, parameters, length);
+			case protocol::Version::packetID: return do_Version(this, parameters, length);
+			case protocol::DebugTest::packetID: return do_DebugTest(this, parameters, length);
+			case protocol::Net_Enum::packetID: return do_Net_Enum(this, parameters, length);
+			case protocol::Net_Connect::packetID: return do_Net_Connect(this, parameters, length);
+			case protocol::Net_Disconnect::packetID: return do_Net_Disconnect(this, parameters, length);
+			case protocol::Net_Clear::packetID: return do_Net_Clear(this, parameters, length);
+			case protocol::Net_CheckPing::packetID: return do_Net_CheckPing(this, parameters, length);
+			case protocol::Net_Ping::packetID: return do_Net_Ping(this, parameters, length);
+			case protocol::Net_Pong::packetID: return do_Net_Pong(this, parameters, length);
+			case protocol::HShield_Ping::packetID: return do_HShield_Ping(this, parameters, length);
+			case protocol::HShield_Pong::packetID: return do_HShield_Pong(this, parameters, length);
+			case protocol::Net_OnConnect::packetID: return do_Net_OnConnect(this, parameters, length);
+			case protocol::Net_OnDisConnect::packetID: return do_Net_OnDisConnect(this, parameters, length);
+			case protocol::Net_OnError::packetID: return do_Net_OnError(this, parameters, length);
+			case protocol::Net_ConnectToZoneServer::packetID: return do_Net_ConnectToZoneServer(this, parameters, length);
+			case protocol::Net_RequestInfo::packetID: return do_Net_RequestInfo(this, parameters, length);
+			case protocol::Net_ResponseInfo::packetID: return do_Net_ResponseInfo(this, parameters, length);
+			case protocol::Net_Echo::packetID: return do_Net_Echo(this, parameters, length);
+			case protocol::Match_Announce::packetID: return do_Match_Announce(this, parameters, length);
+			case protocol::Clock_Synchronize::packetID: return do_Clock_Synchronize(this, parameters, length);
+			case protocol::Match_Login::packetID: return do_Match_Login(this, parameters, length);
+			case protocol::Match_ResponseLogin::packetID: return do_Match_ResponseLogin(this, parameters, length);
+			case protocol::Match_Response_Result::packetID: return do_Match_Response_Result(this, parameters, length);
+			case protocol::Match_LoginNetmarble::packetID: return do_Match_LoginNetmarble(this, parameters, length);
+			case protocol::Match_LoginNetmarbleJP::packetID: return do_Match_LoginNetmarbleJP(this, parameters, length);
+			case protocol::Match_LoginFromDBAgent::packetID: return do_Match_LoginFromDBAgent(this, parameters, length);
+			case protocol::Match_LoginFailedFromDBAgent::packetID: return do_Match_LoginFailedFromDBAgent(this, parameters, length);
+			case protocol::Match_FinH::packetID: return do_Match_FinH(this, parameters, length);
+			case protocol::MC_MATCH_DISCONNMSG::packetID: return do_MC_MATCH_DISCONNMSG(this, parameters, length);
+			case protocol::MC_MATCH_LOGIN_NHNUSA::packetID: return do_MC_MATCH_LOGIN_NHNUSA(this, parameters, length);
+			case protocol::MC_MATCH_LOGIN_GAMEON_JP::packetID: return do_MC_MATCH_LOGIN_GAMEON_JP(this, parameters, length);
+			case protocol::Match_ObjectCache::packetID: return do_Match_ObjectCache(this, parameters, length);
+			case protocol::Match_BridgePeer::packetID: return do_Match_BridgePeer(this, parameters, length);
+			case protocol::Match_BridgePeerACK::packetID: return do_Match_BridgePeerACK(this, parameters, length);
+			case protocol::MatchServer_RequestRecommandedChannel::packetID: return do_MatchServer_RequestRecommandedChannel(this, parameters, length);
+			case protocol::MatchServer_ResponseRecommandedChannel::packetID: return do_MatchServer_ResponseRecommandedChannel(this, parameters, length);
+			case protocol::Channel_Join::packetID: return do_Channel_Join(this, parameters, length);
+			case protocol::Channel_ResponseJoin::packetID: return do_Channel_ResponseJoin(this, parameters, length);
+			case protocol::Channel_RequestJoinFromName::packetID: return do_Channel_RequestJoinFromName(this, parameters, length);
+			case protocol::Channel_Leave::packetID: return do_Channel_Leave(this, parameters, length);
+			case protocol::Channel_ListStart::packetID: return do_Channel_ListStart(this, parameters, length);
+			case protocol::Channel_ListStop::packetID: return do_Channel_ListStop(this, parameters, length);
+			case protocol::Channel_List::packetID: return do_Channel_List(this, parameters, length);
+			case protocol::Channel_Request_Chat::packetID: return do_Channel_Request_Chat(this, parameters, length);
+			case protocol::Channel_Chat::packetID: return do_Channel_Chat(this, parameters, length);
+			case protocol::Channel_PlayerDumb::packetID: return do_Channel_PlayerDumb(this, parameters, length);
+			case protocol::Channel_Request_Rule::packetID: return do_Channel_Request_Rule(this, parameters, length);
+			case protocol::Channel_Response_Rule::packetID: return do_Channel_Response_Rule(this, parameters, length);
+			case protocol::Channel_RequestAllPlayerList::packetID: return do_Channel_RequestAllPlayerList(this, parameters, length);
+			case protocol::Channel_ResponseAllPlayerList::packetID: return do_Channel_ResponseAllPlayerList(this, parameters, length);
+			case protocol::Stage_Create::packetID: return do_Stage_Create(this, parameters, length);
+			case protocol::Stage_RequestJoin::packetID: return do_Stage_RequestJoin(this, parameters, length);
+			case protocol::Stage_RequestPrivateJoin::packetID: return do_Stage_RequestPrivateJoin(this, parameters, length);
+			case protocol::Stage_Join::packetID: return do_Stage_Join(this, parameters, length);
+			case protocol::Stage_Leave::packetID: return do_Stage_Leave(this, parameters, length);
+			case protocol::Stage_Request_PlayerList::packetID: return do_Stage_Request_PlayerList(this, parameters, length);
+			case protocol::Stage_Follow::packetID: return do_Stage_Follow(this, parameters, length);
+			case protocol::Stage_Response_Follow::packetID: return do_Stage_Response_Follow(this, parameters, length);
+			case protocol::Stage_ResponseJoin::packetID: return do_Stage_ResponseJoin(this, parameters, length);
+			case protocol::Stage_RequirePassword::packetID: return do_Stage_RequirePassword(this, parameters, length);
+			case protocol::RequestGameInfo::packetID: return do_RequestGameInfo(this, parameters, length);
+			case protocol::ResponseGameInfo::packetID: return do_ResponseGameInfo(this, parameters, length);
+			case protocol::Stage_ResponseCreate::packetID: return do_Stage_ResponseCreate(this, parameters, length);
+			case protocol::Stage_Request_EnterBattle::packetID: return do_Stage_Request_EnterBattle(this, parameters, length);
+			case protocol::Stage_EnterBattle::packetID: return do_Stage_EnterBattle(this, parameters, length);
+			case protocol::Stage_LeaveBattle::packetID: return do_Stage_LeaveBattle(this, parameters, length);
+			case protocol::Stage_Start::packetID: return do_Stage_Start(this, parameters, length);
+			case protocol::Stage_Map::packetID: return do_Stage_Map(this, parameters, length);
+			case protocol::Stage_Chat::packetID: return do_Stage_Chat(this, parameters, length);
+			case protocol::Stage_RequestQuickJoin::packetID: return do_Stage_RequestQuickJoin(this, parameters, length);
+			case protocol::Stage_ResponseQuickJoin::packetID: return do_Stage_ResponseQuickJoin(this, parameters, length);
+			case protocol::Stage_StageGo::packetID: return do_Stage_StageGo(this, parameters, length);
+			case protocol::Stage_State::packetID: return do_Stage_State(this, parameters, length);
+			case protocol::Stage_Team::packetID: return do_Stage_Team(this, parameters, length);
+			case protocol::Stage_Master::packetID: return do_Stage_Master(this, parameters, length);
+			case protocol::Stage_ListStart::packetID: return do_Stage_ListStart(this, parameters, length);
+			case protocol::Stage_ListStop::packetID: return do_Stage_ListStop(this, parameters, length);
+			case protocol::Stage_List::packetID: return do_Stage_List(this, parameters, length);
+			case protocol::Stage_RequestStageList::packetID: return do_Stage_RequestStageList(this, parameters, length);
+			case protocol::Channel_RequestPlayerList::packetID: return do_Channel_RequestPlayerList(this, parameters, length);
+			case protocol::Channel_ResponsePlayerList::packetID: return do_Channel_ResponsePlayerList(this, parameters, length);
+			case protocol::Stage_RequestStageSetting::packetID: return do_Stage_RequestStageSetting(this, parameters, length);
+			case protocol::Stage_ResponseStageSetting::packetID: return do_Stage_ResponseStageSetting(this, parameters, length);
+			case protocol::Stage_StageSetting::packetID: return do_Stage_StageSetting(this, parameters, length);
+			case protocol::Stage_Launch::packetID: return do_Stage_Launch(this, parameters, length);
+			case protocol::Stage_Finish::packetID: return do_Stage_Finish(this, parameters, length);
+			case protocol::Stage_RequestPeerList::packetID: return do_Stage_RequestPeerList(this, parameters, length);
+			case protocol::Stage_ResponsePeerList::packetID: return do_Stage_ResponsePeerList(this, parameters, length);
+			case protocol::Loading_Complete::packetID: return do_Loading_Complete(this, parameters, length);
+			case protocol::Match_RequestPeerRelay::packetID: return do_Match_RequestPeerRelay(this, parameters, length);
+			case protocol::Match_ResponsePeerRelay::packetID: return do_Match_ResponsePeerRelay(this, parameters, length);
+			case protocol::Stage_RoundState::packetID: return do_Stage_RoundState(this, parameters, length);
+			case protocol::Game_Kill::packetID: return do_Game_Kill(this, parameters, length);
+			case protocol::Game_Requst_Spawn::packetID: return do_Game_Requst_Spawn(this, parameters, length);
+			case protocol::Game_LevelUp::packetID: return do_Game_LevelUp(this, parameters, length);
+			case protocol::Game_LevelDown::packetID: return do_Game_LevelDown(this, parameters, length);
+			case protocol::Game_Dead::packetID: return do_Game_Dead(this, parameters, length);
+			case protocol::Game_TeamBonus::packetID: return do_Game_TeamBonus(this, parameters, length);
+			case protocol::Game_RequestTimeSync::packetID: return do_Game_RequestTimeSync(this, parameters, length);
+			case protocol::Game_ResponseTimeSync::packetID: return do_Game_ResponseTimeSync(this, parameters, length);
+			case protocol::Game_ReportTimeSync::packetID: return do_Game_ReportTimeSync(this, parameters, length);
+			case protocol::Stage_RequestForcedEntry::packetID: return do_Stage_RequestForcedEntry(this, parameters, length);
+			case protocol::Stage_ResponseForcedEntry::packetID: return do_Stage_ResponseForcedEntry(this, parameters, length);
+			case protocol::Stage_RoundFinishInfo::packetID: return do_Stage_RoundFinishInfo(this, parameters, length);
+			case protocol::Match_Notify::packetID: return do_Match_Notify(this, parameters, length);
+			case protocol::Match_Whisper::packetID: return do_Match_Whisper(this, parameters, length);
+			case protocol::Match_Where::packetID: return do_Match_Where(this, parameters, length);
+			case protocol::Match_UserOption::packetID: return do_Match_UserOption(this, parameters, length);
+			case protocol::ChatRoom_Create::packetID: return do_ChatRoom_Create(this, parameters, length);
+			case protocol::ChatRoom_Join::packetID: return do_ChatRoom_Join(this, parameters, length);
+			case protocol::ChatRoom_Leave::packetID: return do_ChatRoom_Leave(this, parameters, length);
+			case protocol::ChatRoom_SelectWrite::packetID: return do_ChatRoom_SelectWrite(this, parameters, length);
+			case protocol::ChatRoom_Invite::packetID: return do_ChatRoom_Invite(this, parameters, length);
+			case protocol::ChatRoom_Chat::packetID: return do_ChatRoom_Chat(this, parameters, length);
+			case protocol::Match_RequestAccountCharList::packetID: return do_Match_RequestAccountCharList(this, parameters, length);
+			case protocol::Match_ResponseAccountCharList::packetID: return do_Match_ResponseAccountCharList(this, parameters, length);
+			case protocol::Match_RequestAccountCharInfo::packetID: return do_Match_RequestAccountCharInfo(this, parameters, length);
+			case protocol::Match_ResponseAccountCharInfo::packetID: return do_Match_ResponseAccountCharInfo(this, parameters, length);
+			case protocol::Match_RequestSelectChar::packetID: return do_Match_RequestSelectChar(this, parameters, length);
+			case protocol::Match_ResponseSelectChar::packetID: return do_Match_ResponseSelectChar(this, parameters, length);
+			case protocol::Match_RequestCharInfo::packetID: return do_Match_RequestCharInfo(this, parameters, length);
+			case protocol::Match_ResponseCharInfo::packetID: return do_Match_ResponseCharInfo(this, parameters, length);
+			case protocol::Match_RequestDeleteChar::packetID: return do_Match_RequestDeleteChar(this, parameters, length);
+			case protocol::Match_ResponseDeleteChar::packetID: return do_Match_ResponseDeleteChar(this, parameters, length);
+			case protocol::Match_RequestCreateChar::packetID: return do_Match_RequestCreateChar(this, parameters, length);
+			case protocol::Match_ResponseCreateChar::packetID: return do_Match_ResponseCreateChar(this, parameters, length);
+			case protocol::Match_RequestCopyToTestServer::packetID: return do_Match_RequestCopyToTestServer(this, parameters, length);
+			case protocol::Match_ResponseCopyToTestServer::packetID: return do_Match_ResponseCopyToTestServer(this, parameters, length);
+			case protocol::Match_RequestCharInfoDetail::packetID: return do_Match_RequestCharInfoDetail(this, parameters, length);
+			case protocol::Match_ResponseCharInfoDetail::packetID: return do_Match_ResponseCharInfoDetail(this, parameters, length);
+			case protocol::Match_RequestSimpleCharInfo::packetID: return do_Match_RequestSimpleCharInfo(this, parameters, length);
+			case protocol::Match_ResponseSimpleCharInfo::packetID: return do_Match_ResponseSimpleCharInfo(this, parameters, length);
+			case protocol::Match_RequestMySimpleCharInfo::packetID: return do_Match_RequestMySimpleCharInfo(this, parameters, length);
+			case protocol::Match_ResponseMySimpleCharInfo::packetID: return do_Match_ResponseMySimpleCharInfo(this, parameters, length);
+			case protocol::Match_RequestBuyItem::packetID: return do_Match_RequestBuyItem(this, parameters, length);
+			case protocol::Match_ResponseBuyItem::packetID: return do_Match_ResponseBuyItem(this, parameters, length);
+			case protocol::Match_RequestSellItem::packetID: return do_Match_RequestSellItem(this, parameters, length);
+			case protocol::Match_ResponseSellItem::packetID: return do_Match_ResponseSellItem(this, parameters, length);
+			case protocol::Match_RequestShopItemList::packetID: return do_Match_RequestShopItemList(this, parameters, length);
+			case protocol::Match_ResponseShopItemList::packetID: return do_Match_ResponseShopItemList(this, parameters, length);
+			case protocol::Match_RequestCharacterItemList::packetID: return do_Match_RequestCharacterItemList(this, parameters, length);
+			case protocol::Match_RequestCharacterItemListForce::packetID: return do_Match_RequestCharacterItemListForce(this, parameters, length);
+			case protocol::Match_ResponseCharacterItemList::packetID: return do_Match_ResponseCharacterItemList(this, parameters, length);
+			case protocol::MatchRequestEquipItem::packetID: return do_MatchRequestEquipItem(this, parameters, length);
+			case protocol::MatchResponseEquipItem::packetID: return do_MatchResponseEquipItem(this, parameters, length);
+			case protocol::MatchRequestTakeoffItem::packetID: return do_MatchRequestTakeoffItem(this, parameters, length);
+			case protocol::MatchResponseTakeoffItem::packetID: return do_MatchResponseTakeoffItem(this, parameters, length);
+			case protocol::Match_RequestAccountItemList::packetID: return do_Match_RequestAccountItemList(this, parameters, length);
+			case protocol::Match_ResponseAccountItemList::packetID: return do_Match_ResponseAccountItemList(this, parameters, length);
+			case protocol::Match_RequestBringAccountItem::packetID: return do_Match_RequestBringAccountItem(this, parameters, length);
+			case protocol::Match_ResponseBringAccountItem::packetID: return do_Match_ResponseBringAccountItem(this, parameters, length);
+			case protocol::Match_RequestBringBackAccountItem::packetID: return do_Match_RequestBringBackAccountItem(this, parameters, length);
+			case protocol::Match_ResponseBringBackAccountItem::packetID: return do_Match_ResponseBringBackAccountItem(this, parameters, length);
+			case protocol::Match_ExpiredRentItem::packetID: return do_Match_ExpiredRentItem(this, parameters, length);
+			case protocol::Match_ItemGamble::packetID: return do_Match_ItemGamble(this, parameters, length);
+			case protocol::Match_GambleResultItem::packetID: return do_Match_GambleResultItem(this, parameters, length);
+			case protocol::Match_Request_Suicide::packetID: return do_Match_Request_Suicide(this, parameters, length);
+			case protocol::Match_Response_Suicide::packetID: return do_Match_Response_Suicide(this, parameters, length);
+			case protocol::Match_Response_SuicideReserve::packetID: return do_Match_Response_SuicideReserve(this, parameters, length);
+			case protocol::Match_Request_Obtain_WorldItem::packetID: return do_Match_Request_Obtain_WorldItem(this, parameters, length);
+			case protocol::Match_WorldItem_Obtain::packetID: return do_Match_WorldItem_Obtain(this, parameters, length);
+			case protocol::Match_WorldItem_Spawn::packetID: return do_Match_WorldItem_Spawn(this, parameters, length);
+			case protocol::Match_Request_Spawn_WorldItem::packetID: return do_Match_Request_Spawn_WorldItem(this, parameters, length);
+			case protocol::Match_Request_Spawn_WorldItem_UID::packetID: return do_Match_Request_Spawn_WorldItem_UID(this, parameters, length);
+			case protocol::Match_Reset_TeamMembers::packetID: return do_Match_Reset_TeamMembers(this, parameters, length);
+			case protocol::Match_Assign_Commander::packetID: return do_Match_Assign_Commander(this, parameters, length);
+			case protocol::Match_Set_Observer::packetID: return do_Match_Set_Observer(this, parameters, length);
+			case protocol::Match_Ladder_Request_Challenge::packetID: return do_Match_Ladder_Request_Challenge(this, parameters, length);
+			case protocol::Match_Ladder_Response_Challenge::packetID: return do_Match_Ladder_Response_Challenge(this, parameters, length);
+			case protocol::Match_Ladder_SearchRival::packetID: return do_Match_Ladder_SearchRival(this, parameters, length);
+			case protocol::Match_Ladder_Request_CancelChallenge::packetID: return do_Match_Ladder_Request_CancelChallenge(this, parameters, length);
+			case protocol::Match_Ladder_CancelChallenge::packetID: return do_Match_Ladder_CancelChallenge(this, parameters, length);
+			case protocol::Ladder_Prepare::packetID: return do_Ladder_Prepare(this, parameters, length);
+			case protocol::Ladder_Launch::packetID: return do_Ladder_Launch(this, parameters, length);
+			case protocol::Match_RequestProposal::packetID: return do_Match_RequestProposal(this, parameters, length);
+			case protocol::Match_ResponseProposal::packetID: return do_Match_ResponseProposal(this, parameters, length);
+			case protocol::Match_AskAgreement::packetID: return do_Match_AskAgreement(this, parameters, length);
+			case protocol::Match_ReplyAgreement::packetID: return do_Match_ReplyAgreement(this, parameters, length);
+			case protocol::Match_Friend_Add::packetID: return do_Match_Friend_Add(this, parameters, length);
+			case protocol::Match_Friend_Remove::packetID: return do_Match_Friend_Remove(this, parameters, length);
+			case protocol::Match_Friend_List::packetID: return do_Match_Friend_List(this, parameters, length);
+			case protocol::Match_Response_FriendList::packetID: return do_Match_Response_FriendList(this, parameters, length);
+			case protocol::Match_Friend_Msg::packetID: return do_Match_Friend_Msg(this, parameters, length);
+			case protocol::Match_Clan_RequestCreateClan::packetID: return do_Match_Clan_RequestCreateClan(this, parameters, length);
+			case protocol::Match_Clan_ResponseCreateClan::packetID: return do_Match_Clan_ResponseCreateClan(this, parameters, length);
+			case protocol::Match_Clan_AskSponsorAgreement::packetID: return do_Match_Clan_AskSponsorAgreement(this, parameters, length);
+			case protocol::Match_Clan_AnswerSponsorAgreement::packetID: return do_Match_Clan_AnswerSponsorAgreement(this, parameters, length);
+			case protocol::Match_Clan_RequestAgreedCreateClan::packetID: return do_Match_Clan_RequestAgreedCreateClan(this, parameters, length);
+			case protocol::Match_Clan_AgreedResponseCreateClan::packetID: return do_Match_Clan_AgreedResponseCreateClan(this, parameters, length);
+			case protocol::Match_Clan_RequestCloseClan::packetID: return do_Match_Clan_RequestCloseClan(this, parameters, length);
+			case protocol::Match_Clan_ResponseCloseClan::packetID: return do_Match_Clan_ResponseCloseClan(this, parameters, length);
+			case protocol::Match_Clan_RequestJoinClan::packetID: return do_Match_Clan_RequestJoinClan(this, parameters, length);
+			case protocol::Match_Clan_ResponseJoinClan::packetID: return do_Match_Clan_ResponseJoinClan(this, parameters, length);
+			case protocol::Match_Clan_AskJoinAgreement::packetID: return do_Match_Clan_AskJoinAgreement(this, parameters, length);
+			case protocol::Match_Clan_AnswerJoinAgreement::packetID: return do_Match_Clan_AnswerJoinAgreement(this, parameters, length);
+			case protocol::Match_Clan_RequestAgreedJoinClan::packetID: return do_Match_Clan_RequestAgreedJoinClan(this, parameters, length);
+			case protocol::Match_Clan_ResponseAgreedJoinClan::packetID: return do_Match_Clan_ResponseAgreedJoinClan(this, parameters, length);
+			case protocol::Match_Clan_RequestLeaveClan::packetID: return do_Match_Clan_RequestLeaveClan(this, parameters, length);
+			case protocol::Match_Clan_ResponseLeaveClan::packetID: return do_Match_Clan_ResponseLeaveClan(this, parameters, length);
+			case protocol::Match_Clan_UpdateCharClanInfo::packetID: return do_Match_Clan_UpdateCharClanInfo(this, parameters, length);
+			case protocol::Match_Clan_Master_RequestChangeGrade::packetID: return do_Match_Clan_Master_RequestChangeGrade(this, parameters, length);
+			case protocol::Match_Clan_Master_ResponseChangeGrade::packetID: return do_Match_Clan_Master_ResponseChangeGrade(this, parameters, length);
+			case protocol::Match_Clan_Admin_RequestExpelMember::packetID: return do_Match_Clan_Admin_RequestExpelMember(this, parameters, length);
+			case protocol::Match_Clan_Admin_ResponseLeaveMember::packetID: return do_Match_Clan_Admin_ResponseLeaveMember(this, parameters, length);
+			case protocol::Match_Clan_Request_Msg::packetID: return do_Match_Clan_Request_Msg(this, parameters, length);
+			case protocol::Match_Clan_Msg::packetID: return do_Match_Clan_Msg(this, parameters, length);
+			case protocol::Match_Clan_Request_ClanMemberList::packetID: return do_Match_Clan_Request_ClanMemberList(this, parameters, length);
+			case protocol::Match_Clan_Response_ClanMemberList::packetID: return do_Match_Clan_Response_ClanMemberList(this, parameters, length);
+			case protocol::Match_Clan_Request_Clan_Info::packetID: return do_Match_Clan_Request_Clan_Info(this, parameters, length);
+			case protocol::Match_Clan_Response_Clan_Info::packetID: return do_Match_Clan_Response_Clan_Info(this, parameters, length);
+			case protocol::Match_Clan_Standby_ClanList::packetID: return do_Match_Clan_Standby_ClanList(this, parameters, length);
+			case protocol::Match_Clan_Member_Connected::packetID: return do_Match_Clan_Member_Connected(this, parameters, length);
+			case protocol::Match_Clan_Request_EmblemURL::packetID: return do_Match_Clan_Request_EmblemURL(this, parameters, length);
+			case protocol::Match_Clan_Response_EmblemURL::packetID: return do_Match_Clan_Response_EmblemURL(this, parameters, length);
+			case protocol::Match_Clan_Local_EmblemReady::packetID: return do_Match_Clan_Local_EmblemReady(this, parameters, length);
+			case protocol::MC_MATCH_CLAN_ACCOUNCE_DELETE::packetID: return do_MC_MATCH_CLAN_ACCOUNCE_DELETE(this, parameters, length);
+			case protocol::Match_Callvote::packetID: return do_Match_Callvote(this, parameters, length);
+			case protocol::Match_NotifyCallvote::packetID: return do_Match_NotifyCallvote(this, parameters, length);
+			case protocol::Match_NotifyVoteResult::packetID: return do_Match_NotifyVoteResult(this, parameters, length);
+			case protocol::Match_VoteYes::packetID: return do_Match_VoteYes(this, parameters, length);
+			case protocol::Match_VoteNo::packetID: return do_Match_VoteNo(this, parameters, length);
+			case protocol::Votestop::packetID: return do_Votestop(this, parameters, length);
+			case protocol::Match_Broadcast_ClanRenewVictories::packetID: return do_Match_Broadcast_ClanRenewVictories(this, parameters, length);
+			case protocol::Match_Broadcast_ClanInterruptVictories::packetID: return do_Match_Broadcast_ClanInterruptVictories(this, parameters, length);
+			case protocol::Match_Broadcast_DuelRenewVictories::packetID: return do_Match_Broadcast_DuelRenewVictories(this, parameters, length);
+			case protocol::Match_Broadcast_DuelInterruptVictories::packetID: return do_Match_Broadcast_DuelInterruptVictories(this, parameters, length);
+			case protocol::Match_Assign_Berserker::packetID: return do_Match_Assign_Berserker(this, parameters, length);
+			case protocol::Match_Duel_QueueInfo::packetID: return do_Match_Duel_QueueInfo(this, parameters, length);
+			case protocol::Match_Quest_Ping::packetID: return do_Match_Quest_Ping(this, parameters, length);
+			case protocol::Match_Quest_Pong::packetID: return do_Match_Quest_Pong(this, parameters, length);
+			case protocol::MC_QUEST_NPCLIST::packetID: return do_MC_QUEST_NPCLIST(this, parameters, length);
+			case protocol::Event_ChangeMaster::packetID: return do_Event_ChangeMaster(this, parameters, length);
+			case protocol::Event_ChangePassword::packetID: return do_Event_ChangePassword(this, parameters, length);
+			case protocol::Event_RequestJJang::packetID: return do_Event_RequestJJang(this, parameters, length);
+			case protocol::Event_RemoveJJang::packetID: return do_Event_RemoveJJang(this, parameters, length);
+			case protocol::Event_UpdateJJang::packetID: return do_Event_UpdateJJang(this, parameters, length);
+			case protocol::Quest_NPCSpawn::packetID: return do_Quest_NPCSpawn(this, parameters, length);
+			case protocol::Quest_Entrust_NPC_Control::packetID: return do_Quest_Entrust_NPC_Control(this, parameters, length);
+			case protocol::Quest_Checksum_NPCInfo::packetID: return do_Quest_Checksum_NPCInfo(this, parameters, length);
+			case protocol::Quest_NPCDead::packetID: return do_Quest_NPCDead(this, parameters, length);
+			case protocol::Quest_RefreshPlayerStatus::packetID: return do_Quest_RefreshPlayerStatus(this, parameters, length);
+			case protocol::Quest_NPC_AllClear::packetID: return do_Quest_NPC_AllClear(this, parameters, length);
+			case protocol::Quest_Round_Start::packetID: return do_Quest_Round_Start(this, parameters, length);
+			case protocol::Quest_RequestDead::packetID: return do_Quest_RequestDead(this, parameters, length);
+			case protocol::Quest_PlayerDead::packetID: return do_Quest_PlayerDead(this, parameters, length);
+			case protocol::Quest_ObtainQuestItem::packetID: return do_Quest_ObtainQuestItem(this, parameters, length);
+			case protocol::Quest_ObtainZItem::packetID: return do_Quest_ObtainZItem(this, parameters, length);
+			case protocol::Quest_State_Mapset::packetID: return do_Quest_State_Mapset(this, parameters, length);
+			case protocol::Quest_Stage_GameInfo::packetID: return do_Quest_Stage_GameInfo(this, parameters, length);
+			case protocol::Quest_SectorBonus::packetID: return do_Quest_SectorBonus(this, parameters, length);
+			case protocol::Quest_GameInfo::packetID: return do_Quest_GameInfo(this, parameters, length);
+			case protocol::Quest_Combat_State::packetID: return do_Quest_Combat_State(this, parameters, length);
+			case protocol::Quest_Sector_Start::packetID: return do_Quest_Sector_Start(this, parameters, length);
+			case protocol::Quest_Complete::packetID: return do_Quest_Complete(this, parameters, length);
+			case protocol::Quest_Failed::packetID: return do_Quest_Failed(this, parameters, length);
+			case protocol::Quest_Request_Moveto_Portal::packetID: return do_Quest_Request_Moveto_Portal(this, parameters, length);
+			case protocol::Quest_Moveto_Portal::packetID: return do_Quest_Moveto_Portal(this, parameters, length);
+			case protocol::Quest_Readyto_NewSector::packetID: return do_Quest_Readyto_NewSector(this, parameters, length);
+			case protocol::Quest_Peer_NPC_BasicInfo::packetID: return do_Quest_Peer_NPC_BasicInfo(this, parameters, length);
+			case protocol::Quest_Peer_NPC_HPInfo::packetID: return do_Quest_Peer_NPC_HPInfo(this, parameters, length);
+			case protocol::Quest_Peer_NPC_Attack_Melee::packetID: return do_Quest_Peer_NPC_Attack_Melee(this, parameters, length);
+			case protocol::Quest_Peer_NPC_Attack_Range::packetID: return do_Quest_Peer_NPC_Attack_Range(this, parameters, length);
+			case protocol::Quest_Peer_NPC_Skill_Start::packetID: return do_Quest_Peer_NPC_Skill_Start(this, parameters, length);
+			case protocol::Quest_Peer_NPC_Skill_Execute::packetID: return do_Quest_Peer_NPC_Skill_Execute(this, parameters, length);
+			case protocol::Quest_Peer_NPC_Dead::packetID: return do_Quest_Peer_NPC_Dead(this, parameters, length);
+			case protocol::Quest_Test_RequestNPCSpawn::packetID: return do_Quest_Test_RequestNPCSpawn(this, parameters, length);
+			case protocol::Quest_Test_ClearNPC::packetID: return do_Quest_Test_ClearNPC(this, parameters, length);
+			case protocol::Quest_Test_SectorClear::packetID: return do_Quest_Test_SectorClear(this, parameters, length);
+			case protocol::Quest_Test_Finish::packetID: return do_Quest_Test_Finish(this, parameters, length);
+			case protocol::Test_BirdTest1::packetID: return do_Test_BirdTest1(this, parameters, length);
+			case protocol::Test_PeerTest_Ping::packetID: return do_Test_PeerTest_Ping(this, parameters, length);
+			case protocol::Test_PeerTest_Pong::packetID: return do_Test_PeerTest_Pong(this, parameters, length);
+			case protocol::Admin_Announce::packetID: return do_Admin_Announce(this, parameters, length);
+			case protocol::Admin_PingToAll::packetID: return do_Admin_PingToAll(this, parameters, length);
+			case protocol::Admin_RequestServerInfo::packetID: return do_Admin_RequestServerInfo(this, parameters, length);
+			case protocol::Admin_ResponseServerInfo::packetID: return do_Admin_ResponseServerInfo(this, parameters, length);
+			case protocol::Admin_Halt::packetID: return do_Admin_Halt(this, parameters, length);
+			case protocol::Admin_Terminal::packetID: return do_Admin_Terminal(this, parameters, length);
+			case protocol::Admin_RequestUpdateAccountUGrade::packetID: return do_Admin_RequestUpdateAccountUGrade(this, parameters, length);
+			case protocol::Admin_ResponseUpdateAccountUGrade::packetID: return do_Admin_ResponseUpdateAccountUGrade(this, parameters, length);
+			case protocol::Admin_RequestBanPlayer::packetID: return do_Admin_RequestBanPlayer(this, parameters, length);
+			case protocol::Admin_ResponseBanPlayer::packetID: return do_Admin_ResponseBanPlayer(this, parameters, length);
+			case protocol::Admin_RequestSwitchLadderGame::packetID: return do_Admin_RequestSwitchLadderGame(this, parameters, length);
+			case protocol::Admin_Hide::packetID: return do_Admin_Hide(this, parameters, length);
+			case protocol::Admin_ReloadClientHash::packetID: return do_Admin_ReloadClientHash(this, parameters, length);
+			case protocol::MC_ADMIN_RESET_ALL_HACKING_BLOCK::packetID: return do_MC_ADMIN_RESET_ALL_HACKING_BLOCK(this, parameters, length);
+			case protocol::MC_ADMIN_RELOAD_GAMBLEITEM::packetID: return do_MC_ADMIN_RELOAD_GAMBLEITEM(this, parameters, length);
+			case protocol::MC_ADMIN_DUMP_GAMBLEITEM_LOG::packetID: return do_MC_ADMIN_DUMP_GAMBLEITEM_LOG(this, parameters, length);
+			case protocol::MC_ADMIN_ASSASIN::packetID: return do_MC_ADMIN_ASSASIN(this, parameters, length);
+			case protocol::Net_RequestUID::packetID: return do_Net_RequestUID(this, parameters, length);
+			case protocol::Net_ResponseUID::packetID: return do_Net_ResponseUID(this, parameters, length);
+			case protocol::Peer_Open::packetID: return do_Peer_Open(this, parameters, length);
+			case protocol::Peer_ObjectChangeWeapon::packetID: return do_Peer_ObjectChangeWeapon(this, parameters, length);
+			case protocol::Peer_ObjectChangeParts::packetID: return do_Peer_ObjectChangeParts(this, parameters, length);
+			case protocol::Peer_ObjectDamage::packetID: return do_Peer_ObjectDamage(this, parameters, length);
+			case protocol::Peer_Chat::packetID: return do_Peer_Chat(this, parameters, length);
+			case protocol::Peer_ChatIcon::packetID: return do_Peer_ChatIcon(this, parameters, length);
+			case protocol::Peer_Reaction::packetID: return do_Peer_Reaction(this, parameters, length);
+			case protocol::Peer_EnchantDamage::packetID: return do_Peer_EnchantDamage(this, parameters, length);
+			case protocol::Peer_Shot::packetID: return do_Peer_Shot(this, parameters, length);
+			case protocol::Peer_Shot_Melee::packetID: return do_Peer_Shot_Melee(this, parameters, length);
+			case protocol::Peer_Reload::packetID: return do_Peer_Reload(this, parameters, length);
+			case protocol::Peer_ObjectSpMotion::packetID: return do_Peer_ObjectSpMotion(this, parameters, length);
+			case protocol::Peer_ChangeCharacter::packetID: return do_Peer_ChangeCharacter(this, parameters, length);
+			case protocol::Peer_Die::packetID: return do_Peer_Die(this, parameters, length);
+			case protocol::Peer_Spawn::packetID: return do_Peer_Spawn(this, parameters, length);
+			case protocol::Peer_Dash::packetID: return do_Peer_Dash(this, parameters, length);
+			case protocol::Peer_ObjectSkill::packetID: return do_Peer_ObjectSkill(this, parameters, length);
+			case protocol::Peer_CharacterBasicInfo::packetID: return do_Peer_CharacterBasicInfo(this, parameters, length);
+			case protocol::Peer_CharacterHPInfo::packetID: return do_Peer_CharacterHPInfo(this, parameters, length);
+			case protocol::Peer_CharacterHPAPInfo::packetID: return do_Peer_CharacterHPAPInfo(this, parameters, length);
+			case protocol::Peer_UDPTest::packetID: return do_Peer_UDPTest(this, parameters, length);
+			case protocol::Peer_UDPTestReply::packetID: return do_Peer_UDPTestReply(this, parameters, length);
+			case protocol::Peer_Ping::packetID: return do_Peer_Ping(this, parameters, length);
+			case protocol::Peer_Pong::packetID: return do_Peer_Pong(this, parameters, length);
+			case protocol::Agent_Connect::packetID: return do_Agent_Connect(this, parameters, length);
+			case protocol::Agent_Disconnect::packetID: return do_Agent_Disconnect(this, parameters, length);
+			case protocol::Agent_LocalLogin::packetID: return do_Agent_LocalLogin(this, parameters, length);
+			case protocol::Match_RegisterAgent::packetID: return do_Match_RegisterAgent(this, parameters, length);
+			case protocol::Match_UnRegisterAgent::packetID: return do_Match_UnRegisterAgent(this, parameters, length);
+			case protocol::Match_Agent_RequestLiveCheck::packetID: return do_Match_Agent_RequestLiveCheck(this, parameters, length);
+			case protocol::Match_Agent_ResponseLiveCheck::packetID: return do_Match_Agent_ResponseLiveCheck(this, parameters, length);
+			case protocol::Agent_StageReserve::packetID: return do_Agent_StageReserve(this, parameters, length);
+			case protocol::Agent_StageRelease::packetID: return do_Agent_StageRelease(this, parameters, length);
+			case protocol::Agent_StageReady::packetID: return do_Agent_StageReady(this, parameters, length);
+			case protocol::Agent_RelayPeer::packetID: return do_Agent_RelayPeer(this, parameters, length);
+			case protocol::Agent_PeerReady::packetID: return do_Agent_PeerReady(this, parameters, length);
+			case protocol::Agent_LocateToClient::packetID: return do_Agent_LocateToClient(this, parameters, length);
+			case protocol::Agent_ResponseLogin::packetID: return do_Agent_ResponseLogin(this, parameters, length);
+			case protocol::Agent_PeerBindTCP::packetID: return do_Agent_PeerBindTCP(this, parameters, length);
+			case protocol::Agent_PeerBindUDP::packetID: return do_Agent_PeerBindUDP(this, parameters, length);
+			case protocol::Agent_PeerUnbind::packetID: return do_Agent_PeerUnbind(this, parameters, length);
+			case protocol::Agent_Error::packetID: return do_Agent_Error(this, parameters, length);
+			case protocol::Agent_TunnelingTCP::packetID: return do_Agent_TunnelingTCP(this, parameters, length);
+			case protocol::Agent_TunnelingUDP::packetID: return do_Agent_TunnelingUDP(this, parameters, length);
+			case protocol::Agent_AllowTunnelingTCP::packetID: return do_Agent_AllowTunnelingTCP(this, parameters, length);
+			case protocol::Agent_AllowTunnelingUDP::packetID: return do_Agent_AllowTunnelingUDP(this, parameters, length);
+			case protocol::Agent_DebugPing::packetID: return do_Agent_DebugPing(this, parameters, length);
+			case protocol::Agent_DebugTest::packetID: return do_Agent_DebugTest(this, parameters, length);
+			case protocol::Peer_Ping_Time::packetID: return do_Peer_Ping_Time(this, parameters, length);
+			case protocol::Peer_Pong_Time::packetID: return do_Peer_Pong_Time(this, parameters, length);
+			case protocol::Announce_::packetID: return do_Announce_(this, parameters, length);
+			case protocol::Announce_Schedule::packetID: return do_Announce_Schedule(this, parameters, length);
+			case protocol::Switchclanserverstatus_change::packetID: return do_Switchclanserverstatus_change(this, parameters, length);
+			case protocol::Switchclanserverstatus_up_::packetID: return do_Switchclanserverstatus_up_(this, parameters, length);
+			case protocol::MC_MATCH_SCHEDULE_STOP_SERVER::packetID: return do_MC_MATCH_SCHEDULE_STOP_SERVER(this, parameters, length);
+			case protocol::test::packetID: return do_test(this, parameters, length);
+			case protocol::MC_RESPONSE_KEEPER_MANAGER_CONNECT::packetID: return do_MC_RESPONSE_KEEPER_MANAGER_CONNECT(this, parameters, length);
+			case protocol::MC_REQUEST_KEEPERMGR_ANNOUNCE::packetID: return do_MC_REQUEST_KEEPERMGR_ANNOUNCE(this, parameters, length);
+			case protocol::MC_REQUEST_KEEPER_ANNOUNCE::packetID: return do_MC_REQUEST_KEEPER_ANNOUNCE(this, parameters, length);
+			case protocol::Checkping::packetID: return do_Checkping(this, parameters, length);
+			case protocol::requestmatchserverstatus::packetID: return do_requestmatchserverstatus(this, parameters, length);
+			case protocol::responsematchserverststus::packetID: return do_responsematchserverststus(this, parameters, length);
+			case protocol::MC_REQUEST_DOWNLOAD_SERVER_PATCH_FILE::packetID: return do_MC_REQUEST_DOWNLOAD_SERVER_PATCH_FILE(this, parameters, length);
+			case protocol::MC_REQUEST_STOP_SERVER::packetID: return do_MC_REQUEST_STOP_SERVER(this, parameters, length);
+			case protocol::MC_REQUEST_CONNECTION_STATE::packetID: return do_MC_REQUEST_CONNECTION_STATE(this, parameters, length);
+			case protocol::MC_RESPONSE_CONNECTION_STATE::packetID: return do_MC_RESPONSE_CONNECTION_STATE(this, parameters, length);
+			case protocol::MC_REQUEST_SERVER_HEARBEAT::packetID: return do_MC_REQUEST_SERVER_HEARBEAT(this, parameters, length);
+			case protocol::MC_RESPONSE_SERVER_HEARHEAT::packetID: return do_MC_RESPONSE_SERVER_HEARHEAT(this, parameters, length);
+			case protocol::MC_REQUEST_START_SERVER::packetID: return do_MC_REQUEST_START_SERVER(this, parameters, length);
+			case protocol::MC_REQUEST_KEEPER_CONNECT_MATCHSERVER::packetID: return do_MC_REQUEST_KEEPER_CONNECT_MATCHSERVER(this, parameters, length);
+			case protocol::MC_RESPONSE_KEEPER_CONNECT_MATCHSERVER::packetID: return do_MC_RESPONSE_KEEPER_CONNECT_MATCHSERVER(this, parameters, length);
+			case protocol::MC_REQUEST_REFRESH_SERVER::packetID: return do_MC_REQUEST_REFRESH_SERVER(this, parameters, length);
+			case protocol::MC_REQUEST_PREPARE_SERVER_PATCH::packetID: return do_MC_REQUEST_PREPARE_SERVER_PATCH(this, parameters, length);
+			case protocol::MC_REQUEST_SERVER_PATCH::packetID: return do_MC_REQUEST_SERVER_PATCH(this, parameters, length);
+			case protocol::MC_REQUEST_LAST_JOB_STATE::packetID: return do_MC_REQUEST_LAST_JOB_STATE(this, parameters, length);
+			case protocol::MC_RESPONSE_LAST_JOB_STATE::packetID: return do_MC_RESPONSE_LAST_JOB_STATE(this, parameters, length);
+			case protocol::MC_REQUEST_CONFIG_STATE::packetID: return do_MC_REQUEST_CONFIG_STATE(this, parameters, length);
+			case protocol::MC_RESPONSE_CONFIG_STATE::packetID: return do_MC_RESPONSE_CONFIG_STATE(this, parameters, length);
+			case protocol::MC_REQUEST_SET_ONE_CONFIG::packetID: return do_MC_REQUEST_SET_ONE_CONFIG(this, parameters, length);
+			case protocol::MC_RESPONSE_SET_ONE_CONFIG::packetID: return do_MC_RESPONSE_SET_ONE_CONFIG(this, parameters, length);
+			case protocol::MC_REQUEST_STOP_AGENT_SERVER::packetID: return do_MC_REQUEST_STOP_AGENT_SERVER(this, parameters, length);
+			case protocol::MC_REQUEST_START_AGENT_SERVER::packetID: return do_MC_REQUEST_START_AGENT_SERVER(this, parameters, length);
+			case protocol::MC_REQUEST_DOWNLOAD_AGENT_PATCH_FILE::packetID: return do_MC_REQUEST_DOWNLOAD_AGENT_PATCH_FILE(this, parameters, length);
+			case protocol::MC_REQUEST_PREPARE_AGENT_PATCH::packetID: return do_MC_REQUEST_PREPARE_AGENT_PATCH(this, parameters, length);
+			case protocol::MC_REQUEST_AGENT_PATCH::packetID: return do_MC_REQUEST_AGENT_PATCH(this, parameters, length);
+			case protocol::MC_REQUEST_RESET_PATCH::packetID: return do_MC_REQUEST_RESET_PATCH(this, parameters, length);
+			case protocol::MC_REQUEST_DISCONNECT_SERVER::packetID: return do_MC_REQUEST_DISCONNECT_SERVER(this, parameters, length);
+			case protocol::MC_REQUEST_REBOOT_WINDOWS::packetID: return do_MC_REQUEST_REBOOT_WINDOWS(this, parameters, length);
+			case protocol::MC_REQUEST_ANNOUNCE_STOP_SERVER::packetID: return do_MC_REQUEST_ANNOUNCE_STOP_SERVER(this, parameters, length);
+			case protocol::MC_RESPONSE_ANNOUNCE_STOP_SERVER::packetID: return do_MC_RESPONSE_ANNOUNCE_STOP_SERVER(this, parameters, length);
+			case protocol::MC_REQUEST_KEEPER_MANAGER_SCHEDULE::packetID: return do_MC_REQUEST_KEEPER_MANAGER_SCHEDULE(this, parameters, length);
+			case protocol::MC_RESPONSE_KEEPER_MANAGER_SCHEDULE::packetID: return do_MC_RESPONSE_KEEPER_MANAGER_SCHEDULE(this, parameters, length);
+			case protocol::MC_REQUEST_SERVER_AGENT_STATE::packetID: return do_MC_REQUEST_SERVER_AGENT_STATE(this, parameters, length);
+			case protocol::MC_RESPONSE_SERVER_AGENT_STATE::packetID: return do_MC_RESPONSE_SERVER_AGENT_STATE(this, parameters, length);
+			case protocol::MC_REQUEST_SERVER_STATUS::packetID: return do_MC_REQUEST_SERVER_STATUS(this, parameters, length);
+			case protocol::MC_REQUEST_START_SERVER_SCHEDULE::packetID: return do_MC_REQUEST_START_SERVER_SCHEDULE(this, parameters, length);
+			case protocol::MC_REQUEST_WRITE_CLIENT_CRC::packetID: return do_MC_REQUEST_WRITE_CLIENT_CRC(this, parameters, length);
+			case protocol::MC_RESPONSE_WRITE_CLIENT_CRC::packetID: return do_MC_RESPONSE_WRITE_CLIENT_CRC(this, parameters, length);
+			case protocol::MC_REQUEST_KEEPER_RELOAD_SERVER_CONFIG::packetID: return do_MC_REQUEST_KEEPER_RELOAD_SERVER_CONFIG(this, parameters, length);
+			case protocol::MC_REQUEST_RELOAD_CONFIG::packetID: return do_MC_REQUEST_RELOAD_CONFIG(this, parameters, length);
+			case protocol::MC_REQUEST_KEEPER_ADD_HASHMAP::packetID: return do_MC_REQUEST_KEEPER_ADD_HASHMAP(this, parameters, length);
+			case protocol::MC_RESPONSE_KEEPER_ADD_HASHMAP::packetID: return do_MC_RESPONSE_KEEPER_ADD_HASHMAP(this, parameters, length);
+			case protocol::MC_REQUEST_ADD_HASHMAP::packetID: return do_MC_REQUEST_ADD_HASHMAP(this, parameters, length);
+			case protocol::MC_RESPONSE_ADD_HASHMAP::packetID: return do_MC_RESPONSE_ADD_HASHMAP(this, parameters, length);
+			case protocol::Questitem::packetID: return do_Questitem(this, parameters, length);
+			case protocol::Quest_item_response::packetID: return do_Quest_item_response(this, parameters, length);
+			case protocol::Quest_item_buy::packetID: return do_Quest_item_buy(this, parameters, length);
+			case protocol::Quest_item_responsebuy::packetID: return do_Quest_item_responsebuy(this, parameters, length);
+			case protocol::Quest_item_sell::packetID: return do_Quest_item_sell(this, parameters, length);
+			case protocol::Quest_item_responsesell::packetID: return do_Quest_item_responsesell(this, parameters, length);
+			case protocol::Quest_Reward::packetID: return do_Quest_Reward(this, parameters, length);
+			case protocol::Quest_Request_Sacrifice::packetID: return do_Quest_Request_Sacrifice(this, parameters, length);
+			case protocol::Quest_Response_Sacrifice::packetID: return do_Quest_Response_Sacrifice(this, parameters, length);
+			case protocol::Quest_Callback_Sacrifice::packetID: return do_Quest_Callback_Sacrifice(this, parameters, length);
+			case protocol::Quest_Callback_Result::packetID: return do_Quest_Callback_Result(this, parameters, length);
+			case protocol::Quest_Request_SlotInfo::packetID: return do_Quest_Request_SlotInfo(this, parameters, length);
+			case protocol::Quest_Resonse_SlotInfo::packetID: return do_Quest_Resonse_SlotInfo(this, parameters, length);
+			case protocol::Quest_RequestLevel::packetID: return do_Quest_RequestLevel(this, parameters, length);
+			case protocol::Quest_ResponseLevel::packetID: return do_Quest_ResponseLevel(this, parameters, length);
+			case protocol::Quest_Survival_Result::packetID: return do_Quest_Survival_Result(this, parameters, length);
+			case protocol::Quest_Survival_Ranking::packetID: return do_Quest_Survival_Ranking(this, parameters, length);
+			case protocol::Quest_Survuval_PrivateRanking::packetID: return do_Quest_Survuval_PrivateRanking(this, parameters, length);
+			case protocol::Quest_Start_Fail::packetID: return do_Quest_Start_Fail(this, parameters, length);
+			case protocol::monsterinfo::packetID: return do_monsterinfo(this, parameters, length);
+			case protocol::Quest_Bible_Request::packetID: return do_Quest_Bible_Request(this, parameters, length);
+			case protocol::Quest_Bible_Response::packetID: return do_Quest_Bible_Response(this, parameters, length);
+			case protocol::MC_REQUEST_SERVER_LIST_INFO::packetID: return do_MC_REQUEST_SERVER_LIST_INFO(this, parameters, length);
+			case protocol::MC_RESPONSE_SERVER_LIST_INFO::packetID: return do_MC_RESPONSE_SERVER_LIST_INFO(this, parameters, length);
+			case protocol::MC_RESPONSE_BLOCK_COUNTRY_CODE_IP::packetID: return do_MC_RESPONSE_BLOCK_COUNTRY_CODE_IP(this, parameters, length);
+			case protocol::MC_RESPONSE_BLOCK_COUNTRYCODE::packetID: return do_MC_RESPONSE_BLOCK_COUNTRYCODE(this, parameters, length);
+			case protocol::MC_LOCAL_UPDATE_USE_COUNTRY_FILTER::packetID: return do_MC_LOCAL_UPDATE_USE_COUNTRY_FILTER(this, parameters, length);
+			case protocol::MC_LOCAL_GET_DB_IP_TO_COUNTRY::packetID: return do_MC_LOCAL_GET_DB_IP_TO_COUNTRY(this, parameters, length);
+			case protocol::MC_LOCAL_GET_DB_BLOCK_COUNTRY_CODE::packetID: return do_MC_LOCAL_GET_DB_BLOCK_COUNTRY_CODE(this, parameters, length);
+			case protocol::MC_LOCAL_GET_DB_CUSTOM_IP::packetID: return do_MC_LOCAL_GET_DB_CUSTOM_IP(this, parameters, length);
+			case protocol::MC_LOCAL_UPDAET_IP_TO_COUNTRY::packetID: return do_MC_LOCAL_UPDAET_IP_TO_COUNTRY(this, parameters, length);
+			case protocol::MC_LOCAL_UPDAET_BLOCK_COUTRYCODE::packetID: return do_MC_LOCAL_UPDAET_BLOCK_COUTRYCODE(this, parameters, length);
+			case protocol::MC_LOCAL_UPDAET_CUSTOM_IP::packetID: return do_MC_LOCAL_UPDAET_CUSTOM_IP(this, parameters, length);
+			case protocol::MC_LOCAL_UPDATE_ACCEPT_INVALID_IP::packetID: return do_MC_LOCAL_UPDATE_ACCEPT_INVALID_IP(this, parameters, length);
+			case protocol::MC_REQUEST_XTRAP_HASHVALUE::packetID: return do_MC_REQUEST_XTRAP_HASHVALUE(this, parameters, length);
+			case protocol::MC_RESPONSE_XTRAP_HASHVALUE::packetID: return do_MC_RESPONSE_XTRAP_HASHVALUE(this, parameters, length);
+			case protocol::MC_REQUEST_XTRAP_DETECTCRACK::packetID: return do_MC_REQUEST_XTRAP_DETECTCRACK(this, parameters, length);
+			case protocol::MC_REQUEST_XTRAP_SEEDKEY::packetID: return do_MC_REQUEST_XTRAP_SEEDKEY(this, parameters, length);
+			case protocol::MC_RESPONSE_XTRAP_SEEDKEY::packetID: return do_MC_RESPONSE_XTRAP_SEEDKEY(this, parameters, length);
+			case protocol::MC_REQUEST_GAMEGUARD_AUTH_INDEX::packetID: return do_MC_REQUEST_GAMEGUARD_AUTH_INDEX(this, parameters, length);
+			case protocol::MC_RESPONSE_GAMEGUARD_AUTH_INDEX::packetID: return do_MC_RESPONSE_GAMEGUARD_AUTH_INDEX(this, parameters, length);
+			case protocol::MC_REQUEST_GAMEGUARD_AUTH_VALUE::packetID: return do_MC_REQUEST_GAMEGUARD_AUTH_VALUE(this, parameters, length);
+			case protocol::MC_RESPONSE_GAMEGUARD_AUTH_VALUE::packetID: return do_MC_RESPONSE_GAMEGUARD_AUTH_VALUE(this, parameters, length);
+			case protocol::MC_REQUEST_GIVE_ONESELF_UP::packetID: return do_MC_REQUEST_GIVE_ONESELF_UP(this, parameters, length);
+			case protocol::MC_RESPONSE_GAMBLEITEMLIST::packetID: return do_MC_RESPONSE_GAMBLEITEMLIST(this, parameters, length);
+			case protocol::MC_MATCH_ROUTE_UPDATE_STAGE_EQUIP_LOOK::packetID: return do_MC_MATCH_ROUTE_UPDATE_STAGE_EQUIP_LOOK(this, parameters, length);
+			case protocol::MC_REQUEST_RESOURCE_CRC32::packetID: return do_MC_REQUEST_RESOURCE_CRC32(this, parameters, length);
+			case protocol::MC_RESPONSE_RESOURCE_CRC32::packetID: return do_MC_RESPONSE_RESOURCE_CRC32(this, parameters, length);
+		}
 	} catch(...) {
-			this->OnFailedParse(packetID, parameters, length);
+		this->OnFailedParse(packetID, parameters, length);
 	}
 }
 
