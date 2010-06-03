@@ -1,6 +1,10 @@
 
 #include <net/PacketCrypto.h>
 #include "../src/PacketCrypto.cpp"
+#include "../../gogo/src/MUIDSanta.h"
+#include "../../gogo/src/MUIDSanta.cpp"
+#include "../../gogo/src/Client.h"
+#include "../../gogo/src/Client.cpp"
 
 #include <ostream>
 #include <string>
@@ -8,7 +12,7 @@
 
 #include <boost/cstdint.hpp>
 #include <boost/test/minimal.hpp>
-
+#include <boost/array.hpp>
 #include <test.h>
 
 using namespace std;
@@ -138,6 +142,19 @@ static void test_checksum()
 	check_equal (value, static_cast<boost::uint16_t>(0x104C));
 }
 
+static void test_handshake()
+{
+	uint8_t expected[] = {
+		10, 00, 26, 00, 00, 00, 01, 00,
+		00, 00, 00, 00, 00, 00, 01, 00,
+		00, 00, 00, 00, 00, 00, 167, 220,
+		234, 13
+	};
+
+	boost::array<uint8_t, 26> value = Client::test_handshake(1);
+	check_array_equal (value.data(), expected, 26);
+}
+
 int test_main(int, char**)
 {
 	// Don't forget to call your test functions from here!
@@ -148,6 +165,8 @@ int test_main(int, char**)
 	test_long_decryption();
 
 	test_checksum();
+
+	test_handshake();
 
 	return 0;
 }
