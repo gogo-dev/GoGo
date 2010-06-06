@@ -27,7 +27,7 @@ void ConsoleLogger::print_line(const char* toOutput, color c)
 
 	static HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
 
-	if (c == RED)        SetConsoleTextAttribute(console, 12);
+	if     (c == RED)    SetConsoleTextAttribute(console, 12);
 	else if(c == YELLOW) SetConsoleTextAttribute(console, 14);
 	else if(c == WHITE)  SetConsoleTextAttribute(console, 15);
 
