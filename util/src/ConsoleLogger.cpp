@@ -6,7 +6,7 @@
 #include <boost/date_time/posix_time/posix_time.hpp>
 
 // I hate to do this... but we need it for color output :(
-#if WIN32
+#ifdef WIN32
 	#include <windows.h>
 #endif
 
@@ -23,7 +23,7 @@ void ConsoleLogger::print_line(const char* toOutput, color c)
 {
 	mutex::scoped_lock lock(consoleLock);
 
-#if WIN32 // Micro$hit
+#ifdef WIN32 // Micro$hit
 
 	static HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
 
