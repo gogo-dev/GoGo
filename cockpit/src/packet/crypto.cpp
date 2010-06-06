@@ -1,4 +1,4 @@
-#include <cockpit/packet/crypto.h>
+#include "crypto.h"
 
 using namespace boost;
 
@@ -40,18 +40,16 @@ uint8_t* encrypt(uint8_t* packet, int length, int index, const uint8_t* key)
 	return packet - index;
 }
 
-uint16_t checksum(const uint8_t* packet, int length, int index)
+uint16_t checksum(const uint8_t* packet, int length)
 {
 	uint32_t t[4] = { 0 };
 
-	packet += index;
-
-	for (int i = 0; i < 4; ++i)
+	for(int i = 0; i < 4; ++i)
 		t[0] += *packet++;
 
 	packet += 2;
 
-	for (int i = 6; i < length; ++i)
+	for(int i = 6; i < length; ++i)
 		t[1] += *packet++;
 
 	t[2] = t[1] - t[0];

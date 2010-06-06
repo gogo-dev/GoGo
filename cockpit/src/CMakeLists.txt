@@ -7,6 +7,7 @@ set(COCKPIT_SRC
 	client_handling.cpp
 	ClientConnection.cpp
 	MatchServer.cpp
+	Socket.cpp
 	# More sources here!
 )
 

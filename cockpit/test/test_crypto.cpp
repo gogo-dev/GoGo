@@ -1,4 +1,4 @@
-#include <cockpit/packet/crypto.h>
+#include "../src/packet/crypto.h"
 
 #include <test.h>
 #include <string>
@@ -126,8 +126,8 @@ static void test_checksum()
 		0x03, 0x05, 0x99, 0x21, 0x81, 0x74, 0x13, 0x59
 	};
 
-	uint16_t value = checksum (toChecksum, countof(toChecksum), 0);
-	check_equal (value, static_cast<boost::uint16_t>(0x104C));
+	uint16_t value = checksum(toChecksum, countof(toChecksum));
+	check_equal(value, static_cast<boost::uint16_t>(0x104C));
 }
 
 int test_main(int, char**)
