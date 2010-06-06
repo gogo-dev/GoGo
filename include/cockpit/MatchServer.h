@@ -17,7 +17,7 @@ private:
 	boost::asio::io_service* io;
 	boost::asio::ip::tcp::acceptor* acceptor;
 
-public: // Lol don't use this. Not part of the real public API.
+private:
 	struct ClientConnection;
 
 private:
