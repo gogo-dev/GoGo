@@ -1,5 +1,6 @@
 set(COCKPIT_TESTS
 	test_parameters
+	test_crypto
 	# More tests here!
 )
 

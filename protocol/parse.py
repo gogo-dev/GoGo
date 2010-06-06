@@ -354,6 +354,7 @@ def make_command_header_footer(commandName):
 };
 
 }
+}
 }"""])
 
 typeMap = {
