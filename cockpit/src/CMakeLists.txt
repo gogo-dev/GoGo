@@ -3,6 +3,10 @@ set(COCKPIT_SRC
 	packet/crypto.cpp
 	packet/Parameters.cpp
 	packet/Registry.cpp
+
+	client_handling.cpp
+	ClientConnection.cpp
+	MatchServer.cpp
 	# More sources here!
 )
 
