@@ -18,8 +18,10 @@
 
 namespace cockpit {
 
+
 class Client : public Transmitter, public boost::enable_shared_from_this<Client>
 {
+	struct RawPacket;
 private:
 	Logger* logger;
 	ClientHandler* handler;
@@ -32,7 +34,7 @@ public:
 	void recieve_new_packet();
 
 	void on_packet_header(
-		boost::shared_ptr<boost::asio::mutable_buffer> rawPacket,
+		boost::shared_ptr<RawPacket> rawPacket,
 		boost::system::error_code err,
 		size_t bytesTransferred
 	);

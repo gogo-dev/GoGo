@@ -17,9 +17,9 @@ using namespace boost;
 using namespace boost::asio;
 using namespace boost::asio::ip;
 
-namespace {
+namespace cockpit {
 
-struct RawPacket
+struct Client::RawPacket
 {
 	uint16_t version;
 	uint16_t fullSize;
@@ -31,10 +31,6 @@ struct RawPacket
 
 	// We don't care about the parameters.
 };
-
-}
-
-namespace cockpit {
 
 Client::Client(Logger* _logger, ClientHandlerFactory* factory, io_service* io)
 	: logger(_logger), handler(factory->create_client_handler()), socket(*io)
@@ -54,7 +50,7 @@ void Client::start()
 {
 	try {
 		handler->initialize(this, &registry);
-		cryptoKey = handler->handshake();
+		cryptoKey = handler->handshake(socket);
 
 		recieve_new_packet();
 	} catch(const std::exception& ex) {
@@ -64,13 +60,16 @@ void Client::start()
 
 void Client::recieve_new_packet()
 {
-	shared_ptr<mutable_buffer> buf = make_shared<mutable_buffer>(sizeof(uint16_t) * 3);
+	shared_ptr<RawPacket> p = make_shared<RawPacket>();
 
-	async_read(socket, *buf,
+	async_read(socket,
+		// Instead of doing sizeof(RawPacket), we just get the packet header so
+		// we can drop the payload into an appropriately sized buffer.
+		buffer(p.get(), sizeof(uint16_t) * 3),
 		bind(
 			&Client::on_packet_header,
 			shared_from_this(),
-			buf,
+			p,
 			_1,
 			_2
 		)
@@ -78,7 +77,7 @@ void Client::recieve_new_packet()
 }
 
 void Client::on_packet_header(
-	shared_ptr<mutable_buffer> rawPacket,
+	shared_ptr<RawPacket> p,	// NOTE: This only fills in the packet header.
 	system::error_code err,
 	size_t bytesTransferred)
 {
@@ -90,13 +89,10 @@ void Client::on_packet_header(
 
 	uint16_t packetSize;
 
-	// NOTE: This only fills in the packet header.
-	RawPacket p = buffer_cast<RawPacket>(rawPacket);
-
-	if(p.version == 0x64)
-		packetSize = p.fullSize;
-	else if(p.version == 0x65)
-		// TODO: Decrypt the packet size.
+	if(p->version == 0x64)
+		packetSize = p->fullSize;
+	else if(p->version == 0x65)
+		packetSize = 0;		// TODO: Decrypt the packet size.
 	else
 		logger->warning(format("[%1%] Unknown protocol version recieved.") % get_ip());
 
