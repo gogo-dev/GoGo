@@ -83,7 +83,7 @@ void Client::on_packet_header(
 {
 	if(err || (bytesTransferred != (sizeof(uint16_t) * 3)))
 	{
-		logger->info(format("[%1] Failure in recv(). Terminating the connection.") % get_ip());
+		logger->info(format("[%1%] Failure in recv(). Terminating the connection.") % get_ip());
 		return;
 	}
 
