@@ -37,19 +37,23 @@ public:
 
 	/**
 		The warning target is used to log messages informing the user that
-		something bad is happening, but is entirely recoverable.
+		something bad is happening, but there are steps that can be taken to
+		prevent it from happening again. Except for any caveates mentioned in
+		the message, the application will recover gracefully and continue
+		functioning.
 
-		These are bad.
+		These are bad; but can be rectified easily by the sysadmin.
 	*/
 	virtual void warning(const char* message) = 0;
 
 	/**
 		Whenever something goes wrong that is unrecoverable, and MatchServer
-		or the connection will be terminated, this target will be called.
-		The message will always contain exactly what actions were taken by
-		the cockpit to save as much as it can before it kills something.
+		will be terminated, this target will be called. The message will
+		always contain exactly what actions were taken by the cockpit to save
+		as much as it can before it kills something. These errors cannot be
+		fixed without significant effort on the development team's part.
 
-		These are very bad - you might want to file a bug report.
+		These are very bad - you will want to file a bug report.
 	*/
 	virtual void error(const char* message) = 0;
 

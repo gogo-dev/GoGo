@@ -42,7 +42,7 @@ static void handle_accepted_client(MatchServer::Data* d,
 
 static void asynchronously_accept_new_client(MatchServer::Data* d)
 {
-	shared_ptr<Client> client = make_shared<Client>(d->logger, d->factory, &(d->acceptor.io_service()));
+	shared_ptr<Client> client = make_shared<Client>(d->logger, d->factory, &d->acceptor.io_service());
 
 	d->acceptor.async_accept(
 		client->socket,
@@ -60,11 +60,11 @@ static void handle_accepted_client(MatchServer::Data* d,
 	asynchronously_accept_new_client(d);
 
 	if(err)
-		d->logger->info(format("%1% chickened out: %2%") % client->get_ip() % err.message());
+		d->logger->info(format("[%1%] Chickened out: %2%") % client->get_ip() % err.message());
 	else
 	{
-		d->logger->debug(format("Now connected to %1%") % client->get_ip());
-		client->send_handshake();
+		d->logger->debug(format("[%1%] Connected!") % client->get_ip());
+		client->start();
 	}
 }
 
