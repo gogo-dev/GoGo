@@ -12,6 +12,7 @@
 
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/shared_ptr.hpp>
+#include <boost/shared_array.hpp>
 #include <boost/enable_shared_from_this.hpp>
 #include <boost/array.hpp>
 #include <boost/cstdint.hpp>
@@ -21,7 +22,9 @@ namespace cockpit {
 
 class Client : public Transmitter, public boost::enable_shared_from_this<Client>
 {
-	struct RawPacket;
+	struct PacketHeader;
+	struct Payload;
+
 private:
 	Logger* logger;
 	ClientHandler* handler;
@@ -29,15 +32,16 @@ private:
 	boost::array<boost::uint8_t, 26> cryptoKey;
 
 public:
+	void decrypt(PacketHeader* p);
+
+public:
 	boost::asio::ip::tcp::socket socket;
 
-	void recieve_new_packet();
+	void recieve_packet_header();
+	void on_packet_header(boost::shared_ptr<PacketHeader> rawPacket, boost::system::error_code err, size_t bytesTransferred);
 
-	void on_packet_header(
-		boost::shared_ptr<RawPacket> rawPacket,
-		boost::system::error_code err,
-		size_t bytesTransferred
-	);
+	void recieve_payload(boost::uint16_t fullPacketLength);
+	void on_payload(boost::shared_array<uint8_t> payload, boost::uint16_t payloadSize, boost::system::error_code err, size_t bytesTransferred);
 
 public:
 	Client(Logger* logger, ClientHandlerFactory* factory, boost::asio::io_service* io);

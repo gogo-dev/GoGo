@@ -19,15 +19,18 @@ using namespace boost::asio::ip;
 
 namespace cockpit {
 
-struct Client::RawPacket
+struct Client::PacketHeader
 {
 	uint16_t version;
 	uint16_t fullSize;
 	uint16_t checksum;
+};
 
+struct Client::Payload
+{
 	uint16_t dataSize;
 	uint16_t commandID;
-	uint8_t  packetID;
+	uint8_t packetID;
 
 	// We don't care about the parameters.
 };
@@ -52,20 +55,20 @@ void Client::start()
 		handler->initialize(this, &registry);
 		cryptoKey = handler->handshake(socket);
 
-		recieve_new_packet();
+		recieve_packet_header();
 	} catch(const std::exception& ex) {
 		logger->info(format("[%1%] Connection terminated (%2%).") % get_ip() % ex.what());
 	}
 }
 
-void Client::recieve_new_packet()
+void Client::recieve_packet_header()
 {
-	shared_ptr<RawPacket> p = make_shared<RawPacket>();
+	shared_ptr<PacketHeader> p = make_shared<PacketHeader>();
 
 	async_read(socket,
 		// Instead of doing sizeof(RawPacket), we just get the packet header so
 		// we can drop the payload into an appropriately sized buffer.
-		buffer(p.get(), sizeof(uint16_t) * 3),
+		buffer(p.get(), sizeof(PacketHeader)),
 		bind(
 			&Client::on_packet_header,
 			shared_from_this(),
@@ -76,27 +79,56 @@ void Client::recieve_new_packet()
 	);
 }
 
+// http://code.google.com/p/gunzemulator/wiki/RawPacketStructure
+void Client::decrypt(PacketHeader* p)
+{
+	// TODO: Decrypt the "fullSize" member.
+}
+
 void Client::on_packet_header(
-	shared_ptr<RawPacket> p,	// NOTE: This only fills in the packet header.
+	shared_ptr<PacketHeader> p,	// NOTE: This only fills in the packet header.
 	system::error_code err,
 	size_t bytesTransferred)
 {
-	if(err || (bytesTransferred != (sizeof(uint16_t) * 3)))
+	if(err || bytesTransferred != sizeof(PacketHeader))
 	{
 		logger->info(format("[%1%] Failure in recv(). Terminating the connection.") % get_ip());
 		return;
 	}
 
-	uint16_t packetSize;
+	if(p->version == 0x65)
+	{
+		logger->debug(format("[%1%] Packet encrypted. Decrypting...") % get_ip());
+		decrypt(p.get());
+	}
 
-	if(p->version == 0x64)
-		packetSize = p->fullSize;
-	else if(p->version == 0x65)
-		packetSize = 0;		// TODO: Decrypt the packet size.
-	else
-		logger->warning(format("[%1%] Unknown protocol version recieved.") % get_ip());
+	else if(p->version != 0x64)
+		logger->debug(format("[%1%] Unknown protocol version %2% recieved.") % get_ip() % p->version);
 
-	recieve_new_packet();
+	recieve_payload(p->fullSize);
+	recieve_packet_header();
+}
+
+void Client::recieve_payload(uint16_t fullSize)
+{
+	uint16_t payloadSize = fullSize - sizeof(PacketHeader);
+	shared_array<uint8_t> payload(new uint8_t[payloadSize]);
+
+	async_read(socket,
+		buffer(payload.get(), payloadSize),
+		bind(
+			&Client::on_payload,
+			shared_from_this(),
+			payload,
+			payloadSize,
+			_1,
+			_2
+		)
+	);
+}
+
+void Client::on_payload(shared_array<uint8_t> payload, boost::uint16_t payloadSize, system::error_code err, size_t bytesTransferred)
+{
 }
 
 void Client::send(const packet::Packet* packet)
