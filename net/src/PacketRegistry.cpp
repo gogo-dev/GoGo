@@ -200,7 +200,6 @@ static void do_Match_BridgePeerACK(Registry* self, const uint8_t* parameters, ui
 
 static void do_MatchServer_RequestRecommandedChannel(Registry* self, const uint8_t*, uint16_t)
 {
-
 	return self->MatchServer_RequestRecommandedChannel();
 }
 
@@ -606,13 +605,11 @@ static void do_Stage_Master(Registry* self, const uint8_t* parameters, uint16_t 
 
 static void do_Stage_ListStart(Registry* self, const uint8_t*, uint16_t)
 {
-
 	return self->Stage_ListStart();
 }
 
 static void do_Stage_ListStop(Registry* self, const uint8_t*, uint16_t)
 {
-
 	return self->Stage_ListStop();
 }
 
@@ -1356,7 +1353,6 @@ static void do_Match_Response_Suicide(Registry* self, const uint8_t* parameters,
 
 static void do_Match_Response_SuicideReserve(Registry* self, const uint8_t*, uint16_t)
 {
-
 	return self->Match_Response_SuicideReserve();
 }
 
@@ -1460,13 +1456,11 @@ static void do_Match_Ladder_Response_Challenge(Registry* self, const uint8_t* pa
 
 static void do_Match_Ladder_SearchRival(Registry* self, const uint8_t*, uint16_t)
 {
-
 	return self->Match_Ladder_SearchRival();
 }
 
 static void do_Match_Ladder_Request_CancelChallenge(Registry* self, const uint8_t*, uint16_t)
 {
-
 	return self->Match_Ladder_Request_CancelChallenge();
 }
 
@@ -1569,7 +1563,6 @@ static void do_Match_Friend_Remove(Registry* self, const uint8_t* parameters, ui
 
 static void do_Match_Friend_List(Registry* self, const uint8_t*, uint16_t)
 {
-
 	return self->Match_Friend_List();
 }
 
@@ -1959,19 +1952,16 @@ static void do_Match_NotifyVoteResult(Registry* self, const uint8_t* parameters,
 
 static void do_Match_VoteYes(Registry* self, const uint8_t*, uint16_t)
 {
-
 	return self->Match_VoteYes();
 }
 
 static void do_Match_VoteNo(Registry* self, const uint8_t*, uint16_t)
 {
-
 	return self->Match_VoteNo();
 }
 
 static void do_Votestop(Registry* self, const uint8_t*, uint16_t)
 {
-
 	return self->Votestop();
 }
 
@@ -2068,7 +2058,6 @@ static void do_MC_QUEST_NPCLIST(Registry* self, const uint8_t* parameters, uint1
 
 static void do_Event_ChangeMaster(Registry* self, const uint8_t*, uint16_t)
 {
-
 	return self->Event_ChangeMaster();
 }
 
@@ -2153,13 +2142,11 @@ static void do_Quest_NPCDead(Registry* self, const uint8_t* parameters, uint16_t
 
 static void do_Quest_RefreshPlayerStatus(Registry* self, const uint8_t*, uint16_t)
 {
-
 	return self->Quest_RefreshPlayerStatus();
 }
 
 static void do_Quest_NPC_AllClear(Registry* self, const uint8_t*, uint16_t)
 {
-
 	return self->Quest_NPC_AllClear();
 }
 
@@ -2174,7 +2161,6 @@ static void do_Quest_Round_Start(Registry* self, const uint8_t* parameters, uint
 
 static void do_Quest_RequestDead(Registry* self, const uint8_t*, uint16_t)
 {
-
 	return self->Quest_RequestDead();
 }
 
@@ -2276,7 +2262,6 @@ static void do_Quest_Complete(Registry* self, const uint8_t* parameters, uint16_
 
 static void do_Quest_Failed(Registry* self, const uint8_t*, uint16_t)
 {
-
 	return self->Quest_Failed();
 }
 
@@ -2393,19 +2378,16 @@ static void do_Quest_Test_RequestNPCSpawn(Registry* self, const uint8_t* paramet
 
 static void do_Quest_Test_ClearNPC(Registry* self, const uint8_t*, uint16_t)
 {
-
 	return self->Quest_Test_ClearNPC();
 }
 
 static void do_Quest_Test_SectorClear(Registry* self, const uint8_t*, uint16_t)
 {
-
 	return self->Quest_Test_SectorClear();
 }
 
 static void do_Quest_Test_Finish(Registry* self, const uint8_t*, uint16_t)
 {
-
 	return self->Quest_Test_Finish();
 }
 
@@ -2441,25 +2423,21 @@ static void do_Admin_ResponseBanPlayer(Registry* self, const uint8_t* parameters
 
 static void do_Admin_Hide(Registry* self, const uint8_t*, uint16_t)
 {
-
 	return self->Admin_Hide();
 }
 
 static void do_MC_ADMIN_RESET_ALL_HACKING_BLOCK(Registry* self, const uint8_t*, uint16_t)
 {
-
 	return self->MC_ADMIN_RESET_ALL_HACKING_BLOCK();
 }
 
 static void do_MC_ADMIN_RELOAD_GAMBLEITEM(Registry* self, const uint8_t*, uint16_t)
 {
-
 	return self->MC_ADMIN_RELOAD_GAMBLEITEM();
 }
 
 static void do_MC_ADMIN_ASSASIN(Registry* self, const uint8_t*, uint16_t)
 {
-
 	return self->MC_ADMIN_ASSASIN();
 }
 
@@ -2475,7 +2453,6 @@ static void do_Agent_Connect(Registry* self, const uint8_t* parameters, uint16_t
 
 static void do_Agent_Disconnect(Registry* self, const uint8_t*, uint16_t)
 {
-
 	return self->Agent_Disconnect();
 }
 
@@ -2492,7 +2469,6 @@ static void do_Match_RegisterAgent(Registry* self, const uint8_t* parameters, ui
 
 static void do_Match_UnRegisterAgent(Registry* self, const uint8_t*, uint16_t)
 {
-
 	return self->Match_UnRegisterAgent();
 }
 
@@ -2779,7 +2755,6 @@ static void do_Quest_Bible_Response(Registry* self, const uint8_t* parameters, u
 
 static void do_MC_REQUEST_GIVE_ONESELF_UP(Registry* self, const uint8_t*, uint16_t)
 {
-
 	return self->MC_REQUEST_GIVE_ONESELF_UP();
 }
 

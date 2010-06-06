@@ -235,7 +235,10 @@ def make_packet_registry_functions(commands):
 			(type, func) = extractorMap[p.id]
 			ret = ''.join([ret, '\t', type, ' p', str(i), ' = ', func, '(parameters, &paramPtr, length);\n'])
 
-		ret = ''.join([ret, '\n\treturn self->', c.name, '('])
+		if len(c.parameters) > 0:
+			ret = ''.join([ret, '\n'])
+
+		ret = ''.join([ret, '\treturn self->', c.name, '('])
 
 		for (p, i) in zip(c.parameters, range(9999999)):
 			sep = ''
