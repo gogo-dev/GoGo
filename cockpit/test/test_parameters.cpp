@@ -40,7 +40,7 @@ static void test_floating_point()
 
 static void test_boolean()
 {
-	boolean packit(true);
+	cockpit::packet::boolean packit(true);
 
 	uint8_t expected[] = {
 		0x01
