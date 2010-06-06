@@ -12,6 +12,8 @@
 #include <boost/asio/read.hpp>
 #include <boost/make_shared.hpp>
 
+#include <util/memory.h>
+
 using namespace std;
 using namespace boost;
 using namespace boost::asio;
@@ -92,7 +94,7 @@ void Client::on_packet_header(
 {
 	if(err || bytesTransferred != sizeof(PacketHeader))
 	{
-		logger->info(format("[%1%] Failure in recv(). Terminating the connection.") % get_ip());
+		logger->info(format("[%1%] Failure in recv(Header). Terminating the connection.") % get_ip());
 		return;
 	}
 
@@ -103,13 +105,12 @@ void Client::on_packet_header(
 	}
 
 	else if(p->version != 0x64)
-		logger->debug(format("[%1%] Unknown protocol version %2% recieved.") % get_ip() % p->version);
+		logger->info(format("[%1%] Unknown protocol version %2% recieved.") % get_ip() % p->version);
 
-	recieve_payload(p->fullSize);
-	recieve_packet_header();
+	recieve_payload(p->fullSize, p->version == 0x65);
 }
 
-void Client::recieve_payload(uint16_t fullSize)
+void Client::recieve_payload(uint16_t fullSize, bool encrypted)
 {
 	uint16_t payloadSize = fullSize - sizeof(PacketHeader);
 	shared_array<uint8_t> payload(new uint8_t[payloadSize]);
@@ -121,14 +122,53 @@ void Client::recieve_payload(uint16_t fullSize)
 			shared_from_this(),
 			payload,
 			payloadSize,
+			encrypted,
 			_1,
 			_2
 		)
 	);
 }
 
-void Client::on_payload(shared_array<uint8_t> payload, boost::uint16_t payloadSize, system::error_code err, size_t bytesTransferred)
+static Client::Payload extract_payload(const shared_array<uint8_t>& p, bool encrypted)
 {
+	uint8_t* ptr = p.get();
+	Client::Payload payload;
+
+	ptr = reinterpret_cast<uint8_t*>(memory::pcopy(&payload.dataSize, ptr, sizeof(payload.dataSize)));
+	ptr = reinterpret_cast<uint8_t*>(memory::pcopy(&payload.commandID, ptr, sizeof(payload.commandID)));
+	ptr = reinterpret_cast<uint8_t*>(memory::pcopy(&payload.packetID, ptr, sizeof(payload.packetID)));
+
+	if(encrypted)
+	{
+		// TODO: Decrypt the payload.
+	}
+
+	return payload;
+}
+
+static void decrypt_params(uint8_t* params, uint16_t paramLength)
+{
+	// TODO: Decrypt the packet's parameters.
+}
+
+void Client::on_payload(shared_array<uint8_t> p, boost::uint16_t payloadSize, bool encrypted, system::error_code err, size_t bytesTransferred)
+{
+	if(err || bytesTransferred != payloadSize)
+	{
+		logger->debug(format("[%1%] Failure in recv(Payload). Terminating the connection.") % get_ip());
+		return;
+	}
+
+	Payload payload = extract_payload(p, encrypted);
+	uint16_t paramLength = payloadSize - sizeof(Payload);	// LOL.
+	uint8_t* params = p.get() + sizeof(Payload);
+
+	if(encrypted)
+		decrypt_params(params, paramLength);
+
+	registry.dispatch(payload.commandID, params, paramLength);
+
+	recieve_packet_header();
 }
 
 void Client::send(const packet::Packet* packet)

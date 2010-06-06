@@ -22,6 +22,7 @@ namespace cockpit {
 
 class Client : public Transmitter, public boost::enable_shared_from_this<Client>
 {
+public:
 	struct PacketHeader;
 	struct Payload;
 
@@ -40,8 +41,14 @@ public:
 	void recieve_packet_header();
 	void on_packet_header(boost::shared_ptr<PacketHeader> rawPacket, boost::system::error_code err, size_t bytesTransferred);
 
-	void recieve_payload(boost::uint16_t fullPacketLength);
-	void on_payload(boost::shared_array<uint8_t> payload, boost::uint16_t payloadSize, boost::system::error_code err, size_t bytesTransferred);
+	void recieve_payload(boost::uint16_t fullPacketLength, bool encrypted);
+	void on_payload(
+		boost::shared_array<uint8_t> payload,
+		boost::uint16_t payloadSize,
+		bool encrypted,
+		boost::system::error_code err,
+		size_t bytesTransferred
+	);
 
 public:
 	Client(Logger* logger, ClientHandlerFactory* factory, boost::asio::io_service* io);
