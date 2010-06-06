@@ -1,20 +1,20 @@
 #pragma once
+#include <cstddef>
 #include <vector>
 #include <string>
 #include <boost/cstdint.hpp>
 #include <boost/tuple/tuple.hpp>
-#include <cstddef>
-
 #include <util/buffer.h>
 
 /*
-* This file handles all the packet parameter type definitions. It is provided
-* as a convenience for packet construction, as the routine can be generalized
-* like crazy.
-*/
+ * This file handles all the packet parameter type definitions. It is provided
+ * as a convenience for packet construction, as the routine can be generalized
+ * like crazy.
+ */
 
-namespace packet
-{
+namespace cockpit {
+namespace packet {
+
 	class Parameter
 	{
 	protected:
@@ -79,6 +79,8 @@ namespace packet
 		Buffer serialize() const;
 	};
 
+	// This string type must ONLY be used in blobs. If you're building a packet
+	// and you need a string, use the "string" class instead.
 	class blob_string : public Parameter
 	{
 	private:
@@ -90,6 +92,8 @@ namespace packet
 		Buffer serialize() const;
 	};
 
+	// Never use this class when writing blob strings - use the blob_string
+	// class instead.
 	class string : public Parameter
 	{
 	private:
@@ -113,6 +117,10 @@ namespace packet
 	protected:
 		float_tuple(float x, float y, float z);
 		float_tuple(const boost::tuple<float, float, float>& value);
+
+		~float_tuple()
+		{
+		}
 
 	public:
 		Buffer serialize() const;
@@ -142,17 +150,18 @@ namespace packet
 				boost::uint8_t red;
 				boost::uint8_t green;
 				boost::uint8_t blue;
-					boost::uint8_t alpha;
+				boost::uint8_t alpha;
 			} part;
 			boost::uint32_t raw;
 		} value;
 
 	public:
 		color(boost::uint8_t red, boost::uint8_t green,
-		      boost::uint8_t blue, boost::uint8_t alpha);
+			  boost::uint8_t blue, boost::uint8_t alpha);
 
 		// The uint32_t must be in the form of [rrggbbaa].
 		color(boost::uint32_t value);
+
 		Buffer serialize() const;
 	};
 
@@ -163,7 +172,7 @@ namespace packet
 		{
 			struct
 			{
-					boost::uint32_t high;
+				boost::uint32_t high;
 				boost::uint32_t low;
 			} part;
 			boost::uint64_t quad;
@@ -179,17 +188,15 @@ namespace packet
 	class blob : public Parameter
 	{
 	private:
-		boost::uint32_t totalSize;
 		boost::uint32_t elementSize;
 		boost::uint32_t elementCount;
 		std::vector<boost::uint8_t> elementData;
 
 	public:
-		blob(boost::uint32_t eleCount, boost::uint32_t eleSize);
-		void addParam(const packet::Parameter& param);
+		blob(boost::uint32_t elementCount, boost::uint32_t elementSize);
+		void add_param(const Parameter& param);
 		Buffer serialize() const;
 	};
-
 
 	// This refers to the [x, y, z] vector, not the expandable array.
 	class vector : public Parameter
@@ -234,4 +241,6 @@ namespace packet
 		uint16(boost::uint16_t value);
 		Buffer serialize() const;
 	};
+
+}
 }

@@ -22,7 +22,7 @@ public:
 
 	void dispatch(boost::uint16_t packetID,
 	              const boost::uint8_t* parameters,
-		      boost::uint16_t length);
+	              boost::uint16_t length);
 
 	~Registry();
 

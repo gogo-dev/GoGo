@@ -52,7 +52,7 @@ if(MSVC)
   add_definitions(/EHa -D_WIN32_WINNT=0x0501 /bigobj /wd4800 /W4)
 else(MSVC)
   # TODO: Any add gcc flags you want in here. Optimization would be good ;)
-  add_definitions(-Wall -Wextra -Wfatal-errors -ansi -pedantic
+  add_definitions(-Wall -Wextra -Wfatal-errors -ansi -pedantic -pipe
 	  -Wnon-virtual-dtor -Wreorder -Wold-style-cast -Wchar-subscripts
 	  -Wcomment -Wformat -Wimplicit -Wmain -Wparentheses -Wno-long-long
 	  -Wpointer-arith -Wcast-qual -fstack-protector -Wdisabled-optimization)
@@ -83,3 +83,6 @@ add_subdirectory(net/test)
 
 add_subdirectory(gogo/src)
 add_subdirectory(gogo/test)
+
+add_subdirectory(cockpit/src)
+add_subdirectory(cockpit/test)

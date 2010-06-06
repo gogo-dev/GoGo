@@ -8,6 +8,7 @@
 
 namespace packet {
 namespace protocol {
+
 	class Packet
 	{
 	public:
@@ -20,5 +21,6 @@ namespace protocol {
 		{
 		}
 	};
+
 }
 }
