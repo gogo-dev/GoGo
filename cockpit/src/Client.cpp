@@ -9,6 +9,8 @@
 #include "Client.h"
 #include "packet/crypto.h"
 
+#include <cassert>
+
 #include <boost/asio/read.hpp>
 #include <boost/make_shared.hpp>
 
@@ -92,11 +94,13 @@ void Client::on_packet_header(
 	system::error_code err,
 	size_t bytesTransferred)
 {
-	if(err || bytesTransferred != sizeof(PacketHeader))
+	if(err)
 	{
 		logger->info(format("[%1%] Failure in recv(Header). Terminating the connection.") % get_ip());
 		return;
 	}
+
+	assert(bytesTransferred == sizeof(PacketHeader));
 
 	if(p->version == 0x65)
 	{
@@ -153,11 +157,13 @@ static void decrypt_params(uint8_t* params, uint16_t paramLength)
 
 void Client::on_payload(shared_array<uint8_t> p, boost::uint16_t payloadSize, bool encrypted, system::error_code err, size_t bytesTransferred)
 {
-	if(err || bytesTransferred != payloadSize)
+	if(err)
 	{
 		logger->debug(format("[%1%] Failure in recv(Payload). Terminating the connection.") % get_ip());
 		return;
 	}
+
+	assert(bytesTransferred == payloadSize);
 
 	Payload payload = extract_payload(p, encrypted);
 	uint16_t paramLength = payloadSize - sizeof(Payload);	// LOL.

@@ -39,7 +39,11 @@ public:
 	boost::asio::ip::tcp::socket socket;
 
 	void recieve_packet_header();
-	void on_packet_header(boost::shared_ptr<PacketHeader> rawPacket, boost::system::error_code err, size_t bytesTransferred);
+	void on_packet_header(
+		boost::shared_ptr<PacketHeader> rawPacket,
+		boost::system::error_code err,
+		size_t bytesTransferred
+	);
 
 	void recieve_payload(boost::uint16_t fullPacketLength, bool encrypted);
 	void on_payload(
