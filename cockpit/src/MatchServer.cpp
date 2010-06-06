@@ -1,13 +1,14 @@
 #include <cockpit/MatchServer.h>
-#include "ClientConnection.h"
+
+#include "Client.h"
 
 #include <cockpit/Logger.h>
 #include <cockpit/ClientHandlerFactory.h>
 #include <cockpit/ClientHandler.h>
-#include <cockpit/Socket.h>
 
 #include <boost/asio.hpp>
 #include <boost/shared_ptr.hpp>
+#include <boost/make_shared.hpp>
 #include <boost/bind.hpp>
 
 using namespace boost;
@@ -16,28 +17,73 @@ using namespace boost::asio::ip;
 
 namespace cockpit {
 
-MatchServer::MatchServer(Logger* _logger,
-                         ClientHandlerFactory* _factory,
-                         io_service* _io,
-                         uint16_t port)
-	: logger(_logger),
-	  factory(_factory),
-	  io(_io),
+struct MatchServer::Data : boost::noncopyable
+{
+	Logger* logger;
+	ClientHandlerFactory* factory;
+	tcp::acceptor acceptor;
 
-	  // If we ever have more than one dynamically allocated member,
-	  // consider using the d-pointer idiom instead.
-	  acceptor(new tcp::acceptor(*_io, tcp::endpoint(tcp::v4(), port)))
+	Data(Logger* logger, ClientHandlerFactory* factory, io_service* io, uint16_t port);
+	~Data();
+};
+
+MatchServer::Data::Data(Logger* _logger, ClientHandlerFactory* _factory, io_service* io, uint16_t port)
+	: logger(_logger), factory(_factory), acceptor(*io, tcp::endpoint(tcp::v4(), port))
+{
+}
+
+MatchServer::Data::~Data()
+{
+}
+
+static void handle_accepted_client(MatchServer::Data* d,
+                                   shared_ptr<Client> client,
+                                   system::error_code err);
+
+static void asynchronously_accept_new_client(MatchServer::Data* d)
+{
+	shared_ptr<Client> client = make_shared<Client>(d->logger, d->factory, &(d->acceptor.io_service()));
+
+	d->acceptor.async_accept(
+		client->socket,
+		bind(
+			&handle_accepted_client,
+			d, client, _1
+		)
+	);
+}
+
+static void handle_accepted_client(MatchServer::Data* d,
+                                   shared_ptr<Client> client,
+                                   system::error_code err)
+{
+	asynchronously_accept_new_client(d);
+
+	if(err)
+		d->logger->info(format("%1% chickened out: %2%") % client->get_ip() % err.message());
+	else
+	{
+		d->logger->debug(format("Now connected to %1%") % client->get_ip());
+		client->send_handshake();
+	}
+}
+
+MatchServer::MatchServer(Logger* logger,
+                         ClientHandlerFactory* factory,
+                         io_service* io,
+                         uint16_t port)
+	: d(new Data(logger, factory, io, port))
 {
 }
 
 void MatchServer::run()
 {
-	accept_new_client();
+	asynchronously_accept_new_client(d);
 }
 
 MatchServer::~MatchServer()
 {
-	delete acceptor;
+	delete d;
 }
 
 }

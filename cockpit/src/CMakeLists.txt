@@ -4,10 +4,7 @@ set(COCKPIT_SRC
 	packet/Parameters.cpp
 	packet/Registry.cpp
 
-	client_handling.cpp
-	ClientConnection.cpp
 	MatchServer.cpp
-	Socket.cpp
 	# More sources here!
 )
 
