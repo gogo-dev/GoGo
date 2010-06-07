@@ -473,7 +473,7 @@ static void test_MUID_read_off_end()
 		0x00, 0x11, 0x22, 0x33
 	};
 
-	const uint8_t* ptr = buffer + 1;	// So we read off by one, of course!
+	const uint8_t* ptr = buffer;	// So we read off by one, of course!
 
 	try {
 		extract_MUID(buffer, &ptr, countof(buffer));
