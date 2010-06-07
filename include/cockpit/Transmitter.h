@@ -15,6 +15,8 @@ public:
 	/**
 		Sends a raw packet across the 'net to our client. It is assumed you are
 		already connected to the client.
+
+		@param packet A pointer to a valid packet to send.
 	*/
 	virtual void send(const packet::Packet* packet) = 0;
 

@@ -9,7 +9,7 @@ namespace cockpit {
 class Logger;
 class ClientHandlerFactory;
 
-class MatchServer : boost::noncopyable
+class MatchServer : private boost::noncopyable
 {
 public:
 	struct Data;

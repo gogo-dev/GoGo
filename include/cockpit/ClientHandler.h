@@ -20,6 +20,11 @@ public:
 		initialize() is called after a connection is make and before any packets
 		are exchanged. All this function has to do is register all necessary
 		packet handlers with the registry.
+
+		@param socket    The transmitter we will use from now on to send gunz
+		                 packets.
+		@param registry  The packet::Registry that all packet hooks must be
+		                 registered against.
 	*/
 	virtual void initialize(Transmitter* socket, packet::Registry* registry) = 0;
 
@@ -31,7 +36,7 @@ public:
 		              handshake and get valid encryption keys. THIS MUST NOT
 		              BE SAVED. Hence, the const-ness of this function.
 
-		@return The encryption keys.
+		@return       The encryption keys.
 	*/
 	virtual boost::array<boost::uint8_t, 26>
 	handshake(const boost::asio::ip::tcp::socket& s) const = 0;
