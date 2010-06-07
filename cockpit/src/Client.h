@@ -33,9 +33,6 @@ private:
 	boost::array<boost::uint8_t, 26> cryptoKey;
 
 public:
-	void decrypt(PacketHeader* p);
-
-public:
 	boost::asio::ip::tcp::socket socket;
 
 	void recieve_packet_header();

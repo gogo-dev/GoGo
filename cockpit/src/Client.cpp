@@ -84,7 +84,7 @@ void Client::recieve_packet_header()
 }
 
 // http://code.google.com/p/gunzemulator/wiki/RawPacketStructure
-void Client::decrypt(PacketHeader* p)
+static void decrypt_header(Client::PacketHeader* p)
 {
 	// TODO: Decrypt the "fullSize" member.
 }
@@ -105,7 +105,7 @@ void Client::on_packet_header(
 	if(p->version == 0x65)
 	{
 		logger->debug(format("[%1%] Packet encrypted. Decrypting...") % get_ip());
-		decrypt(p.get());
+		decrypt_header(p.get());
 	}
 
 	else if(p->version != 0x64)

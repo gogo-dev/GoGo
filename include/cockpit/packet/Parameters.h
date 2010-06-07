@@ -15,6 +15,10 @@
 namespace cockpit {
 namespace packet {
 
+	/**
+		A common interface for all packet parameters. This allows recursive
+		parameters to be used, such as blob.
+	*/
 	class Parameter
 	{
 	protected:
@@ -23,15 +27,27 @@ namespace packet {
 		boost::uint8_t type;
 
 	public:
+		/**
+			Sets "type" to an invalid value, requiring it to be set to
+			a valid one in a subclass.
+		*/
 		Parameter();
 
-		// Used for extracting a copy of the type value. Note that
-		// "type" is read-only except when the class is constructed.
-		// This ensures thread-safety.
+		/**
+			Used for extracting a copy of the type value. Note that
+			"type" is read-only except when the class is constructed.
+			This ensures thread-safety.
+
+			@return The packet type ID.
+		*/
 		boost::uint8_t get_type() const;
 
-		// Grabs a stringified version of the subclass. Used for ezpz
-		// packet construction.
+		/**
+			Gets a serialized version of the subclass. Used for generic
+			packet construction.
+
+			@return The serialized parameter.
+		*/
 		virtual Buffer serialize() const = 0;
 
 		virtual ~Parameter()
@@ -39,6 +55,9 @@ namespace packet {
 		}
 	};
 
+	/**
+		A signed, 32-bit integer value.
+	*/
 	class int32 : public Parameter
 	{
 	private:
@@ -49,6 +68,9 @@ namespace packet {
 		Buffer serialize() const;
 	};
 
+	/**
+		An unsigned, 32-bit integer value.
+	*/
 	class uint32 : public Parameter
 	{
 	private:
@@ -59,6 +81,9 @@ namespace packet {
 		Buffer serialize() const;
 	};
 
+	/**
+		A 32-bit floating point value.
+	*/
 	class floating_point : public Parameter
 	{
 	private:
@@ -69,6 +94,9 @@ namespace packet {
 		Buffer serialize() const;
 	};
 
+	/**
+		A boolean value.
+	*/
 	class boolean : public Parameter
 	{
 	private:
@@ -79,8 +107,11 @@ namespace packet {
 		Buffer serialize() const;
 	};
 
-	// This string type must ONLY be used in blobs. If you're building a packet
-	// and you need a string, use the "string" class instead.
+	/**
+		A string value. This type is ONLY for use within blobs. Do NOT build a
+		packet with this as a raw parameter. The internal structure is
+		different. If you need string semantics, please use packet::string.
+	*/
 	class blob_string : public Parameter
 	{
 	private:
@@ -92,8 +123,11 @@ namespace packet {
 		Buffer serialize() const;
 	};
 
-	// Never use this class when writing blob strings - use the blob_string
-	// class instead.
+	/**
+		A string value. This type is ONLY for use in raw packets. Do NOT build
+		a blob with a packet::string as a member. If you need string semantics,
+		please use packet::blob_string.
+	*/
 	class string : public Parameter
 	{
 	private:
@@ -106,6 +140,12 @@ namespace packet {
 		Buffer serialize() const;
 	};
 
+	/**
+		This is just a convenience class to fill in common parts of the
+		packet::position and packet::direction classes. In reality, they're
+		both implemented the exact same, but since they have different
+		meanings, each gets its own class.
+	*/
 	class float_tuple : public Parameter
 	{
 	private:
@@ -126,6 +166,10 @@ namespace packet {
 		Buffer serialize() const;
 	};
 
+	/**
+		A tuple of three floats [x, y, z], representing a game object's
+		position.
+	*/
 	class position : public float_tuple
 	{
 	public:
@@ -133,6 +177,10 @@ namespace packet {
 		position(const boost::tuple<float, float, float>& value);
 	};
 
+	/**
+		A tuple of three floats [x, y, z], representing a game object's
+		direction.
+	*/
 	class direction : public float_tuple
 	{
 	public:
@@ -140,6 +188,9 @@ namespace packet {
 		direction(const boost::tuple<float, float, float>& value);
 	};
 
+	/**
+		An RGBA 32-bit color value.
+	*/
 	class color : public Parameter
 	{
 	private:
@@ -165,6 +216,10 @@ namespace packet {
 		Buffer serialize() const;
 	};
 
+	/**
+		An unsigned 64-bit value, used to represent a unique ID for a game
+		object.
+	*/
 	class MUID : public Parameter
 	{
 	private:
@@ -185,6 +240,11 @@ namespace packet {
 		Buffer serialize() const;
 	};
 
+	/**
+		A meta-parameter, used to build dynamic structures. Sub-parameters must
+		be added to a blob, which then recursively serializes then combines
+		them.
+	*/
 	class blob : public Parameter
 	{
 	private:
@@ -198,7 +258,10 @@ namespace packet {
 		Buffer serialize() const;
 	};
 
-	// This refers to the [x, y, z] vector, not the expandable array.
+	/**
+		A three dimensional vector represented as [x, y, z]. This is usually
+		used to store velocity and acceleration.
+	*/
 	class vector : public Parameter
 	{
 	private:
@@ -212,6 +275,9 @@ namespace packet {
 		Buffer serialize() const;
 	};
 
+	/**
+		An unsigned, 8-bit integer value.
+	*/
 	class uint8 : public Parameter
 	{
 	private:
@@ -222,6 +288,9 @@ namespace packet {
 		Buffer serialize() const;
 	};
 
+	/**
+		A signed, 16-bit integer value.
+	*/
 	class int16 : public Parameter
 	{
 	private:
@@ -232,6 +301,9 @@ namespace packet {
 		Buffer serialize() const;
 	};
 
+	/**
+		An unsigned, 16-bit integer value.
+	*/
 	class uint16 : public Parameter
 	{
 	private:
