@@ -2,6 +2,7 @@
 #include <util/ConsoleLogger.h>
 #include "GunzDB.h"
 #include <typeinfo>	// Fixes a bug in mysql on clang++.
+#include <mystring.h> // yet another bug in mysql + clang++.
 #include <mysql++.h>
 
 class MySQLGunzDB : public GunzDB

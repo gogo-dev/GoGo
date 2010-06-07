@@ -467,7 +467,7 @@ static void test_MUID_clean_extraction()
 
 static void test_MUID_read_off_end()
 {
-	bool succeeded;
+	bool succeeded = false;
 
 	const uint8_t buffer[] = {
 		0x00, 0x11, 0x22, 0x33
