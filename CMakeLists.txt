@@ -55,7 +55,7 @@ else(MSVC)
   add_definitions(-Wall -Wextra -Wfatal-errors -ansi -pedantic -pipe
 	  -Wnon-virtual-dtor -Wreorder -Wold-style-cast -Wchar-subscripts
 	  -Wcomment -Wformat -Wimplicit -Wmain -Wparentheses -Wno-long-long
-	  -Wpointer-arith -Wcast-qual -fstack-protector -Wdisabled-optimization)
+	  -Wpointer-arith -Wcast-qual -Wdisabled-optimization)
 
   if(CMAKE_BUILD_TYPE EQUAL Debug)
     add_definitions(-O0 -fmudflapth)
