@@ -42,6 +42,10 @@ struct Client::Payload
 Client::Client(Logger* _logger, ClientHandlerFactory* factory, io_service* io)
 	: logger(_logger), handler(factory->create_client_handler()), socket(*io)
 {
+	assert(_logger);
+	assert(factory);
+	assert(handler);
+	assert(io);
 }
 
 string Client::get_ip() const
@@ -62,6 +66,8 @@ void Client::start()
 		recieve_packet_header();
 	} catch(const std::exception& ex) {
 		logger->info(format("[%1%] Connection terminated (%2%).") % get_ip() % ex.what());
+	} catch(...) {
+		logger->error("Fatal error initializing the ClientHandler.");
 	}
 }
 
@@ -90,13 +96,14 @@ static void decrypt_header(Client::PacketHeader* p)
 }
 
 void Client::on_packet_header(
-	shared_ptr<PacketHeader> p,	// NOTE: This only fills in the packet header.
+	shared_ptr<PacketHeader> p,
 	system::error_code err,
 	size_t bytesTransferred)
 {
 	if(err)
 	{
-		logger->info(format("[%1%] Failure in recv(Header). Terminating the connection.") % get_ip());
+		logger->info(format("[%1%] Failure in recv(Header).") % get_ip());
+		disconnect();
 		return;
 	}
 
@@ -155,15 +162,27 @@ static void decrypt_params(uint8_t* params, uint16_t paramLength)
 	// TODO: Decrypt the packet's parameters.
 }
 
-void Client::on_payload(shared_array<uint8_t> p, boost::uint16_t payloadSize, bool encrypted, system::error_code err, size_t bytesTransferred)
+void Client::on_payload(shared_array<uint8_t> p, uint16_t payloadSize, bool encrypted, system::error_code err, size_t bytesTransferred)
 {
 	if(err)
 	{
-		logger->debug(format("[%1%] Failure in recv(Payload). Terminating the connection.") % get_ip());
+		logger->debug(format("[%1%] Failure in recv(Payload).") % get_ip());
+		disconnect();
 		return;
 	}
 
+	// If this gets triggered, boost is fucking up and we need to read the docs some more.
 	assert(bytesTransferred == payloadSize);
+
+	if(payloadSize < sizeof(Payload))
+	{
+		logger->info(
+			format("[%1%] Invalid payload size of %2% bytes detected.") % get_ip() % payloadSize
+		);
+
+		disconnect();
+		return;
+	}
 
 	Payload payload = extract_payload(p, encrypted);
 	uint16_t paramLength = payloadSize - sizeof(Payload);	// LOL.
@@ -174,7 +193,20 @@ void Client::on_payload(shared_array<uint8_t> p, boost::uint16_t payloadSize, bo
 
 	registry.dispatch(payload.commandID, params, paramLength);
 
+	// This begins the recieving loop again!
 	recieve_packet_header();
+}
+
+void Client::on_send(system::error_code err, size_t bytesTransferred, shared_ptr<Buffer> buf)
+{
+	if(err)
+	{
+		logger->info(format("Sending to %1% failed (%2%).") % get_ip() % err.message());
+		disconnect();
+		return;
+	}
+
+	assert(bytesTransferred == buf->length());
 }
 
 void Client::send(const packet::Packet* packet)
@@ -182,13 +214,28 @@ void Client::send(const packet::Packet* packet)
 	send(packet->serialize());
 }
 
-void Client::send(const Buffer& buf)
+void Client::send(const Buffer& _buf)
 {
-	try {
-		socket.send(buffer(buf.data(), buf.length()));
-	} catch(system::error_code ec) {
-		logger->info(format("Sending to %1% failed (%2%).") % get_ip() % ec.message());
-	}
+	shared_ptr<Buffer> buf = make_shared<Buffer>(_buf);
+
+	socket.async_send(
+		buffer(buf->data(), buf->length()),
+		bind(
+			&Client::on_send,
+			shared_from_this(),
+			_1,
+			_2,
+			buf
+		)
+	);
+}
+
+void Client::disconnect()
+{
+	logger->debug(format("Disconnecting %1%.") % get_ip());
+
+	socket.shutdown(socket_base::shutdown_both);
+	socket.close();
 }
 
 Client::~Client()

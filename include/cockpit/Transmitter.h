@@ -20,6 +20,13 @@ public:
 	*/
 	virtual void send(const packet::Packet* packet) = 0;
 
+	/**
+		Disconnects the client. No more handlers will be called, the
+		connection will be terminated, and eventually, the ClientHandler's
+		destructor will be called.
+	*/
+	virtual void disconnect() = 0;
+
 	virtual ~Transmitter()
 	{
 	}

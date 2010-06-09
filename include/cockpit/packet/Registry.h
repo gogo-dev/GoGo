@@ -27,7 +27,7 @@ public:
 
 	~Registry();
 
-	// This signal is called when the parsing of a packet has failed. Do whatever you want in here.
+	/// This signal is called when the parsing of a packet has failed. Do whatever you want in here.
 	boost::signals2::signal<void (boost::uint16_t /* packetID */,
 	                              const boost::uint8_t* /* rawParameters */,
 	                              boost::uint16_t /* length */)> OnFailedParse;

@@ -6,6 +6,8 @@
 #include <cockpit/ClientHandlerFactory.h>
 #include <cockpit/ClientHandler.h>
 
+#include <cassert>
+
 #include <boost/asio.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/make_shared.hpp>
@@ -30,6 +32,9 @@ struct MatchServer::Data : boost::noncopyable
 MatchServer::Data::Data(Logger* _logger, ClientHandlerFactory* _factory, io_service* io, uint16_t port)
 	: logger(_logger), factory(_factory), acceptor(*io, tcp::endpoint(tcp::v4(), port))
 {
+	assert(_logger);
+	assert(_factory);
+	assert(io);
 }
 
 MatchServer::Data::~Data()
@@ -42,6 +47,8 @@ static void handle_accepted_client(MatchServer::Data* d,
 
 static void asynchronously_accept_new_client(MatchServer::Data* d)
 {
+	assert(d);
+
 	shared_ptr<Client> client = make_shared<Client>(d->logger, d->factory, &d->acceptor.io_service());
 
 	d->acceptor.async_accept(
@@ -57,6 +64,7 @@ static void handle_accepted_client(MatchServer::Data* d,
                                    shared_ptr<Client> client,
                                    system::error_code err)
 {
+	assert(d);
 	asynchronously_accept_new_client(d);
 
 	if(err)
@@ -74,6 +82,9 @@ MatchServer::MatchServer(Logger* logger,
                          uint16_t port)
 	: d(new Data(logger, factory, io, port))
 {
+	assert(d);
+	assert(d->logger);
+	assert(d->factory);
 }
 
 void MatchServer::run()

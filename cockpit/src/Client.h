@@ -51,6 +51,12 @@ public:
 		size_t bytesTransferred
 	);
 
+	void on_send(
+		boost::system::error_code err,
+		size_t bytesTransferred,
+		boost::shared_ptr<Buffer> buf
+	);
+
 public:
 	Client(Logger* logger, ClientHandlerFactory* factory, boost::asio::io_service* io);
 
@@ -58,6 +64,8 @@ public:
 
 	void send(const packet::Packet* packet);
 	void send(const Buffer& buf);
+
+	void disconnect();
 
 	std::string get_ip() const;
 
