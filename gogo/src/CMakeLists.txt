@@ -18,6 +18,6 @@ add_executable(gogo ${GOGO_SRC})
 target_link_libraries(gogo
 	util
 	database
-	net
+	cockpit
 	${Boost_LIBRARIES}
 )

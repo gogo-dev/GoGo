@@ -78,9 +78,6 @@ add_subdirectory(util/test)
 add_subdirectory(database/src)
 add_subdirectory(database/test)
 
-add_subdirectory(net/src)
-add_subdirectory(net/test)
-
 add_subdirectory(gogo/src)
 add_subdirectory(gogo/test)
 
