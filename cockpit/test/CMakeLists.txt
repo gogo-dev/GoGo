@@ -1,6 +1,7 @@
 set(COCKPIT_TESTS
 	test_parameters
 	test_crypto
+	test_param_extraction
 	# More tests here!
 )
 

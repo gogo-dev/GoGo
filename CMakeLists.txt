@@ -53,14 +53,14 @@ if(MSVC)
 else(MSVC)
   # TODO: Any add gcc flags you want in here. Optimization would be good ;)
   add_definitions(-Wall -Wextra -Wfatal-errors -ansi -pedantic -pipe
-	  -Wnon-virtual-dtor -Wreorder -Wold-style-cast -Wchar-subscripts
-	  -Wcomment -Wformat -Wimplicit -Wmain -Wparentheses -Wno-long-long
-	  -Wpointer-arith -Wcast-qual -Wdisabled-optimization)
+	  -Wnon-virtual-dtor -Wreorder -Wchar-subscripts -Wcomment -Wformat
+	  -Wimplicit -Wparentheses -Wno-long-long -Wpointer-arith -Wcast-qual
+	  -Wdisabled-optimization)
 
-  if(CMAKE_BUILD_TYPE EQUAL Debug)
+  if(CMAKE_BUILD_TYPE STREQUAL Debug)
     add_definitions(-O0 -fmudflapth)
   else()
-    if(CMAKE_BUILD_TYPE EQUAL None)
+    if(CMAKE_BUILD_TYPE STREQUAL None)
     else()
       add_definitions(-O3 -funroll-loops -funswitch-loops)
     endif()

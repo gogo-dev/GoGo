@@ -3,6 +3,7 @@
  * protocol/parse.py. Any changes should me made there, instead of here.
  */
 #pragma once
+
 #include "Net_Ping.h"
 #include "Net_Pong.h"
 #include "Match_Announce.h"
