@@ -1,6 +1,5 @@
 set(GOGO_SRC
 	main.cpp
-	custom_new.cpp
 	Structures.h
 	Client.h
 	Client.cpp
