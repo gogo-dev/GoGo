@@ -3,7 +3,7 @@
 #include <boost/cstdint.hpp>
 #include <boost/asio.hpp>
 
-#include <util/Logger.h>
+#include <cockpit/Logger.h>
 
 #include "Client.h"
 #include "MUIDSanta.h"
@@ -11,7 +11,7 @@
 class Server
 {
 private:
-	Logger* logger;
+	cockpit::Logger* logger;
 	boost::asio::ip::tcp::acceptor acceptor;
 	MUIDSanta santa;
 
@@ -25,7 +25,7 @@ private:
 
 public:
 	Server(
-		Logger* logger,
+		cockpit::Logger* logger,
 		boost::asio::io_service& serivce,
 		const boost::asio::ip::tcp::endpoint& endpoint
 	);

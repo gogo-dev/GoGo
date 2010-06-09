@@ -1,5 +1,5 @@
 #pragma once
-#include <util/ConsoleLogger.h>
+#include <cockpit/Logger.h>
 #include "GunzDB.h"
 #include <typeinfo>	// Fixes a bug in mysql on clang++.
 #include <mystring.h> // yet another bug in mysql + clang++.
@@ -9,13 +9,13 @@ class MySQLGunzDB : public GunzDB
 {
 private:
 	mysqlpp::Connection gunzconn;
-	Logger* logger;
+	cockpit::Logger* logger;
 
 private:
 	static std::vector<Item> GetItemsFromRow(const mysqlpp::Row& row);
 
 public:
-	MySQLGunzDB(Logger* _logger, const char* dbname, const char* host, const char* user, const char* password, unsigned int port = 3306);
+	MySQLGunzDB(cockpit::Logger* _logger, const char* dbname, const char* host, const char* user, const char* password, unsigned int port = 3306);
 	~MySQLGunzDB();
 
 	//Login Process related function

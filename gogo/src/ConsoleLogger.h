@@ -1,8 +1,8 @@
 #pragma once
-#include "Logger.h"
+#include <cockpit/Logger.h>
 #include <boost/thread/mutex.hpp>
 
-class ConsoleLogger : public Logger
+class ConsoleLogger : public cockpit::Logger
 {
 	private:
 		boost::mutex consoleLock;
@@ -17,12 +17,12 @@ class ConsoleLogger : public Logger
 	private:
 		static std::string right_now();
 		void print_line(const char* toOutput, color c);
-		static std::string format_message(const std::string& text);
+		static std::string format_message(const char* text);
 
 	public:
-		void info(const std::string& text);
-		void warning(const std::string& text);
-		void error(const std::string& text);
+		void info(const char* text);
+		void warning(const char* text);
+		void error(const char* text);
 
 		virtual ~ConsoleLogger()
 		{

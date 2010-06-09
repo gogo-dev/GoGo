@@ -1,4 +1,4 @@
-#include <util/ConsoleLogger.h>
+#include "ConsoleLogger.h"
 
 #include <cstdio>
 #include <sstream>
@@ -45,22 +45,22 @@ void ConsoleLogger::print_line(const char* toOutput, color c)
 #endif
 }
 
-string ConsoleLogger::format_message(const string& text)
+string ConsoleLogger::format_message(const char* text)
 {
 	return (format("[%1%]: %2%") % right_now() % text).str();
 }
 
-void ConsoleLogger::info(const string& text)
+void ConsoleLogger::info(const char* text)
 {
 	print_line(format_message(text).c_str(), WHITE);
 }
 
-void ConsoleLogger::warning(const string& text)
+void ConsoleLogger::warning(const char* text)
 {
 	print_line(format_message(text).c_str(), YELLOW);
 }
 
-void ConsoleLogger::error(const string& text)
+void ConsoleLogger::error(const char* text)
 {
 	print_line(format_message(text).c_str(), RED);
 }

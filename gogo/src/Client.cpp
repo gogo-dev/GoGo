@@ -4,6 +4,7 @@
 #include <util/buffer.h>
 
 using namespace boost;
+using namespace cockpit;
 
 namespace
 {

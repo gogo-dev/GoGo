@@ -1,4 +1,4 @@
-#include <util/ConsoleLogger.h>
+#include "ConsoleLogger.h"
 #include <cstdlib>
 #include <exception>
 #include <boost/asio.hpp>
@@ -12,6 +12,7 @@
 
 using namespace boost;
 using namespace boost::asio;
+using namespace cockpit;
 
 static void run_server_on(uint16_t port, Logger* logger)
 {

@@ -4,6 +4,8 @@ set(GOGO_SRC
 	Structures.h
 	Client.h
 	Client.cpp
+	ConsoleLogger.h
+	ConsoleLogger.cpp
 	Server.h
 	Server.cpp
 	MUIDSanta.h

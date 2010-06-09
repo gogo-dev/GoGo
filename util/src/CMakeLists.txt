@@ -1,5 +1,4 @@
 set(UTIL_SRC
-	ConsoleLogger.cpp
 	buffer.cpp
 	# More sources here!
 )

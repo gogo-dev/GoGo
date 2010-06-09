@@ -5,7 +5,7 @@
 #include <boost/asio.hpp>
 #include <boost/asio/buffer.hpp>
 #include <boost/cstdint.hpp>
-#include <util/Logger.h>
+#include <cockpit/Logger.h>
 
 #include "Structures.h"
 #include "MUIDSanta.h"
@@ -18,12 +18,12 @@ public:
 private:
 	boost::shared_array<unsigned char> recvbuffer;
 	boost::uint8_t cryptkey[32];
-	Logger* logger;
+	cockpit::Logger* logger;
 	MUID clientid;
 	MUIDSanta* santa;
 
 public:
-	Client(Logger* logger, boost::asio::io_service& service, MUIDSanta* santa);
+	Client(cockpit::Logger* logger, boost::asio::io_service& service, MUIDSanta* santa);
 	void start();
 
 	boost::array<boost::uint8_t, 26>

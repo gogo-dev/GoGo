@@ -3,6 +3,7 @@
 #include <boost/bind.hpp>
 
 using namespace boost;
+using namespace cockpit;
 
 Server::Server(
 	Logger* _logger,

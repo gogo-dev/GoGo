@@ -4,6 +4,7 @@
 
 using namespace std;
 using namespace boost;
+using namespace cockpit;
 
 MySQLGunzDB::MySQLGunzDB(Logger* log, const char* dbname, const char* host, const char* user, const char* password, unsigned int port)
 	: logger(log)
