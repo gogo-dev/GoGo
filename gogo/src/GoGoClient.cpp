@@ -25,6 +25,7 @@ void GoGoClient::initialize(Transmitter* _transmitter, packet::Registry* _regist
 array<uint8_t, 26> GoGoClient::handshake(const asio::ip::tcp::socket& s) const
 {
 	// TODO: A synchronous handshake. <- Don't say that out loud, it's misleading =P
+	return array<uint8_t, 26>();
 }
 
 GoGoClient::~GoGoClient()
