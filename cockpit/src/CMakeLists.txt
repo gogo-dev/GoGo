@@ -5,7 +5,10 @@ set(COCKPIT_SRC
 	packet/Registry.cpp
 	packet/security.cpp
 
+	Allocator.cpp
+	Allocator.h
 	Client.cpp
+	Client.h
 	MatchServer.cpp
 	# More sources here!
 )
