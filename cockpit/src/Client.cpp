@@ -171,9 +171,6 @@ void Client::on_payload(shared_array<uint8_t> p, uint16_t payloadSize, bool encr
 		return;
 	}
 
-	// If this gets triggered, boost is fucking up and we need to read the docs some more.
-	assert(bytesTransferred == payloadSize);
-
 	if(payloadSize < sizeof(Payload))
 	{
 		logger->info(
@@ -183,6 +180,9 @@ void Client::on_payload(shared_array<uint8_t> p, uint16_t payloadSize, bool encr
 		disconnect();
 		return;
 	}
+
+	// If this gets triggered, boost is fucking up and we need to read the docs some more.
+	assert(bytesTransferred == payloadSize);
 
 	Payload payload = extract_payload(p, encrypted);
 	uint16_t paramLength = payloadSize - sizeof(Payload);	// LOL.

@@ -3,6 +3,7 @@ set(COCKPIT_SRC
 	packet/crypto.cpp
 	packet/Parameters.cpp
 	packet/Registry.cpp
+	packet/security.cpp
 
 	Client.cpp
 	MatchServer.cpp

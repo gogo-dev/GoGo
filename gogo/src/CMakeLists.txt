@@ -1,14 +1,14 @@
 set(GOGO_SRC
-	main.cpp
-	Structures.h
-	Client.h
-	Client.cpp
 	ConsoleLogger.h
 	ConsoleLogger.cpp
-	Server.h
-	Server.cpp
+	GoGoClient.cpp
+	GoGoClient.h
+	GoGoFactory.cpp
+	GoGoFactory.h
+	main.cpp
 	MUIDSanta.h
 	MUIDSanta.cpp
+	Structures.h
 	# Feel free to add more source files when they're added.
 )
 
