@@ -12,6 +12,7 @@
 #include <cassert>
 
 #include <boost/asio/read.hpp>
+#include <boost/scoped_array.hpp>
 #include <boost/make_shared.hpp>
 
 #include <util/memory.h>
@@ -46,6 +47,8 @@ Client::Client(Logger* _logger, ClientHandlerFactory* factory, io_service* io)
 	assert(factory);
 	assert(handler);
 	assert(io);
+
+	currentPacketID = 0;
 }
 
 string Client::get_ip() const
@@ -195,7 +198,7 @@ void Client::on_payload(shared_array<uint8_t> p, uint16_t payloadSize, bool encr
 	recieve_packet_header();
 }
 
-void Client::on_send(system::error_code err, size_t bytesTransferred, shared_ptr<Buffer> buf)
+void Client::on_send(system::error_code err, size_t bytesTransferred, shared_array<uint8_t>, size_t packetLength)
 {
 	if(err)
 	{
@@ -204,28 +207,58 @@ void Client::on_send(system::error_code err, size_t bytesTransferred, shared_ptr
 		return;
 	}
 
-	assert(bytesTransferred == buf->length());
+	assert(bytesTransferred == packetLength);
 }
 
-void Client::send(const packet::Packet* packet)
+namespace {
+
+struct SendablePacket
 {
-	// TODO: Build a REAL packet. This doesn't actually work, it just sends the
-	// parameters, no packet setup.
-	send(packet->serialize());
+	uint16_t version;
+	uint16_t fullSize;
+	uint16_t checksum;
+
+	uint16_t dataSize;
+	uint16_t commandID;
+	uint8_t  packetID;
+};
+
 }
 
-void Client::send(const Buffer& _buf)
+void Client::send(const packet::Packet* p)
 {
-	shared_ptr<Buffer> buf = make_shared<Buffer>(_buf);
+	Buffer params = p->serialize();
+	size_t packetLength = sizeof(SendablePacket) + params.length();
+
+	shared_array<uint8_t> raw(new uint8_t[packetLength]);
+
+	SendablePacket* packetHeader = reinterpret_cast<SendablePacket*>(raw.get());
+
+	packetHeader->version = 0x65;
+	packetHeader->fullSize = packetLength;
+	packetHeader->checksum = 0;
+
+	packetHeader->dataSize = params.length() + sizeof(Client::Payload);
+	packetHeader->commandID = p->id();
+	memory::copy(raw.get() + sizeof(packetHeader), params.data(), params.length());
+
+	mutex::scoped_lock lock(packetSendingLock);
+	packetHeader->packetID = currentPacketID++;
+
+	packet::encrypt(raw.get() + 2, 2, 2, cryptoKey.c_array());
+	packet::encrypt(raw.get() + 6, packetLength - sizeof(Client::PacketHeader), 6, cryptoKey.c_array());
+
+	packetHeader->checksum = packet::checksum(raw.get(), packetLength);
 
 	socket.async_send(
-		buffer(buf->data(), buf->length()),
+		buffer(raw.get(), packetLength),
 		bind(
 			&Client::on_send,
 			shared_from_this(),
 			_1,
 			_2,
-			buf
+			raw,
+			packetLength
 		)
 	);
 }

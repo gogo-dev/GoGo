@@ -16,9 +16,9 @@
 #include <boost/enable_shared_from_this.hpp>
 #include <boost/array.hpp>
 #include <boost/cstdint.hpp>
+#include <boost/thread/mutex.hpp>
 
 namespace cockpit {
-
 
 class Client : public Transmitter, public boost::enable_shared_from_this<Client>
 {
@@ -31,6 +31,9 @@ private:
 	ClientHandler* handler;
 	packet::Registry registry;
 	boost::array<boost::uint8_t, 26> cryptoKey;
+
+	boost::mutex packetSendingLock;
+	boost::uint8_t currentPacketID;
 
 public:
 	boost::asio::ip::tcp::socket socket;
@@ -54,7 +57,8 @@ public:
 	void on_send(
 		boost::system::error_code err,
 		size_t bytesTransferred,
-		boost::shared_ptr<Buffer> buf
+		boost::shared_array<boost::uint8_t> buf,
+		size_t packetLength
 	);
 
 public:
@@ -63,7 +67,6 @@ public:
 	void start();
 
 	void send(const packet::Packet* packet);
-	void send(const Buffer& buf);
 
 	void disconnect();
 
