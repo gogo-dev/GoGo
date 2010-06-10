@@ -23,7 +23,7 @@ static void overflow_check(const void* paramStart, size_t len, const void* curre
 	const uintptr_t requestedEnd = reinterpret_cast<uintptr_t>(currentParam);
 	const uintptr_t realEnd = reinterpret_cast<uintptr_t>(paramStart) + len - request;
 
-	if(requestedEnd > realEnd)	
+	if(requestedEnd > realEnd)
 		throw ParseFailed();
 }
 
@@ -67,8 +67,15 @@ static uint16_t get_real_string_length(const uint8_t* buffer, size_t maxLen)
 	size_t len = 0;
 
 	for(size_t i = 0; i < maxLen; ++i, ++len)
+	{
 		if(*buffer++ == '\0')
-			return len;
+		{
+			if(len > 0xFFFF)
+				throw ParseFailed();
+			else
+				return static_cast<uint16_t>(len);
+		}
+	}
 
 	// If the string isn't null terminated, die.
 	throw ParseFailed();
