@@ -140,7 +140,7 @@ void Client::recieve_payload(uint16_t fullSize, bool encrypted)
 	);
 }
 
-static Client::Payload extract_payload(const shared_array<uint8_t>& p, bool encrypted)
+static Client::Payload extract_payload(shared_array<uint8_t> p, bool encrypted)
 {
 	uint8_t* ptr = p.get();
 	Client::Payload payload;

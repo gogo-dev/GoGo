@@ -6,7 +6,7 @@ namespace cockpit {
 namespace packet {
 
 // toDecrypt is at &(packet[packetIndex])
-void decrypt(uint8_t* toDecrypt, size_t length, size_t packetIndex, const uint8_t* key)
+uint8_t* decrypt(uint8_t* toDecrypt, size_t length, size_t packetIndex, const uint8_t* key)
 {
 	uint8_t a, b;
 
@@ -16,10 +16,12 @@ void decrypt(uint8_t* toDecrypt, size_t length, size_t packetIndex, const uint8_
 		b = a & 0x1F;
 		*toDecrypt = ((a >> 5) | (b << 3)) ^ key[packetIndex & 0x1F];
 	}
+
+	return toDecrypt;
 }
 
 // toEncrypt is at &(packet[packetIndex])
-void encrypt(uint8_t* toEncrypt, size_t length, size_t packetIndex, const uint8_t* key)
+uint8_t* encrypt(uint8_t* toEncrypt, size_t length, size_t packetIndex, const uint8_t* key)
 {
 	uint16_t a;
 	uint8_t  b;
@@ -30,6 +32,8 @@ void encrypt(uint8_t* toEncrypt, size_t length, size_t packetIndex, const uint8_
 		b = static_cast<uint8_t>(a >> 8);
 		*toEncrypt = (b | a) ^ 0xF0;
 	}
+
+	return toEncrypt;
 }
 
 // Finds the sum of all the elements in consecutive memory locations.
@@ -45,11 +49,8 @@ static uint32_t find_sum(const uint8_t* ptr, size_t length)
 
 uint16_t checksum(const uint8_t* packet, size_t length)
 {
-	uint32_t t;
-
-	t = find_sum(packet + 6, length - 6) - find_sum(packet, 4);
-
-	return static_cast<uint16_t>(t + (t >> 0x10));
+	uint32_t s = find_sum(packet + 6, length - 6) - find_sum(packet, 4);
+	return static_cast<uint16_t>(s + (s >> 0x10));
 }
 
 }
