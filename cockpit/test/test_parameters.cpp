@@ -128,15 +128,15 @@ static void test_blob()
 		8, 0, 0, 0, //elementSize
 		3,  0, 0, 0, //elementCount
 
-		0x99, 0x88, //int16
+		0x22, 0x11, //int16
 		0x66, 0x77, //int16
 		0x55, 0x44, 0x33, 0x22, //int32
 
-		0x99, 0x88, //int16
+		0x22, 0x11, //int16
 		0x66, 0x77, //int16
 		0x55, 0x44, 0x33, 0x22, //int32
 
-		0x99, 0x88, //int16
+		0x22, 0x11, //int16
 		0x66, 0x77, //int16
 		0x55, 0x44, 0x33, 0x22 //int32
 	};
@@ -145,7 +145,7 @@ static void test_blob()
 
 	for(int i = 0; i < 3; ++i)
 	{
-		packit.add_param(int16(static_cast<int16_t>(0x8899)));
+		packit.add_param(int16(static_cast<int16_t>(0x1122)));
 		packit.add_param(int16(static_cast<int16_t>(0x7766)));
 		packit.add_param(int32(0x22334455));
 	}

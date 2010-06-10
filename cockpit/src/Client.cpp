@@ -55,7 +55,7 @@ string Client::get_ip() const
 {
 	try {
 		return socket.local_endpoint().address().to_string();
-	} catch(system::error_code ec) {
+	} catch(system::error_code) {
 		return "Unknown IP";
 	}
 }
@@ -235,10 +235,12 @@ void Client::send(const packet::Packet* p)
 	SendablePacket* packetHeader = reinterpret_cast<SendablePacket*>(raw.get());
 
 	packetHeader->version = 0x65;
-	packetHeader->fullSize = packetLength;
+	assert(packetLength <= 0xFFFF);
+	packetHeader->fullSize = static_cast<uint16_t>(packetLength);
 	packetHeader->checksum = 0;
 
-	packetHeader->dataSize = params.length() + sizeof(Client::Payload);
+	assert(params.length() + sizeof(Client::Payload) <= 0xFFFF);
+	packetHeader->dataSize = static_cast<uint16_t>(params.length() + sizeof(Client::Payload));
 	packetHeader->commandID = p->id();
 	memory::copy(raw.get() + sizeof(packetHeader), params.data(), params.length());
 
