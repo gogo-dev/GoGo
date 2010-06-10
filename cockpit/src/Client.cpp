@@ -140,26 +140,24 @@ void Client::recieve_payload(uint16_t fullSize, bool encrypted)
 	);
 }
 
-static Client::Payload extract_payload(shared_array<uint8_t> p, bool encrypted)
+static Client::Payload extract_payload(shared_array<uint8_t> p, bool encrypted, const uint8_t* cryptoKey)
 {
 	uint8_t* ptr = p.get();
 	Client::Payload payload;
+
+	if(encrypted)
+		packet::decrypt(ptr, sizeof(payload), 6, cryptoKey);
 
 	ptr = reinterpret_cast<uint8_t*>(memory::pcopy(&payload.dataSize, ptr, sizeof(payload.dataSize)));
 	ptr = reinterpret_cast<uint8_t*>(memory::pcopy(&payload.commandID, ptr, sizeof(payload.commandID)));
 	ptr = reinterpret_cast<uint8_t*>(memory::pcopy(&payload.packetID, ptr, sizeof(payload.packetID)));
 
-	if(encrypted)
-	{
-		// TODO: Decrypt the payload.
-	}
-
 	return payload;
 }
 
-static void decrypt_params(uint8_t* params, uint16_t paramLength)
+static void decrypt_params(uint8_t* params, uint16_t paramLength, const uint8_t* cryptoKey)
 {
-	// TODO: Decrypt the packet's parameters.
+	packet::decrypt(params, paramLength, 11, cryptoKey);
 }
 
 void Client::on_payload(shared_array<uint8_t> p, uint16_t payloadSize, bool encrypted, system::error_code err, size_t bytesTransferred)
@@ -184,12 +182,12 @@ void Client::on_payload(shared_array<uint8_t> p, uint16_t payloadSize, bool encr
 	// If this gets triggered, boost is fucking up and we need to read the docs some more.
 	assert(bytesTransferred == payloadSize);
 
-	Payload payload = extract_payload(p, encrypted);
+	Payload payload = extract_payload(p, encrypted, cryptoKey.c_array());
 	uint16_t paramLength = payloadSize - sizeof(Payload);	// LOL.
 	uint8_t* params = p.get() + sizeof(Payload);
 
 	if(encrypted)
-		decrypt_params(params, paramLength);
+		decrypt_params(params, paramLength, cryptoKey.c_array());
 
 	registry.dispatch(payload.commandID, params, paramLength);
 
@@ -211,6 +209,8 @@ void Client::on_send(system::error_code err, size_t bytesTransferred, shared_ptr
 
 void Client::send(const packet::Packet* packet)
 {
+	// TODO: Build a REAL packet. This doesn't actually work, it just sends the
+	// parameters, no packet setup.
 	send(packet->serialize());
 }
 
