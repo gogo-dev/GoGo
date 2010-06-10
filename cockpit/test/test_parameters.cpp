@@ -150,7 +150,6 @@ static void test_blob()
 		packit.add_param(int32(0x22334455));
 	}
 
-
 	check_array_equal(packit.serialize().data(), expected, countof(expected));
 
 }
