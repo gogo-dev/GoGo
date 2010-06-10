@@ -15,7 +15,7 @@ static const uint8_t key[] = {
 	0x51, 0x05, 0x82, 0x09, 0x74, 0x94, 0x45, 0x92
 };
 
-static void test_encrypt()
+static void test_encrypt_single_stage()
 {
 	uint8_t toEncrypt[] = {
 		0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88
@@ -25,10 +25,29 @@ static void test_encrypt()
 		0xF4, 0x9C, 0xBD, 0xBC, 0x30, 0x37, 0xEC, 0x93
 	};
 
-	check_array_equal(
-		encrypt(toEncrypt, countof(toEncrypt), 0, key),
-		expected, countof(expected)
-	);
+	encrypt(toEncrypt, countof(toEncrypt), 0, key);
+
+	check_array_equal(toEncrypt, expected, countof(expected));
+}
+
+static void test_encrypt_multi_stage()
+{
+	uint8_t toEncrypt[] = {
+		0x11, 0x22, 0x33,   // Encrypted first
+		0x44, 0x55,         // Skipped
+		0x66, 0x77, 0x88    // Encrypted last
+	};
+
+	uint8_t expected[] = {
+		0xF4, 0x9C, 0xBD,   // Encrypted first
+		0x44, 0x55,         // Skipped
+		0x37, 0xEC, 0x93    // Encrypted last
+	};
+
+	encrypt(toEncrypt    , 3, 0, key);
+	encrypt(toEncrypt + 5, 3, 5, key);
+
+	check_array_equal(toEncrypt, expected, countof(expected));
 }
 
 static void test_long_encryption()
@@ -57,13 +76,12 @@ static void test_long_encryption()
 		0xBA, 0xF0, 0x93, 0xF5, 0x4E, 0xEC, 0x3A, 0x89
 	};
 
-	check_array_equal(
-		encrypt(toEncrypt, countof(toEncrypt), 0, key),
-		expected, countof(expected)
-	);
+	encrypt(toEncrypt, countof(toEncrypt), 0, key);
+
+	check_array_equal(toEncrypt, expected, countof(expected));
 }
 
-static void test_decrypt()
+static void test_decrypt_single_stage()
 {
 	uint8_t toDecrypt[] = {
 		0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88
@@ -73,10 +91,29 @@ static void test_decrypt()
 		0x3E, 0xD7, 0x47, 0x83, 0x7E, 0xEC, 0xAB, 0x50
 	};
 
-	check_array_equal(
-		decrypt(toDecrypt, countof(toDecrypt), 0, key),
-		expected, countof(expected)
-	);
+	decrypt(toDecrypt, countof(toDecrypt), 0, key);
+
+	check_array_equal(toDecrypt, expected, countof(expected));
+}
+
+static void test_decrypt_multi_stage()
+{
+	uint8_t toDecrypt[] = {
+		0x11, 0x22, 0x33,
+		0x44, 0x55,
+		0x66, 0x77, 0x88
+	};
+
+	uint8_t expected[] = {
+		0x3E, 0xD7, 0x47,  // First decrypted.
+		0x44, 0x55,        // Skipped.
+		0xEC, 0xAB, 0x50   // Last decrypted.
+	};
+
+	decrypt(toDecrypt    , 3, 0, key);
+	decrypt(toDecrypt + 5, 3, 5, key);
+
+	check_array_equal(toDecrypt, expected, countof(expected));
 }
 
 static void test_long_decryption()
@@ -107,10 +144,9 @@ static void test_long_decryption()
 		0x03, 0x05, 0x99, 0x21, 0x81, 0x74, 0x13, 0x59
 	};
 
-	check_array_equal(
-		decrypt(toDecrypt, countof(toDecrypt), 0, key),
-		expected, countof(expected)
-	);
+	decrypt(toDecrypt, countof(toDecrypt), 0, key);
+
+	check_array_equal(toDecrypt, expected, countof(expected));
 }
 
 static void test_checksum()
@@ -133,10 +169,12 @@ static void test_checksum()
 int test_main(int, char**)
 {
 	// Don't forget to call your test functions from here!
-	test_encrypt();
+	test_encrypt_single_stage();
+	test_encrypt_multi_stage();
 	test_long_encryption();
 
-	test_decrypt();
+	test_decrypt_single_stage();
+	test_decrypt_multi_stage();
 	test_long_decryption();
 
 	test_checksum();
