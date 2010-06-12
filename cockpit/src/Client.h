@@ -24,7 +24,7 @@ class Client : public Transmitter, public boost::enable_shared_from_this<Client>
 {
 public:
 	struct PacketHeader;
-	struct Payload;
+	struct PayloadHeader;
 
 private:
 	Logger* logger;

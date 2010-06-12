@@ -10,10 +10,12 @@
 #include "packet/crypto.h"
 
 #include <cassert>
+#include <cstddef>
 
 #include <boost/asio/read.hpp>
 #include <boost/scoped_array.hpp>
 #include <boost/make_shared.hpp>
+#include <boost/static_assert.hpp>
 
 #include <util/memory.h>
 
@@ -31,7 +33,7 @@ struct Client::PacketHeader
 	uint16_t checksum;
 };
 
-struct Client::Payload
+struct Client::PayloadHeader
 {
 	uint16_t dataSize;
 	uint16_t commandID;
@@ -143,10 +145,10 @@ void Client::recieve_payload(uint16_t fullSize, bool encrypted)
 	);
 }
 
-static Client::Payload extract_payload(shared_array<uint8_t> p, bool encrypted, const uint8_t* cryptoKey)
+static Client::PayloadHeader extract_payload(shared_array<uint8_t> p, bool encrypted, const uint8_t* cryptoKey)
 {
 	uint8_t* ptr = p.get();
-	Client::Payload payload;
+	Client::PayloadHeader payload;
 
 	if(encrypted)
 		packet::decrypt(ptr, sizeof(payload), 6, cryptoKey);
@@ -172,7 +174,7 @@ void Client::on_payload(shared_array<uint8_t> p, uint16_t payloadSize, bool encr
 		return;
 	}
 
-	if(payloadSize < sizeof(Payload))
+	if(payloadSize < sizeof(PayloadHeader))
 	{
 		logger->info(
 			format("[%1%] Invalid payload size of %2% bytes detected.") % get_ip() % payloadSize
@@ -185,9 +187,9 @@ void Client::on_payload(shared_array<uint8_t> p, uint16_t payloadSize, bool encr
 	// If this gets triggered, boost is fucking up and we need to read the docs some more.
 	assert(bytesTransferred == payloadSize);
 
-	Payload payload = extract_payload(p, encrypted, cryptoKey.c_array());
-	uint16_t paramLength = payloadSize - sizeof(Payload);	// LOL.
-	uint8_t* params = p.get() + sizeof(Payload);
+	PayloadHeader payload = extract_payload(p, encrypted, cryptoKey.c_array());
+	uint16_t paramLength = payloadSize - sizeof(PayloadHeader);	// LOL.
+	uint8_t* params = p.get() + sizeof(PayloadHeader);
 
 	if(encrypted)
 		decrypt_params(params, paramLength, cryptoKey.c_array());
@@ -214,14 +216,11 @@ namespace {
 
 struct SendablePacket
 {
-	uint16_t version;
-	uint16_t fullSize;
-	uint16_t checksum;
-
-	uint16_t dataSize;
-	uint16_t commandID;
-	uint8_t  packetID;
+	Client::PacketHeader  packetHeader;
+	Client::PayloadHeader payloadHeader;
 };
+
+BOOST_STATIC_ASSERT(sizeof(SendablePacket) == (sizeof(Client::PacketHeader) + sizeof(Client::PayloadHeader)));
 
 }
 
@@ -232,25 +231,27 @@ void Client::send(const packet::Packet* p)
 
 	shared_array<uint8_t> raw(new uint8_t[packetLength]);
 
-	SendablePacket* packetHeader = reinterpret_cast<SendablePacket*>(raw.get());
+	SendablePacket* header = reinterpret_cast<SendablePacket*>(raw.get());
 
-	packetHeader->version = 0x65;
+	header->packetHeader.version = 0x65;
 	assert(packetLength <= 0xFFFF);
-	packetHeader->fullSize = static_cast<uint16_t>(packetLength);
-	packetHeader->checksum = 0;
+	header->packetHeader.fullSize = static_cast<uint16_t>(packetLength);
+	header->packetHeader.checksum = 0;
 
-	assert(params.length() + sizeof(Client::Payload) <= 0xFFFF);
-	packetHeader->dataSize = static_cast<uint16_t>(params.length() + sizeof(Client::Payload));
-	packetHeader->commandID = p->id();
-	memory::copy(raw.get() + sizeof(packetHeader), params.data(), params.length());
+	assert((params.length() + sizeof(Client::PayloadHeader)) <= 0xFFFF);
+	header->payloadHeader.dataSize = static_cast<uint16_t>(params.length() + sizeof(Client::PayloadHeader));
+	header->payloadHeader.commandID = p->id();
+	memory::copy(raw.get() + sizeof(header), params.data(), params.length());
+
+	packet::encrypt(raw.get() + 2, 2, 2, cryptoKey.c_array());	// fullSize
+	packet::encrypt(raw.get() + 6, 4, 6, cryptoKey.c_array());	// Data header sans packetID.
+	packet::encrypt(raw.get() + 11, packetLength - sizeof(Client::PacketHeader), 11, cryptoKey.c_array());	// Parameters.
 
 	mutex::scoped_lock lock(packetSendingLock);
-	packetHeader->packetID = currentPacketID++;
+	header->payloadHeader.packetID = currentPacketID++;
+	packet::encrypt(raw.get() + 10, 1, 10, cryptoKey.c_array());	// packetID.
 
-	packet::encrypt(raw.get() + 2, 2, 2, cryptoKey.c_array());
-	packet::encrypt(raw.get() + 6, packetLength - sizeof(Client::PacketHeader), 6, cryptoKey.c_array());
-
-	packetHeader->checksum = packet::checksum(raw.get(), packetLength);
+	header->packetHeader.checksum = packet::checksum(raw.get(), packetLength);
 
 	socket.async_send(
 		buffer(raw.get(), packetLength),
