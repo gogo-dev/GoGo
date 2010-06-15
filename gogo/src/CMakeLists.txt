@@ -5,11 +5,12 @@ set(GOGO_SRC
 	GoGoClient.h
 	GoGoFactory.cpp
 	GoGoFactory.h
-	handshake.cpp
 	main.cpp
 	MUIDSanta.h
 	MUIDSanta.cpp
 	Structures.h
+
+	modules/handshake.cpp
 	# Feel free to add more source files when they're added.
 )
 

@@ -1,5 +1,5 @@
-#include "GoGoClient.h"
-#include "Structures.h"
+#include "../GoGoClient.h"
+#include "../Structures.h"
 
 #include <util/memory.h>
 #include <boost/asio/ip/tcp.hpp>
