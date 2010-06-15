@@ -220,8 +220,6 @@ struct SendablePacket
 	Client::PayloadHeader payloadHeader;
 };
 
-BOOST_STATIC_ASSERT(sizeof(SendablePacket) == (sizeof(Client::PacketHeader) + sizeof(Client::PayloadHeader)));
-
 }
 
 void Client::send(const packet::Packet* p)
@@ -270,12 +268,18 @@ void Client::disconnect()
 {
 	logger->debug(format("Disconnecting %1%.") % get_ip());
 
-	socket.shutdown(socket_base::shutdown_both);
-	socket.close();
+	try {
+		socket.shutdown(socket_base::shutdown_both);
+		socket.close();
+	} catch(system::system_error& e) {
+		// This might be totally okay. Depends on the error.
+		logger->warning(format("Failed to shut down the socket. This shouldn't happen! (%1%)") % e.what());
+	}
 }
 
 Client::~Client()
 {
+	disconnect();
 	delete handler;
 }
 

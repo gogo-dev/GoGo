@@ -29,7 +29,7 @@ Command Help = "Synchronize Clock"
     Parameter Type = 1
     Parameter = "GlobalClock(msec)"
 
-Command ID = 3E9
+Command ID = 3E2
 Command = "Match.Login"
 Command Help = "Login Match Server"
 
@@ -2825,5 +2825,5 @@ Command ID = 2EE2
 Command = "MC_RESPONSE_RESOURCE_CRC32"
 Command Help = "MC_RESPONSE_RESOURCE_CRC32"
 
-    Parameter Type = 1 
+    Parameter Type = 1
     Parameter = "crc32"

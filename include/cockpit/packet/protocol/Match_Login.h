@@ -22,7 +22,7 @@ private:
 	packet::blob EncryptMD5Value;
 
 public:
-	enum { packetID = 1001 };
+	enum { packetID = 994 };
 
 	Match_Login(packet::string UserID, packet::string Password, packet::int32 CommandVersion, packet::uint32 nChecksumPack, packet::blob EncryptMD5Value);
 
