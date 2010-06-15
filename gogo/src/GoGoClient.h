@@ -1,7 +1,10 @@
 #pragma once
 
+#include <boost/signals2.hpp>
+
 #include <cockpit/ClientHandler.h>
 #include <cockpit/Logger.h>
+
 #include "Structures.h"
 
 class MUIDSanta;
@@ -15,6 +18,11 @@ private:
 
 	MUIDSanta* santa;
 	MUID myMUID;
+
+	std::vector<boost::signals2::connection> activeHandlers;
+
+private:
+	void register_handler(const boost::signals2::connection& connection);
 
 public:
 	GoGoClient(cockpit::Logger* logger, MUIDSanta* santa);
