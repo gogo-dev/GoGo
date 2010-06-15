@@ -30,7 +30,7 @@ private:
 	Logger* logger;
 	ClientHandler* handler;
 	packet::Registry registry;
-	boost::array<boost::uint8_t, 26> cryptoKey;
+	boost::array<boost::uint8_t, 32> cryptoKey;
 
 	boost::mutex packetSendingLock;
 	boost::uint8_t currentPacketID;

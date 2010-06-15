@@ -38,8 +38,8 @@ public:
 
 		@return       The encryption keys.
 	*/
-	virtual boost::array<boost::uint8_t, 26>
-	handshake(const boost::asio::ip::tcp::socket& s) const = 0;
+	virtual boost::array<boost::uint8_t, 32>
+	handshake(boost::asio::ip::tcp::socket& s) const = 0;
 
 	virtual ~ClientHandler()
 	{

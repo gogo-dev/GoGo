@@ -3,15 +3,21 @@
 #include <cockpit/Transmitter.h>
 #include <cockpit/packet/Registry.h>
 
+#include "MUIDSanta.h"
+
 #include <cassert>
 
 using namespace boost;
 using namespace cockpit;
 
-GoGoClient::GoGoClient(Logger* _logger)
+GoGoClient::GoGoClient(Logger* _logger, MUIDSanta* _santa)
 {
 	assert(_logger);
 	logger = _logger;
+
+	assert(_santa);
+	santa = _santa;
+	myMUID = santa->get();
 }
 
 void GoGoClient::initialize(Transmitter* _transmitter, packet::Registry* _registry)
@@ -22,12 +28,7 @@ void GoGoClient::initialize(Transmitter* _transmitter, packet::Registry* _regist
 	// TODO: Register all necessary handlers.
 }
 
-array<uint8_t, 26> GoGoClient::handshake(const asio::ip::tcp::socket& s) const
-{
-	// TODO: A synchronous handshake. <- Don't say that out loud, it's misleading =P
-	return array<uint8_t, 26>();
-}
-
 GoGoClient::~GoGoClient()
 {
+	santa->give_back(myMUID);
 }

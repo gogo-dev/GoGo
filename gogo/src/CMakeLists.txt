@@ -5,6 +5,7 @@ set(GOGO_SRC
 	GoGoClient.h
 	GoGoFactory.cpp
 	GoGoFactory.h
+	handshake.cpp
 	main.cpp
 	MUIDSanta.h
 	MUIDSanta.cpp
