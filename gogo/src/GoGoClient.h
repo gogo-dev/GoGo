@@ -24,7 +24,11 @@ private:
 	std::vector<boost::signals2::connection> activeHandlers;
 
 private:
-	void register_handler(const boost::signals2::connection& connection);
+	template <typename SignalType, typename Target>
+	void register_handler(SignalType& sig, Target func)
+	{
+		activeHandlers.push_back(sig.connect(func));
+	}
 
 public:
 	GoGoClient(cockpit::Logger* logger, MUIDSanta* santa);
