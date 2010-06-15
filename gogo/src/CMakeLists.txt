@@ -1,13 +1,15 @@
 set(GOGO_SRC
-	ConsoleLogger.h
+	Configuration.cpp
+	Configuration.h
 	ConsoleLogger.cpp
+	ConsoleLogger.h
 	GoGoClient.cpp
 	GoGoClient.h
 	GoGoFactory.cpp
 	GoGoFactory.h
 	main.cpp
-	MUIDSanta.h
 	MUIDSanta.cpp
+	MUIDSanta.h
 	Structures.h
 
 	modules/handshake.cpp
