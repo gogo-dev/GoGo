@@ -45,9 +45,6 @@ Command Help = "Login Match Server"
     Parameter Type = 1
     Parameter = "nChecksumPack"
 
-    Parameter Type = A
-    Parameter = "EncryptMD5Value"
-
 Command ID = 3EA
 Command = "Match.ResponseLogin"
 Command Help = "Response Login"

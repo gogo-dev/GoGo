@@ -45,7 +45,7 @@ public:
 	boost::signals2::signal<void (boost::uint32_t /* GlobalClock_msec */)> Clock_Synchronize;
 
 	// Login Match Server
-	boost::signals2::signal<void (const std::string& /* UserID */, const std::string& /* Password */, boost::int32_t /* CommandVersion */, boost::uint32_t /* nChecksumPack */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* EncryptMD5Value */)> Match_Login;
+	boost::signals2::signal<void (const std::string& /* UserID */, const std::string& /* Password */, boost::int32_t /* CommandVersion */, boost::uint32_t /* nChecksumPack */)> Match_Login;
 
 	// Response Login
 	boost::signals2::signal<void (boost::int32_t /* Result */, const std::string& /* ServerName */, const boost::array<boost::uint16_t, 3>& /* ServerMode */, const std::string& /* AccountID */, boost::uint8_t /* UGradeID */, boost::uint8_t /* PGradeID */, boost::uint64_t /* uidPlayer */, bool /* bEnabledSurvivalMode */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* EncryptMsg */)> Match_ResponseLogin;

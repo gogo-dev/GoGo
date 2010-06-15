@@ -90,9 +90,8 @@ static void do_Match_Login(Registry* self, const uint8_t* parameters, uint16_t l
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 	uint32_t p3 = extract_uint32(parameters, &paramPtr, length);
-	tuple<Buffer, size_t, size_t> p4 = extract_blob(parameters, &paramPtr, length);
 
-	self->Match_Login(p0, p1, p2, p3, p4);
+	self->Match_Login(p0, p1, p2, p3);
 }
 
 static void do_Match_ResponseLogin(Registry* self, const uint8_t* parameters, uint16_t length)

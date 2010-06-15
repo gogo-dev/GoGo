@@ -149,8 +149,8 @@ Buffer Clock_Synchronize::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Login::Match_Login(packet::string _UserID, packet::string _Password, packet::int32 _CommandVersion, packet::uint32 _nChecksumPack, packet::blob _EncryptMD5Value)
-	: UserID(_UserID), Password(_Password), CommandVersion(_CommandVersion), nChecksumPack(_nChecksumPack), EncryptMD5Value(_EncryptMD5Value)
+Match_Login::Match_Login(packet::string _UserID, packet::string _Password, packet::int32 _CommandVersion, packet::uint32 _nChecksumPack)
+	: UserID(_UserID), Password(_Password), CommandVersion(_CommandVersion), nChecksumPack(_nChecksumPack)
 {
 }
 
@@ -175,8 +175,7 @@ Buffer Match_Login::serialize() const
 		UserID.serialize(),
 		Password.serialize(),
 		CommandVersion.serialize(),
-		nChecksumPack.serialize(),
-		EncryptMD5Value.serialize()
+		nChecksumPack.serialize()
 	};
 
 	return merge_parameters(serializedParameters, countof(serializedParameters));
