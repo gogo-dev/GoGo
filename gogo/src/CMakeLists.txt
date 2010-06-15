@@ -13,6 +13,7 @@ set(GOGO_SRC
 	Structures.h
 
 	modules/handshake.cpp
+	modules/OnMatchLogin.cpp
 	# Feel free to add more source files when they're added.
 )
 

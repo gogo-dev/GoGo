@@ -28,12 +28,16 @@ void GoGoClient::register_handler(const signals2::connection& connection)
 
 void GoGoClient::initialize(Transmitter* _transmitter, packet::Registry* _registry)
 {
+	assert(_transmitter);
+	assert(_registry);
+
 	transmitter = _transmitter;
 	registry = _registry;
 
 	// TODO: Register all necessary handlers.
 	// Ex: register_handler(Net_OnConnect.connect(&GoGoClient::OnConnect, this));
 	// Remove the sample code when we have live, production code to use as a sample.
+	register_handler(registry->Match_Login.connect(bind(&GoGoClient::OnMatchLogin, this, _1, _2, _3, _4)));
 }
 
 GoGoClient::~GoGoClient()
