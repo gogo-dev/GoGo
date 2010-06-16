@@ -2,11 +2,19 @@
 #include <istream>
 #include <stdexcept>
 #include <string>
+#include <cstddef>
 
 #include <boost/call_traits.hpp>
 #include <boost/tr1/unordered_map.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/format.hpp>
+
+struct SyntaxError : public std::runtime_error
+{
+	size_t lineNumber;
+
+	SyntaxError(const char* message, size_t lineNumber);
+};
 
 class Configuration
 {
@@ -18,8 +26,11 @@ public:
 	/**
 		Loads the configuration from the passed stream. This can be a file, or
 		any other stream imaginable!
+
+		@throws SyntaxError Thrown when the configuration file has invalid
+		                    syntax.
 	*/
-	Configuration(const std::istream& stream);
+	Configuration(std::istream& stream);
 
 	/**
 		Returns the value of type T that is matched with the given key inside
