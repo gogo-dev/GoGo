@@ -79,12 +79,12 @@ public:
 		ValueMap::const_iterator loc = values.find(key);
 
 		if(loc == values.end())
-			throw runtime_error((format("[%1% => ???] Could not find %1% in the configuration file.") % key).str().c_str());
+			throw runtime_error((format("[%1% => ???] Could not find %1% in the configuration file.") % key.c_str()).str().c_str());
 
 		try {
 			return lexical_cast<T>(loc->second);
 		} catch(bad_lexical_cast&) {
-			throw runtime_error((format("[%1% => %2%] Result could not be coerced to the proper type.") % key % loc->second).str().c_str());
+			throw runtime_error((format("[%1% => %2%] Result could not be coerced to the proper type.") % key.c_str() % loc->second).str().c_str());
 		}
 	}
 
