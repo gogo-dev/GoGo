@@ -18,7 +18,7 @@ struct SyntaxError : public std::runtime_error
 
 class Configuration
 {
-public:
+private:
 	typedef boost::unordered_map<std::string, std::string> ValueMap;
 	ValueMap values;
 
