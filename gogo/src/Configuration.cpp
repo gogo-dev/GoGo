@@ -1,5 +1,6 @@
 #include "Configuration.h"
 
+#include <vector>
 #include <algorithm>
 
 #include <boost/tuple/tuple.hpp>
@@ -32,16 +33,19 @@ static void map_func(ContainerType& container, Functor func)
 	for_each(container.begin(), container.end(), func);
 }
 
+static string my_getline(istream& stream, char sep)
+{
+	string ret;
+	getline(stream, ret, sep);
+	return ret;
+}
+
 static vector<Line> get_lines(istream& stream)
 {
 	vector<Line> ret;
 
 	for(size_t i = 1; stream.good(); ++i)
-	{
-		string s;
-		getline(stream, s, '\n');
-		ret.push_back(make_tuple(i, s));
-	}
+		ret.push_back(make_tuple(i, my_getline(stream, '\n')));
 
 	return ret;
 }
@@ -104,10 +108,15 @@ static MapElem parse_pure(const Line& toParse)
 	return ret;
 }
 
+static bool is_blank(const Line& line)
+{
+	return get<1>(line).length() == 0;
+}
+
 static void parse(const Line& toParse, unordered_map<string, string>* target)
 {
 	// Ignore blank lines.
-	if(get<1>(toParse).length() == 0)
+	if(is_blank(toParse))
 		return;
 
 	MapElem e = parse_pure(toParse);
