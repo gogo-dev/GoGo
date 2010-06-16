@@ -1,6 +1,7 @@
 set(TESTS
 	test_build_environment
 	test_boost
+	test_configuration
 	# Add more tests here.
 )
 

@@ -6,7 +6,9 @@
 using namespace std;
 using namespace boost;
 
-#define countof(array) (sizeof(array)/sizeof((array)[0]))
+#ifndef countof
+	#define countof(array) (sizeof(array)/sizeof((array)[0]))
+#endif
 
 #define COMMENT_TOKEN	"#"
 #define SEPARATOR_TOKEN "="
@@ -113,7 +115,7 @@ static MapElem parse_pure(const Line& toParse)
 		throw SyntaxError("Too many " SEPARATOR_TOKEN " tokens.", lineNumber);
 
 	key   = str.substr(0, locOfSep);
-	value = str.substr(locOfSep + 2, string::npos);
+	value = str.substr(locOfSep + 1, string::npos);
 
 	if(key == "")
 		throw SyntaxError("No key found!", lineNumber);
@@ -124,10 +126,10 @@ static MapElem parse_pure(const Line& toParse)
 	return ret;
 }
 
-static void parse(const Line& toParse, unordered_map<string, string>& target)
+static void parse(const Line& toParse, unordered_map<string, string>* target)
 {
 	MapElem e = parse_pure(toParse);
-	target[get<0>(e)] = get<1>(e);
+	target->insert(make_pair(get<0>(e), get<1>(e)));
 }
 
 Configuration::Configuration(std::istream& stream)
@@ -137,7 +139,7 @@ Configuration::Configuration(std::istream& stream)
 	map_func(lines, strip_comments);
 	map_func(lines, strip_whitespace);
 	strip_empty_lines(lines);
-	map_func(lines, bind(parse, _1, values));
+	map_func(lines, bind(parse, _1, &values));
 }
 
 SyntaxError::SyntaxError(const char* message, size_t _lineNumber)

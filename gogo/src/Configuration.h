@@ -18,7 +18,7 @@ struct SyntaxError : public std::runtime_error
 
 class Configuration
 {
-private:
+public:
 	typedef boost::unordered_map<std::string, std::string> ValueMap;
 	ValueMap values;
 
@@ -45,7 +45,7 @@ public:
 	template <typename T>
 	typename boost::call_traits<T>::value_type get_value(
 		const std::string& key,
-		typename boost::call_traits<T>::param_type defaultValue)
+		typename boost::call_traits<T>::param_type defaultValue) const
 	{
 		ValueMap::const_iterator loc = values.find(key);
 
@@ -53,7 +53,7 @@ public:
 			return defaultValue;
 
 		try {
-			return boost::lexical_cast<T>(*loc);
+			return boost::lexical_cast<T>(loc->second);
 		} catch(boost::bad_lexical_cast&) {
 			return defaultValue;
 		}
@@ -71,7 +71,7 @@ public:
 		@return                    The value for the requested key.
 	*/
 	template <typename T>
-	typename boost::call_traits<T>::value_type get_value(const std::string& key)
+	typename boost::call_traits<T>::value_type get_value(const std::string& key) const
 	{
 		using namespace std;
 		using namespace boost;
@@ -82,9 +82,9 @@ public:
 			throw runtime_error((format("[%1% => ???] Could not find %1% in the configuration file.") % key).str().c_str());
 
 		try {
-			return lexical_cast<T>(*loc);
+			return lexical_cast<T>(loc->second);
 		} catch(bad_lexical_cast&) {
-			throw runtime_error((format("[%1% => %2%] Result could not be coerced to the proper type.") % key % *loc).str().c_str());
+			throw runtime_error((format("[%1% => %2%] Result could not be coerced to the proper type.") % key % loc->second).str().c_str());
 		}
 	}
 
