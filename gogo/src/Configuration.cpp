@@ -1,5 +1,7 @@
 #include "Configuration.h"
+
 #include <algorithm>
+
 #include <boost/tuple/tuple.hpp>
 #include <boost/bind.hpp>
 
@@ -16,7 +18,8 @@ using namespace boost;
 // These characters are ignored in the parsing.
 static const char whitespaceCharacters[] = {
 	' ',
-	'\t'
+	'\t',
+	'\n'
 };
 
 typedef tuple<size_t /* lineNumber */, string /* line */> Line;
@@ -33,7 +36,7 @@ static vector<Line> get_lines(istream& stream)
 {
 	vector<Line> ret;
 
-	for(size_t i = 0; stream.good(); ++i)
+	for(size_t i = 1; stream.good(); ++i)
 	{
 		string s;
 		getline(stream, s, '\n');
@@ -46,16 +49,15 @@ static vector<Line> get_lines(istream& stream)
 static void strip_comments(Line& line)
 {
 	string& str = get<1>(line);
-	str = str.substr(0, str.find(COMMENT_TOKEN));
+	str.assign(str.substr(0, str.find(COMMENT_TOKEN)));
 }
 
 static bool is_whitespace_char(char c)
 {
-	for(size_t i = 0; i < countof(whitespaceCharacters); ++i)
-		if(c == whitespaceCharacters[i])
-			return true;
+	const char* begin = whitespaceCharacters;
+	const char* end   = begin + countof(whitespaceCharacters);
 
-	return false;
+	return find(begin, end, c) != end;
 }
 
 static void strip_whitespace(Line& line)
@@ -69,19 +71,7 @@ static void strip_whitespace(Line& line)
 		if(!is_whitespace_char(*c))
 			result += *c;
 
-	src = result;
-}
-
-static void strip_empty_lines(vector<Line>& lines)
-{
-	vector<vector<Line>::iterator> toErase;
-
-	for(vector<Line>::iterator i = lines.begin(); i != lines.end(); ++i)
-		if(get<1>(*i).length() == 0)
-			toErase.push_back(i);
-
-	for(vector<vector<Line>::iterator>::iterator i = toErase.begin(); i != toErase.end(); ++i)
-		lines.erase(*i);
+	src.assign(result);
 }
 
 static MapElem parse_pure(const Line& toParse)
@@ -116,6 +106,10 @@ static MapElem parse_pure(const Line& toParse)
 
 static void parse(const Line& toParse, unordered_map<string, string>* target)
 {
+	// Ignore blank lines.
+	if(get<1>(toParse).length() == 0)
+		return;
+
 	MapElem e = parse_pure(toParse);
 	target->insert(make_pair(get<0>(e), get<1>(e)));
 }
@@ -126,7 +120,6 @@ Configuration::Configuration(std::istream& stream)
 
 	map_func(lines, strip_comments);
 	map_func(lines, strip_whitespace);
-	strip_empty_lines(lines);
 	map_func(lines, bind(parse, _1, &values));
 }
 

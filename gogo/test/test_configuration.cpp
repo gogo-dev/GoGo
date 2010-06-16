@@ -13,7 +13,7 @@ using namespace boost;
     Configuration varName(ssName)
 
 #define MAKE_CONFIG(varName, contents) \
-    MAKE_CONFIG_IMPL(varName, contents, ss##__COUNTER__)
+    MAKE_CONFIG_IMPL(varName, contents, ss__##__COUNTER__)
 
 static void test_perfectly_good_config_file_no_comments()
 {
@@ -44,10 +44,60 @@ static void test_comments_cause_no_problems()
 	check_equal(string("b"), conf.get_value<string>("a"));
 }
 
+static void test_default_value_usage()
+{
+	const char* configFile = "key = value";
+
+	MAKE_CONFIG(conf, configFile);
+
+	check_equal(string("default"), conf.get_value<string>("nonexistant", "default"));
+	check_equal(1, conf.get_value<int>("key", 1));
+}
+
+static void acceptance_test()
+{
+	const char* configFile =
+		"# Some comment header explaining what these variables are.\n"
+		"\tdb.username = clark\n"
+		"\tdb.password = test\n"
+		"\tdb.ip = 127.0.0.1\n"
+		"\n"
+		"# Just random stuff...\n"
+		"penis.size = 9 # In inches, of course.\n"
+	;
+
+	try {
+		MAKE_CONFIG(conf, configFile);
+
+		check_equal(string("clark"), conf.get_value<string>("db.username"));
+		check_equal(string("test"), conf.get_value<string>("db.password"));
+		check_equal(string("127.0.0.1"), conf.get_value<string>("db.ip"));
+		check_equal(9, conf.get_value<int>("penis.size"));
+
+		try {
+			conf.get_value<int>("db.username");
+			BOOST_FAIL("Exception should be thrown.");
+		} catch(const std::runtime_error&) {
+		}
+
+		try {
+			conf.get_value<string>("I_Don't_Exist");
+			BOOST_FAIL("Exception shouldbe thrown.");
+		} catch(const std::runtime_error&) {
+		}
+
+	} catch(const SyntaxError& e) {
+		BOOST_FAIL((format("Syntax error:%2%: %1%") % e.what() % e.lineNumber).str().c_str());
+	}
+}
+
 int test_main(int, char**)
 {
 	test_perfectly_good_config_file_no_comments();
 	test_comments_cause_no_problems();
+	test_default_value_usage();
+
+	acceptance_test();
 
 	return 0;
 }
