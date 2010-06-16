@@ -8,18 +8,18 @@ using namespace boost;
 
 namespace
 {
-struct Handshake
-{
-	boost::uint16_t Header;
-	boost::uint32_t Size;
-	MUID ServerId;
-	MUID PlayerId;
+	struct Handshake
+	{
+		boost::uint16_t Header;
+		boost::uint32_t Size;
+		MUID ServerId;
+		MUID PlayerId;
 
-	// Never used; MAIET is retarded. We just set this to 0x0DEADCA7 to be cool.
-	boost::uint32_t Timestamp;
+		// Never used; MAIET is retarded. We just set this to 0x0DEADCA7 to be cool.
+		boost::uint32_t Timestamp;
 
-	Handshake(MUID player);
-};
+		Handshake(MUID player);
+	};
 }
 
 Handshake::Handshake(MUID player)
