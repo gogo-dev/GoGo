@@ -81,7 +81,7 @@ static void acceptance_test()
 		}
 
 		try {
-			conf.get_value<string>("I_Don't_Exist");
+			conf.get_value<string>("nonexistant");
 			BOOST_FAIL("Exception shouldbe thrown.");
 		} catch(const std::runtime_error&) {
 		}
