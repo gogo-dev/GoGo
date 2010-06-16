@@ -54,6 +54,21 @@ static void test_default_value_usage()
 	check_equal(1, conf.get_value<int>("key", 1));
 }
 
+static void test_equals_sign_in_value()
+{
+	const char* configFile =
+		"key = val=ue"
+	;
+
+	try {
+		MAKE_CONFIG(conf, configFile);
+
+		check_equal(string("val=ue"), conf.get_value<string>("key"));
+	} catch(const SyntaxError&) {
+		BOOST_FAIL("Seperator token detection is not behaving correctly.");
+	}
+}
+
 static void acceptance_test()
 {
 	const char* configFile =
@@ -96,6 +111,7 @@ int test_main(int, char**)
 	test_perfectly_good_config_file_no_comments();
 	test_comments_cause_no_problems();
 	test_default_value_usage();
+	test_equals_sign_in_value();
 
 	acceptance_test();
 

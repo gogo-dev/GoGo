@@ -33,76 +33,73 @@ static void map_func(ContainerType& container, Functor func)
 	for_each(container.begin(), container.end(), func);
 }
 
+template <typename Predicate>
+static string filter(const string& cIn, Predicate pred)
+{
+	string cOut;
+	cOut.reserve(cIn.length());
+
+	string::const_iterator i   = cIn.begin();
+	string::const_iterator end = cIn.end();
+
+	for(; i != end; ++i)
+		if(pred(*i)) cOut += *i;
+
+	return cOut;
+}
+
 static string my_getline(istream& stream, char sep)
 {
-	string ret;
-	getline(stream, ret, sep);
-	return ret;
+	string line;
+	getline(stream, line, sep);
+	return line;
 }
 
 static vector<Line> get_lines(istream& stream)
 {
-	vector<Line> ret;
+	vector<Line> lines;
 
 	for(size_t i = 1; stream.good(); ++i)
-		ret.push_back(make_tuple(i, my_getline(stream, '\n')));
+		lines.push_back(make_tuple(i, my_getline(stream, '\n')));
 
-	return ret;
+	return lines;
 }
 
-static void strip_comments(Line& line)
+static Line strip_comments(const Line& in)
 {
-	string& str = get<1>(line);
-	str.assign(str.substr(0, str.find(COMMENT_TOKEN)));
+	const string& str = get<1>(in);
+	return make_tuple(get<0>(in), str.substr(0, str.find(COMMENT_TOKEN)));
 }
 
-static bool is_whitespace_char(char c)
+static bool is_not_whitespace_char(char c)
 {
 	const char* begin = whitespaceCharacters;
 	const char* end   = begin + countof(whitespaceCharacters);
 
-	return find(begin, end, c) != end;
+	return find(begin, end, c) == end;
 }
 
-static void strip_whitespace(Line& line)
+static Line strip_whitespace(const Line& in)
 {
-	string& src = get<1>(line);
-	string result;
-
-	result.reserve(src.length() + 1);
-
-	for(const char* c = src.c_str(); *c != '\0'; ++c)
-		if(!is_whitespace_char(*c))
-			result += *c;
-
-	src.assign(result);
+	return make_tuple(get<0>(in), filter(get<1>(in), is_not_whitespace_char));
 }
 
 static MapElem parse_pure(const Line& toParse)
 {
-	MapElem ret;
-
-	string& key   = get<0>(ret);
-	string& value = get<1>(ret);
-
 	const size_t& lineNumber = get<0>(toParse);
 	const string& str        = get<1>(toParse);
 
-	size_t locOfSep = str.find(SEPARATOR_TOKEN);
+	const size_t locOfSep = str.find(SEPARATOR_TOKEN);
 
 	if(locOfSep == string::npos)
 		throw SyntaxError("No separator found!", lineNumber);
 
-	if(str.find(SEPARATOR_TOKEN, locOfSep + 1) != string::npos)
-		throw SyntaxError("Too many " SEPARATOR_TOKEN " tokens.", lineNumber);
+	const MapElem ret = make_tuple(str.substr(0, locOfSep), str.substr(locOfSep + 1, string::npos));
 
-	key   = str.substr(0, locOfSep);
-	value = str.substr(locOfSep + 1, string::npos);
-
-	if(key == "")
+	if(get<0>(ret) == "")
 		throw SyntaxError("No key found!", lineNumber);
 
-	if(value == "")
+	if(get<1>(ret) == "")
 		throw SyntaxError("No value found!", lineNumber);
 
 	return ret;
@@ -115,11 +112,10 @@ static bool is_blank(const Line& line)
 
 static void parse(const Line& toParse, unordered_map<string, string>* target)
 {
-	// Ignore blank lines.
 	if(is_blank(toParse))
 		return;
 
-	MapElem e = parse_pure(toParse);
+	const MapElem e = parse_pure(toParse);
 	target->insert(make_pair(get<0>(e), get<1>(e)));
 }
 
@@ -127,8 +123,9 @@ Configuration::Configuration(std::istream& stream)
 {
 	vector<Line> lines = get_lines(stream);
 
-	map_func(lines, strip_comments);
-	map_func(lines, strip_whitespace);
+	transform(lines.begin(), lines.end(), lines.begin(), strip_comments);
+	transform(lines.begin(), lines.end(), lines.begin(), strip_whitespace);
+
 	map_func(lines, bind(parse, _1, &values));
 }
 

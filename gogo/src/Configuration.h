@@ -43,7 +43,7 @@ public:
 		@return                 The value for the requested key.
 	*/
 	template <typename T>
-	typename boost::call_traits<T>::value_type get_value(
+	T get_value(
 		const std::string& key,
 		typename boost::call_traits<T>::param_type defaultValue) const
 	{
@@ -71,7 +71,7 @@ public:
 		@return                    The value for the requested key.
 	*/
 	template <typename T>
-	typename boost::call_traits<T>::value_type get_value(const std::string& key) const
+	T get_value(const std::string& key) const
 	{
 		using namespace std;
 		using namespace boost;
