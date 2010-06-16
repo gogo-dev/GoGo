@@ -84,18 +84,6 @@ static void strip_empty_lines(vector<Line>& lines)
 		lines.erase(*i);
 }
 
-/*
-	So how are we parsing a preprocessed (no comments) line, anyhow?
-
-	1) Scan to equals sign. If not present, syntax error.
-	2) keyEnd = Scan left of seperator until no more spaces.
-	4) key = substr(0, [beginning of spaces]);
-	5) if len(key) == 0, syntax error.
-	6) Scan right of seperator until no more spaces.
-	7) value = substr([end of spaces], string::npos);
-	8) if len(value) == 0, syntax error.
-	9) Return (key, value).
-*/
 static MapElem parse_pure(const Line& toParse)
 {
 	MapElem ret;
