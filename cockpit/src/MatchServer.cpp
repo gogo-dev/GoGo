@@ -7,11 +7,15 @@
 #include <cockpit/ClientHandler.h>
 
 #include <cassert>
+#include <cstddef>
+
+#include <algorithm>
 
 #include <boost/asio.hpp>
-#include <boost/shared_ptr.hpp>
-#include <boost/make_shared.hpp>
 #include <boost/bind.hpp>
+#include <boost/make_shared.hpp>
+#include <boost/shared_ptr.hpp>
+#include <boost/thread.hpp>
 
 using namespace boost;
 using namespace boost::asio;
@@ -23,22 +27,34 @@ struct MatchServer::Data : boost::noncopyable
 {
 	Logger* logger;
 	ClientHandlerFactory* factory;
+
+	io_service io;
 	tcp::acceptor acceptor;
 
-	Data(Logger* logger, ClientHandlerFactory* factory, io_service* io, uint16_t port);
+	thread* threadPool;
+	size_t threadPoolLength;
+
+	bool isServerRunning;
+
+	Data(Logger* logger, ClientHandlerFactory* factory, uint16_t port);
 	~Data();
 };
 
-MatchServer::Data::Data(Logger* _logger, ClientHandlerFactory* _factory, io_service* io, uint16_t port)
-	: logger(_logger), factory(_factory), acceptor(*io, tcp::endpoint(tcp::v4(), port))
+MatchServer::Data::Data(Logger* _logger, ClientHandlerFactory* _factory, uint16_t port)
+	: logger(_logger), factory(_factory), acceptor(io, tcp::endpoint(tcp::v4(), port))
 {
 	assert(_logger);
 	assert(_factory);
-	assert(io);
+
+	threadPoolLength = thread::hardware_concurrency() * 2;
+	threadPool = new thread[threadPoolLength];
+
+	isServerRunning = false;
 }
 
 MatchServer::Data::~Data()
 {
+	delete[] threadPool;
 }
 
 static void handle_accepted_client(MatchServer::Data* d,
@@ -78,22 +94,49 @@ static void handle_accepted_client(MatchServer::Data* d,
 
 MatchServer::MatchServer(Logger* logger,
                          ClientHandlerFactory* factory,
-                         io_service* io,
                          uint16_t port)
-	: d(new Data(logger, factory, io, port))
+	: d(new Data(logger, factory, port))
 {
 	assert(d);
-	assert(d->logger);
-	assert(d->factory);
 }
 
-void MatchServer::run()
+static void spawn_thread(thread& t, io_service* io)
 {
+	t = thread(bind(&io_service::run, io));
+}
+
+void MatchServer::start()
+{
+	if(d->isServerRunning)
+		return;
+
+	d->isServerRunning = true;
+
 	asynchronously_accept_new_client(d);
+	std::for_each(d->threadPool, d->threadPool + d->threadPoolLength, bind(spawn_thread, _1, &(d->io)));
+}
+
+void MatchServer::stop()
+{
+	if(!d->isServerRunning)
+		return;
+
+	d->isServerRunning = false;
+
+	d->io.stop();
+}
+
+void MatchServer::wait()
+{
+	if(!d->isServerRunning)
+		return;
+
+	std::for_each(d->threadPool, d->threadPool + d->threadPoolLength, bind(&thread::join, _1));
 }
 
 MatchServer::~MatchServer()
 {
+	stop();
 	delete d;
 }
 

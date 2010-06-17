@@ -2,8 +2,6 @@
 #include <boost/cstdint.hpp>
 #include <boost/noncopyable.hpp>
 
-namespace boost { namespace asio { class io_service; } }
-
 namespace cockpit {
 
 class Logger;
@@ -20,22 +18,51 @@ private:
 public:
 	/**
 		Creates the MatchServer from a valid logger, client handler factory,
-		pre-initialized io service, and a port to listen on. When this function
-		completes, the matchserver will not do anything except collect
-		connect()ions that need to be accepted. To start everything going,
-		call run().
+		and a port to listen on. When this function completes, the matchserver
+		will not do anything except collect connect()ions that need to be
+		accepted. To start everything going, call run().
 	*/
 	MatchServer(Logger* logger,
 	            ClientHandlerFactory* factory,
-	            boost::asio::io_service* io,
 	            boost::uint16_t port);
 
 	/**
 		This function asynchronously starts up the MatchServer pipeline;
-		accepting new connections and not afraiding of anything.
+		accepting new connections and not afraiding of anything. It will return
+		immediately, giving control back to the programmer. Have faith that the
+		matchserver is running in one or more external threads while you go
+		about your business.
 	*/
-	void run();
+	void start();
 
+	/**
+		If the matchserver is currently running, calling this method will
+		signal the shutdown of all the threads. Afterwards, run() can be called
+		to restart the server. Alternatively, you can just use the restart()
+		function.
+	*/
+	void stop();
+
+	/**
+		Restarts MatchServer. Drops all connections and restarts the acceptance
+		loop.
+	*/
+	inline void restart()
+	{
+		stop();
+		start();
+	}
+
+	/**
+		Waits for MatchServer to be done (never? possibly.) before returning.
+	*/
+	void wait();
+
+	/**
+		Terminates all connections, and cleans up nicely. All pointers passed
+		in the constructor are the parents responsibility to deallocate, as
+		MatchServer will NOT do it for you.
+	*/
 	~MatchServer();
 };
 
