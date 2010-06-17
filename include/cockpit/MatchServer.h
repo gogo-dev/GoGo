@@ -1,4 +1,6 @@
 #pragma once
+#include <cstddef>
+
 #include <boost/cstdint.hpp>
 #include <boost/noncopyable.hpp>
 
@@ -20,11 +22,24 @@ public:
 		Creates the MatchServer from a valid logger, client handler factory,
 		and a port to listen on. When this function completes, the matchserver
 		will not do anything except collect connect()ions that need to be
-		accepted. To start everything going, call run().
+		accepted. To start everything going, call run(). By default, c*2 threads
+		are created where "c" is the number of cores on your computer. You can
+		set this yourself with the other constructor.
 	*/
 	MatchServer(Logger* logger,
 	            ClientHandlerFactory* factory,
 	            boost::uint16_t port);
+
+	/**
+		This constructor is the exact same as the other one, except instead of
+		using a predefined thread count, lets the consumer select their very own.
+
+		@see The other constructor.
+	*/
+	MatchServer(Logger* logger,
+	            ClientHandlerFactory* factory,
+	            boost::uint16_t port,
+	            std::size_t numThreads);
 
 	/**
 		This function asynchronously starts up the MatchServer pipeline;

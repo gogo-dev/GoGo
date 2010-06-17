@@ -36,17 +36,17 @@ struct MatchServer::Data : boost::noncopyable
 
 	bool isServerRunning;
 
-	Data(Logger* logger, ClientHandlerFactory* factory, uint16_t port);
+	Data(Logger* logger, ClientHandlerFactory* factory, uint16_t port, size_t threadCount);
 	~Data();
 };
 
-MatchServer::Data::Data(Logger* _logger, ClientHandlerFactory* _factory, uint16_t port)
+MatchServer::Data::Data(Logger* _logger, ClientHandlerFactory* _factory, uint16_t port, size_t threadCount)
 	: logger(_logger), factory(_factory), acceptor(io, tcp::endpoint(tcp::v4(), port))
 {
 	assert(_logger);
 	assert(_factory);
 
-	threadPoolLength = thread::hardware_concurrency() * 2;
+	threadPoolLength = threadCount;
 	threadPool = new thread[threadPoolLength];
 
 	isServerRunning = false;
@@ -95,7 +95,16 @@ static void handle_accepted_client(MatchServer::Data* d,
 MatchServer::MatchServer(Logger* logger,
                          ClientHandlerFactory* factory,
                          uint16_t port)
-	: d(new Data(logger, factory, port))
+	: d(new Data(logger, factory, port, thread::hardware_concurrency() * 2))
+{
+	assert(d);
+}
+
+MatchServer::MatchServer(Logger* logger,
+                         ClientHandlerFactory* factory,
+                         uint16_t port,
+                         size_t threadCount)
+	: d(new Data(logger, factory, port, threadCount))
 {
 	assert(d);
 }
