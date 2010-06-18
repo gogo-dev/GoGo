@@ -58,7 +58,7 @@ else(MSVC)
 	  -Wdisabled-optimization)
 
   if(CMAKE_BUILD_TYPE STREQUAL Debug)
-    add_definitions(-O0)
+    add_definitions(-O0 -g)
   else()
     if(CMAKE_BUILD_TYPE STREQUAL None)
     else()
