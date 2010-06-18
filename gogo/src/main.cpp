@@ -1,9 +1,13 @@
 #include "ConsoleLogger.h"
 #include "GoGoFactory.h"
+#include "Configuration.h"
+
+#include <database/GunzDB.h>
 
 #include <cockpit/MatchServer.h>
 
 #include <exception>
+#include <fstream>
 #include <boost/asio/io_service.hpp>
 #include <boost/thread.hpp>
 
@@ -15,10 +19,11 @@ int main()
 	cockpit::Logger* logger = &loggerImpl;
 
 	GoGoFactory factory(logger);
+	std::ifstream gogoconf("gogo_main.conf");
+	Configuration conf(gogoconf);
 
 	try {
-		// TODO: Configuration loading for the port number.
-		cockpit::MatchServer server(logger, &factory, 6000);
+		cockpit::MatchServer server(logger, &factory, conf.get_value<boost::uint16_t>("main.port", 6000));
 
 		server.start();
 		server.wait();
