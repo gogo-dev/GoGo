@@ -1,9 +1,12 @@
 #pragma once
 #include <string>
+
+#include <boost/noncopyable.hpp>
+
 #include "AccountInfo.h"
 #include "CharacterInfo.h"
 
-class GunzDB
+class GunzDB : boost::noncopyable
 {
 public:
 	// Gets the account info from a username and password, throwing
