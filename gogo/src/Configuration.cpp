@@ -1,5 +1,6 @@
 #include "Configuration.h"
 
+#include <util/SmallVector.h>
 #include <vector>
 #include <algorithm>
 #include <memory>
@@ -26,6 +27,8 @@ static const char whitespaceCharacters[] = {
 
 typedef tuple<size_t /* lineNumber */, string /* line */> Line;
 typedef tuple<string /* key */, string /* value */> MapElem;
+
+typedef SmallVector<Line, 128> VecOfLines;
 
 // Read up on MapReduce for info on what this is about.
 template <typename ContainerType, typename Functor>
@@ -56,9 +59,9 @@ static string my_getline(istream& stream, char sep)
 	return line;
 }
 
-static vector<Line> get_lines(istream& stream)
+static VecOfLines get_lines(istream& stream)
 {
-	vector<Line> lines;
+	VecOfLines lines;
 
 	for(size_t i = 1; stream.good(); ++i)
 		lines.push_back(make_tuple(i, my_getline(stream, '\n')));
@@ -121,9 +124,9 @@ static void parse(const Line& toParse, unordered_map<string, string>* target)
 }
 
 #if BOOST_HAS_RVALUE_REFS
-static unordered_map<string, string> init_config(vector<Line>&& lines)
+static unordered_map<string, string> init_config(VecOfLines&& lines)
 #else
-static unordered_map<string, string> init_config(vector<Line> lines)
+static unordered_map<string, string> init_config(VecOfLines lines)
 #endif
 {
 	unordered_map<string, string> values;
