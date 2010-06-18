@@ -13,17 +13,22 @@
 
 using namespace boost;
 
+Configuration get_config(const char* filename)
+{
+	std::ifstream is(filename);
+	return Configuration(is);
+}
+
 int main()
 {
 	ConsoleLogger loggerImpl;
 	cockpit::Logger* logger = &loggerImpl;
 
 	GoGoFactory factory(logger);
-	std::ifstream gogoconf("gogo_main.conf");
-	Configuration conf(gogoconf);
+	Configuration conf = get_config("gogo_main.conf");
 
 	try {
-		cockpit::MatchServer server(logger, &factory, conf.get_value<boost::uint16_t>("main.port", 6000));
+		cockpit::MatchServer server(logger, &factory, conf.get_value<uint16_t>("main.port", 6000));
 
 		server.start();
 		server.wait();
