@@ -24,6 +24,14 @@ using namespace boost;
 using namespace boost::asio;
 using namespace boost::asio::ip;
 
+/*
+	So what's up with the X::SIZE enum, anyhow? Simple. If we take sizeof(X),
+	it takes padding into account. We don't want to be sending padding over
+	the wire, so we never copy it. To get the real size, we define it manually
+	with X::SIZE. Oh yeah, and if you change the actual size of X, please
+	update it's SIZE enum. Thanks.
+*/
+
 namespace cockpit {
 
 struct Client::PacketHeader
