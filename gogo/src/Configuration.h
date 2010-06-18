@@ -5,7 +5,7 @@
 #include <cstddef>
 
 #include <boost/call_traits.hpp>
-#include <boost/tr1/unordered_map.hpp>
+#include <boost/unordered_map.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/format.hpp>
 
