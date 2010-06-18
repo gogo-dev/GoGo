@@ -77,7 +77,7 @@ void Client::start()
 	} catch(const std::exception& ex) {
 		logger->info(format("[%1%] Connection terminated (%2%).") % get_ip() % ex.what());
 	} catch(...) {
-		logger->error("Fatal error initializing the ClientHandler.");
+		logger->error("Fatal error initializing the ClientHandler. Dropping client.");
 	}
 }
 
