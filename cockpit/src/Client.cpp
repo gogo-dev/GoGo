@@ -52,7 +52,20 @@ struct Client::PayloadHeader
 	};
 };
 
-#define SIZE_OF_SENDABLE_PACKET (Client::PacketHeader::SIZE + Client::PayloadHeader::SIZE)
+namespace {
+
+struct SendablePacket
+{
+	Client::PacketHeader  packetHeader;
+	Client::PayloadHeader payloadHeader;
+
+	enum
+	{
+		SIZE = Client::PacketHeader::SIZE + Client::PayloadHeader::SIZE
+	};
+};
+
+}
 
 Client::Client(Logger* _logger, ClientHandlerFactory* factory, io_service* io)
 	: logger(_logger), handler(factory->create_client_handler()), socket(*io)
@@ -174,7 +187,7 @@ static Client::PayloadHeader extract_payload(shared_array<uint8_t> p, bool encry
 
 static void decrypt_params(uint8_t* params, uint16_t paramLength, const uint8_t* cryptoKey)
 {
-	packet::decrypt(params, paramLength, SIZE_OF_SENDABLE_PACKET, cryptoKey);
+	packet::decrypt(params, paramLength, SendablePacket::SIZE, cryptoKey);
 }
 
 void Client::on_payload(shared_array<uint8_t> p, uint16_t payloadSize, bool encrypted, system::error_code err, size_t bytesTransferred)
@@ -224,20 +237,12 @@ void Client::on_send(system::error_code err, size_t bytesTransferred, shared_arr
 	assert(bytesTransferred == packetLength);
 }
 
-namespace {
 
-struct SendablePacket
-{
-	Client::PacketHeader  packetHeader;
-	Client::PayloadHeader payloadHeader;
-};
-
-}
 
 void Client::send(const packet::Packet* p)
 {
 	Buffer params = p->serialize();
-	size_t packetLength = SIZE_OF_SENDABLE_PACKET + params.length();
+	size_t packetLength = SendablePacket::SIZE + params.length();
 
 	shared_array<uint8_t> raw(new uint8_t[packetLength]);
 
@@ -251,11 +256,11 @@ void Client::send(const packet::Packet* p)
 	assert((params.length() + PayloadHeader::SIZE) <= 0xFFFF);
 	header->payloadHeader.dataSize = static_cast<uint16_t>(params.length() + PayloadHeader::SIZE);
 	header->payloadHeader.commandID = p->id();
-	memory::copy(raw.get() + SIZE_OF_SENDABLE_PACKET, params.data(), params.length());
+	memory::copy(raw.get() + SendablePacket::SIZE, params.data(), params.length());
 
 	packet::encrypt(raw.get() + 2, 2, 2, cryptoKey.c_array());	// fullSize
 	packet::encrypt(raw.get() + 6, 4, 6, cryptoKey.c_array());	// Data header sans packetID.
-	packet::encrypt(raw.get() + 11, packetLength - PacketHeader::SIZE, SIZE_OF_SENDABLE_PACKET, cryptoKey.c_array());	// Parameters.
+	packet::encrypt(raw.get() + 11, packetLength - PacketHeader::SIZE, SendablePacket::SIZE, cryptoKey.c_array());	// Parameters.
 
 	mutex::scoped_lock lock(packetSendingLock);
 	header->payloadHeader.packetID = currentPacketID++;
