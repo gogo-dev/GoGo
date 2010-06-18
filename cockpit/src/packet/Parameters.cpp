@@ -19,6 +19,17 @@ static Buffer serialize_built_in(T toSerialize)
 	return serialized;
 }
 
+template <typename T, size_t N>
+static Buffer serialize_built_in(const T (&toSerialize)[N])
+{
+	const size_t siz = sizeof(toSerialize) * N;
+
+	Buffer serialized(siz);
+	memory::copy(serialized.data(), toSerialize, siz);
+
+	return serialized;
+}
+
 namespace cockpit {
 namespace packet {
 
@@ -96,6 +107,7 @@ blob_string::blob_string(const char* _value, boost::uint16_t _len)
 Buffer blob_string::serialize() const
 {
 	size_t bigSize = value.length() + 1;
+
 	if(bigSize > len)
 		return blob_string("[string too large]", len).serialize();
 
@@ -104,7 +116,7 @@ Buffer blob_string::serialize() const
 	uint8_t* rawPointer = serialized.data();
 
 	rawPointer = memory::pcopy(rawPointer, value.c_str(), len);
-	memory::set(rawPointer, 0x00, len - bigSize - 1);
+	memory::zero(rawPointer, len - bigSize - 1);
 
 	return serialized;
 }
@@ -156,19 +168,13 @@ float_tuple::float_tuple(const tuple<float, float, float>& _value)
 
 Buffer float_tuple::serialize() const
 {
-	Buffer serialized(sizeof(float) * 3);
-
-	uint8_t* rawPointer = serialized.data();
-
 	float arrayValues[] = {
-		value.get<0>(),
-		value.get<1>(),
-		value.get<2>()
+		get<0>(value),
+		get<1>(value),
+		get<2>(value)
 	};
 
-	memory::copy(rawPointer, arrayValues, sizeof(arrayValues));
-
-	return serialized;
+	return serialize_built_in(arrayValues);
 }
 
 position::position(float x, float y, float z)
@@ -268,8 +274,7 @@ Buffer blob::serialize() const
 	rawPointer = memory::pcopy(rawPointer, &elementSize, sizeof(uint32_t));
 	rawPointer = memory::pcopy(rawPointer, &elementCount, sizeof(uint32_t));
 
-	for (uint32_t i = 0; i < elementData.size(); ++i)
-		rawPointer = memory::pcopy(rawPointer, &(elementData[i]), sizeof(uint8_t));
+	memory::copy(rawPointer, &(elementData[0]), elementData.size());
 
 	return serialized;
 }
@@ -288,19 +293,13 @@ vector::vector(const Vec& _value)
 
 Buffer vector::serialize() const
 {
-	Buffer serialized(sizeof(uint16_t) * 3);
-
-	uint8_t* rawPointer = serialized.data();
-
 	uint16_t arrayValues[] = {
-		value.get<0>(),
-		value.get<1>(),
-		value.get<2>()
+		get<0>(value),
+		get<1>(value),
+		get<2>(value)
 	};
 
-	memory::copy(rawPointer, arrayValues, sizeof(arrayValues));
-
-	return serialized;
+	return serialize_built_in(arrayValues);
 }
 
 uint8::uint8(uint8_t _value)
