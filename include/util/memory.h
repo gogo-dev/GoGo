@@ -69,7 +69,7 @@ namespace memory {
 	template <typename T>
 	inline T* set(T* dest, boost::uint8_t value, size_t count)
 	{
-		return reinterpret_cast<T*>(memset(reinterpret_cast<void*>(dest), value, count));
+		return reinterpret_cast<T*>(memset(dest, value, count));
 	}
 
 	/**

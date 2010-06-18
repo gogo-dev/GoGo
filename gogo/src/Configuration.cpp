@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <algorithm>
+#include <memory>
 
 #include <boost/tuple/tuple.hpp>
 #include <boost/bind.hpp>
@@ -119,15 +120,45 @@ static void parse(const Line& toParse, unordered_map<string, string>* target)
 	target->insert(make_pair(get<0>(e), get<1>(e)));
 }
 
-Configuration::Configuration(std::istream& stream)
+#if BOOST_HAS_RVALUE_REFS
+static unordered_map<string, string> init_config(vector<Line>&& lines)
+#else
+static unordered_map<string, string> init_config(vector<Line> lines)
+#endif
 {
-	vector<Line> lines = get_lines(stream);
+	unordered_map<string, string> values;
 
 	transform(lines.begin(), lines.end(), lines.begin(), strip_comments);
 	transform(lines.begin(), lines.end(), lines.begin(), strip_whitespace);
 
 	map_func(lines, bind(parse, _1, &values));
+
+	return values;
 }
+
+Configuration::Configuration(std::istream& stream)
+	: values(init_config(get_lines(stream)))
+{
+}
+
+Configuration::Configuration(const Configuration& rhs)
+	: values(rhs.values)
+{
+}
+
+#if BOOST_HAS_RVALUE_REFS
+Configuration::Configuration(std::istream&& stream)
+	: values(init_config(get_lines(stream)))
+{
+}
+
+Configuration::Configuration(const Configuration&& rhs)
+	: values(std::move(rhs.values))
+{
+	// If you know where std::move is, please add the #include and remove
+	// my guess of <memory>
+}
+#endif
 
 SyntaxError::SyntaxError(const char* message, size_t _lineNumber)
 	: runtime_error(message), lineNumber(_lineNumber)

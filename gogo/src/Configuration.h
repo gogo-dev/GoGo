@@ -31,6 +31,12 @@ public:
 		                    syntax.
 	*/
 	Configuration(std::istream& stream);
+	Configuration(const Configuration& rhs);
+
+#if BOOST_HAS_RVALUE_REFS
+	Configuration(std::istream&& stream);
+	Configuration(const Configuration&& rhs);
+#endif
 
 	/**
 		Returns the value of type T that is matched with the given key inside

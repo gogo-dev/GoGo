@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 
+#include <boost/config.hpp>
 #include <boost/noncopyable.hpp>
 
 #include "AccountInfo.h"
