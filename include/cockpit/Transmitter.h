@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 namespace cockpit {
 
@@ -26,6 +27,13 @@ public:
 		destructor will be called.
 	*/
 	virtual void disconnect() = 0;
+
+	/**
+		Gets the target's IP address, in the form of 127.0.0.1.
+
+		@return  The connection's IP address.
+	*/
+	virtual std::string get_ip() const = 0;
 
 	virtual ~Transmitter()
 	{
