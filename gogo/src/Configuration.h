@@ -6,8 +6,10 @@
 
 #include <boost/call_traits.hpp>
 #include <boost/unordered_map.hpp>
-#include <boost/lexical_cast.hpp>
 #include <boost/format.hpp>
+#include <boost/lexical_cast.hpp>
+
+#include <cstdio>
 
 struct SyntaxError : public std::runtime_error
 {
@@ -19,6 +21,8 @@ struct SyntaxError : public std::runtime_error
 class Configuration
 {
 private:
+	// Why is this a hashmap? The hashing means the lookup string is only
+	// iterated through once instead of log(n) times.
 	typedef boost::unordered_map<std::string, std::string> ValueMap;
 	ValueMap values;
 
@@ -60,7 +64,7 @@ public:
 
 		try {
 			return boost::lexical_cast<T>(loc->second);
-		} catch(boost::bad_lexical_cast&) {
+		} catch(const boost::bad_lexical_cast&) {
 			return defaultValue;
 		}
 	}
@@ -85,12 +89,12 @@ public:
 		ValueMap::const_iterator loc = values.find(key);
 
 		if(loc == values.end())
-			throw runtime_error((format("[%1% => ???] Could not find %1% in the configuration file.") % key.c_str()).str().c_str());
+			throw runtime_error((format("[%1% => ???] Could not find %1% in the configuration file.") % key).str().c_str());
 
 		try {
 			return lexical_cast<T>(loc->second);
-		} catch(bad_lexical_cast&) {
-			throw runtime_error((format("[%1% => %2%] Result could not be coerced to the proper type.") % key.c_str() % loc->second).str().c_str());
+		} catch(const boost::bad_lexical_cast&) {
+			throw runtime_error((format("[%1% => %2%] Could not coerce %2% to the correct type.") % key % loc->second).str().c_str());
 		}
 	}
 

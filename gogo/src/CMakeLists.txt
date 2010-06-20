@@ -36,3 +36,7 @@ target_link_libraries(gogo
 	cockpit
 	${Boost_LIBRARIES}
 )
+
+# Moves gogo.conf into the appropriate directory when either "make" or "make install" is called.
+configure_file(gogo.conf gogo.conf COPYONLY)
+install(FILES gogo.conf DESTINATION ${CMAKE_INSTALL_PREFIX})

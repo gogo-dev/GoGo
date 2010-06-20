@@ -103,8 +103,7 @@ static MapElem parse_pure(const Line& toParse)
 	if(get<0>(ret) == "")
 		throw SyntaxError("No key found!", lineNumber);
 
-	if(get<1>(ret) == "")
-		throw SyntaxError("No value found!", lineNumber);
+	// We purposely allow blank values. Those are totally legit.
 
 	return ret;
 }

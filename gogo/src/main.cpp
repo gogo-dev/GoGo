@@ -25,10 +25,10 @@ int main()
 	cockpit::Logger* logger = &loggerImpl;
 
 	GoGoFactory factory(logger);
-	Configuration conf = get_config("gogo_main.conf");
+	Configuration conf = get_config("gogo.conf");
 
 	try {
-		cockpit::MatchServer server(logger, &factory, conf.get_value<uint16_t>("main.port", 6000));
+		cockpit::MatchServer server(logger, &factory, conf.get_value<uint16_t>("server.port", 6000));
 
 		server.start();
 		server.wait();
