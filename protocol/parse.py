@@ -194,23 +194,23 @@ Registry::~Registry()
 
 static void do_nothing_0() {}
 template <typename T1>
-static void do_nothing(T1) {}
+static void do_nothing_1(T1) {}
 template <typename T1, typename T2>
-static void do_nothing(T1, T2) {}
+static void do_nothing_2(T1, T2) {}
 template <typename T1, typename T2, typename T3>
-static void do_nothing(T1, T2, T3) {}
+static void do_nothing_3(T1, T2, T3) {}
 template <typename T1, typename T2, typename T3, typename T4>
-static void do_nothing(T1, T2, T3, T4) {}
+static void do_nothing_4(T1, T2, T3, T4) {}
 template <typename T1, typename T2, typename T3, typename T4, typename T5>
-static void do_nothing(T1, T2, T3, T4, T5) {}
+static void do_nothing_5(T1, T2, T3, T4, T5) {}
 template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
-static void do_nothing(T1, T2, T3, T4, T5, T6) {}
+static void do_nothing_6(T1, T2, T3, T4, T5, T6) {}
 template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7>
-static void do_nothing(T1, T2, T3, T4, T5, T6, T7) {}
+static void do_nothing_7(T1, T2, T3, T4, T5, T6, T7) {}
 template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8>
-static void do_nothing(T1, T2, T3, T4, T5, T6, T7, T8) {}
+static void do_nothing_8(T1, T2, T3, T4, T5, T6, T7, T8) {}
 template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9>
-static void do_nothing(T1, T2, T3, T4, T5, T6, T7, T8, T9) {}
+static void do_nothing_9(T1, T2, T3, T4, T5, T6, T7, T8, T9) {}
 """
 
 def make_packet_registry_constructor(commands):
@@ -226,7 +226,7 @@ Registry::Registry()
 		if len(c.parameters) == 0:
 			ret = ''.join([ret, '\t', c.name, ' = do_nothing_0;\n'])
 		else:
-			ret = ''.join([ret, '\t', c.name, ' = do_nothing<', make_params(c), ' >;\n'])
+			ret = ''.join([ret, '\t', c.name, ' = do_nothing_', str(len(c.parameters)), '<', make_params(c), ' >;\n'])
 
 	ret = ''.join([ret, '}\n'])
 
@@ -274,7 +274,6 @@ def make_packet_registry_functions(commands):
 		if len(c.parameters) > 0:
 			ret = ''.join([ret, '\n'])
 
-		ret = ''.join([ret, '\tif(self->', c.name, ')'])
 		ret = ''.join([ret, '\t\tself->', c.name, '('])
 
 		for (p, i) in zip(c.parameters, range(9999999)):

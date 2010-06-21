@@ -42,310 +42,310 @@ Registry::~Registry()
 
 static void do_nothing_0() {}
 template <typename T1>
-static void do_nothing(T1) {}
+static void do_nothing_1(T1) {}
 template <typename T1, typename T2>
-static void do_nothing(T1, T2) {}
+static void do_nothing_2(T1, T2) {}
 template <typename T1, typename T2, typename T3>
-static void do_nothing(T1, T2, T3) {}
+static void do_nothing_3(T1, T2, T3) {}
 template <typename T1, typename T2, typename T3, typename T4>
-static void do_nothing(T1, T2, T3, T4) {}
+static void do_nothing_4(T1, T2, T3, T4) {}
 template <typename T1, typename T2, typename T3, typename T4, typename T5>
-static void do_nothing(T1, T2, T3, T4, T5) {}
+static void do_nothing_5(T1, T2, T3, T4, T5) {}
 template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
-static void do_nothing(T1, T2, T3, T4, T5, T6) {}
+static void do_nothing_6(T1, T2, T3, T4, T5, T6) {}
 template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7>
-static void do_nothing(T1, T2, T3, T4, T5, T6, T7) {}
+static void do_nothing_7(T1, T2, T3, T4, T5, T6, T7) {}
 template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8>
-static void do_nothing(T1, T2, T3, T4, T5, T6, T7, T8) {}
+static void do_nothing_8(T1, T2, T3, T4, T5, T6, T7, T8) {}
 template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9>
-static void do_nothing(T1, T2, T3, T4, T5, T6, T7, T8, T9) {}
+static void do_nothing_9(T1, T2, T3, T4, T5, T6, T7, T8, T9) {}
 
 Registry::Registry()
 {
-	Net_Ping = do_nothing<boost::uint32_t >;
-	Net_Pong = do_nothing<boost::uint32_t >;
-	Match_Announce = do_nothing<boost::uint32_t, const std::string& >;
-	Clock_Synchronize = do_nothing<boost::uint32_t >;
-	Match_Login = do_nothing<const std::string&, const std::string&, boost::int32_t, boost::uint32_t >;
-	Match_ResponseLogin = do_nothing<boost::int32_t, const std::string&, boost::int8_t, const std::string&, boost::uint8_t, boost::uint8_t, boost::uint64_t, bool, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Match_Response_Result = do_nothing<boost::int32_t >;
-	Match_LoginNetmarble = do_nothing<const std::string&, const std::string&, boost::int32_t, boost::uint32_t >;
-	MC_MATCH_DISCONNMSG = do_nothing<boost::uint32_t >;
-	MC_MATCH_LOGIN_NHNUSA = do_nothing<const std::string&, const std::string&, boost::int32_t, boost::uint32_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	MC_MATCH_LOGIN_GAMEON_JP = do_nothing<const std::string&, const std::string&, boost::int32_t, boost::uint32_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Match_ObjectCache = do_nothing<boost::uint8_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Match_BridgePeer = do_nothing<boost::uint64_t, boost::uint32_t, boost::uint32_t >;
-	Match_BridgePeerACK = do_nothing<boost::uint64_t, boost::int32_t >;
+	Net_Ping = do_nothing_1<boost::uint32_t >;
+	Net_Pong = do_nothing_1<boost::uint32_t >;
+	Match_Announce = do_nothing_2<boost::uint32_t, const std::string& >;
+	Clock_Synchronize = do_nothing_1<boost::uint32_t >;
+	Match_Login = do_nothing_4<const std::string&, const std::string&, boost::int32_t, boost::uint32_t >;
+	Match_ResponseLogin = do_nothing_9<boost::int32_t, const std::string&, boost::int8_t, const std::string&, boost::uint8_t, boost::uint8_t, boost::uint64_t, bool, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
+	Match_Response_Result = do_nothing_1<boost::int32_t >;
+	Match_LoginNetmarble = do_nothing_4<const std::string&, const std::string&, boost::int32_t, boost::uint32_t >;
+	MC_MATCH_DISCONNMSG = do_nothing_1<boost::uint32_t >;
+	MC_MATCH_LOGIN_NHNUSA = do_nothing_5<const std::string&, const std::string&, boost::int32_t, boost::uint32_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
+	MC_MATCH_LOGIN_GAMEON_JP = do_nothing_5<const std::string&, const std::string&, boost::int32_t, boost::uint32_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
+	Match_ObjectCache = do_nothing_2<boost::uint8_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
+	Match_BridgePeer = do_nothing_3<boost::uint64_t, boost::uint32_t, boost::uint32_t >;
+	Match_BridgePeerACK = do_nothing_2<boost::uint64_t, boost::int32_t >;
 	MatchServer_RequestRecommandedChannel = do_nothing_0;
-	MatchServer_ResponseRecommandedChannel = do_nothing<boost::uint64_t >;
-	Channel_Join = do_nothing<boost::uint64_t, boost::uint64_t >;
-	Channel_ResponseJoin = do_nothing<boost::uint64_t, boost::int32_t, const std::string&, bool >;
-	Channel_RequestJoinFromName = do_nothing<boost::uint64_t, boost::int32_t, boost::int32_t, const std::string& >;
-	Channel_Leave = do_nothing<boost::uint64_t, boost::uint64_t >;
-	Channel_ListStart = do_nothing<boost::uint64_t, boost::int32_t, boost::int32_t >;
-	Channel_ListStop = do_nothing<boost::uint64_t >;
-	Channel_List = do_nothing<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Channel_Request_Chat = do_nothing<boost::uint64_t, boost::uint64_t, const std::string& >;
-	Channel_Chat = do_nothing<boost::uint64_t, const std::string&, const std::string&, boost::int32_t >;
-	Channel_Request_Rule = do_nothing<boost::uint64_t >;
-	Channel_Response_Rule = do_nothing<boost::uint64_t, const std::string& >;
-	Channel_RequestAllPlayerList = do_nothing<boost::uint64_t, boost::uint64_t, boost::uint32_t, boost::uint32_t >;
-	Channel_ResponseAllPlayerList = do_nothing<boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Stage_Create = do_nothing<boost::uint64_t, const std::string&, bool, const std::string& >;
-	Stage_RequestJoin = do_nothing<boost::uint64_t, boost::uint64_t >;
-	Stage_RequestPrivateJoin = do_nothing<boost::uint64_t, boost::uint64_t, const std::string& >;
-	Stage_Join = do_nothing<boost::uint64_t, boost::uint64_t, boost::uint32_t, const std::string& >;
-	Stage_Leave = do_nothing<boost::uint64_t >;
-	Stage_Request_PlayerList = do_nothing<boost::uint64_t >;
-	Stage_Follow = do_nothing<const std::string& >;
-	Stage_Response_Follow = do_nothing<boost::int32_t >;
-	Stage_ResponseJoin = do_nothing<boost::int32_t >;
-	Stage_RequirePassword = do_nothing<boost::uint64_t, const std::string& >;
-	RequestGameInfo = do_nothing<boost::uint64_t, boost::uint64_t >;
-	ResponseGameInfo = do_nothing<boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Stage_ResponseCreate = do_nothing<boost::int32_t >;
-	Stage_Request_EnterBattle = do_nothing<boost::uint64_t, boost::uint64_t >;
-	Stage_EnterBattle = do_nothing<boost::uint8_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Stage_LeaveBattle = do_nothing<boost::uint64_t >;
-	Stage_Start = do_nothing<boost::uint64_t, boost::uint64_t, boost::int32_t >;
-	Stage_Map = do_nothing<boost::uint64_t, const std::string& >;
-	Stage_Chat = do_nothing<boost::uint64_t, boost::uint64_t, const std::string& >;
-	Stage_RequestQuickJoin = do_nothing<boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Stage_ResponseQuickJoin = do_nothing<boost::int32_t, boost::uint64_t >;
-	Stage_StageGo = do_nothing<boost::uint32_t >;
-	Stage_State = do_nothing<boost::uint64_t, boost::uint64_t, boost::int32_t, boost::int32_t >;
-	Stage_Team = do_nothing<boost::uint64_t, boost::uint64_t, boost::uint32_t >;
-	Stage_Master = do_nothing<boost::uint64_t, boost::uint64_t >;
+	MatchServer_ResponseRecommandedChannel = do_nothing_1<boost::uint64_t >;
+	Channel_Join = do_nothing_2<boost::uint64_t, boost::uint64_t >;
+	Channel_ResponseJoin = do_nothing_4<boost::uint64_t, boost::int32_t, const std::string&, bool >;
+	Channel_RequestJoinFromName = do_nothing_4<boost::uint64_t, boost::int32_t, boost::int32_t, const std::string& >;
+	Channel_Leave = do_nothing_2<boost::uint64_t, boost::uint64_t >;
+	Channel_ListStart = do_nothing_3<boost::uint64_t, boost::int32_t, boost::int32_t >;
+	Channel_ListStop = do_nothing_1<boost::uint64_t >;
+	Channel_List = do_nothing_1<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
+	Channel_Request_Chat = do_nothing_3<boost::uint64_t, boost::uint64_t, const std::string& >;
+	Channel_Chat = do_nothing_4<boost::uint64_t, const std::string&, const std::string&, boost::int32_t >;
+	Channel_Request_Rule = do_nothing_1<boost::uint64_t >;
+	Channel_Response_Rule = do_nothing_2<boost::uint64_t, const std::string& >;
+	Channel_RequestAllPlayerList = do_nothing_4<boost::uint64_t, boost::uint64_t, boost::uint32_t, boost::uint32_t >;
+	Channel_ResponseAllPlayerList = do_nothing_2<boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
+	Stage_Create = do_nothing_4<boost::uint64_t, const std::string&, bool, const std::string& >;
+	Stage_RequestJoin = do_nothing_2<boost::uint64_t, boost::uint64_t >;
+	Stage_RequestPrivateJoin = do_nothing_3<boost::uint64_t, boost::uint64_t, const std::string& >;
+	Stage_Join = do_nothing_4<boost::uint64_t, boost::uint64_t, boost::uint32_t, const std::string& >;
+	Stage_Leave = do_nothing_1<boost::uint64_t >;
+	Stage_Request_PlayerList = do_nothing_1<boost::uint64_t >;
+	Stage_Follow = do_nothing_1<const std::string& >;
+	Stage_Response_Follow = do_nothing_1<boost::int32_t >;
+	Stage_ResponseJoin = do_nothing_1<boost::int32_t >;
+	Stage_RequirePassword = do_nothing_2<boost::uint64_t, const std::string& >;
+	RequestGameInfo = do_nothing_2<boost::uint64_t, boost::uint64_t >;
+	ResponseGameInfo = do_nothing_4<boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
+	Stage_ResponseCreate = do_nothing_1<boost::int32_t >;
+	Stage_Request_EnterBattle = do_nothing_2<boost::uint64_t, boost::uint64_t >;
+	Stage_EnterBattle = do_nothing_2<boost::uint8_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
+	Stage_LeaveBattle = do_nothing_1<boost::uint64_t >;
+	Stage_Start = do_nothing_3<boost::uint64_t, boost::uint64_t, boost::int32_t >;
+	Stage_Map = do_nothing_2<boost::uint64_t, const std::string& >;
+	Stage_Chat = do_nothing_3<boost::uint64_t, boost::uint64_t, const std::string& >;
+	Stage_RequestQuickJoin = do_nothing_2<boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
+	Stage_ResponseQuickJoin = do_nothing_2<boost::int32_t, boost::uint64_t >;
+	Stage_StageGo = do_nothing_1<boost::uint32_t >;
+	Stage_State = do_nothing_4<boost::uint64_t, boost::uint64_t, boost::int32_t, boost::int32_t >;
+	Stage_Team = do_nothing_3<boost::uint64_t, boost::uint64_t, boost::uint32_t >;
+	Stage_Master = do_nothing_2<boost::uint64_t, boost::uint64_t >;
 	Stage_ListStart = do_nothing_0;
 	Stage_ListStop = do_nothing_0;
-	Stage_List = do_nothing<boost::int8_t, boost::int8_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Stage_RequestStageList = do_nothing<boost::uint64_t, boost::uint64_t, boost::int32_t >;
-	Channel_RequestPlayerList = do_nothing<boost::uint64_t, boost::uint64_t, boost::int32_t >;
-	Channel_ResponsePlayerList = do_nothing<boost::uint8_t, boost::uint8_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Stage_RequestStageSetting = do_nothing<boost::uint64_t >;
-	Stage_ResponseStageSetting = do_nothing<boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::int32_t, boost::uint64_t >;
-	Stage_StageSetting = do_nothing<boost::uint64_t, boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Stage_Launch = do_nothing<boost::uint64_t, const std::string& >;
-	Stage_Finish = do_nothing<boost::uint64_t >;
-	Stage_RequestPeerList = do_nothing<boost::uint64_t, boost::uint64_t >;
-	Stage_ResponsePeerList = do_nothing<boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Loading_Complete = do_nothing<boost::uint64_t, boost::int32_t >;
-	Match_RequestPeerRelay = do_nothing<boost::uint64_t, boost::uint64_t >;
-	Match_ResponsePeerRelay = do_nothing<boost::uint64_t >;
-	Stage_RoundState = do_nothing<boost::uint64_t, boost::int32_t, boost::int32_t, boost::int32_t >;
-	Game_Kill = do_nothing<boost::uint64_t >;
-	Game_Requst_Spawn = do_nothing<boost::uint64_t, const boost::array<float, 3>&, const boost::array<float, 3>& >;
-	Game_LevelUp = do_nothing<boost::uint64_t, boost::int32_t >;
-	Game_LevelDown = do_nothing<boost::uint64_t, boost::int32_t >;
-	Game_Dead = do_nothing<boost::uint64_t, boost::uint32_t, boost::uint64_t, boost::uint32_t >;
-	Game_TeamBonus = do_nothing<boost::uint64_t, boost::uint32_t >;
-	Game_RequestTimeSync = do_nothing<boost::uint32_t >;
-	Game_ResponseTimeSync = do_nothing<boost::uint32_t, boost::uint32_t >;
-	Game_ReportTimeSync = do_nothing<boost::uint32_t, boost::uint32_t >;
-	Stage_RequestForcedEntry = do_nothing<boost::uint64_t, boost::uint64_t >;
-	Stage_ResponseForcedEntry = do_nothing<boost::int32_t >;
-	Stage_RoundFinishInfo = do_nothing<boost::uint64_t, boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Match_Notify = do_nothing<boost::uint32_t >;
-	Match_Whisper = do_nothing<const std::string&, const std::string&, const std::string& >;
-	Match_Where = do_nothing<const std::string& >;
-	Match_UserOption = do_nothing<boost::uint32_t >;
-	ChatRoom_Create = do_nothing<boost::uint64_t, const std::string& >;
-	ChatRoom_Join = do_nothing<const std::string&, const std::string& >;
-	ChatRoom_Leave = do_nothing<const std::string&, const std::string& >;
-	ChatRoom_SelectWrite = do_nothing<const std::string& >;
-	ChatRoom_Invite = do_nothing<const std::string&, const std::string&, const std::string& >;
-	ChatRoom_Chat = do_nothing<const std::string&, const std::string&, const std::string& >;
-	Match_RequestAccountCharList = do_nothing<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Match_ResponseAccountCharList = do_nothing<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Match_RequestAccountCharInfo = do_nothing<boost::int8_t, boost::int32_t >;
-	Match_ResponseAccountCharInfo = do_nothing<boost::int8_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Match_RequestSelectChar = do_nothing<boost::uint64_t, boost::uint32_t, boost::int32_t >;
-	Match_ResponseSelectChar = do_nothing<boost::int32_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Match_RequestCharInfo = do_nothing<boost::uint64_t, boost::uint32_t >;
-	Match_ResponseCharInfo = do_nothing<boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Match_RequestDeleteChar = do_nothing<boost::uint64_t, boost::uint32_t, boost::int32_t, const std::string& >;
-	Match_ResponseDeleteChar = do_nothing<boost::int32_t >;
-	Match_RequestCreateChar = do_nothing<boost::uint64_t, boost::uint32_t, boost::int32_t, const std::string&, boost::uint32_t, boost::uint32_t, boost::uint32_t, boost::uint32_t >;
-	Match_ResponseCreateChar = do_nothing<boost::int32_t, const std::string& >;
-	Match_RequestBuyItem = do_nothing<boost::uint64_t, boost::uint32_t >;
-	Match_ResponseBuyItem = do_nothing<boost::int32_t >;
-	Match_RequestSellItem = do_nothing<boost::uint64_t, boost::uint64_t >;
-	Match_ResponseSellItem = do_nothing<boost::int32_t >;
-	Match_RequestShopItemList = do_nothing<boost::uint64_t, boost::int32_t, boost::int32_t >;
-	Match_ResponseShopItemList = do_nothing<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Match_RequestCharacterItemList = do_nothing<boost::uint64_t >;
-	Match_RequestCharacterItemListForce = do_nothing<boost::uint64_t >;
-	Match_ResponseCharacterItemList = do_nothing<boost::int32_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	MatchRequestEquipItem = do_nothing<boost::uint64_t, boost::uint64_t, boost::uint32_t, boost::int32_t >;
-	MatchResponseEquipItem = do_nothing<boost::int32_t >;
-	MatchRequestTakeoffItem = do_nothing<boost::uint64_t, boost::uint32_t, boost::int32_t >;
-	MatchResponseTakeoffItem = do_nothing<boost::int32_t >;
-	Match_RequestAccountItemList = do_nothing<boost::uint64_t >;
-	Match_ResponseAccountItemList = do_nothing<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Match_RequestBringAccountItem = do_nothing<boost::uint64_t, boost::int32_t >;
-	Match_ResponseBringAccountItem = do_nothing<boost::int32_t >;
-	Match_RequestBringBackAccountItem = do_nothing<boost::uint64_t, boost::uint64_t >;
-	Match_ResponseBringBackAccountItem = do_nothing<boost::int32_t >;
-	Match_ExpiredRentItem = do_nothing<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Match_ItemGamble = do_nothing<boost::uint64_t >;
-	Match_GambleResultItem = do_nothing<boost::uint32_t, boost::uint32_t >;
-	Match_Request_Suicide = do_nothing<boost::uint64_t >;
-	Match_Response_Suicide = do_nothing<boost::int32_t, boost::uint64_t >;
+	Stage_List = do_nothing_3<boost::int8_t, boost::int8_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
+	Stage_RequestStageList = do_nothing_3<boost::uint64_t, boost::uint64_t, boost::int32_t >;
+	Channel_RequestPlayerList = do_nothing_3<boost::uint64_t, boost::uint64_t, boost::int32_t >;
+	Channel_ResponsePlayerList = do_nothing_3<boost::uint8_t, boost::uint8_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
+	Stage_RequestStageSetting = do_nothing_1<boost::uint64_t >;
+	Stage_ResponseStageSetting = do_nothing_5<boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::int32_t, boost::uint64_t >;
+	Stage_StageSetting = do_nothing_3<boost::uint64_t, boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
+	Stage_Launch = do_nothing_2<boost::uint64_t, const std::string& >;
+	Stage_Finish = do_nothing_1<boost::uint64_t >;
+	Stage_RequestPeerList = do_nothing_2<boost::uint64_t, boost::uint64_t >;
+	Stage_ResponsePeerList = do_nothing_2<boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
+	Loading_Complete = do_nothing_2<boost::uint64_t, boost::int32_t >;
+	Match_RequestPeerRelay = do_nothing_2<boost::uint64_t, boost::uint64_t >;
+	Match_ResponsePeerRelay = do_nothing_1<boost::uint64_t >;
+	Stage_RoundState = do_nothing_4<boost::uint64_t, boost::int32_t, boost::int32_t, boost::int32_t >;
+	Game_Kill = do_nothing_1<boost::uint64_t >;
+	Game_Requst_Spawn = do_nothing_3<boost::uint64_t, const boost::array<float, 3>&, const boost::array<float, 3>& >;
+	Game_LevelUp = do_nothing_2<boost::uint64_t, boost::int32_t >;
+	Game_LevelDown = do_nothing_2<boost::uint64_t, boost::int32_t >;
+	Game_Dead = do_nothing_4<boost::uint64_t, boost::uint32_t, boost::uint64_t, boost::uint32_t >;
+	Game_TeamBonus = do_nothing_2<boost::uint64_t, boost::uint32_t >;
+	Game_RequestTimeSync = do_nothing_1<boost::uint32_t >;
+	Game_ResponseTimeSync = do_nothing_2<boost::uint32_t, boost::uint32_t >;
+	Game_ReportTimeSync = do_nothing_2<boost::uint32_t, boost::uint32_t >;
+	Stage_RequestForcedEntry = do_nothing_2<boost::uint64_t, boost::uint64_t >;
+	Stage_ResponseForcedEntry = do_nothing_1<boost::int32_t >;
+	Stage_RoundFinishInfo = do_nothing_4<boost::uint64_t, boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
+	Match_Notify = do_nothing_1<boost::uint32_t >;
+	Match_Whisper = do_nothing_3<const std::string&, const std::string&, const std::string& >;
+	Match_Where = do_nothing_1<const std::string& >;
+	Match_UserOption = do_nothing_1<boost::uint32_t >;
+	ChatRoom_Create = do_nothing_2<boost::uint64_t, const std::string& >;
+	ChatRoom_Join = do_nothing_2<const std::string&, const std::string& >;
+	ChatRoom_Leave = do_nothing_2<const std::string&, const std::string& >;
+	ChatRoom_SelectWrite = do_nothing_1<const std::string& >;
+	ChatRoom_Invite = do_nothing_3<const std::string&, const std::string&, const std::string& >;
+	ChatRoom_Chat = do_nothing_3<const std::string&, const std::string&, const std::string& >;
+	Match_RequestAccountCharList = do_nothing_1<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
+	Match_ResponseAccountCharList = do_nothing_1<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
+	Match_RequestAccountCharInfo = do_nothing_2<boost::int8_t, boost::int32_t >;
+	Match_ResponseAccountCharInfo = do_nothing_2<boost::int8_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
+	Match_RequestSelectChar = do_nothing_3<boost::uint64_t, boost::uint32_t, boost::int32_t >;
+	Match_ResponseSelectChar = do_nothing_3<boost::int32_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
+	Match_RequestCharInfo = do_nothing_2<boost::uint64_t, boost::uint32_t >;
+	Match_ResponseCharInfo = do_nothing_2<boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
+	Match_RequestDeleteChar = do_nothing_4<boost::uint64_t, boost::uint32_t, boost::int32_t, const std::string& >;
+	Match_ResponseDeleteChar = do_nothing_1<boost::int32_t >;
+	Match_RequestCreateChar = do_nothing_8<boost::uint64_t, boost::uint32_t, boost::int32_t, const std::string&, boost::uint32_t, boost::uint32_t, boost::uint32_t, boost::uint32_t >;
+	Match_ResponseCreateChar = do_nothing_2<boost::int32_t, const std::string& >;
+	Match_RequestBuyItem = do_nothing_2<boost::uint64_t, boost::uint32_t >;
+	Match_ResponseBuyItem = do_nothing_1<boost::int32_t >;
+	Match_RequestSellItem = do_nothing_2<boost::uint64_t, boost::uint64_t >;
+	Match_ResponseSellItem = do_nothing_1<boost::int32_t >;
+	Match_RequestShopItemList = do_nothing_3<boost::uint64_t, boost::int32_t, boost::int32_t >;
+	Match_ResponseShopItemList = do_nothing_2<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
+	Match_RequestCharacterItemList = do_nothing_1<boost::uint64_t >;
+	Match_RequestCharacterItemListForce = do_nothing_1<boost::uint64_t >;
+	Match_ResponseCharacterItemList = do_nothing_4<boost::int32_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
+	MatchRequestEquipItem = do_nothing_4<boost::uint64_t, boost::uint64_t, boost::uint32_t, boost::int32_t >;
+	MatchResponseEquipItem = do_nothing_1<boost::int32_t >;
+	MatchRequestTakeoffItem = do_nothing_3<boost::uint64_t, boost::uint32_t, boost::int32_t >;
+	MatchResponseTakeoffItem = do_nothing_1<boost::int32_t >;
+	Match_RequestAccountItemList = do_nothing_1<boost::uint64_t >;
+	Match_ResponseAccountItemList = do_nothing_1<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
+	Match_RequestBringAccountItem = do_nothing_2<boost::uint64_t, boost::int32_t >;
+	Match_ResponseBringAccountItem = do_nothing_1<boost::int32_t >;
+	Match_RequestBringBackAccountItem = do_nothing_2<boost::uint64_t, boost::uint64_t >;
+	Match_ResponseBringBackAccountItem = do_nothing_1<boost::int32_t >;
+	Match_ExpiredRentItem = do_nothing_1<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
+	Match_ItemGamble = do_nothing_1<boost::uint64_t >;
+	Match_GambleResultItem = do_nothing_2<boost::uint32_t, boost::uint32_t >;
+	Match_Request_Suicide = do_nothing_1<boost::uint64_t >;
+	Match_Response_Suicide = do_nothing_2<boost::int32_t, boost::uint64_t >;
 	Match_Response_SuicideReserve = do_nothing_0;
-	Match_Request_Obtain_WorldItem = do_nothing<boost::uint64_t, boost::int32_t >;
-	Match_WorldItem_Obtain = do_nothing<boost::uint64_t, boost::int32_t >;
-	Match_WorldItem_Spawn = do_nothing<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Match_Request_Spawn_WorldItem = do_nothing<boost::uint64_t, boost::int32_t, const boost::array<float, 3>&, float >;
-	Match_Request_Spawn_WorldItem_UID = do_nothing<boost::int32_t >;
-	Match_Reset_TeamMembers = do_nothing<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Match_Assign_Commander = do_nothing<boost::uint64_t, boost::uint64_t >;
-	Match_Set_Observer = do_nothing<boost::uint64_t >;
-	Match_Ladder_Request_Challenge = do_nothing<boost::int32_t, boost::uint32_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Match_Ladder_Response_Challenge = do_nothing<boost::int32_t >;
+	Match_Request_Obtain_WorldItem = do_nothing_2<boost::uint64_t, boost::int32_t >;
+	Match_WorldItem_Obtain = do_nothing_2<boost::uint64_t, boost::int32_t >;
+	Match_WorldItem_Spawn = do_nothing_1<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
+	Match_Request_Spawn_WorldItem = do_nothing_4<boost::uint64_t, boost::int32_t, const boost::array<float, 3>&, float >;
+	Match_Request_Spawn_WorldItem_UID = do_nothing_1<boost::int32_t >;
+	Match_Reset_TeamMembers = do_nothing_1<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
+	Match_Assign_Commander = do_nothing_2<boost::uint64_t, boost::uint64_t >;
+	Match_Set_Observer = do_nothing_1<boost::uint64_t >;
+	Match_Ladder_Request_Challenge = do_nothing_3<boost::int32_t, boost::uint32_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
+	Match_Ladder_Response_Challenge = do_nothing_1<boost::int32_t >;
 	Match_Ladder_SearchRival = do_nothing_0;
 	Match_Ladder_Request_CancelChallenge = do_nothing_0;
-	Match_Ladder_CancelChallenge = do_nothing<const std::string& >;
-	Ladder_Prepare = do_nothing<boost::uint64_t, boost::int32_t >;
-	Ladder_Launch = do_nothing<boost::uint64_t, const std::string& >;
-	Match_RequestProposal = do_nothing<boost::uint64_t, boost::int32_t, boost::int32_t, boost::int32_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Match_ResponseProposal = do_nothing<boost::int32_t, boost::int32_t, boost::int32_t >;
-	Match_AskAgreement = do_nothing<boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::int32_t, boost::int32_t >;
-	Match_ReplyAgreement = do_nothing<boost::uint64_t, boost::uint64_t, const std::string&, boost::int32_t, boost::int32_t, bool >;
-	Match_Friend_Add = do_nothing<const std::string& >;
-	Match_Friend_Remove = do_nothing<const std::string& >;
+	Match_Ladder_CancelChallenge = do_nothing_1<const std::string& >;
+	Ladder_Prepare = do_nothing_2<boost::uint64_t, boost::int32_t >;
+	Ladder_Launch = do_nothing_2<boost::uint64_t, const std::string& >;
+	Match_RequestProposal = do_nothing_5<boost::uint64_t, boost::int32_t, boost::int32_t, boost::int32_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
+	Match_ResponseProposal = do_nothing_3<boost::int32_t, boost::int32_t, boost::int32_t >;
+	Match_AskAgreement = do_nothing_4<boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::int32_t, boost::int32_t >;
+	Match_ReplyAgreement = do_nothing_6<boost::uint64_t, boost::uint64_t, const std::string&, boost::int32_t, boost::int32_t, bool >;
+	Match_Friend_Add = do_nothing_1<const std::string& >;
+	Match_Friend_Remove = do_nothing_1<const std::string& >;
 	Match_Friend_List = do_nothing_0;
-	Match_Response_FriendList = do_nothing<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Match_Friend_Msg = do_nothing<const std::string& >;
-	Match_Clan_RequestCreateClan = do_nothing<boost::uint64_t, boost::int32_t, const std::string&, const std::string&, const std::string&, const std::string&, const std::string& >;
-	Match_Clan_ResponseCreateClan = do_nothing<boost::int32_t, boost::int32_t >;
-	Match_Clan_AskSponsorAgreement = do_nothing<boost::int32_t, const std::string&, boost::uint64_t, const std::string& >;
-	Match_Clan_AnswerSponsorAgreement = do_nothing<boost::int32_t, boost::uint64_t, const std::string&, bool >;
-	Match_Clan_RequestAgreedCreateClan = do_nothing<boost::uint64_t, const std::string&, const std::string&, const std::string&, const std::string&, const std::string& >;
-	Match_Clan_AgreedResponseCreateClan = do_nothing<boost::int32_t >;
-	Match_Clan_RequestCloseClan = do_nothing<boost::uint64_t, const std::string& >;
-	Match_Clan_ResponseCloseClan = do_nothing<boost::int32_t >;
-	Match_Clan_RequestJoinClan = do_nothing<boost::uint64_t, const std::string&, const std::string& >;
-	Match_Clan_ResponseJoinClan = do_nothing<boost::int32_t >;
-	Match_Clan_AskJoinAgreement = do_nothing<const std::string&, boost::uint64_t, const std::string& >;
-	Match_Clan_AnswerJoinAgreement = do_nothing<boost::uint64_t, const std::string&, bool >;
-	Match_Clan_RequestAgreedJoinClan = do_nothing<boost::uint64_t, const std::string&, const std::string& >;
-	Match_Clan_ResponseAgreedJoinClan = do_nothing<boost::int32_t >;
-	Match_Clan_RequestLeaveClan = do_nothing<boost::uint64_t >;
-	Match_Clan_ResponseLeaveClan = do_nothing<boost::int32_t >;
-	Match_Clan_UpdateCharClanInfo = do_nothing<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Match_Clan_Master_RequestChangeGrade = do_nothing<boost::uint64_t, const std::string&, boost::int32_t, boost::int32_t >;
-	Match_Clan_Master_ResponseChangeGrade = do_nothing<boost::int32_t >;
-	Match_Clan_Admin_RequestExpelMember = do_nothing<boost::uint64_t, const std::string& >;
-	Match_Clan_Admin_ResponseLeaveMember = do_nothing<boost::int32_t >;
-	Match_Clan_Request_Msg = do_nothing<boost::uint64_t, const std::string& >;
-	Match_Clan_Msg = do_nothing<const std::string&, const std::string& >;
-	Match_Clan_Request_ClanMemberList = do_nothing<boost::uint64_t >;
-	Match_Clan_Response_ClanMemberList = do_nothing<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Match_Clan_Request_Clan_Info = do_nothing<boost::uint64_t, const std::string& >;
-	Match_Clan_Response_Clan_Info = do_nothing<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Match_Clan_Standby_ClanList = do_nothing<boost::int32_t, boost::int32_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Match_Clan_Member_Connected = do_nothing<const std::string& >;
-	Match_Clan_Request_EmblemURL = do_nothing<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Match_Clan_Response_EmblemURL = do_nothing<boost::int32_t, boost::int32_t, const std::string& >;
-	Match_Clan_Local_EmblemReady = do_nothing<boost::int32_t, const std::string& >;
-	MC_MATCH_CLAN_ACCOUNCE_DELETE = do_nothing<const std::string& >;
-	Match_Callvote = do_nothing<const std::string&, const std::string& >;
-	Match_NotifyCallvote = do_nothing<const std::string&, const std::string& >;
-	Match_NotifyVoteResult = do_nothing<const std::string&, boost::int32_t >;
+	Match_Response_FriendList = do_nothing_1<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
+	Match_Friend_Msg = do_nothing_1<const std::string& >;
+	Match_Clan_RequestCreateClan = do_nothing_7<boost::uint64_t, boost::int32_t, const std::string&, const std::string&, const std::string&, const std::string&, const std::string& >;
+	Match_Clan_ResponseCreateClan = do_nothing_2<boost::int32_t, boost::int32_t >;
+	Match_Clan_AskSponsorAgreement = do_nothing_4<boost::int32_t, const std::string&, boost::uint64_t, const std::string& >;
+	Match_Clan_AnswerSponsorAgreement = do_nothing_4<boost::int32_t, boost::uint64_t, const std::string&, bool >;
+	Match_Clan_RequestAgreedCreateClan = do_nothing_6<boost::uint64_t, const std::string&, const std::string&, const std::string&, const std::string&, const std::string& >;
+	Match_Clan_AgreedResponseCreateClan = do_nothing_1<boost::int32_t >;
+	Match_Clan_RequestCloseClan = do_nothing_2<boost::uint64_t, const std::string& >;
+	Match_Clan_ResponseCloseClan = do_nothing_1<boost::int32_t >;
+	Match_Clan_RequestJoinClan = do_nothing_3<boost::uint64_t, const std::string&, const std::string& >;
+	Match_Clan_ResponseJoinClan = do_nothing_1<boost::int32_t >;
+	Match_Clan_AskJoinAgreement = do_nothing_3<const std::string&, boost::uint64_t, const std::string& >;
+	Match_Clan_AnswerJoinAgreement = do_nothing_3<boost::uint64_t, const std::string&, bool >;
+	Match_Clan_RequestAgreedJoinClan = do_nothing_3<boost::uint64_t, const std::string&, const std::string& >;
+	Match_Clan_ResponseAgreedJoinClan = do_nothing_1<boost::int32_t >;
+	Match_Clan_RequestLeaveClan = do_nothing_1<boost::uint64_t >;
+	Match_Clan_ResponseLeaveClan = do_nothing_1<boost::int32_t >;
+	Match_Clan_UpdateCharClanInfo = do_nothing_1<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
+	Match_Clan_Master_RequestChangeGrade = do_nothing_4<boost::uint64_t, const std::string&, boost::int32_t, boost::int32_t >;
+	Match_Clan_Master_ResponseChangeGrade = do_nothing_1<boost::int32_t >;
+	Match_Clan_Admin_RequestExpelMember = do_nothing_2<boost::uint64_t, const std::string& >;
+	Match_Clan_Admin_ResponseLeaveMember = do_nothing_1<boost::int32_t >;
+	Match_Clan_Request_Msg = do_nothing_2<boost::uint64_t, const std::string& >;
+	Match_Clan_Msg = do_nothing_2<const std::string&, const std::string& >;
+	Match_Clan_Request_ClanMemberList = do_nothing_1<boost::uint64_t >;
+	Match_Clan_Response_ClanMemberList = do_nothing_1<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
+	Match_Clan_Request_Clan_Info = do_nothing_2<boost::uint64_t, const std::string& >;
+	Match_Clan_Response_Clan_Info = do_nothing_1<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
+	Match_Clan_Standby_ClanList = do_nothing_3<boost::int32_t, boost::int32_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
+	Match_Clan_Member_Connected = do_nothing_1<const std::string& >;
+	Match_Clan_Request_EmblemURL = do_nothing_1<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
+	Match_Clan_Response_EmblemURL = do_nothing_3<boost::int32_t, boost::int32_t, const std::string& >;
+	Match_Clan_Local_EmblemReady = do_nothing_2<boost::int32_t, const std::string& >;
+	MC_MATCH_CLAN_ACCOUNCE_DELETE = do_nothing_1<const std::string& >;
+	Match_Callvote = do_nothing_2<const std::string&, const std::string& >;
+	Match_NotifyCallvote = do_nothing_2<const std::string&, const std::string& >;
+	Match_NotifyVoteResult = do_nothing_2<const std::string&, boost::int32_t >;
 	Match_VoteYes = do_nothing_0;
 	Match_VoteNo = do_nothing_0;
 	Votestop = do_nothing_0;
-	Match_Broadcast_ClanRenewVictories = do_nothing<const std::string&, const std::string&, boost::int32_t >;
-	Match_Broadcast_ClanInterruptVictories = do_nothing<const std::string&, const std::string&, boost::int32_t >;
-	Match_Broadcast_DuelRenewVictories = do_nothing<const std::string&, const std::string&, boost::int32_t, boost::int32_t >;
-	Match_Broadcast_DuelInterruptVictories = do_nothing<const std::string&, const std::string&, boost::int32_t >;
-	Match_Assign_Berserker = do_nothing<boost::uint64_t >;
-	Match_Duel_QueueInfo = do_nothing<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Match_Quest_Ping = do_nothing<boost::uint32_t >;
-	Match_Quest_Pong = do_nothing<boost::uint32_t >;
-	MC_QUEST_NPCLIST = do_nothing<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::int32_t >;
+	Match_Broadcast_ClanRenewVictories = do_nothing_3<const std::string&, const std::string&, boost::int32_t >;
+	Match_Broadcast_ClanInterruptVictories = do_nothing_3<const std::string&, const std::string&, boost::int32_t >;
+	Match_Broadcast_DuelRenewVictories = do_nothing_4<const std::string&, const std::string&, boost::int32_t, boost::int32_t >;
+	Match_Broadcast_DuelInterruptVictories = do_nothing_3<const std::string&, const std::string&, boost::int32_t >;
+	Match_Assign_Berserker = do_nothing_1<boost::uint64_t >;
+	Match_Duel_QueueInfo = do_nothing_1<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
+	Match_Quest_Ping = do_nothing_1<boost::uint32_t >;
+	Match_Quest_Pong = do_nothing_1<boost::uint32_t >;
+	MC_QUEST_NPCLIST = do_nothing_2<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::int32_t >;
 	Event_ChangeMaster = do_nothing_0;
-	Event_ChangePassword = do_nothing<const std::string& >;
-	Event_RequestJJang = do_nothing<const std::string& >;
-	Event_RemoveJJang = do_nothing<const std::string& >;
-	Event_UpdateJJang = do_nothing<boost::uint64_t, bool >;
-	Quest_NPCSpawn = do_nothing<boost::uint64_t, boost::uint64_t, boost::uint8_t, boost::uint8_t >;
-	Quest_Entrust_NPC_Control = do_nothing<boost::uint64_t, boost::uint64_t >;
-	Quest_Checksum_NPCInfo = do_nothing<boost::uint64_t, boost::uint32_t >;
-	Quest_NPCDead = do_nothing<boost::uint64_t, boost::uint64_t >;
+	Event_ChangePassword = do_nothing_1<const std::string& >;
+	Event_RequestJJang = do_nothing_1<const std::string& >;
+	Event_RemoveJJang = do_nothing_1<const std::string& >;
+	Event_UpdateJJang = do_nothing_2<boost::uint64_t, bool >;
+	Quest_NPCSpawn = do_nothing_4<boost::uint64_t, boost::uint64_t, boost::uint8_t, boost::uint8_t >;
+	Quest_Entrust_NPC_Control = do_nothing_2<boost::uint64_t, boost::uint64_t >;
+	Quest_Checksum_NPCInfo = do_nothing_2<boost::uint64_t, boost::uint32_t >;
+	Quest_NPCDead = do_nothing_2<boost::uint64_t, boost::uint64_t >;
 	Quest_RefreshPlayerStatus = do_nothing_0;
 	Quest_NPC_AllClear = do_nothing_0;
-	Quest_Round_Start = do_nothing<boost::uint8_t >;
+	Quest_Round_Start = do_nothing_1<boost::uint8_t >;
 	Quest_RequestDead = do_nothing_0;
-	Quest_PlayerDead = do_nothing<boost::uint64_t >;
-	Quest_ObtainQuestItem = do_nothing<boost::uint32_t >;
-	Quest_ObtainZItem = do_nothing<boost::uint32_t >;
-	Quest_State_Mapset = do_nothing<boost::uint64_t, boost::int8_t >;
-	Quest_Stage_GameInfo = do_nothing<boost::int8_t, boost::int8_t, boost::uint32_t >;
-	Quest_SectorBonus = do_nothing<boost::uint64_t, boost::uint32_t, boost::uint32_t >;
-	Quest_GameInfo = do_nothing<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Quest_Combat_State = do_nothing<boost::int8_t >;
-	Quest_Sector_Start = do_nothing<boost::int8_t, boost::uint8_t >;
-	Quest_Complete = do_nothing<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
+	Quest_PlayerDead = do_nothing_1<boost::uint64_t >;
+	Quest_ObtainQuestItem = do_nothing_1<boost::uint32_t >;
+	Quest_ObtainZItem = do_nothing_1<boost::uint32_t >;
+	Quest_State_Mapset = do_nothing_2<boost::uint64_t, boost::int8_t >;
+	Quest_Stage_GameInfo = do_nothing_3<boost::int8_t, boost::int8_t, boost::uint32_t >;
+	Quest_SectorBonus = do_nothing_3<boost::uint64_t, boost::uint32_t, boost::uint32_t >;
+	Quest_GameInfo = do_nothing_1<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
+	Quest_Combat_State = do_nothing_1<boost::int8_t >;
+	Quest_Sector_Start = do_nothing_2<boost::int8_t, boost::uint8_t >;
+	Quest_Complete = do_nothing_1<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
 	Quest_Failed = do_nothing_0;
-	Quest_Request_Moveto_Portal = do_nothing<boost::int8_t >;
-	Quest_Moveto_Portal = do_nothing<boost::int8_t, boost::uint8_t, boost::uint64_t >;
-	Quest_Readyto_NewSector = do_nothing<boost::uint64_t >;
-	Quest_Peer_NPC_BasicInfo = do_nothing<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Quest_Peer_NPC_HPInfo = do_nothing<boost::int32_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Quest_Peer_NPC_Attack_Melee = do_nothing<boost::uint64_t >;
-	Quest_Peer_NPC_Attack_Range = do_nothing<boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Quest_Peer_NPC_Skill_Start = do_nothing<boost::uint64_t, boost::int32_t, boost::uint64_t, const boost::array<float, 3>& >;
-	Quest_Peer_NPC_Skill_Execute = do_nothing<boost::uint64_t, boost::int32_t, boost::uint64_t, const boost::array<float, 3>& >;
-	Quest_Peer_NPC_Dead = do_nothing<boost::uint64_t, boost::uint64_t >;
-	Quest_Test_RequestNPCSpawn = do_nothing<boost::int32_t, boost::int32_t >;
+	Quest_Request_Moveto_Portal = do_nothing_1<boost::int8_t >;
+	Quest_Moveto_Portal = do_nothing_3<boost::int8_t, boost::uint8_t, boost::uint64_t >;
+	Quest_Readyto_NewSector = do_nothing_1<boost::uint64_t >;
+	Quest_Peer_NPC_BasicInfo = do_nothing_1<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
+	Quest_Peer_NPC_HPInfo = do_nothing_2<boost::int32_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
+	Quest_Peer_NPC_Attack_Melee = do_nothing_1<boost::uint64_t >;
+	Quest_Peer_NPC_Attack_Range = do_nothing_2<boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
+	Quest_Peer_NPC_Skill_Start = do_nothing_4<boost::uint64_t, boost::int32_t, boost::uint64_t, const boost::array<float, 3>& >;
+	Quest_Peer_NPC_Skill_Execute = do_nothing_4<boost::uint64_t, boost::int32_t, boost::uint64_t, const boost::array<float, 3>& >;
+	Quest_Peer_NPC_Dead = do_nothing_2<boost::uint64_t, boost::uint64_t >;
+	Quest_Test_RequestNPCSpawn = do_nothing_2<boost::int32_t, boost::int32_t >;
 	Quest_Test_ClearNPC = do_nothing_0;
 	Quest_Test_SectorClear = do_nothing_0;
 	Quest_Test_Finish = do_nothing_0;
-	Admin_Announce = do_nothing<boost::uint64_t, const std::string&, boost::uint32_t >;
-	Admin_RequestBanPlayer = do_nothing<boost::uint64_t, const std::string& >;
-	Admin_ResponseBanPlayer = do_nothing<boost::int32_t >;
+	Admin_Announce = do_nothing_3<boost::uint64_t, const std::string&, boost::uint32_t >;
+	Admin_RequestBanPlayer = do_nothing_2<boost::uint64_t, const std::string& >;
+	Admin_ResponseBanPlayer = do_nothing_1<boost::int32_t >;
 	Admin_Hide = do_nothing_0;
 	MC_ADMIN_RESET_ALL_HACKING_BLOCK = do_nothing_0;
 	MC_ADMIN_RELOAD_GAMBLEITEM = do_nothing_0;
 	MC_ADMIN_ASSASIN = do_nothing_0;
-	Agent_Connect = do_nothing<const std::string&, boost::int32_t >;
+	Agent_Connect = do_nothing_2<const std::string&, boost::int32_t >;
 	Agent_Disconnect = do_nothing_0;
-	Match_RegisterAgent = do_nothing<const std::string&, boost::int32_t, boost::int32_t >;
+	Match_RegisterAgent = do_nothing_3<const std::string&, boost::int32_t, boost::int32_t >;
 	Match_UnRegisterAgent = do_nothing_0;
-	Match_Agent_RequestLiveCheck = do_nothing<boost::uint32_t, boost::uint32_t, boost::uint32_t >;
-	Match_Agent_ResponseLiveCheck = do_nothing<boost::uint32_t >;
-	Agent_StageReserve = do_nothing<boost::uint64_t >;
-	Agent_StageRelease = do_nothing<boost::uint64_t >;
-	Agent_StageReady = do_nothing<boost::uint64_t >;
-	Agent_RelayPeer = do_nothing<boost::uint64_t, boost::uint64_t, boost::uint64_t >;
-	Questitem = do_nothing<boost::uint64_t >;
-	Quest_item_response = do_nothing<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Quest_item_buy = do_nothing<boost::uint64_t, boost::int32_t >;
-	Quest_item_responsebuy = do_nothing<boost::int32_t, boost::int32_t >;
-	Quest_item_sell = do_nothing<boost::uint64_t, boost::int32_t, boost::int32_t >;
-	Quest_item_responsesell = do_nothing<boost::int32_t, boost::int32_t >;
-	Quest_Reward = do_nothing<boost::int32_t, boost::int32_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Quest_Request_Sacrifice = do_nothing<boost::uint64_t, boost::int32_t, boost::int32_t >;
-	Quest_Response_Sacrifice = do_nothing<boost::int32_t, boost::uint64_t, boost::int32_t, boost::int32_t >;
-	Quest_Callback_Sacrifice = do_nothing<boost::uint64_t, boost::int32_t, boost::int32_t >;
-	Quest_Callback_Result = do_nothing<boost::int32_t, boost::uint64_t, boost::int32_t, boost::int32_t >;
-	Quest_Request_SlotInfo = do_nothing<boost::uint64_t >;
-	Quest_Resonse_SlotInfo = do_nothing<boost::uint64_t, boost::int32_t, boost::uint64_t, boost::int32_t >;
-	Quest_RequestLevel = do_nothing<boost::uint64_t >;
-	Quest_ResponseLevel = do_nothing<boost::int32_t >;
-	Quest_Survival_Result = do_nothing<boost::int32_t, boost::int32_t >;
-	Quest_Survival_Ranking = do_nothing<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Quest_Survuval_PrivateRanking = do_nothing<boost::uint32_t, boost::uint32_t >;
-	Quest_Start_Fail = do_nothing<boost::int32_t, boost::uint64_t >;
-	monsterinfo = do_nothing<boost::int8_t >;
-	Quest_Bible_Request = do_nothing<boost::uint64_t >;
-	Quest_Bible_Response = do_nothing<boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
+	Match_Agent_RequestLiveCheck = do_nothing_3<boost::uint32_t, boost::uint32_t, boost::uint32_t >;
+	Match_Agent_ResponseLiveCheck = do_nothing_1<boost::uint32_t >;
+	Agent_StageReserve = do_nothing_1<boost::uint64_t >;
+	Agent_StageRelease = do_nothing_1<boost::uint64_t >;
+	Agent_StageReady = do_nothing_1<boost::uint64_t >;
+	Agent_RelayPeer = do_nothing_3<boost::uint64_t, boost::uint64_t, boost::uint64_t >;
+	Questitem = do_nothing_1<boost::uint64_t >;
+	Quest_item_response = do_nothing_1<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
+	Quest_item_buy = do_nothing_2<boost::uint64_t, boost::int32_t >;
+	Quest_item_responsebuy = do_nothing_2<boost::int32_t, boost::int32_t >;
+	Quest_item_sell = do_nothing_3<boost::uint64_t, boost::int32_t, boost::int32_t >;
+	Quest_item_responsesell = do_nothing_2<boost::int32_t, boost::int32_t >;
+	Quest_Reward = do_nothing_4<boost::int32_t, boost::int32_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
+	Quest_Request_Sacrifice = do_nothing_3<boost::uint64_t, boost::int32_t, boost::int32_t >;
+	Quest_Response_Sacrifice = do_nothing_4<boost::int32_t, boost::uint64_t, boost::int32_t, boost::int32_t >;
+	Quest_Callback_Sacrifice = do_nothing_3<boost::uint64_t, boost::int32_t, boost::int32_t >;
+	Quest_Callback_Result = do_nothing_4<boost::int32_t, boost::uint64_t, boost::int32_t, boost::int32_t >;
+	Quest_Request_SlotInfo = do_nothing_1<boost::uint64_t >;
+	Quest_Resonse_SlotInfo = do_nothing_4<boost::uint64_t, boost::int32_t, boost::uint64_t, boost::int32_t >;
+	Quest_RequestLevel = do_nothing_1<boost::uint64_t >;
+	Quest_ResponseLevel = do_nothing_1<boost::int32_t >;
+	Quest_Survival_Result = do_nothing_2<boost::int32_t, boost::int32_t >;
+	Quest_Survival_Ranking = do_nothing_1<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
+	Quest_Survuval_PrivateRanking = do_nothing_2<boost::uint32_t, boost::uint32_t >;
+	Quest_Start_Fail = do_nothing_2<boost::int32_t, boost::uint64_t >;
+	monsterinfo = do_nothing_1<boost::int8_t >;
+	Quest_Bible_Request = do_nothing_1<boost::uint64_t >;
+	Quest_Bible_Response = do_nothing_2<boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
 	MC_REQUEST_GIVE_ONESELF_UP = do_nothing_0;
-	MC_RESPONSE_GAMBLEITEMLIST = do_nothing<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	MC_MATCH_ROUTE_UPDATE_STAGE_EQUIP_LOOK = do_nothing<boost::uint64_t, boost::int32_t, boost::int32_t >;
-	MC_REQUEST_RESOURCE_CRC32 = do_nothing<boost::uint32_t >;
-	MC_RESPONSE_RESOURCE_CRC32 = do_nothing<boost::uint32_t >;
+	MC_RESPONSE_GAMBLEITEMLIST = do_nothing_1<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
+	MC_MATCH_ROUTE_UPDATE_STAGE_EQUIP_LOOK = do_nothing_3<boost::uint64_t, boost::int32_t, boost::int32_t >;
+	MC_REQUEST_RESOURCE_CRC32 = do_nothing_1<boost::uint32_t >;
+	MC_RESPONSE_RESOURCE_CRC32 = do_nothing_1<boost::uint32_t >;
 }
 
 
@@ -355,7 +355,7 @@ static void do_Net_Ping(Registry* self, const uint8_t* parameters, uint16_t leng
 
 	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
 
-	if(self->Net_Ping)		self->Net_Ping(p0);
+		self->Net_Ping(p0);
 }
 
 static void do_Net_Pong(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -364,7 +364,7 @@ static void do_Net_Pong(Registry* self, const uint8_t* parameters, uint16_t leng
 
 	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
 
-	if(self->Net_Pong)		self->Net_Pong(p0);
+		self->Net_Pong(p0);
 }
 
 static void do_Match_Announce(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -374,7 +374,7 @@ static void do_Match_Announce(Registry* self, const uint8_t* parameters, uint16_
 	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 
-	if(self->Match_Announce)		self->Match_Announce(p0, p1);
+		self->Match_Announce(p0, p1);
 }
 
 static void do_Clock_Synchronize(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -383,7 +383,7 @@ static void do_Clock_Synchronize(Registry* self, const uint8_t* parameters, uint
 
 	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
 
-	if(self->Clock_Synchronize)		self->Clock_Synchronize(p0);
+		self->Clock_Synchronize(p0);
 }
 
 static void do_Match_Login(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -395,7 +395,7 @@ static void do_Match_Login(Registry* self, const uint8_t* parameters, uint16_t l
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 	uint32_t p3 = extract_uint32(parameters, &paramPtr, length);
 
-	if(self->Match_Login)		self->Match_Login(p0, p1, p2, p3);
+		self->Match_Login(p0, p1, p2, p3);
 }
 
 static void do_Match_ResponseLogin(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -412,7 +412,7 @@ static void do_Match_ResponseLogin(Registry* self, const uint8_t* parameters, ui
 	bool p7 = extract_bool(parameters, &paramPtr, length);
 	tuple<Buffer, size_t, size_t> p8 = extract_blob(parameters, &paramPtr, length);
 
-	if(self->Match_ResponseLogin)		self->Match_ResponseLogin(p0, p1, p2, p3, p4, p5, p6, p7, p8);
+		self->Match_ResponseLogin(p0, p1, p2, p3, p4, p5, p6, p7, p8);
 }
 
 static void do_Match_Response_Result(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -421,7 +421,7 @@ static void do_Match_Response_Result(Registry* self, const uint8_t* parameters, 
 
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Match_Response_Result)		self->Match_Response_Result(p0);
+		self->Match_Response_Result(p0);
 }
 
 static void do_Match_LoginNetmarble(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -433,7 +433,7 @@ static void do_Match_LoginNetmarble(Registry* self, const uint8_t* parameters, u
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 	uint32_t p3 = extract_uint32(parameters, &paramPtr, length);
 
-	if(self->Match_LoginNetmarble)		self->Match_LoginNetmarble(p0, p1, p2, p3);
+		self->Match_LoginNetmarble(p0, p1, p2, p3);
 }
 
 static void do_MC_MATCH_DISCONNMSG(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -442,7 +442,7 @@ static void do_MC_MATCH_DISCONNMSG(Registry* self, const uint8_t* parameters, ui
 
 	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
 
-	if(self->MC_MATCH_DISCONNMSG)		self->MC_MATCH_DISCONNMSG(p0);
+		self->MC_MATCH_DISCONNMSG(p0);
 }
 
 static void do_MC_MATCH_LOGIN_NHNUSA(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -455,7 +455,7 @@ static void do_MC_MATCH_LOGIN_NHNUSA(Registry* self, const uint8_t* parameters, 
 	uint32_t p3 = extract_uint32(parameters, &paramPtr, length);
 	tuple<Buffer, size_t, size_t> p4 = extract_blob(parameters, &paramPtr, length);
 
-	if(self->MC_MATCH_LOGIN_NHNUSA)		self->MC_MATCH_LOGIN_NHNUSA(p0, p1, p2, p3, p4);
+		self->MC_MATCH_LOGIN_NHNUSA(p0, p1, p2, p3, p4);
 }
 
 static void do_MC_MATCH_LOGIN_GAMEON_JP(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -468,7 +468,7 @@ static void do_MC_MATCH_LOGIN_GAMEON_JP(Registry* self, const uint8_t* parameter
 	uint32_t p3 = extract_uint32(parameters, &paramPtr, length);
 	tuple<Buffer, size_t, size_t> p4 = extract_blob(parameters, &paramPtr, length);
 
-	if(self->MC_MATCH_LOGIN_GAMEON_JP)		self->MC_MATCH_LOGIN_GAMEON_JP(p0, p1, p2, p3, p4);
+		self->MC_MATCH_LOGIN_GAMEON_JP(p0, p1, p2, p3, p4);
 }
 
 static void do_Match_ObjectCache(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -478,7 +478,7 @@ static void do_Match_ObjectCache(Registry* self, const uint8_t* parameters, uint
 	uint8_t p0 = extract_uint8(parameters, &paramPtr, length);
 	tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
 
-	if(self->Match_ObjectCache)		self->Match_ObjectCache(p0, p1);
+		self->Match_ObjectCache(p0, p1);
 }
 
 static void do_Match_BridgePeer(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -489,7 +489,7 @@ static void do_Match_BridgePeer(Registry* self, const uint8_t* parameters, uint1
 	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
 	uint32_t p2 = extract_uint32(parameters, &paramPtr, length);
 
-	if(self->Match_BridgePeer)		self->Match_BridgePeer(p0, p1, p2);
+		self->Match_BridgePeer(p0, p1, p2);
 }
 
 static void do_Match_BridgePeerACK(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -499,12 +499,12 @@ static void do_Match_BridgePeerACK(Registry* self, const uint8_t* parameters, ui
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Match_BridgePeerACK)		self->Match_BridgePeerACK(p0, p1);
+		self->Match_BridgePeerACK(p0, p1);
 }
 
 static void do_MatchServer_RequestRecommandedChannel(Registry* self, const uint8_t*, uint16_t)
 {
-	if(self->MatchServer_RequestRecommandedChannel)		self->MatchServer_RequestRecommandedChannel();
+		self->MatchServer_RequestRecommandedChannel();
 }
 
 static void do_MatchServer_ResponseRecommandedChannel(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -513,7 +513,7 @@ static void do_MatchServer_ResponseRecommandedChannel(Registry* self, const uint
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-	if(self->MatchServer_ResponseRecommandedChannel)		self->MatchServer_ResponseRecommandedChannel(p0);
+		self->MatchServer_ResponseRecommandedChannel(p0);
 }
 
 static void do_Channel_Join(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -523,7 +523,7 @@ static void do_Channel_Join(Registry* self, const uint8_t* parameters, uint16_t 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 
-	if(self->Channel_Join)		self->Channel_Join(p0, p1);
+		self->Channel_Join(p0, p1);
 }
 
 static void do_Channel_ResponseJoin(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -535,7 +535,7 @@ static void do_Channel_ResponseJoin(Registry* self, const uint8_t* parameters, u
 	std::string p2 = extract_string(parameters, &paramPtr, length);
 	bool p3 = extract_bool(parameters, &paramPtr, length);
 
-	if(self->Channel_ResponseJoin)		self->Channel_ResponseJoin(p0, p1, p2, p3);
+		self->Channel_ResponseJoin(p0, p1, p2, p3);
 }
 
 static void do_Channel_RequestJoinFromName(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -547,7 +547,7 @@ static void do_Channel_RequestJoinFromName(Registry* self, const uint8_t* parame
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 	std::string p3 = extract_string(parameters, &paramPtr, length);
 
-	if(self->Channel_RequestJoinFromName)		self->Channel_RequestJoinFromName(p0, p1, p2, p3);
+		self->Channel_RequestJoinFromName(p0, p1, p2, p3);
 }
 
 static void do_Channel_Leave(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -557,7 +557,7 @@ static void do_Channel_Leave(Registry* self, const uint8_t* parameters, uint16_t
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 
-	if(self->Channel_Leave)		self->Channel_Leave(p0, p1);
+		self->Channel_Leave(p0, p1);
 }
 
 static void do_Channel_ListStart(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -568,7 +568,7 @@ static void do_Channel_ListStart(Registry* self, const uint8_t* parameters, uint
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Channel_ListStart)		self->Channel_ListStart(p0, p1, p2);
+		self->Channel_ListStart(p0, p1, p2);
 }
 
 static void do_Channel_ListStop(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -577,7 +577,7 @@ static void do_Channel_ListStop(Registry* self, const uint8_t* parameters, uint1
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-	if(self->Channel_ListStop)		self->Channel_ListStop(p0);
+		self->Channel_ListStop(p0);
 }
 
 static void do_Channel_List(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -586,7 +586,7 @@ static void do_Channel_List(Registry* self, const uint8_t* parameters, uint16_t 
 
 	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
 
-	if(self->Channel_List)		self->Channel_List(p0);
+		self->Channel_List(p0);
 }
 
 static void do_Channel_Request_Chat(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -597,7 +597,7 @@ static void do_Channel_Request_Chat(Registry* self, const uint8_t* parameters, u
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 	std::string p2 = extract_string(parameters, &paramPtr, length);
 
-	if(self->Channel_Request_Chat)		self->Channel_Request_Chat(p0, p1, p2);
+		self->Channel_Request_Chat(p0, p1, p2);
 }
 
 static void do_Channel_Chat(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -609,7 +609,7 @@ static void do_Channel_Chat(Registry* self, const uint8_t* parameters, uint16_t 
 	std::string p2 = extract_string(parameters, &paramPtr, length);
 	int32_t p3 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Channel_Chat)		self->Channel_Chat(p0, p1, p2, p3);
+		self->Channel_Chat(p0, p1, p2, p3);
 }
 
 static void do_Channel_Request_Rule(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -618,7 +618,7 @@ static void do_Channel_Request_Rule(Registry* self, const uint8_t* parameters, u
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-	if(self->Channel_Request_Rule)		self->Channel_Request_Rule(p0);
+		self->Channel_Request_Rule(p0);
 }
 
 static void do_Channel_Response_Rule(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -628,7 +628,7 @@ static void do_Channel_Response_Rule(Registry* self, const uint8_t* parameters, 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 
-	if(self->Channel_Response_Rule)		self->Channel_Response_Rule(p0, p1);
+		self->Channel_Response_Rule(p0, p1);
 }
 
 static void do_Channel_RequestAllPlayerList(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -640,7 +640,7 @@ static void do_Channel_RequestAllPlayerList(Registry* self, const uint8_t* param
 	uint32_t p2 = extract_uint32(parameters, &paramPtr, length);
 	uint32_t p3 = extract_uint32(parameters, &paramPtr, length);
 
-	if(self->Channel_RequestAllPlayerList)		self->Channel_RequestAllPlayerList(p0, p1, p2, p3);
+		self->Channel_RequestAllPlayerList(p0, p1, p2, p3);
 }
 
 static void do_Channel_ResponseAllPlayerList(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -650,7 +650,7 @@ static void do_Channel_ResponseAllPlayerList(Registry* self, const uint8_t* para
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
 
-	if(self->Channel_ResponseAllPlayerList)		self->Channel_ResponseAllPlayerList(p0, p1);
+		self->Channel_ResponseAllPlayerList(p0, p1);
 }
 
 static void do_Stage_Create(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -662,7 +662,7 @@ static void do_Stage_Create(Registry* self, const uint8_t* parameters, uint16_t 
 	bool p2 = extract_bool(parameters, &paramPtr, length);
 	std::string p3 = extract_string(parameters, &paramPtr, length);
 
-	if(self->Stage_Create)		self->Stage_Create(p0, p1, p2, p3);
+		self->Stage_Create(p0, p1, p2, p3);
 }
 
 static void do_Stage_RequestJoin(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -672,7 +672,7 @@ static void do_Stage_RequestJoin(Registry* self, const uint8_t* parameters, uint
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 
-	if(self->Stage_RequestJoin)		self->Stage_RequestJoin(p0, p1);
+		self->Stage_RequestJoin(p0, p1);
 }
 
 static void do_Stage_RequestPrivateJoin(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -683,7 +683,7 @@ static void do_Stage_RequestPrivateJoin(Registry* self, const uint8_t* parameter
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 	std::string p2 = extract_string(parameters, &paramPtr, length);
 
-	if(self->Stage_RequestPrivateJoin)		self->Stage_RequestPrivateJoin(p0, p1, p2);
+		self->Stage_RequestPrivateJoin(p0, p1, p2);
 }
 
 static void do_Stage_Join(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -695,7 +695,7 @@ static void do_Stage_Join(Registry* self, const uint8_t* parameters, uint16_t le
 	uint32_t p2 = extract_uint32(parameters, &paramPtr, length);
 	std::string p3 = extract_string(parameters, &paramPtr, length);
 
-	if(self->Stage_Join)		self->Stage_Join(p0, p1, p2, p3);
+		self->Stage_Join(p0, p1, p2, p3);
 }
 
 static void do_Stage_Leave(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -704,7 +704,7 @@ static void do_Stage_Leave(Registry* self, const uint8_t* parameters, uint16_t l
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-	if(self->Stage_Leave)		self->Stage_Leave(p0);
+		self->Stage_Leave(p0);
 }
 
 static void do_Stage_Request_PlayerList(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -713,7 +713,7 @@ static void do_Stage_Request_PlayerList(Registry* self, const uint8_t* parameter
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-	if(self->Stage_Request_PlayerList)		self->Stage_Request_PlayerList(p0);
+		self->Stage_Request_PlayerList(p0);
 }
 
 static void do_Stage_Follow(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -722,7 +722,7 @@ static void do_Stage_Follow(Registry* self, const uint8_t* parameters, uint16_t 
 
 	std::string p0 = extract_string(parameters, &paramPtr, length);
 
-	if(self->Stage_Follow)		self->Stage_Follow(p0);
+		self->Stage_Follow(p0);
 }
 
 static void do_Stage_Response_Follow(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -731,7 +731,7 @@ static void do_Stage_Response_Follow(Registry* self, const uint8_t* parameters, 
 
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Stage_Response_Follow)		self->Stage_Response_Follow(p0);
+		self->Stage_Response_Follow(p0);
 }
 
 static void do_Stage_ResponseJoin(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -740,7 +740,7 @@ static void do_Stage_ResponseJoin(Registry* self, const uint8_t* parameters, uin
 
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Stage_ResponseJoin)		self->Stage_ResponseJoin(p0);
+		self->Stage_ResponseJoin(p0);
 }
 
 static void do_Stage_RequirePassword(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -750,7 +750,7 @@ static void do_Stage_RequirePassword(Registry* self, const uint8_t* parameters, 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 
-	if(self->Stage_RequirePassword)		self->Stage_RequirePassword(p0, p1);
+		self->Stage_RequirePassword(p0, p1);
 }
 
 static void do_RequestGameInfo(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -760,7 +760,7 @@ static void do_RequestGameInfo(Registry* self, const uint8_t* parameters, uint16
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 
-	if(self->RequestGameInfo)		self->RequestGameInfo(p0, p1);
+		self->RequestGameInfo(p0, p1);
 }
 
 static void do_ResponseGameInfo(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -772,7 +772,7 @@ static void do_ResponseGameInfo(Registry* self, const uint8_t* parameters, uint1
 	tuple<Buffer, size_t, size_t> p2 = extract_blob(parameters, &paramPtr, length);
 	tuple<Buffer, size_t, size_t> p3 = extract_blob(parameters, &paramPtr, length);
 
-	if(self->ResponseGameInfo)		self->ResponseGameInfo(p0, p1, p2, p3);
+		self->ResponseGameInfo(p0, p1, p2, p3);
 }
 
 static void do_Stage_ResponseCreate(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -781,7 +781,7 @@ static void do_Stage_ResponseCreate(Registry* self, const uint8_t* parameters, u
 
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Stage_ResponseCreate)		self->Stage_ResponseCreate(p0);
+		self->Stage_ResponseCreate(p0);
 }
 
 static void do_Stage_Request_EnterBattle(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -791,7 +791,7 @@ static void do_Stage_Request_EnterBattle(Registry* self, const uint8_t* paramete
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 
-	if(self->Stage_Request_EnterBattle)		self->Stage_Request_EnterBattle(p0, p1);
+		self->Stage_Request_EnterBattle(p0, p1);
 }
 
 static void do_Stage_EnterBattle(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -801,7 +801,7 @@ static void do_Stage_EnterBattle(Registry* self, const uint8_t* parameters, uint
 	uint8_t p0 = extract_uint8(parameters, &paramPtr, length);
 	tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
 
-	if(self->Stage_EnterBattle)		self->Stage_EnterBattle(p0, p1);
+		self->Stage_EnterBattle(p0, p1);
 }
 
 static void do_Stage_LeaveBattle(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -810,7 +810,7 @@ static void do_Stage_LeaveBattle(Registry* self, const uint8_t* parameters, uint
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-	if(self->Stage_LeaveBattle)		self->Stage_LeaveBattle(p0);
+		self->Stage_LeaveBattle(p0);
 }
 
 static void do_Stage_Start(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -821,7 +821,7 @@ static void do_Stage_Start(Registry* self, const uint8_t* parameters, uint16_t l
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Stage_Start)		self->Stage_Start(p0, p1, p2);
+		self->Stage_Start(p0, p1, p2);
 }
 
 static void do_Stage_Map(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -831,7 +831,7 @@ static void do_Stage_Map(Registry* self, const uint8_t* parameters, uint16_t len
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 
-	if(self->Stage_Map)		self->Stage_Map(p0, p1);
+		self->Stage_Map(p0, p1);
 }
 
 static void do_Stage_Chat(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -842,7 +842,7 @@ static void do_Stage_Chat(Registry* self, const uint8_t* parameters, uint16_t le
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 	std::string p2 = extract_string(parameters, &paramPtr, length);
 
-	if(self->Stage_Chat)		self->Stage_Chat(p0, p1, p2);
+		self->Stage_Chat(p0, p1, p2);
 }
 
 static void do_Stage_RequestQuickJoin(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -852,7 +852,7 @@ static void do_Stage_RequestQuickJoin(Registry* self, const uint8_t* parameters,
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
 
-	if(self->Stage_RequestQuickJoin)		self->Stage_RequestQuickJoin(p0, p1);
+		self->Stage_RequestQuickJoin(p0, p1);
 }
 
 static void do_Stage_ResponseQuickJoin(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -862,7 +862,7 @@ static void do_Stage_ResponseQuickJoin(Registry* self, const uint8_t* parameters
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 
-	if(self->Stage_ResponseQuickJoin)		self->Stage_ResponseQuickJoin(p0, p1);
+		self->Stage_ResponseQuickJoin(p0, p1);
 }
 
 static void do_Stage_StageGo(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -871,7 +871,7 @@ static void do_Stage_StageGo(Registry* self, const uint8_t* parameters, uint16_t
 
 	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
 
-	if(self->Stage_StageGo)		self->Stage_StageGo(p0);
+		self->Stage_StageGo(p0);
 }
 
 static void do_Stage_State(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -883,7 +883,7 @@ static void do_Stage_State(Registry* self, const uint8_t* parameters, uint16_t l
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 	int32_t p3 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Stage_State)		self->Stage_State(p0, p1, p2, p3);
+		self->Stage_State(p0, p1, p2, p3);
 }
 
 static void do_Stage_Team(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -894,7 +894,7 @@ static void do_Stage_Team(Registry* self, const uint8_t* parameters, uint16_t le
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 	uint32_t p2 = extract_uint32(parameters, &paramPtr, length);
 
-	if(self->Stage_Team)		self->Stage_Team(p0, p1, p2);
+		self->Stage_Team(p0, p1, p2);
 }
 
 static void do_Stage_Master(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -904,17 +904,17 @@ static void do_Stage_Master(Registry* self, const uint8_t* parameters, uint16_t 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 
-	if(self->Stage_Master)		self->Stage_Master(p0, p1);
+		self->Stage_Master(p0, p1);
 }
 
 static void do_Stage_ListStart(Registry* self, const uint8_t*, uint16_t)
 {
-	if(self->Stage_ListStart)		self->Stage_ListStart();
+		self->Stage_ListStart();
 }
 
 static void do_Stage_ListStop(Registry* self, const uint8_t*, uint16_t)
 {
-	if(self->Stage_ListStop)		self->Stage_ListStop();
+		self->Stage_ListStop();
 }
 
 static void do_Stage_List(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -925,7 +925,7 @@ static void do_Stage_List(Registry* self, const uint8_t* parameters, uint16_t le
 	int8_t p1 = extract_int8(parameters, &paramPtr, length);
 	tuple<Buffer, size_t, size_t> p2 = extract_blob(parameters, &paramPtr, length);
 
-	if(self->Stage_List)		self->Stage_List(p0, p1, p2);
+		self->Stage_List(p0, p1, p2);
 }
 
 static void do_Stage_RequestStageList(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -936,7 +936,7 @@ static void do_Stage_RequestStageList(Registry* self, const uint8_t* parameters,
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Stage_RequestStageList)		self->Stage_RequestStageList(p0, p1, p2);
+		self->Stage_RequestStageList(p0, p1, p2);
 }
 
 static void do_Channel_RequestPlayerList(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -947,7 +947,7 @@ static void do_Channel_RequestPlayerList(Registry* self, const uint8_t* paramete
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Channel_RequestPlayerList)		self->Channel_RequestPlayerList(p0, p1, p2);
+		self->Channel_RequestPlayerList(p0, p1, p2);
 }
 
 static void do_Channel_ResponsePlayerList(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -958,7 +958,7 @@ static void do_Channel_ResponsePlayerList(Registry* self, const uint8_t* paramet
 	uint8_t p1 = extract_uint8(parameters, &paramPtr, length);
 	tuple<Buffer, size_t, size_t> p2 = extract_blob(parameters, &paramPtr, length);
 
-	if(self->Channel_ResponsePlayerList)		self->Channel_ResponsePlayerList(p0, p1, p2);
+		self->Channel_ResponsePlayerList(p0, p1, p2);
 }
 
 static void do_Stage_RequestStageSetting(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -967,7 +967,7 @@ static void do_Stage_RequestStageSetting(Registry* self, const uint8_t* paramete
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-	if(self->Stage_RequestStageSetting)		self->Stage_RequestStageSetting(p0);
+		self->Stage_RequestStageSetting(p0);
 }
 
 static void do_Stage_ResponseStageSetting(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -980,7 +980,7 @@ static void do_Stage_ResponseStageSetting(Registry* self, const uint8_t* paramet
 	int32_t p3 = extract_int32(parameters, &paramPtr, length);
 	uint64_t p4 = extract_MUID(parameters, &paramPtr, length);
 
-	if(self->Stage_ResponseStageSetting)		self->Stage_ResponseStageSetting(p0, p1, p2, p3, p4);
+		self->Stage_ResponseStageSetting(p0, p1, p2, p3, p4);
 }
 
 static void do_Stage_StageSetting(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -991,7 +991,7 @@ static void do_Stage_StageSetting(Registry* self, const uint8_t* parameters, uin
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 	tuple<Buffer, size_t, size_t> p2 = extract_blob(parameters, &paramPtr, length);
 
-	if(self->Stage_StageSetting)		self->Stage_StageSetting(p0, p1, p2);
+		self->Stage_StageSetting(p0, p1, p2);
 }
 
 static void do_Stage_Launch(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1001,7 +1001,7 @@ static void do_Stage_Launch(Registry* self, const uint8_t* parameters, uint16_t 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 
-	if(self->Stage_Launch)		self->Stage_Launch(p0, p1);
+		self->Stage_Launch(p0, p1);
 }
 
 static void do_Stage_Finish(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1010,7 +1010,7 @@ static void do_Stage_Finish(Registry* self, const uint8_t* parameters, uint16_t 
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-	if(self->Stage_Finish)		self->Stage_Finish(p0);
+		self->Stage_Finish(p0);
 }
 
 static void do_Stage_RequestPeerList(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1020,7 +1020,7 @@ static void do_Stage_RequestPeerList(Registry* self, const uint8_t* parameters, 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 
-	if(self->Stage_RequestPeerList)		self->Stage_RequestPeerList(p0, p1);
+		self->Stage_RequestPeerList(p0, p1);
 }
 
 static void do_Stage_ResponsePeerList(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1030,7 +1030,7 @@ static void do_Stage_ResponsePeerList(Registry* self, const uint8_t* parameters,
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
 
-	if(self->Stage_ResponsePeerList)		self->Stage_ResponsePeerList(p0, p1);
+		self->Stage_ResponsePeerList(p0, p1);
 }
 
 static void do_Loading_Complete(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1040,7 +1040,7 @@ static void do_Loading_Complete(Registry* self, const uint8_t* parameters, uint1
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Loading_Complete)		self->Loading_Complete(p0, p1);
+		self->Loading_Complete(p0, p1);
 }
 
 static void do_Match_RequestPeerRelay(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1050,7 +1050,7 @@ static void do_Match_RequestPeerRelay(Registry* self, const uint8_t* parameters,
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 
-	if(self->Match_RequestPeerRelay)		self->Match_RequestPeerRelay(p0, p1);
+		self->Match_RequestPeerRelay(p0, p1);
 }
 
 static void do_Match_ResponsePeerRelay(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1059,7 +1059,7 @@ static void do_Match_ResponsePeerRelay(Registry* self, const uint8_t* parameters
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-	if(self->Match_ResponsePeerRelay)		self->Match_ResponsePeerRelay(p0);
+		self->Match_ResponsePeerRelay(p0);
 }
 
 static void do_Stage_RoundState(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1071,7 +1071,7 @@ static void do_Stage_RoundState(Registry* self, const uint8_t* parameters, uint1
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 	int32_t p3 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Stage_RoundState)		self->Stage_RoundState(p0, p1, p2, p3);
+		self->Stage_RoundState(p0, p1, p2, p3);
 }
 
 static void do_Game_Kill(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1080,7 +1080,7 @@ static void do_Game_Kill(Registry* self, const uint8_t* parameters, uint16_t len
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-	if(self->Game_Kill)		self->Game_Kill(p0);
+		self->Game_Kill(p0);
 }
 
 static void do_Game_Requst_Spawn(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1091,7 +1091,7 @@ static void do_Game_Requst_Spawn(Registry* self, const uint8_t* parameters, uint
 	array<float, 3> p1 = extract_position(parameters, &paramPtr, length);
 	array<float, 3> p2 = extract_direction(parameters, &paramPtr, length);
 
-	if(self->Game_Requst_Spawn)		self->Game_Requst_Spawn(p0, p1, p2);
+		self->Game_Requst_Spawn(p0, p1, p2);
 }
 
 static void do_Game_LevelUp(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1101,7 +1101,7 @@ static void do_Game_LevelUp(Registry* self, const uint8_t* parameters, uint16_t 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Game_LevelUp)		self->Game_LevelUp(p0, p1);
+		self->Game_LevelUp(p0, p1);
 }
 
 static void do_Game_LevelDown(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1111,7 +1111,7 @@ static void do_Game_LevelDown(Registry* self, const uint8_t* parameters, uint16_
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Game_LevelDown)		self->Game_LevelDown(p0, p1);
+		self->Game_LevelDown(p0, p1);
 }
 
 static void do_Game_Dead(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1123,7 +1123,7 @@ static void do_Game_Dead(Registry* self, const uint8_t* parameters, uint16_t len
 	uint64_t p2 = extract_MUID(parameters, &paramPtr, length);
 	uint32_t p3 = extract_uint32(parameters, &paramPtr, length);
 
-	if(self->Game_Dead)		self->Game_Dead(p0, p1, p2, p3);
+		self->Game_Dead(p0, p1, p2, p3);
 }
 
 static void do_Game_TeamBonus(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1133,7 +1133,7 @@ static void do_Game_TeamBonus(Registry* self, const uint8_t* parameters, uint16_
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
 
-	if(self->Game_TeamBonus)		self->Game_TeamBonus(p0, p1);
+		self->Game_TeamBonus(p0, p1);
 }
 
 static void do_Game_RequestTimeSync(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1142,7 +1142,7 @@ static void do_Game_RequestTimeSync(Registry* self, const uint8_t* parameters, u
 
 	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
 
-	if(self->Game_RequestTimeSync)		self->Game_RequestTimeSync(p0);
+		self->Game_RequestTimeSync(p0);
 }
 
 static void do_Game_ResponseTimeSync(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1152,7 +1152,7 @@ static void do_Game_ResponseTimeSync(Registry* self, const uint8_t* parameters, 
 	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
 	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
 
-	if(self->Game_ResponseTimeSync)		self->Game_ResponseTimeSync(p0, p1);
+		self->Game_ResponseTimeSync(p0, p1);
 }
 
 static void do_Game_ReportTimeSync(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1162,7 +1162,7 @@ static void do_Game_ReportTimeSync(Registry* self, const uint8_t* parameters, ui
 	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
 	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
 
-	if(self->Game_ReportTimeSync)		self->Game_ReportTimeSync(p0, p1);
+		self->Game_ReportTimeSync(p0, p1);
 }
 
 static void do_Stage_RequestForcedEntry(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1172,7 +1172,7 @@ static void do_Stage_RequestForcedEntry(Registry* self, const uint8_t* parameter
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 
-	if(self->Stage_RequestForcedEntry)		self->Stage_RequestForcedEntry(p0, p1);
+		self->Stage_RequestForcedEntry(p0, p1);
 }
 
 static void do_Stage_ResponseForcedEntry(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1181,7 +1181,7 @@ static void do_Stage_ResponseForcedEntry(Registry* self, const uint8_t* paramete
 
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Stage_ResponseForcedEntry)		self->Stage_ResponseForcedEntry(p0);
+		self->Stage_ResponseForcedEntry(p0);
 }
 
 static void do_Stage_RoundFinishInfo(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1193,7 +1193,7 @@ static void do_Stage_RoundFinishInfo(Registry* self, const uint8_t* parameters, 
 	tuple<Buffer, size_t, size_t> p2 = extract_blob(parameters, &paramPtr, length);
 	tuple<Buffer, size_t, size_t> p3 = extract_blob(parameters, &paramPtr, length);
 
-	if(self->Stage_RoundFinishInfo)		self->Stage_RoundFinishInfo(p0, p1, p2, p3);
+		self->Stage_RoundFinishInfo(p0, p1, p2, p3);
 }
 
 static void do_Match_Notify(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1202,7 +1202,7 @@ static void do_Match_Notify(Registry* self, const uint8_t* parameters, uint16_t 
 
 	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
 
-	if(self->Match_Notify)		self->Match_Notify(p0);
+		self->Match_Notify(p0);
 }
 
 static void do_Match_Whisper(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1213,7 +1213,7 @@ static void do_Match_Whisper(Registry* self, const uint8_t* parameters, uint16_t
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 	std::string p2 = extract_string(parameters, &paramPtr, length);
 
-	if(self->Match_Whisper)		self->Match_Whisper(p0, p1, p2);
+		self->Match_Whisper(p0, p1, p2);
 }
 
 static void do_Match_Where(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1222,7 +1222,7 @@ static void do_Match_Where(Registry* self, const uint8_t* parameters, uint16_t l
 
 	std::string p0 = extract_string(parameters, &paramPtr, length);
 
-	if(self->Match_Where)		self->Match_Where(p0);
+		self->Match_Where(p0);
 }
 
 static void do_Match_UserOption(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1231,7 +1231,7 @@ static void do_Match_UserOption(Registry* self, const uint8_t* parameters, uint1
 
 	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
 
-	if(self->Match_UserOption)		self->Match_UserOption(p0);
+		self->Match_UserOption(p0);
 }
 
 static void do_ChatRoom_Create(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1241,7 +1241,7 @@ static void do_ChatRoom_Create(Registry* self, const uint8_t* parameters, uint16
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 
-	if(self->ChatRoom_Create)		self->ChatRoom_Create(p0, p1);
+		self->ChatRoom_Create(p0, p1);
 }
 
 static void do_ChatRoom_Join(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1251,7 +1251,7 @@ static void do_ChatRoom_Join(Registry* self, const uint8_t* parameters, uint16_t
 	std::string p0 = extract_string(parameters, &paramPtr, length);
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 
-	if(self->ChatRoom_Join)		self->ChatRoom_Join(p0, p1);
+		self->ChatRoom_Join(p0, p1);
 }
 
 static void do_ChatRoom_Leave(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1261,7 +1261,7 @@ static void do_ChatRoom_Leave(Registry* self, const uint8_t* parameters, uint16_
 	std::string p0 = extract_string(parameters, &paramPtr, length);
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 
-	if(self->ChatRoom_Leave)		self->ChatRoom_Leave(p0, p1);
+		self->ChatRoom_Leave(p0, p1);
 }
 
 static void do_ChatRoom_SelectWrite(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1270,7 +1270,7 @@ static void do_ChatRoom_SelectWrite(Registry* self, const uint8_t* parameters, u
 
 	std::string p0 = extract_string(parameters, &paramPtr, length);
 
-	if(self->ChatRoom_SelectWrite)		self->ChatRoom_SelectWrite(p0);
+		self->ChatRoom_SelectWrite(p0);
 }
 
 static void do_ChatRoom_Invite(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1281,7 +1281,7 @@ static void do_ChatRoom_Invite(Registry* self, const uint8_t* parameters, uint16
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 	std::string p2 = extract_string(parameters, &paramPtr, length);
 
-	if(self->ChatRoom_Invite)		self->ChatRoom_Invite(p0, p1, p2);
+		self->ChatRoom_Invite(p0, p1, p2);
 }
 
 static void do_ChatRoom_Chat(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1292,7 +1292,7 @@ static void do_ChatRoom_Chat(Registry* self, const uint8_t* parameters, uint16_t
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 	std::string p2 = extract_string(parameters, &paramPtr, length);
 
-	if(self->ChatRoom_Chat)		self->ChatRoom_Chat(p0, p1, p2);
+		self->ChatRoom_Chat(p0, p1, p2);
 }
 
 static void do_Match_RequestAccountCharList(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1301,7 +1301,7 @@ static void do_Match_RequestAccountCharList(Registry* self, const uint8_t* param
 
 	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
 
-	if(self->Match_RequestAccountCharList)		self->Match_RequestAccountCharList(p0);
+		self->Match_RequestAccountCharList(p0);
 }
 
 static void do_Match_ResponseAccountCharList(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1310,7 +1310,7 @@ static void do_Match_ResponseAccountCharList(Registry* self, const uint8_t* para
 
 	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
 
-	if(self->Match_ResponseAccountCharList)		self->Match_ResponseAccountCharList(p0);
+		self->Match_ResponseAccountCharList(p0);
 }
 
 static void do_Match_RequestAccountCharInfo(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1320,7 +1320,7 @@ static void do_Match_RequestAccountCharInfo(Registry* self, const uint8_t* param
 	int8_t p0 = extract_int8(parameters, &paramPtr, length);
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Match_RequestAccountCharInfo)		self->Match_RequestAccountCharInfo(p0, p1);
+		self->Match_RequestAccountCharInfo(p0, p1);
 }
 
 static void do_Match_ResponseAccountCharInfo(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1330,7 +1330,7 @@ static void do_Match_ResponseAccountCharInfo(Registry* self, const uint8_t* para
 	int8_t p0 = extract_int8(parameters, &paramPtr, length);
 	tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
 
-	if(self->Match_ResponseAccountCharInfo)		self->Match_ResponseAccountCharInfo(p0, p1);
+		self->Match_ResponseAccountCharInfo(p0, p1);
 }
 
 static void do_Match_RequestSelectChar(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1341,7 +1341,7 @@ static void do_Match_RequestSelectChar(Registry* self, const uint8_t* parameters
 	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Match_RequestSelectChar)		self->Match_RequestSelectChar(p0, p1, p2);
+		self->Match_RequestSelectChar(p0, p1, p2);
 }
 
 static void do_Match_ResponseSelectChar(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1352,7 +1352,7 @@ static void do_Match_ResponseSelectChar(Registry* self, const uint8_t* parameter
 	tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
 	tuple<Buffer, size_t, size_t> p2 = extract_blob(parameters, &paramPtr, length);
 
-	if(self->Match_ResponseSelectChar)		self->Match_ResponseSelectChar(p0, p1, p2);
+		self->Match_ResponseSelectChar(p0, p1, p2);
 }
 
 static void do_Match_RequestCharInfo(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1362,7 +1362,7 @@ static void do_Match_RequestCharInfo(Registry* self, const uint8_t* parameters, 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
 
-	if(self->Match_RequestCharInfo)		self->Match_RequestCharInfo(p0, p1);
+		self->Match_RequestCharInfo(p0, p1);
 }
 
 static void do_Match_ResponseCharInfo(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1372,7 +1372,7 @@ static void do_Match_ResponseCharInfo(Registry* self, const uint8_t* parameters,
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
 
-	if(self->Match_ResponseCharInfo)		self->Match_ResponseCharInfo(p0, p1);
+		self->Match_ResponseCharInfo(p0, p1);
 }
 
 static void do_Match_RequestDeleteChar(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1384,7 +1384,7 @@ static void do_Match_RequestDeleteChar(Registry* self, const uint8_t* parameters
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 	std::string p3 = extract_string(parameters, &paramPtr, length);
 
-	if(self->Match_RequestDeleteChar)		self->Match_RequestDeleteChar(p0, p1, p2, p3);
+		self->Match_RequestDeleteChar(p0, p1, p2, p3);
 }
 
 static void do_Match_ResponseDeleteChar(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1393,7 +1393,7 @@ static void do_Match_ResponseDeleteChar(Registry* self, const uint8_t* parameter
 
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Match_ResponseDeleteChar)		self->Match_ResponseDeleteChar(p0);
+		self->Match_ResponseDeleteChar(p0);
 }
 
 static void do_Match_RequestCreateChar(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1409,7 +1409,7 @@ static void do_Match_RequestCreateChar(Registry* self, const uint8_t* parameters
 	uint32_t p6 = extract_uint32(parameters, &paramPtr, length);
 	uint32_t p7 = extract_uint32(parameters, &paramPtr, length);
 
-	if(self->Match_RequestCreateChar)		self->Match_RequestCreateChar(p0, p1, p2, p3, p4, p5, p6, p7);
+		self->Match_RequestCreateChar(p0, p1, p2, p3, p4, p5, p6, p7);
 }
 
 static void do_Match_ResponseCreateChar(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1419,7 +1419,7 @@ static void do_Match_ResponseCreateChar(Registry* self, const uint8_t* parameter
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 
-	if(self->Match_ResponseCreateChar)		self->Match_ResponseCreateChar(p0, p1);
+		self->Match_ResponseCreateChar(p0, p1);
 }
 
 static void do_Match_RequestBuyItem(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1429,7 +1429,7 @@ static void do_Match_RequestBuyItem(Registry* self, const uint8_t* parameters, u
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
 
-	if(self->Match_RequestBuyItem)		self->Match_RequestBuyItem(p0, p1);
+		self->Match_RequestBuyItem(p0, p1);
 }
 
 static void do_Match_ResponseBuyItem(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1438,7 +1438,7 @@ static void do_Match_ResponseBuyItem(Registry* self, const uint8_t* parameters, 
 
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Match_ResponseBuyItem)		self->Match_ResponseBuyItem(p0);
+		self->Match_ResponseBuyItem(p0);
 }
 
 static void do_Match_RequestSellItem(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1448,7 +1448,7 @@ static void do_Match_RequestSellItem(Registry* self, const uint8_t* parameters, 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 
-	if(self->Match_RequestSellItem)		self->Match_RequestSellItem(p0, p1);
+		self->Match_RequestSellItem(p0, p1);
 }
 
 static void do_Match_ResponseSellItem(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1457,7 +1457,7 @@ static void do_Match_ResponseSellItem(Registry* self, const uint8_t* parameters,
 
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Match_ResponseSellItem)		self->Match_ResponseSellItem(p0);
+		self->Match_ResponseSellItem(p0);
 }
 
 static void do_Match_RequestShopItemList(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1468,7 +1468,7 @@ static void do_Match_RequestShopItemList(Registry* self, const uint8_t* paramete
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Match_RequestShopItemList)		self->Match_RequestShopItemList(p0, p1, p2);
+		self->Match_RequestShopItemList(p0, p1, p2);
 }
 
 static void do_Match_ResponseShopItemList(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1478,7 +1478,7 @@ static void do_Match_ResponseShopItemList(Registry* self, const uint8_t* paramet
 	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
 	tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
 
-	if(self->Match_ResponseShopItemList)		self->Match_ResponseShopItemList(p0, p1);
+		self->Match_ResponseShopItemList(p0, p1);
 }
 
 static void do_Match_RequestCharacterItemList(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1487,7 +1487,7 @@ static void do_Match_RequestCharacterItemList(Registry* self, const uint8_t* par
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-	if(self->Match_RequestCharacterItemList)		self->Match_RequestCharacterItemList(p0);
+		self->Match_RequestCharacterItemList(p0);
 }
 
 static void do_Match_RequestCharacterItemListForce(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1496,7 +1496,7 @@ static void do_Match_RequestCharacterItemListForce(Registry* self, const uint8_t
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-	if(self->Match_RequestCharacterItemListForce)		self->Match_RequestCharacterItemListForce(p0);
+		self->Match_RequestCharacterItemListForce(p0);
 }
 
 static void do_Match_ResponseCharacterItemList(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1508,7 +1508,7 @@ static void do_Match_ResponseCharacterItemList(Registry* self, const uint8_t* pa
 	tuple<Buffer, size_t, size_t> p2 = extract_blob(parameters, &paramPtr, length);
 	tuple<Buffer, size_t, size_t> p3 = extract_blob(parameters, &paramPtr, length);
 
-	if(self->Match_ResponseCharacterItemList)		self->Match_ResponseCharacterItemList(p0, p1, p2, p3);
+		self->Match_ResponseCharacterItemList(p0, p1, p2, p3);
 }
 
 static void do_MatchRequestEquipItem(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1520,7 +1520,7 @@ static void do_MatchRequestEquipItem(Registry* self, const uint8_t* parameters, 
 	uint32_t p2 = extract_uint32(parameters, &paramPtr, length);
 	int32_t p3 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->MatchRequestEquipItem)		self->MatchRequestEquipItem(p0, p1, p2, p3);
+		self->MatchRequestEquipItem(p0, p1, p2, p3);
 }
 
 static void do_MatchResponseEquipItem(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1529,7 +1529,7 @@ static void do_MatchResponseEquipItem(Registry* self, const uint8_t* parameters,
 
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->MatchResponseEquipItem)		self->MatchResponseEquipItem(p0);
+		self->MatchResponseEquipItem(p0);
 }
 
 static void do_MatchRequestTakeoffItem(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1540,7 +1540,7 @@ static void do_MatchRequestTakeoffItem(Registry* self, const uint8_t* parameters
 	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->MatchRequestTakeoffItem)		self->MatchRequestTakeoffItem(p0, p1, p2);
+		self->MatchRequestTakeoffItem(p0, p1, p2);
 }
 
 static void do_MatchResponseTakeoffItem(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1549,7 +1549,7 @@ static void do_MatchResponseTakeoffItem(Registry* self, const uint8_t* parameter
 
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->MatchResponseTakeoffItem)		self->MatchResponseTakeoffItem(p0);
+		self->MatchResponseTakeoffItem(p0);
 }
 
 static void do_Match_RequestAccountItemList(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1558,7 +1558,7 @@ static void do_Match_RequestAccountItemList(Registry* self, const uint8_t* param
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-	if(self->Match_RequestAccountItemList)		self->Match_RequestAccountItemList(p0);
+		self->Match_RequestAccountItemList(p0);
 }
 
 static void do_Match_ResponseAccountItemList(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1567,7 +1567,7 @@ static void do_Match_ResponseAccountItemList(Registry* self, const uint8_t* para
 
 	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
 
-	if(self->Match_ResponseAccountItemList)		self->Match_ResponseAccountItemList(p0);
+		self->Match_ResponseAccountItemList(p0);
 }
 
 static void do_Match_RequestBringAccountItem(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1577,7 +1577,7 @@ static void do_Match_RequestBringAccountItem(Registry* self, const uint8_t* para
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Match_RequestBringAccountItem)		self->Match_RequestBringAccountItem(p0, p1);
+		self->Match_RequestBringAccountItem(p0, p1);
 }
 
 static void do_Match_ResponseBringAccountItem(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1586,7 +1586,7 @@ static void do_Match_ResponseBringAccountItem(Registry* self, const uint8_t* par
 
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Match_ResponseBringAccountItem)		self->Match_ResponseBringAccountItem(p0);
+		self->Match_ResponseBringAccountItem(p0);
 }
 
 static void do_Match_RequestBringBackAccountItem(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1596,7 +1596,7 @@ static void do_Match_RequestBringBackAccountItem(Registry* self, const uint8_t* 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 
-	if(self->Match_RequestBringBackAccountItem)		self->Match_RequestBringBackAccountItem(p0, p1);
+		self->Match_RequestBringBackAccountItem(p0, p1);
 }
 
 static void do_Match_ResponseBringBackAccountItem(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1605,7 +1605,7 @@ static void do_Match_ResponseBringBackAccountItem(Registry* self, const uint8_t*
 
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Match_ResponseBringBackAccountItem)		self->Match_ResponseBringBackAccountItem(p0);
+		self->Match_ResponseBringBackAccountItem(p0);
 }
 
 static void do_Match_ExpiredRentItem(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1614,7 +1614,7 @@ static void do_Match_ExpiredRentItem(Registry* self, const uint8_t* parameters, 
 
 	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
 
-	if(self->Match_ExpiredRentItem)		self->Match_ExpiredRentItem(p0);
+		self->Match_ExpiredRentItem(p0);
 }
 
 static void do_Match_ItemGamble(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1623,7 +1623,7 @@ static void do_Match_ItemGamble(Registry* self, const uint8_t* parameters, uint1
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-	if(self->Match_ItemGamble)		self->Match_ItemGamble(p0);
+		self->Match_ItemGamble(p0);
 }
 
 static void do_Match_GambleResultItem(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1633,7 +1633,7 @@ static void do_Match_GambleResultItem(Registry* self, const uint8_t* parameters,
 	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
 	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
 
-	if(self->Match_GambleResultItem)		self->Match_GambleResultItem(p0, p1);
+		self->Match_GambleResultItem(p0, p1);
 }
 
 static void do_Match_Request_Suicide(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1642,7 +1642,7 @@ static void do_Match_Request_Suicide(Registry* self, const uint8_t* parameters, 
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-	if(self->Match_Request_Suicide)		self->Match_Request_Suicide(p0);
+		self->Match_Request_Suicide(p0);
 }
 
 static void do_Match_Response_Suicide(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1652,12 +1652,12 @@ static void do_Match_Response_Suicide(Registry* self, const uint8_t* parameters,
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 
-	if(self->Match_Response_Suicide)		self->Match_Response_Suicide(p0, p1);
+		self->Match_Response_Suicide(p0, p1);
 }
 
 static void do_Match_Response_SuicideReserve(Registry* self, const uint8_t*, uint16_t)
 {
-	if(self->Match_Response_SuicideReserve)		self->Match_Response_SuicideReserve();
+		self->Match_Response_SuicideReserve();
 }
 
 static void do_Match_Request_Obtain_WorldItem(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1667,7 +1667,7 @@ static void do_Match_Request_Obtain_WorldItem(Registry* self, const uint8_t* par
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Match_Request_Obtain_WorldItem)		self->Match_Request_Obtain_WorldItem(p0, p1);
+		self->Match_Request_Obtain_WorldItem(p0, p1);
 }
 
 static void do_Match_WorldItem_Obtain(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1677,7 +1677,7 @@ static void do_Match_WorldItem_Obtain(Registry* self, const uint8_t* parameters,
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Match_WorldItem_Obtain)		self->Match_WorldItem_Obtain(p0, p1);
+		self->Match_WorldItem_Obtain(p0, p1);
 }
 
 static void do_Match_WorldItem_Spawn(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1686,7 +1686,7 @@ static void do_Match_WorldItem_Spawn(Registry* self, const uint8_t* parameters, 
 
 	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
 
-	if(self->Match_WorldItem_Spawn)		self->Match_WorldItem_Spawn(p0);
+		self->Match_WorldItem_Spawn(p0);
 }
 
 static void do_Match_Request_Spawn_WorldItem(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1698,7 +1698,7 @@ static void do_Match_Request_Spawn_WorldItem(Registry* self, const uint8_t* para
 	array<float, 3> p2 = extract_position(parameters, &paramPtr, length);
 	float p3 = extract_float(parameters, &paramPtr, length);
 
-	if(self->Match_Request_Spawn_WorldItem)		self->Match_Request_Spawn_WorldItem(p0, p1, p2, p3);
+		self->Match_Request_Spawn_WorldItem(p0, p1, p2, p3);
 }
 
 static void do_Match_Request_Spawn_WorldItem_UID(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1707,7 +1707,7 @@ static void do_Match_Request_Spawn_WorldItem_UID(Registry* self, const uint8_t* 
 
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Match_Request_Spawn_WorldItem_UID)		self->Match_Request_Spawn_WorldItem_UID(p0);
+		self->Match_Request_Spawn_WorldItem_UID(p0);
 }
 
 static void do_Match_Reset_TeamMembers(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1716,7 +1716,7 @@ static void do_Match_Reset_TeamMembers(Registry* self, const uint8_t* parameters
 
 	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
 
-	if(self->Match_Reset_TeamMembers)		self->Match_Reset_TeamMembers(p0);
+		self->Match_Reset_TeamMembers(p0);
 }
 
 static void do_Match_Assign_Commander(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1726,7 +1726,7 @@ static void do_Match_Assign_Commander(Registry* self, const uint8_t* parameters,
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 
-	if(self->Match_Assign_Commander)		self->Match_Assign_Commander(p0, p1);
+		self->Match_Assign_Commander(p0, p1);
 }
 
 static void do_Match_Set_Observer(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1735,7 +1735,7 @@ static void do_Match_Set_Observer(Registry* self, const uint8_t* parameters, uin
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-	if(self->Match_Set_Observer)		self->Match_Set_Observer(p0);
+		self->Match_Set_Observer(p0);
 }
 
 static void do_Match_Ladder_Request_Challenge(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1746,7 +1746,7 @@ static void do_Match_Ladder_Request_Challenge(Registry* self, const uint8_t* par
 	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
 	tuple<Buffer, size_t, size_t> p2 = extract_blob(parameters, &paramPtr, length);
 
-	if(self->Match_Ladder_Request_Challenge)		self->Match_Ladder_Request_Challenge(p0, p1, p2);
+		self->Match_Ladder_Request_Challenge(p0, p1, p2);
 }
 
 static void do_Match_Ladder_Response_Challenge(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1755,17 +1755,17 @@ static void do_Match_Ladder_Response_Challenge(Registry* self, const uint8_t* pa
 
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Match_Ladder_Response_Challenge)		self->Match_Ladder_Response_Challenge(p0);
+		self->Match_Ladder_Response_Challenge(p0);
 }
 
 static void do_Match_Ladder_SearchRival(Registry* self, const uint8_t*, uint16_t)
 {
-	if(self->Match_Ladder_SearchRival)		self->Match_Ladder_SearchRival();
+		self->Match_Ladder_SearchRival();
 }
 
 static void do_Match_Ladder_Request_CancelChallenge(Registry* self, const uint8_t*, uint16_t)
 {
-	if(self->Match_Ladder_Request_CancelChallenge)		self->Match_Ladder_Request_CancelChallenge();
+		self->Match_Ladder_Request_CancelChallenge();
 }
 
 static void do_Match_Ladder_CancelChallenge(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1774,7 +1774,7 @@ static void do_Match_Ladder_CancelChallenge(Registry* self, const uint8_t* param
 
 	std::string p0 = extract_string(parameters, &paramPtr, length);
 
-	if(self->Match_Ladder_CancelChallenge)		self->Match_Ladder_CancelChallenge(p0);
+		self->Match_Ladder_CancelChallenge(p0);
 }
 
 static void do_Ladder_Prepare(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1784,7 +1784,7 @@ static void do_Ladder_Prepare(Registry* self, const uint8_t* parameters, uint16_
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Ladder_Prepare)		self->Ladder_Prepare(p0, p1);
+		self->Ladder_Prepare(p0, p1);
 }
 
 static void do_Ladder_Launch(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1794,7 +1794,7 @@ static void do_Ladder_Launch(Registry* self, const uint8_t* parameters, uint16_t
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 
-	if(self->Ladder_Launch)		self->Ladder_Launch(p0, p1);
+		self->Ladder_Launch(p0, p1);
 }
 
 static void do_Match_RequestProposal(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1807,7 +1807,7 @@ static void do_Match_RequestProposal(Registry* self, const uint8_t* parameters, 
 	int32_t p3 = extract_int32(parameters, &paramPtr, length);
 	tuple<Buffer, size_t, size_t> p4 = extract_blob(parameters, &paramPtr, length);
 
-	if(self->Match_RequestProposal)		self->Match_RequestProposal(p0, p1, p2, p3, p4);
+		self->Match_RequestProposal(p0, p1, p2, p3, p4);
 }
 
 static void do_Match_ResponseProposal(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1818,7 +1818,7 @@ static void do_Match_ResponseProposal(Registry* self, const uint8_t* parameters,
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Match_ResponseProposal)		self->Match_ResponseProposal(p0, p1, p2);
+		self->Match_ResponseProposal(p0, p1, p2);
 }
 
 static void do_Match_AskAgreement(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1830,7 +1830,7 @@ static void do_Match_AskAgreement(Registry* self, const uint8_t* parameters, uin
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 	int32_t p3 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Match_AskAgreement)		self->Match_AskAgreement(p0, p1, p2, p3);
+		self->Match_AskAgreement(p0, p1, p2, p3);
 }
 
 static void do_Match_ReplyAgreement(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1844,7 +1844,7 @@ static void do_Match_ReplyAgreement(Registry* self, const uint8_t* parameters, u
 	int32_t p4 = extract_int32(parameters, &paramPtr, length);
 	bool p5 = extract_bool(parameters, &paramPtr, length);
 
-	if(self->Match_ReplyAgreement)		self->Match_ReplyAgreement(p0, p1, p2, p3, p4, p5);
+		self->Match_ReplyAgreement(p0, p1, p2, p3, p4, p5);
 }
 
 static void do_Match_Friend_Add(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1853,7 +1853,7 @@ static void do_Match_Friend_Add(Registry* self, const uint8_t* parameters, uint1
 
 	std::string p0 = extract_string(parameters, &paramPtr, length);
 
-	if(self->Match_Friend_Add)		self->Match_Friend_Add(p0);
+		self->Match_Friend_Add(p0);
 }
 
 static void do_Match_Friend_Remove(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1862,12 +1862,12 @@ static void do_Match_Friend_Remove(Registry* self, const uint8_t* parameters, ui
 
 	std::string p0 = extract_string(parameters, &paramPtr, length);
 
-	if(self->Match_Friend_Remove)		self->Match_Friend_Remove(p0);
+		self->Match_Friend_Remove(p0);
 }
 
 static void do_Match_Friend_List(Registry* self, const uint8_t*, uint16_t)
 {
-	if(self->Match_Friend_List)		self->Match_Friend_List();
+		self->Match_Friend_List();
 }
 
 static void do_Match_Response_FriendList(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1876,7 +1876,7 @@ static void do_Match_Response_FriendList(Registry* self, const uint8_t* paramete
 
 	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
 
-	if(self->Match_Response_FriendList)		self->Match_Response_FriendList(p0);
+		self->Match_Response_FriendList(p0);
 }
 
 static void do_Match_Friend_Msg(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1885,7 +1885,7 @@ static void do_Match_Friend_Msg(Registry* self, const uint8_t* parameters, uint1
 
 	std::string p0 = extract_string(parameters, &paramPtr, length);
 
-	if(self->Match_Friend_Msg)		self->Match_Friend_Msg(p0);
+		self->Match_Friend_Msg(p0);
 }
 
 static void do_Match_Clan_RequestCreateClan(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1900,7 +1900,7 @@ static void do_Match_Clan_RequestCreateClan(Registry* self, const uint8_t* param
 	std::string p5 = extract_string(parameters, &paramPtr, length);
 	std::string p6 = extract_string(parameters, &paramPtr, length);
 
-	if(self->Match_Clan_RequestCreateClan)		self->Match_Clan_RequestCreateClan(p0, p1, p2, p3, p4, p5, p6);
+		self->Match_Clan_RequestCreateClan(p0, p1, p2, p3, p4, p5, p6);
 }
 
 static void do_Match_Clan_ResponseCreateClan(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1910,7 +1910,7 @@ static void do_Match_Clan_ResponseCreateClan(Registry* self, const uint8_t* para
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Match_Clan_ResponseCreateClan)		self->Match_Clan_ResponseCreateClan(p0, p1);
+		self->Match_Clan_ResponseCreateClan(p0, p1);
 }
 
 static void do_Match_Clan_AskSponsorAgreement(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1922,7 +1922,7 @@ static void do_Match_Clan_AskSponsorAgreement(Registry* self, const uint8_t* par
 	uint64_t p2 = extract_MUID(parameters, &paramPtr, length);
 	std::string p3 = extract_string(parameters, &paramPtr, length);
 
-	if(self->Match_Clan_AskSponsorAgreement)		self->Match_Clan_AskSponsorAgreement(p0, p1, p2, p3);
+		self->Match_Clan_AskSponsorAgreement(p0, p1, p2, p3);
 }
 
 static void do_Match_Clan_AnswerSponsorAgreement(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1934,7 +1934,7 @@ static void do_Match_Clan_AnswerSponsorAgreement(Registry* self, const uint8_t* 
 	std::string p2 = extract_string(parameters, &paramPtr, length);
 	bool p3 = extract_bool(parameters, &paramPtr, length);
 
-	if(self->Match_Clan_AnswerSponsorAgreement)		self->Match_Clan_AnswerSponsorAgreement(p0, p1, p2, p3);
+		self->Match_Clan_AnswerSponsorAgreement(p0, p1, p2, p3);
 }
 
 static void do_Match_Clan_RequestAgreedCreateClan(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1948,7 +1948,7 @@ static void do_Match_Clan_RequestAgreedCreateClan(Registry* self, const uint8_t*
 	std::string p4 = extract_string(parameters, &paramPtr, length);
 	std::string p5 = extract_string(parameters, &paramPtr, length);
 
-	if(self->Match_Clan_RequestAgreedCreateClan)		self->Match_Clan_RequestAgreedCreateClan(p0, p1, p2, p3, p4, p5);
+		self->Match_Clan_RequestAgreedCreateClan(p0, p1, p2, p3, p4, p5);
 }
 
 static void do_Match_Clan_AgreedResponseCreateClan(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1957,7 +1957,7 @@ static void do_Match_Clan_AgreedResponseCreateClan(Registry* self, const uint8_t
 
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Match_Clan_AgreedResponseCreateClan)		self->Match_Clan_AgreedResponseCreateClan(p0);
+		self->Match_Clan_AgreedResponseCreateClan(p0);
 }
 
 static void do_Match_Clan_RequestCloseClan(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1967,7 +1967,7 @@ static void do_Match_Clan_RequestCloseClan(Registry* self, const uint8_t* parame
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 
-	if(self->Match_Clan_RequestCloseClan)		self->Match_Clan_RequestCloseClan(p0, p1);
+		self->Match_Clan_RequestCloseClan(p0, p1);
 }
 
 static void do_Match_Clan_ResponseCloseClan(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1976,7 +1976,7 @@ static void do_Match_Clan_ResponseCloseClan(Registry* self, const uint8_t* param
 
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Match_Clan_ResponseCloseClan)		self->Match_Clan_ResponseCloseClan(p0);
+		self->Match_Clan_ResponseCloseClan(p0);
 }
 
 static void do_Match_Clan_RequestJoinClan(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1987,7 +1987,7 @@ static void do_Match_Clan_RequestJoinClan(Registry* self, const uint8_t* paramet
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 	std::string p2 = extract_string(parameters, &paramPtr, length);
 
-	if(self->Match_Clan_RequestJoinClan)		self->Match_Clan_RequestJoinClan(p0, p1, p2);
+		self->Match_Clan_RequestJoinClan(p0, p1, p2);
 }
 
 static void do_Match_Clan_ResponseJoinClan(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1996,7 +1996,7 @@ static void do_Match_Clan_ResponseJoinClan(Registry* self, const uint8_t* parame
 
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Match_Clan_ResponseJoinClan)		self->Match_Clan_ResponseJoinClan(p0);
+		self->Match_Clan_ResponseJoinClan(p0);
 }
 
 static void do_Match_Clan_AskJoinAgreement(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2007,7 +2007,7 @@ static void do_Match_Clan_AskJoinAgreement(Registry* self, const uint8_t* parame
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 	std::string p2 = extract_string(parameters, &paramPtr, length);
 
-	if(self->Match_Clan_AskJoinAgreement)		self->Match_Clan_AskJoinAgreement(p0, p1, p2);
+		self->Match_Clan_AskJoinAgreement(p0, p1, p2);
 }
 
 static void do_Match_Clan_AnswerJoinAgreement(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2018,7 +2018,7 @@ static void do_Match_Clan_AnswerJoinAgreement(Registry* self, const uint8_t* par
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 	bool p2 = extract_bool(parameters, &paramPtr, length);
 
-	if(self->Match_Clan_AnswerJoinAgreement)		self->Match_Clan_AnswerJoinAgreement(p0, p1, p2);
+		self->Match_Clan_AnswerJoinAgreement(p0, p1, p2);
 }
 
 static void do_Match_Clan_RequestAgreedJoinClan(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2029,7 +2029,7 @@ static void do_Match_Clan_RequestAgreedJoinClan(Registry* self, const uint8_t* p
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 	std::string p2 = extract_string(parameters, &paramPtr, length);
 
-	if(self->Match_Clan_RequestAgreedJoinClan)		self->Match_Clan_RequestAgreedJoinClan(p0, p1, p2);
+		self->Match_Clan_RequestAgreedJoinClan(p0, p1, p2);
 }
 
 static void do_Match_Clan_ResponseAgreedJoinClan(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2038,7 +2038,7 @@ static void do_Match_Clan_ResponseAgreedJoinClan(Registry* self, const uint8_t* 
 
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Match_Clan_ResponseAgreedJoinClan)		self->Match_Clan_ResponseAgreedJoinClan(p0);
+		self->Match_Clan_ResponseAgreedJoinClan(p0);
 }
 
 static void do_Match_Clan_RequestLeaveClan(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2047,7 +2047,7 @@ static void do_Match_Clan_RequestLeaveClan(Registry* self, const uint8_t* parame
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-	if(self->Match_Clan_RequestLeaveClan)		self->Match_Clan_RequestLeaveClan(p0);
+		self->Match_Clan_RequestLeaveClan(p0);
 }
 
 static void do_Match_Clan_ResponseLeaveClan(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2056,7 +2056,7 @@ static void do_Match_Clan_ResponseLeaveClan(Registry* self, const uint8_t* param
 
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Match_Clan_ResponseLeaveClan)		self->Match_Clan_ResponseLeaveClan(p0);
+		self->Match_Clan_ResponseLeaveClan(p0);
 }
 
 static void do_Match_Clan_UpdateCharClanInfo(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2065,7 +2065,7 @@ static void do_Match_Clan_UpdateCharClanInfo(Registry* self, const uint8_t* para
 
 	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
 
-	if(self->Match_Clan_UpdateCharClanInfo)		self->Match_Clan_UpdateCharClanInfo(p0);
+		self->Match_Clan_UpdateCharClanInfo(p0);
 }
 
 static void do_Match_Clan_Master_RequestChangeGrade(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2077,7 +2077,7 @@ static void do_Match_Clan_Master_RequestChangeGrade(Registry* self, const uint8_
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 	int32_t p3 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Match_Clan_Master_RequestChangeGrade)		self->Match_Clan_Master_RequestChangeGrade(p0, p1, p2, p3);
+		self->Match_Clan_Master_RequestChangeGrade(p0, p1, p2, p3);
 }
 
 static void do_Match_Clan_Master_ResponseChangeGrade(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2086,7 +2086,7 @@ static void do_Match_Clan_Master_ResponseChangeGrade(Registry* self, const uint8
 
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Match_Clan_Master_ResponseChangeGrade)		self->Match_Clan_Master_ResponseChangeGrade(p0);
+		self->Match_Clan_Master_ResponseChangeGrade(p0);
 }
 
 static void do_Match_Clan_Admin_RequestExpelMember(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2096,7 +2096,7 @@ static void do_Match_Clan_Admin_RequestExpelMember(Registry* self, const uint8_t
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 
-	if(self->Match_Clan_Admin_RequestExpelMember)		self->Match_Clan_Admin_RequestExpelMember(p0, p1);
+		self->Match_Clan_Admin_RequestExpelMember(p0, p1);
 }
 
 static void do_Match_Clan_Admin_ResponseLeaveMember(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2105,7 +2105,7 @@ static void do_Match_Clan_Admin_ResponseLeaveMember(Registry* self, const uint8_
 
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Match_Clan_Admin_ResponseLeaveMember)		self->Match_Clan_Admin_ResponseLeaveMember(p0);
+		self->Match_Clan_Admin_ResponseLeaveMember(p0);
 }
 
 static void do_Match_Clan_Request_Msg(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2115,7 +2115,7 @@ static void do_Match_Clan_Request_Msg(Registry* self, const uint8_t* parameters,
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 
-	if(self->Match_Clan_Request_Msg)		self->Match_Clan_Request_Msg(p0, p1);
+		self->Match_Clan_Request_Msg(p0, p1);
 }
 
 static void do_Match_Clan_Msg(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2125,7 +2125,7 @@ static void do_Match_Clan_Msg(Registry* self, const uint8_t* parameters, uint16_
 	std::string p0 = extract_string(parameters, &paramPtr, length);
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 
-	if(self->Match_Clan_Msg)		self->Match_Clan_Msg(p0, p1);
+		self->Match_Clan_Msg(p0, p1);
 }
 
 static void do_Match_Clan_Request_ClanMemberList(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2134,7 +2134,7 @@ static void do_Match_Clan_Request_ClanMemberList(Registry* self, const uint8_t* 
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-	if(self->Match_Clan_Request_ClanMemberList)		self->Match_Clan_Request_ClanMemberList(p0);
+		self->Match_Clan_Request_ClanMemberList(p0);
 }
 
 static void do_Match_Clan_Response_ClanMemberList(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2143,7 +2143,7 @@ static void do_Match_Clan_Response_ClanMemberList(Registry* self, const uint8_t*
 
 	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
 
-	if(self->Match_Clan_Response_ClanMemberList)		self->Match_Clan_Response_ClanMemberList(p0);
+		self->Match_Clan_Response_ClanMemberList(p0);
 }
 
 static void do_Match_Clan_Request_Clan_Info(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2153,7 +2153,7 @@ static void do_Match_Clan_Request_Clan_Info(Registry* self, const uint8_t* param
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 
-	if(self->Match_Clan_Request_Clan_Info)		self->Match_Clan_Request_Clan_Info(p0, p1);
+		self->Match_Clan_Request_Clan_Info(p0, p1);
 }
 
 static void do_Match_Clan_Response_Clan_Info(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2162,7 +2162,7 @@ static void do_Match_Clan_Response_Clan_Info(Registry* self, const uint8_t* para
 
 	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
 
-	if(self->Match_Clan_Response_Clan_Info)		self->Match_Clan_Response_Clan_Info(p0);
+		self->Match_Clan_Response_Clan_Info(p0);
 }
 
 static void do_Match_Clan_Standby_ClanList(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2173,7 +2173,7 @@ static void do_Match_Clan_Standby_ClanList(Registry* self, const uint8_t* parame
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 	tuple<Buffer, size_t, size_t> p2 = extract_blob(parameters, &paramPtr, length);
 
-	if(self->Match_Clan_Standby_ClanList)		self->Match_Clan_Standby_ClanList(p0, p1, p2);
+		self->Match_Clan_Standby_ClanList(p0, p1, p2);
 }
 
 static void do_Match_Clan_Member_Connected(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2182,7 +2182,7 @@ static void do_Match_Clan_Member_Connected(Registry* self, const uint8_t* parame
 
 	std::string p0 = extract_string(parameters, &paramPtr, length);
 
-	if(self->Match_Clan_Member_Connected)		self->Match_Clan_Member_Connected(p0);
+		self->Match_Clan_Member_Connected(p0);
 }
 
 static void do_Match_Clan_Request_EmblemURL(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2191,7 +2191,7 @@ static void do_Match_Clan_Request_EmblemURL(Registry* self, const uint8_t* param
 
 	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
 
-	if(self->Match_Clan_Request_EmblemURL)		self->Match_Clan_Request_EmblemURL(p0);
+		self->Match_Clan_Request_EmblemURL(p0);
 }
 
 static void do_Match_Clan_Response_EmblemURL(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2202,7 +2202,7 @@ static void do_Match_Clan_Response_EmblemURL(Registry* self, const uint8_t* para
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 	std::string p2 = extract_string(parameters, &paramPtr, length);
 
-	if(self->Match_Clan_Response_EmblemURL)		self->Match_Clan_Response_EmblemURL(p0, p1, p2);
+		self->Match_Clan_Response_EmblemURL(p0, p1, p2);
 }
 
 static void do_Match_Clan_Local_EmblemReady(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2212,7 +2212,7 @@ static void do_Match_Clan_Local_EmblemReady(Registry* self, const uint8_t* param
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 
-	if(self->Match_Clan_Local_EmblemReady)		self->Match_Clan_Local_EmblemReady(p0, p1);
+		self->Match_Clan_Local_EmblemReady(p0, p1);
 }
 
 static void do_MC_MATCH_CLAN_ACCOUNCE_DELETE(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2221,7 +2221,7 @@ static void do_MC_MATCH_CLAN_ACCOUNCE_DELETE(Registry* self, const uint8_t* para
 
 	std::string p0 = extract_string(parameters, &paramPtr, length);
 
-	if(self->MC_MATCH_CLAN_ACCOUNCE_DELETE)		self->MC_MATCH_CLAN_ACCOUNCE_DELETE(p0);
+		self->MC_MATCH_CLAN_ACCOUNCE_DELETE(p0);
 }
 
 static void do_Match_Callvote(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2231,7 +2231,7 @@ static void do_Match_Callvote(Registry* self, const uint8_t* parameters, uint16_
 	std::string p0 = extract_string(parameters, &paramPtr, length);
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 
-	if(self->Match_Callvote)		self->Match_Callvote(p0, p1);
+		self->Match_Callvote(p0, p1);
 }
 
 static void do_Match_NotifyCallvote(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2241,7 +2241,7 @@ static void do_Match_NotifyCallvote(Registry* self, const uint8_t* parameters, u
 	std::string p0 = extract_string(parameters, &paramPtr, length);
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 
-	if(self->Match_NotifyCallvote)		self->Match_NotifyCallvote(p0, p1);
+		self->Match_NotifyCallvote(p0, p1);
 }
 
 static void do_Match_NotifyVoteResult(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2251,22 +2251,22 @@ static void do_Match_NotifyVoteResult(Registry* self, const uint8_t* parameters,
 	std::string p0 = extract_string(parameters, &paramPtr, length);
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Match_NotifyVoteResult)		self->Match_NotifyVoteResult(p0, p1);
+		self->Match_NotifyVoteResult(p0, p1);
 }
 
 static void do_Match_VoteYes(Registry* self, const uint8_t*, uint16_t)
 {
-	if(self->Match_VoteYes)		self->Match_VoteYes();
+		self->Match_VoteYes();
 }
 
 static void do_Match_VoteNo(Registry* self, const uint8_t*, uint16_t)
 {
-	if(self->Match_VoteNo)		self->Match_VoteNo();
+		self->Match_VoteNo();
 }
 
 static void do_Votestop(Registry* self, const uint8_t*, uint16_t)
 {
-	if(self->Votestop)		self->Votestop();
+		self->Votestop();
 }
 
 static void do_Match_Broadcast_ClanRenewVictories(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2277,7 +2277,7 @@ static void do_Match_Broadcast_ClanRenewVictories(Registry* self, const uint8_t*
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Match_Broadcast_ClanRenewVictories)		self->Match_Broadcast_ClanRenewVictories(p0, p1, p2);
+		self->Match_Broadcast_ClanRenewVictories(p0, p1, p2);
 }
 
 static void do_Match_Broadcast_ClanInterruptVictories(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2288,7 +2288,7 @@ static void do_Match_Broadcast_ClanInterruptVictories(Registry* self, const uint
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Match_Broadcast_ClanInterruptVictories)		self->Match_Broadcast_ClanInterruptVictories(p0, p1, p2);
+		self->Match_Broadcast_ClanInterruptVictories(p0, p1, p2);
 }
 
 static void do_Match_Broadcast_DuelRenewVictories(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2300,7 +2300,7 @@ static void do_Match_Broadcast_DuelRenewVictories(Registry* self, const uint8_t*
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 	int32_t p3 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Match_Broadcast_DuelRenewVictories)		self->Match_Broadcast_DuelRenewVictories(p0, p1, p2, p3);
+		self->Match_Broadcast_DuelRenewVictories(p0, p1, p2, p3);
 }
 
 static void do_Match_Broadcast_DuelInterruptVictories(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2311,7 +2311,7 @@ static void do_Match_Broadcast_DuelInterruptVictories(Registry* self, const uint
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Match_Broadcast_DuelInterruptVictories)		self->Match_Broadcast_DuelInterruptVictories(p0, p1, p2);
+		self->Match_Broadcast_DuelInterruptVictories(p0, p1, p2);
 }
 
 static void do_Match_Assign_Berserker(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2320,7 +2320,7 @@ static void do_Match_Assign_Berserker(Registry* self, const uint8_t* parameters,
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-	if(self->Match_Assign_Berserker)		self->Match_Assign_Berserker(p0);
+		self->Match_Assign_Berserker(p0);
 }
 
 static void do_Match_Duel_QueueInfo(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2329,7 +2329,7 @@ static void do_Match_Duel_QueueInfo(Registry* self, const uint8_t* parameters, u
 
 	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
 
-	if(self->Match_Duel_QueueInfo)		self->Match_Duel_QueueInfo(p0);
+		self->Match_Duel_QueueInfo(p0);
 }
 
 static void do_Match_Quest_Ping(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2338,7 +2338,7 @@ static void do_Match_Quest_Ping(Registry* self, const uint8_t* parameters, uint1
 
 	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
 
-	if(self->Match_Quest_Ping)		self->Match_Quest_Ping(p0);
+		self->Match_Quest_Ping(p0);
 }
 
 static void do_Match_Quest_Pong(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2347,7 +2347,7 @@ static void do_Match_Quest_Pong(Registry* self, const uint8_t* parameters, uint1
 
 	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
 
-	if(self->Match_Quest_Pong)		self->Match_Quest_Pong(p0);
+		self->Match_Quest_Pong(p0);
 }
 
 static void do_MC_QUEST_NPCLIST(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2357,12 +2357,12 @@ static void do_MC_QUEST_NPCLIST(Registry* self, const uint8_t* parameters, uint1
 	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->MC_QUEST_NPCLIST)		self->MC_QUEST_NPCLIST(p0, p1);
+		self->MC_QUEST_NPCLIST(p0, p1);
 }
 
 static void do_Event_ChangeMaster(Registry* self, const uint8_t*, uint16_t)
 {
-	if(self->Event_ChangeMaster)		self->Event_ChangeMaster();
+		self->Event_ChangeMaster();
 }
 
 static void do_Event_ChangePassword(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2371,7 +2371,7 @@ static void do_Event_ChangePassword(Registry* self, const uint8_t* parameters, u
 
 	std::string p0 = extract_string(parameters, &paramPtr, length);
 
-	if(self->Event_ChangePassword)		self->Event_ChangePassword(p0);
+		self->Event_ChangePassword(p0);
 }
 
 static void do_Event_RequestJJang(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2380,7 +2380,7 @@ static void do_Event_RequestJJang(Registry* self, const uint8_t* parameters, uin
 
 	std::string p0 = extract_string(parameters, &paramPtr, length);
 
-	if(self->Event_RequestJJang)		self->Event_RequestJJang(p0);
+		self->Event_RequestJJang(p0);
 }
 
 static void do_Event_RemoveJJang(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2389,7 +2389,7 @@ static void do_Event_RemoveJJang(Registry* self, const uint8_t* parameters, uint
 
 	std::string p0 = extract_string(parameters, &paramPtr, length);
 
-	if(self->Event_RemoveJJang)		self->Event_RemoveJJang(p0);
+		self->Event_RemoveJJang(p0);
 }
 
 static void do_Event_UpdateJJang(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2399,7 +2399,7 @@ static void do_Event_UpdateJJang(Registry* self, const uint8_t* parameters, uint
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	bool p1 = extract_bool(parameters, &paramPtr, length);
 
-	if(self->Event_UpdateJJang)		self->Event_UpdateJJang(p0, p1);
+		self->Event_UpdateJJang(p0, p1);
 }
 
 static void do_Quest_NPCSpawn(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2411,7 +2411,7 @@ static void do_Quest_NPCSpawn(Registry* self, const uint8_t* parameters, uint16_
 	uint8_t p2 = extract_uint8(parameters, &paramPtr, length);
 	uint8_t p3 = extract_uint8(parameters, &paramPtr, length);
 
-	if(self->Quest_NPCSpawn)		self->Quest_NPCSpawn(p0, p1, p2, p3);
+		self->Quest_NPCSpawn(p0, p1, p2, p3);
 }
 
 static void do_Quest_Entrust_NPC_Control(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2421,7 +2421,7 @@ static void do_Quest_Entrust_NPC_Control(Registry* self, const uint8_t* paramete
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 
-	if(self->Quest_Entrust_NPC_Control)		self->Quest_Entrust_NPC_Control(p0, p1);
+		self->Quest_Entrust_NPC_Control(p0, p1);
 }
 
 static void do_Quest_Checksum_NPCInfo(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2431,7 +2431,7 @@ static void do_Quest_Checksum_NPCInfo(Registry* self, const uint8_t* parameters,
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
 
-	if(self->Quest_Checksum_NPCInfo)		self->Quest_Checksum_NPCInfo(p0, p1);
+		self->Quest_Checksum_NPCInfo(p0, p1);
 }
 
 static void do_Quest_NPCDead(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2441,17 +2441,17 @@ static void do_Quest_NPCDead(Registry* self, const uint8_t* parameters, uint16_t
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 
-	if(self->Quest_NPCDead)		self->Quest_NPCDead(p0, p1);
+		self->Quest_NPCDead(p0, p1);
 }
 
 static void do_Quest_RefreshPlayerStatus(Registry* self, const uint8_t*, uint16_t)
 {
-	if(self->Quest_RefreshPlayerStatus)		self->Quest_RefreshPlayerStatus();
+		self->Quest_RefreshPlayerStatus();
 }
 
 static void do_Quest_NPC_AllClear(Registry* self, const uint8_t*, uint16_t)
 {
-	if(self->Quest_NPC_AllClear)		self->Quest_NPC_AllClear();
+		self->Quest_NPC_AllClear();
 }
 
 static void do_Quest_Round_Start(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2460,12 +2460,12 @@ static void do_Quest_Round_Start(Registry* self, const uint8_t* parameters, uint
 
 	uint8_t p0 = extract_uint8(parameters, &paramPtr, length);
 
-	if(self->Quest_Round_Start)		self->Quest_Round_Start(p0);
+		self->Quest_Round_Start(p0);
 }
 
 static void do_Quest_RequestDead(Registry* self, const uint8_t*, uint16_t)
 {
-	if(self->Quest_RequestDead)		self->Quest_RequestDead();
+		self->Quest_RequestDead();
 }
 
 static void do_Quest_PlayerDead(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2474,7 +2474,7 @@ static void do_Quest_PlayerDead(Registry* self, const uint8_t* parameters, uint1
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-	if(self->Quest_PlayerDead)		self->Quest_PlayerDead(p0);
+		self->Quest_PlayerDead(p0);
 }
 
 static void do_Quest_ObtainQuestItem(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2483,7 +2483,7 @@ static void do_Quest_ObtainQuestItem(Registry* self, const uint8_t* parameters, 
 
 	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
 
-	if(self->Quest_ObtainQuestItem)		self->Quest_ObtainQuestItem(p0);
+		self->Quest_ObtainQuestItem(p0);
 }
 
 static void do_Quest_ObtainZItem(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2492,7 +2492,7 @@ static void do_Quest_ObtainZItem(Registry* self, const uint8_t* parameters, uint
 
 	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
 
-	if(self->Quest_ObtainZItem)		self->Quest_ObtainZItem(p0);
+		self->Quest_ObtainZItem(p0);
 }
 
 static void do_Quest_State_Mapset(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2502,7 +2502,7 @@ static void do_Quest_State_Mapset(Registry* self, const uint8_t* parameters, uin
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	int8_t p1 = extract_int8(parameters, &paramPtr, length);
 
-	if(self->Quest_State_Mapset)		self->Quest_State_Mapset(p0, p1);
+		self->Quest_State_Mapset(p0, p1);
 }
 
 static void do_Quest_Stage_GameInfo(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2513,7 +2513,7 @@ static void do_Quest_Stage_GameInfo(Registry* self, const uint8_t* parameters, u
 	int8_t p1 = extract_int8(parameters, &paramPtr, length);
 	uint32_t p2 = extract_uint32(parameters, &paramPtr, length);
 
-	if(self->Quest_Stage_GameInfo)		self->Quest_Stage_GameInfo(p0, p1, p2);
+		self->Quest_Stage_GameInfo(p0, p1, p2);
 }
 
 static void do_Quest_SectorBonus(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2524,7 +2524,7 @@ static void do_Quest_SectorBonus(Registry* self, const uint8_t* parameters, uint
 	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
 	uint32_t p2 = extract_uint32(parameters, &paramPtr, length);
 
-	if(self->Quest_SectorBonus)		self->Quest_SectorBonus(p0, p1, p2);
+		self->Quest_SectorBonus(p0, p1, p2);
 }
 
 static void do_Quest_GameInfo(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2533,7 +2533,7 @@ static void do_Quest_GameInfo(Registry* self, const uint8_t* parameters, uint16_
 
 	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
 
-	if(self->Quest_GameInfo)		self->Quest_GameInfo(p0);
+		self->Quest_GameInfo(p0);
 }
 
 static void do_Quest_Combat_State(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2542,7 +2542,7 @@ static void do_Quest_Combat_State(Registry* self, const uint8_t* parameters, uin
 
 	int8_t p0 = extract_int8(parameters, &paramPtr, length);
 
-	if(self->Quest_Combat_State)		self->Quest_Combat_State(p0);
+		self->Quest_Combat_State(p0);
 }
 
 static void do_Quest_Sector_Start(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2552,7 +2552,7 @@ static void do_Quest_Sector_Start(Registry* self, const uint8_t* parameters, uin
 	int8_t p0 = extract_int8(parameters, &paramPtr, length);
 	uint8_t p1 = extract_uint8(parameters, &paramPtr, length);
 
-	if(self->Quest_Sector_Start)		self->Quest_Sector_Start(p0, p1);
+		self->Quest_Sector_Start(p0, p1);
 }
 
 static void do_Quest_Complete(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2561,12 +2561,12 @@ static void do_Quest_Complete(Registry* self, const uint8_t* parameters, uint16_
 
 	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
 
-	if(self->Quest_Complete)		self->Quest_Complete(p0);
+		self->Quest_Complete(p0);
 }
 
 static void do_Quest_Failed(Registry* self, const uint8_t*, uint16_t)
 {
-	if(self->Quest_Failed)		self->Quest_Failed();
+		self->Quest_Failed();
 }
 
 static void do_Quest_Request_Moveto_Portal(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2575,7 +2575,7 @@ static void do_Quest_Request_Moveto_Portal(Registry* self, const uint8_t* parame
 
 	int8_t p0 = extract_int8(parameters, &paramPtr, length);
 
-	if(self->Quest_Request_Moveto_Portal)		self->Quest_Request_Moveto_Portal(p0);
+		self->Quest_Request_Moveto_Portal(p0);
 }
 
 static void do_Quest_Moveto_Portal(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2586,7 +2586,7 @@ static void do_Quest_Moveto_Portal(Registry* self, const uint8_t* parameters, ui
 	uint8_t p1 = extract_uint8(parameters, &paramPtr, length);
 	uint64_t p2 = extract_MUID(parameters, &paramPtr, length);
 
-	if(self->Quest_Moveto_Portal)		self->Quest_Moveto_Portal(p0, p1, p2);
+		self->Quest_Moveto_Portal(p0, p1, p2);
 }
 
 static void do_Quest_Readyto_NewSector(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2595,7 +2595,7 @@ static void do_Quest_Readyto_NewSector(Registry* self, const uint8_t* parameters
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-	if(self->Quest_Readyto_NewSector)		self->Quest_Readyto_NewSector(p0);
+		self->Quest_Readyto_NewSector(p0);
 }
 
 static void do_Quest_Peer_NPC_BasicInfo(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2604,7 +2604,7 @@ static void do_Quest_Peer_NPC_BasicInfo(Registry* self, const uint8_t* parameter
 
 	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
 
-	if(self->Quest_Peer_NPC_BasicInfo)		self->Quest_Peer_NPC_BasicInfo(p0);
+		self->Quest_Peer_NPC_BasicInfo(p0);
 }
 
 static void do_Quest_Peer_NPC_HPInfo(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2614,7 +2614,7 @@ static void do_Quest_Peer_NPC_HPInfo(Registry* self, const uint8_t* parameters, 
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 	tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
 
-	if(self->Quest_Peer_NPC_HPInfo)		self->Quest_Peer_NPC_HPInfo(p0, p1);
+		self->Quest_Peer_NPC_HPInfo(p0, p1);
 }
 
 static void do_Quest_Peer_NPC_Attack_Melee(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2623,7 +2623,7 @@ static void do_Quest_Peer_NPC_Attack_Melee(Registry* self, const uint8_t* parame
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-	if(self->Quest_Peer_NPC_Attack_Melee)		self->Quest_Peer_NPC_Attack_Melee(p0);
+		self->Quest_Peer_NPC_Attack_Melee(p0);
 }
 
 static void do_Quest_Peer_NPC_Attack_Range(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2633,7 +2633,7 @@ static void do_Quest_Peer_NPC_Attack_Range(Registry* self, const uint8_t* parame
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
 
-	if(self->Quest_Peer_NPC_Attack_Range)		self->Quest_Peer_NPC_Attack_Range(p0, p1);
+		self->Quest_Peer_NPC_Attack_Range(p0, p1);
 }
 
 static void do_Quest_Peer_NPC_Skill_Start(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2645,7 +2645,7 @@ static void do_Quest_Peer_NPC_Skill_Start(Registry* self, const uint8_t* paramet
 	uint64_t p2 = extract_MUID(parameters, &paramPtr, length);
 	array<float, 3> p3 = extract_position(parameters, &paramPtr, length);
 
-	if(self->Quest_Peer_NPC_Skill_Start)		self->Quest_Peer_NPC_Skill_Start(p0, p1, p2, p3);
+		self->Quest_Peer_NPC_Skill_Start(p0, p1, p2, p3);
 }
 
 static void do_Quest_Peer_NPC_Skill_Execute(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2657,7 +2657,7 @@ static void do_Quest_Peer_NPC_Skill_Execute(Registry* self, const uint8_t* param
 	uint64_t p2 = extract_MUID(parameters, &paramPtr, length);
 	array<float, 3> p3 = extract_position(parameters, &paramPtr, length);
 
-	if(self->Quest_Peer_NPC_Skill_Execute)		self->Quest_Peer_NPC_Skill_Execute(p0, p1, p2, p3);
+		self->Quest_Peer_NPC_Skill_Execute(p0, p1, p2, p3);
 }
 
 static void do_Quest_Peer_NPC_Dead(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2667,7 +2667,7 @@ static void do_Quest_Peer_NPC_Dead(Registry* self, const uint8_t* parameters, ui
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 
-	if(self->Quest_Peer_NPC_Dead)		self->Quest_Peer_NPC_Dead(p0, p1);
+		self->Quest_Peer_NPC_Dead(p0, p1);
 }
 
 static void do_Quest_Test_RequestNPCSpawn(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2677,22 +2677,22 @@ static void do_Quest_Test_RequestNPCSpawn(Registry* self, const uint8_t* paramet
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Quest_Test_RequestNPCSpawn)		self->Quest_Test_RequestNPCSpawn(p0, p1);
+		self->Quest_Test_RequestNPCSpawn(p0, p1);
 }
 
 static void do_Quest_Test_ClearNPC(Registry* self, const uint8_t*, uint16_t)
 {
-	if(self->Quest_Test_ClearNPC)		self->Quest_Test_ClearNPC();
+		self->Quest_Test_ClearNPC();
 }
 
 static void do_Quest_Test_SectorClear(Registry* self, const uint8_t*, uint16_t)
 {
-	if(self->Quest_Test_SectorClear)		self->Quest_Test_SectorClear();
+		self->Quest_Test_SectorClear();
 }
 
 static void do_Quest_Test_Finish(Registry* self, const uint8_t*, uint16_t)
 {
-	if(self->Quest_Test_Finish)		self->Quest_Test_Finish();
+		self->Quest_Test_Finish();
 }
 
 static void do_Admin_Announce(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2703,7 +2703,7 @@ static void do_Admin_Announce(Registry* self, const uint8_t* parameters, uint16_
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 	uint32_t p2 = extract_uint32(parameters, &paramPtr, length);
 
-	if(self->Admin_Announce)		self->Admin_Announce(p0, p1, p2);
+		self->Admin_Announce(p0, p1, p2);
 }
 
 static void do_Admin_RequestBanPlayer(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2713,7 +2713,7 @@ static void do_Admin_RequestBanPlayer(Registry* self, const uint8_t* parameters,
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 
-	if(self->Admin_RequestBanPlayer)		self->Admin_RequestBanPlayer(p0, p1);
+		self->Admin_RequestBanPlayer(p0, p1);
 }
 
 static void do_Admin_ResponseBanPlayer(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2722,27 +2722,27 @@ static void do_Admin_ResponseBanPlayer(Registry* self, const uint8_t* parameters
 
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Admin_ResponseBanPlayer)		self->Admin_ResponseBanPlayer(p0);
+		self->Admin_ResponseBanPlayer(p0);
 }
 
 static void do_Admin_Hide(Registry* self, const uint8_t*, uint16_t)
 {
-	if(self->Admin_Hide)		self->Admin_Hide();
+		self->Admin_Hide();
 }
 
 static void do_MC_ADMIN_RESET_ALL_HACKING_BLOCK(Registry* self, const uint8_t*, uint16_t)
 {
-	if(self->MC_ADMIN_RESET_ALL_HACKING_BLOCK)		self->MC_ADMIN_RESET_ALL_HACKING_BLOCK();
+		self->MC_ADMIN_RESET_ALL_HACKING_BLOCK();
 }
 
 static void do_MC_ADMIN_RELOAD_GAMBLEITEM(Registry* self, const uint8_t*, uint16_t)
 {
-	if(self->MC_ADMIN_RELOAD_GAMBLEITEM)		self->MC_ADMIN_RELOAD_GAMBLEITEM();
+		self->MC_ADMIN_RELOAD_GAMBLEITEM();
 }
 
 static void do_MC_ADMIN_ASSASIN(Registry* self, const uint8_t*, uint16_t)
 {
-	if(self->MC_ADMIN_ASSASIN)		self->MC_ADMIN_ASSASIN();
+		self->MC_ADMIN_ASSASIN();
 }
 
 static void do_Agent_Connect(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2752,12 +2752,12 @@ static void do_Agent_Connect(Registry* self, const uint8_t* parameters, uint16_t
 	std::string p0 = extract_string(parameters, &paramPtr, length);
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Agent_Connect)		self->Agent_Connect(p0, p1);
+		self->Agent_Connect(p0, p1);
 }
 
 static void do_Agent_Disconnect(Registry* self, const uint8_t*, uint16_t)
 {
-	if(self->Agent_Disconnect)		self->Agent_Disconnect();
+		self->Agent_Disconnect();
 }
 
 static void do_Match_RegisterAgent(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2768,12 +2768,12 @@ static void do_Match_RegisterAgent(Registry* self, const uint8_t* parameters, ui
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Match_RegisterAgent)		self->Match_RegisterAgent(p0, p1, p2);
+		self->Match_RegisterAgent(p0, p1, p2);
 }
 
 static void do_Match_UnRegisterAgent(Registry* self, const uint8_t*, uint16_t)
 {
-	if(self->Match_UnRegisterAgent)		self->Match_UnRegisterAgent();
+		self->Match_UnRegisterAgent();
 }
 
 static void do_Match_Agent_RequestLiveCheck(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2784,7 +2784,7 @@ static void do_Match_Agent_RequestLiveCheck(Registry* self, const uint8_t* param
 	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
 	uint32_t p2 = extract_uint32(parameters, &paramPtr, length);
 
-	if(self->Match_Agent_RequestLiveCheck)		self->Match_Agent_RequestLiveCheck(p0, p1, p2);
+		self->Match_Agent_RequestLiveCheck(p0, p1, p2);
 }
 
 static void do_Match_Agent_ResponseLiveCheck(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2793,7 +2793,7 @@ static void do_Match_Agent_ResponseLiveCheck(Registry* self, const uint8_t* para
 
 	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
 
-	if(self->Match_Agent_ResponseLiveCheck)		self->Match_Agent_ResponseLiveCheck(p0);
+		self->Match_Agent_ResponseLiveCheck(p0);
 }
 
 static void do_Agent_StageReserve(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2802,7 +2802,7 @@ static void do_Agent_StageReserve(Registry* self, const uint8_t* parameters, uin
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-	if(self->Agent_StageReserve)		self->Agent_StageReserve(p0);
+		self->Agent_StageReserve(p0);
 }
 
 static void do_Agent_StageRelease(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2811,7 +2811,7 @@ static void do_Agent_StageRelease(Registry* self, const uint8_t* parameters, uin
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-	if(self->Agent_StageRelease)		self->Agent_StageRelease(p0);
+		self->Agent_StageRelease(p0);
 }
 
 static void do_Agent_StageReady(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2820,7 +2820,7 @@ static void do_Agent_StageReady(Registry* self, const uint8_t* parameters, uint1
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-	if(self->Agent_StageReady)		self->Agent_StageReady(p0);
+		self->Agent_StageReady(p0);
 }
 
 static void do_Agent_RelayPeer(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2831,7 +2831,7 @@ static void do_Agent_RelayPeer(Registry* self, const uint8_t* parameters, uint16
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 	uint64_t p2 = extract_MUID(parameters, &paramPtr, length);
 
-	if(self->Agent_RelayPeer)		self->Agent_RelayPeer(p0, p1, p2);
+		self->Agent_RelayPeer(p0, p1, p2);
 }
 
 static void do_Questitem(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2840,7 +2840,7 @@ static void do_Questitem(Registry* self, const uint8_t* parameters, uint16_t len
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-	if(self->Questitem)		self->Questitem(p0);
+		self->Questitem(p0);
 }
 
 static void do_Quest_item_response(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2849,7 +2849,7 @@ static void do_Quest_item_response(Registry* self, const uint8_t* parameters, ui
 
 	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
 
-	if(self->Quest_item_response)		self->Quest_item_response(p0);
+		self->Quest_item_response(p0);
 }
 
 static void do_Quest_item_buy(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2859,7 +2859,7 @@ static void do_Quest_item_buy(Registry* self, const uint8_t* parameters, uint16_
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Quest_item_buy)		self->Quest_item_buy(p0, p1);
+		self->Quest_item_buy(p0, p1);
 }
 
 static void do_Quest_item_responsebuy(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2869,7 +2869,7 @@ static void do_Quest_item_responsebuy(Registry* self, const uint8_t* parameters,
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Quest_item_responsebuy)		self->Quest_item_responsebuy(p0, p1);
+		self->Quest_item_responsebuy(p0, p1);
 }
 
 static void do_Quest_item_sell(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2880,7 +2880,7 @@ static void do_Quest_item_sell(Registry* self, const uint8_t* parameters, uint16
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Quest_item_sell)		self->Quest_item_sell(p0, p1, p2);
+		self->Quest_item_sell(p0, p1, p2);
 }
 
 static void do_Quest_item_responsesell(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2890,7 +2890,7 @@ static void do_Quest_item_responsesell(Registry* self, const uint8_t* parameters
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Quest_item_responsesell)		self->Quest_item_responsesell(p0, p1);
+		self->Quest_item_responsesell(p0, p1);
 }
 
 static void do_Quest_Reward(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2902,7 +2902,7 @@ static void do_Quest_Reward(Registry* self, const uint8_t* parameters, uint16_t 
 	tuple<Buffer, size_t, size_t> p2 = extract_blob(parameters, &paramPtr, length);
 	tuple<Buffer, size_t, size_t> p3 = extract_blob(parameters, &paramPtr, length);
 
-	if(self->Quest_Reward)		self->Quest_Reward(p0, p1, p2, p3);
+		self->Quest_Reward(p0, p1, p2, p3);
 }
 
 static void do_Quest_Request_Sacrifice(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2913,7 +2913,7 @@ static void do_Quest_Request_Sacrifice(Registry* self, const uint8_t* parameters
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Quest_Request_Sacrifice)		self->Quest_Request_Sacrifice(p0, p1, p2);
+		self->Quest_Request_Sacrifice(p0, p1, p2);
 }
 
 static void do_Quest_Response_Sacrifice(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2925,7 +2925,7 @@ static void do_Quest_Response_Sacrifice(Registry* self, const uint8_t* parameter
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 	int32_t p3 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Quest_Response_Sacrifice)		self->Quest_Response_Sacrifice(p0, p1, p2, p3);
+		self->Quest_Response_Sacrifice(p0, p1, p2, p3);
 }
 
 static void do_Quest_Callback_Sacrifice(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2936,7 +2936,7 @@ static void do_Quest_Callback_Sacrifice(Registry* self, const uint8_t* parameter
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Quest_Callback_Sacrifice)		self->Quest_Callback_Sacrifice(p0, p1, p2);
+		self->Quest_Callback_Sacrifice(p0, p1, p2);
 }
 
 static void do_Quest_Callback_Result(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2948,7 +2948,7 @@ static void do_Quest_Callback_Result(Registry* self, const uint8_t* parameters, 
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 	int32_t p3 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Quest_Callback_Result)		self->Quest_Callback_Result(p0, p1, p2, p3);
+		self->Quest_Callback_Result(p0, p1, p2, p3);
 }
 
 static void do_Quest_Request_SlotInfo(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2957,7 +2957,7 @@ static void do_Quest_Request_SlotInfo(Registry* self, const uint8_t* parameters,
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-	if(self->Quest_Request_SlotInfo)		self->Quest_Request_SlotInfo(p0);
+		self->Quest_Request_SlotInfo(p0);
 }
 
 static void do_Quest_Resonse_SlotInfo(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2969,7 +2969,7 @@ static void do_Quest_Resonse_SlotInfo(Registry* self, const uint8_t* parameters,
 	uint64_t p2 = extract_MUID(parameters, &paramPtr, length);
 	int32_t p3 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Quest_Resonse_SlotInfo)		self->Quest_Resonse_SlotInfo(p0, p1, p2, p3);
+		self->Quest_Resonse_SlotInfo(p0, p1, p2, p3);
 }
 
 static void do_Quest_RequestLevel(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2978,7 +2978,7 @@ static void do_Quest_RequestLevel(Registry* self, const uint8_t* parameters, uin
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-	if(self->Quest_RequestLevel)		self->Quest_RequestLevel(p0);
+		self->Quest_RequestLevel(p0);
 }
 
 static void do_Quest_ResponseLevel(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2987,7 +2987,7 @@ static void do_Quest_ResponseLevel(Registry* self, const uint8_t* parameters, ui
 
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Quest_ResponseLevel)		self->Quest_ResponseLevel(p0);
+		self->Quest_ResponseLevel(p0);
 }
 
 static void do_Quest_Survival_Result(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2997,7 +2997,7 @@ static void do_Quest_Survival_Result(Registry* self, const uint8_t* parameters, 
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->Quest_Survival_Result)		self->Quest_Survival_Result(p0, p1);
+		self->Quest_Survival_Result(p0, p1);
 }
 
 static void do_Quest_Survival_Ranking(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -3006,7 +3006,7 @@ static void do_Quest_Survival_Ranking(Registry* self, const uint8_t* parameters,
 
 	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
 
-	if(self->Quest_Survival_Ranking)		self->Quest_Survival_Ranking(p0);
+		self->Quest_Survival_Ranking(p0);
 }
 
 static void do_Quest_Survuval_PrivateRanking(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -3016,7 +3016,7 @@ static void do_Quest_Survuval_PrivateRanking(Registry* self, const uint8_t* para
 	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
 	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
 
-	if(self->Quest_Survuval_PrivateRanking)		self->Quest_Survuval_PrivateRanking(p0, p1);
+		self->Quest_Survuval_PrivateRanking(p0, p1);
 }
 
 static void do_Quest_Start_Fail(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -3026,7 +3026,7 @@ static void do_Quest_Start_Fail(Registry* self, const uint8_t* parameters, uint1
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 
-	if(self->Quest_Start_Fail)		self->Quest_Start_Fail(p0, p1);
+		self->Quest_Start_Fail(p0, p1);
 }
 
 static void do_monsterinfo(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -3035,7 +3035,7 @@ static void do_monsterinfo(Registry* self, const uint8_t* parameters, uint16_t l
 
 	int8_t p0 = extract_int8(parameters, &paramPtr, length);
 
-	if(self->monsterinfo)		self->monsterinfo(p0);
+		self->monsterinfo(p0);
 }
 
 static void do_Quest_Bible_Request(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -3044,7 +3044,7 @@ static void do_Quest_Bible_Request(Registry* self, const uint8_t* parameters, ui
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-	if(self->Quest_Bible_Request)		self->Quest_Bible_Request(p0);
+		self->Quest_Bible_Request(p0);
 }
 
 static void do_Quest_Bible_Response(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -3054,12 +3054,12 @@ static void do_Quest_Bible_Response(Registry* self, const uint8_t* parameters, u
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
 
-	if(self->Quest_Bible_Response)		self->Quest_Bible_Response(p0, p1);
+		self->Quest_Bible_Response(p0, p1);
 }
 
 static void do_MC_REQUEST_GIVE_ONESELF_UP(Registry* self, const uint8_t*, uint16_t)
 {
-	if(self->MC_REQUEST_GIVE_ONESELF_UP)		self->MC_REQUEST_GIVE_ONESELF_UP();
+		self->MC_REQUEST_GIVE_ONESELF_UP();
 }
 
 static void do_MC_RESPONSE_GAMBLEITEMLIST(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -3068,7 +3068,7 @@ static void do_MC_RESPONSE_GAMBLEITEMLIST(Registry* self, const uint8_t* paramet
 
 	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
 
-	if(self->MC_RESPONSE_GAMBLEITEMLIST)		self->MC_RESPONSE_GAMBLEITEMLIST(p0);
+		self->MC_RESPONSE_GAMBLEITEMLIST(p0);
 }
 
 static void do_MC_MATCH_ROUTE_UPDATE_STAGE_EQUIP_LOOK(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -3079,7 +3079,7 @@ static void do_MC_MATCH_ROUTE_UPDATE_STAGE_EQUIP_LOOK(Registry* self, const uint
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 
-	if(self->MC_MATCH_ROUTE_UPDATE_STAGE_EQUIP_LOOK)		self->MC_MATCH_ROUTE_UPDATE_STAGE_EQUIP_LOOK(p0, p1, p2);
+		self->MC_MATCH_ROUTE_UPDATE_STAGE_EQUIP_LOOK(p0, p1, p2);
 }
 
 static void do_MC_REQUEST_RESOURCE_CRC32(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -3088,7 +3088,7 @@ static void do_MC_REQUEST_RESOURCE_CRC32(Registry* self, const uint8_t* paramete
 
 	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
 
-	if(self->MC_REQUEST_RESOURCE_CRC32)		self->MC_REQUEST_RESOURCE_CRC32(p0);
+		self->MC_REQUEST_RESOURCE_CRC32(p0);
 }
 
 static void do_MC_RESPONSE_RESOURCE_CRC32(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -3097,7 +3097,7 @@ static void do_MC_RESPONSE_RESOURCE_CRC32(Registry* self, const uint8_t* paramet
 
 	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
 
-	if(self->MC_RESPONSE_RESOURCE_CRC32)		self->MC_RESPONSE_RESOURCE_CRC32(p0);
+		self->MC_RESPONSE_RESOURCE_CRC32(p0);
 }
 
 void Registry::dispatch(uint16_t packetID,
