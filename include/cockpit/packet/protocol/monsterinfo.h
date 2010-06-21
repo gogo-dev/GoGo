@@ -15,12 +15,12 @@ namespace protocol {
 class monsterinfo : public Packet
 {
 private:
-	packet::vector monsterdbindex;
+	packet::int8 monsterdbindex;
 
 public:
 	enum { packetID = 21013 };
 
-	monsterinfo(packet::vector monsterdbindex);
+	monsterinfo(packet::int8 monsterdbindex);
 
 	const char* name() const;
 	const char* doc() const;

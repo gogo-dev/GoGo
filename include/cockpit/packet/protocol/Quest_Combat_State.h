@@ -15,12 +15,12 @@ namespace protocol {
 class Quest_Combat_State : public Packet
 {
 private:
-	packet::vector CombatState;
+	packet::int8 CombatState;
 
 public:
 	enum { packetID = 6052 };
 
-	Quest_Combat_State(packet::vector CombatState);
+	Quest_Combat_State(packet::int8 CombatState);
 
 	const char* name() const;
 	const char* doc() const;

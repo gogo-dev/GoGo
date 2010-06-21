@@ -19,7 +19,7 @@ public:
 	/**
 		@return MAIET's help string for the packet.
 	*/
-	virtual const char* docstring() const = 0;
+	virtual const char* doc() const = 0;
 
 	/**
 		@return The command ID that the packet responds to.

@@ -181,7 +181,7 @@ Buffer Match_Login::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_ResponseLogin::Match_ResponseLogin(packet::int32 _Result, packet::string _ServerName, packet::vector _ServerMode, packet::string _AccountID, packet::uint8 _UGradeID, packet::uint8 _PGradeID, packet::MUID _uidPlayer, packet::boolean _bEnabledSurvivalMode, packet::blob _EncryptMsg)
+Match_ResponseLogin::Match_ResponseLogin(packet::int32 _Result, packet::string _ServerName, packet::int8 _ServerMode, packet::string _AccountID, packet::uint8 _UGradeID, packet::uint8 _PGradeID, packet::MUID _uidPlayer, packet::boolean _bEnabledSurvivalMode, packet::blob _EncryptMsg)
 	: Result(_Result), ServerName(_ServerName), ServerMode(_ServerMode), AccountID(_AccountID), UGradeID(_UGradeID), PGradeID(_PGradeID), uidPlayer(_uidPlayer), bEnabledSurvivalMode(_bEnabledSurvivalMode), EncryptMsg(_EncryptMsg)
 {
 }
@@ -1717,7 +1717,7 @@ Buffer Stage_ListStop::serialize() const
 	return Buffer(0);
 }
 
-Stage_List::Stage_List(packet::vector _PrevStageListCount, packet::vector _NextStageListCount, packet::blob _StageList)
+Stage_List::Stage_List(packet::int8 _PrevStageListCount, packet::int8 _NextStageListCount, packet::blob _StageList)
 	: PrevStageListCount(_PrevStageListCount), NextStageListCount(_NextStageListCount), StageList(_StageList)
 {
 }
@@ -2893,7 +2893,7 @@ Buffer Match_ResponseAccountCharList::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_RequestAccountCharInfo::Match_RequestAccountCharInfo(packet::vector _CharNum, packet::int32 __0B)
+Match_RequestAccountCharInfo::Match_RequestAccountCharInfo(packet::int8 _CharNum, packet::int32 __0B)
 	: CharNum(_CharNum), _0B(__0B)
 {
 }
@@ -2923,7 +2923,7 @@ Buffer Match_RequestAccountCharInfo::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_ResponseAccountCharInfo::Match_ResponseAccountCharInfo(packet::vector _CharNum, packet::blob _CharInfo)
+Match_ResponseAccountCharInfo::Match_ResponseAccountCharInfo(packet::int8 _CharNum, packet::blob _CharInfo)
 	: CharNum(_CharNum), CharInfo(_CharInfo)
 {
 }
@@ -6524,7 +6524,7 @@ Buffer Quest_ObtainZItem::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Quest_State_Mapset::Quest_State_Mapset(packet::MUID _uidStage, packet::vector _QuestMapset)
+Quest_State_Mapset::Quest_State_Mapset(packet::MUID _uidStage, packet::int8 _QuestMapset)
 	: uidStage(_uidStage), QuestMapset(_QuestMapset)
 {
 }
@@ -6554,7 +6554,7 @@ Buffer Quest_State_Mapset::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Quest_Stage_GameInfo::Quest_Stage_GameInfo(packet::vector _Questlevel, packet::vector _MapsetID, packet::uint32 _QuestScenarioID)
+Quest_Stage_GameInfo::Quest_Stage_GameInfo(packet::int8 _Questlevel, packet::int8 _MapsetID, packet::uint32 _QuestScenarioID)
 	: Questlevel(_Questlevel), MapsetID(_MapsetID), QuestScenarioID(_QuestScenarioID)
 {
 }
@@ -6645,7 +6645,7 @@ Buffer Quest_GameInfo::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Quest_Combat_State::Quest_Combat_State(packet::vector _CombatState)
+Quest_Combat_State::Quest_Combat_State(packet::int8 _CombatState)
 	: CombatState(_CombatState)
 {
 }
@@ -6674,7 +6674,7 @@ Buffer Quest_Combat_State::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Quest_Sector_Start::Quest_Sector_Start(packet::vector _SectorIndex, packet::uint8 _RepeatIndex)
+Quest_Sector_Start::Quest_Sector_Start(packet::int8 _SectorIndex, packet::uint8 _RepeatIndex)
 	: SectorIndex(_SectorIndex), RepeatIndex(_RepeatIndex)
 {
 }
@@ -6757,7 +6757,7 @@ Buffer Quest_Failed::serialize() const
 	return Buffer(0);
 }
 
-Quest_Request_Moveto_Portal::Quest_Request_Moveto_Portal(packet::vector _CurrSectorIndex)
+Quest_Request_Moveto_Portal::Quest_Request_Moveto_Portal(packet::int8 _CurrSectorIndex)
 	: CurrSectorIndex(_CurrSectorIndex)
 {
 }
@@ -6786,7 +6786,7 @@ Buffer Quest_Request_Moveto_Portal::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Quest_Moveto_Portal::Quest_Moveto_Portal(packet::vector _SectorIndex, packet::uint8 _RepeatIndex, packet::MUID _uidPlayer)
+Quest_Moveto_Portal::Quest_Moveto_Portal(packet::int8 _SectorIndex, packet::uint8 _RepeatIndex, packet::MUID _uidPlayer)
 	: SectorIndex(_SectorIndex), RepeatIndex(_RepeatIndex), uidPlayer(_uidPlayer)
 {
 }
@@ -8208,7 +8208,7 @@ Buffer Quest_Start_Fail::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-monsterinfo::monsterinfo(packet::vector _monsterdbindex)
+monsterinfo::monsterinfo(packet::int8 _monsterdbindex)
 	: monsterdbindex(_monsterdbindex)
 {
 }

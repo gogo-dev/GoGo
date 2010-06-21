@@ -591,22 +591,18 @@ static void test_blob_corrupt_count()
 	BOOST_CHECK(succeeded);
 }
 
-static void test_vector_clean_extraction()
+static void test_int8_clean_extraction()
 {
 	bool succeeded = false;
 
 	const uint8_t buffer[] = {
-		0x00, 0x11, 0x22, 0x33,
-		0x44, 0x55
+		0x55
 	};
 
 	const uint8_t* ptr = buffer;
 
 	try {
-		array<uint16_t, 3> vec = extract_vector(buffer, &ptr, countof(buffer));
-		check_equal(vec[0], static_cast<uint16_t>(0x1100));
-		check_equal(vec[1], static_cast<uint16_t>(0x3322));
-		check_equal(vec[2], static_cast<uint16_t>(0x5544));
+		check_equal(extract_int8(buffer, &ptr, countof(buffer)), static_cast<int8_t>(0x55));
 
 		check_equal(ptr, buffer + sizeof(buffer));
 
@@ -618,19 +614,18 @@ static void test_vector_clean_extraction()
 	BOOST_CHECK(succeeded);
 }
 
-static void test_vector_read_off_end()
+static void test_int8_read_off_end()
 {
 	bool succeeded = false;
 
 	const uint8_t buffer[] = {
-		0x00, 0x11, 0x22, 0x33,
-		0x44 //, 0x55
+		0x55
 	};
 
-	const uint8_t* ptr = buffer;
+	const uint8_t* ptr = buffer + 1;
 
 	try {
-		extract_vector(buffer, &ptr, countof(buffer));
+		extract_int8(buffer, &ptr, countof(buffer));
 
 		succeeded = false;
 	} catch(ParseFailed) {
@@ -808,8 +803,8 @@ int test_main(int, char**)
 	test_blob_corrupt_size();
 	test_blob_corrupt_count();
 
-	test_vector_clean_extraction();
-	test_vector_read_off_end();
+	test_int8_clean_extraction();
+	test_int8_read_off_end();
 
 	test_uint8_clean_extraction();
 	test_uint8_read_off_end();

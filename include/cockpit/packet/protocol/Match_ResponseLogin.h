@@ -17,7 +17,7 @@ class Match_ResponseLogin : public Packet
 private:
 	packet::int32 Result;
 	packet::string ServerName;
-	packet::vector ServerMode;
+	packet::int8 ServerMode;
 	packet::string AccountID;
 	packet::uint8 UGradeID;
 	packet::uint8 PGradeID;
@@ -28,7 +28,7 @@ private:
 public:
 	enum { packetID = 1002 };
 
-	Match_ResponseLogin(packet::int32 Result, packet::string ServerName, packet::vector ServerMode, packet::string AccountID, packet::uint8 UGradeID, packet::uint8 PGradeID, packet::MUID uidPlayer, packet::boolean bEnabledSurvivalMode, packet::blob EncryptMsg);
+	Match_ResponseLogin(packet::int32 Result, packet::string ServerName, packet::int8 ServerMode, packet::string AccountID, packet::uint8 UGradeID, packet::uint8 PGradeID, packet::MUID uidPlayer, packet::boolean bEnabledSurvivalMode, packet::blob EncryptMsg);
 
 	const char* name() const;
 	const char* doc() const;

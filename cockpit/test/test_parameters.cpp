@@ -154,14 +154,14 @@ static void test_blob()
 
 }
 
-static void test_vector()
+static void test_int8()
 {
-	cockpit::packet::vector packit(0x0011, 0x2233, 0x4455);
+	int8 packit(0x01);
 
-	BOOST_CHECK(packit.get_type() == 0x0B);
+	BOOST_CHECK(packit.get_type() == 0x0C);
 
-	uint8_t expected[] = {
-		0x11, 0x00, 0x33, 0x22, 0x55, 0x44
+	int8_t expected[] = {
+		0x01
 	};
 
 	check_array_equal(packit.serialize().data(), expected, countof(expected));
@@ -220,7 +220,7 @@ int test_main(int, char**)
 	test_color();
 	test_MUID();
 	test_blob();
-	test_vector();
+	test_int8();
 	test_uint8();
 	test_int16();
 	test_uint16();

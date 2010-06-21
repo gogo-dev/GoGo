@@ -276,6 +276,19 @@ namespace packet {
 	};
 
 	/**
+		A signed, 8-bit integer value.
+	*/
+	class int8 : public Parameter
+	{
+	private:
+		boost::int8_t value;
+
+	public:
+		int8(boost::int8_t value);
+		Buffer serialize() const;
+	};
+
+	/**
 		An unsigned, 8-bit integer value.
 	*/
 	class uint8 : public Parameter

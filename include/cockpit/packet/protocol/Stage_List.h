@@ -15,14 +15,14 @@ namespace protocol {
 class Stage_List : public Packet
 {
 private:
-	packet::vector PrevStageListCount;
-	packet::vector NextStageListCount;
+	packet::int8 PrevStageListCount;
+	packet::int8 NextStageListCount;
 	packet::blob StageList;
 
 public:
 	enum { packetID = 1314 };
 
-	Stage_List(packet::vector PrevStageListCount, packet::vector NextStageListCount, packet::blob StageList);
+	Stage_List(packet::int8 PrevStageListCount, packet::int8 NextStageListCount, packet::blob StageList);
 
 	const char* name() const;
 	const char* doc() const;

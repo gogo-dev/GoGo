@@ -16,6 +16,7 @@
 #include <boost/scoped_array.hpp>
 #include <boost/make_shared.hpp>
 #include <boost/static_assert.hpp>
+#include <boost/bind.hpp>
 
 #include <util/memory.h>
 
@@ -84,10 +85,15 @@ Client::Client(Logger* _logger, ClientHandlerFactory* factory, io_service* io)
 	assert(io);
 
 	currentPacketID = 0;
+
+	connected = false;
 }
 
 string Client::get_ip() const
 {
+	if(!connected)
+		return "Not connected";
+
 	try {
 		return socket.local_endpoint().address().to_string();
 	} catch(system::error_code) {
@@ -107,6 +113,8 @@ void Client::start()
 	} catch(...) {
 		logger->error("Fatal error initializing the ClientHandler. Dropping client.");
 	}
+
+	connected = true;
 }
 
 void Client::recieve_packet_header()
@@ -291,6 +299,9 @@ void Client::send(const packet::Packet* p)
 
 void Client::disconnect()
 {
+	if(!connected)
+		return;
+
 	logger->debug(format("Disconnecting %1%.") % get_ip());
 
 	try {
@@ -300,11 +311,15 @@ void Client::disconnect()
 		// This might be totally okay. Depends on the error.
 		logger->warning(format("Failed to shut down the socket. This shouldn't happen! (%1%)") % e.what());
 	}
+
+	connected = false;
 }
 
 Client::~Client()
 {
-	disconnect();
+	if(connected)
+		disconnect();
+
 	delete handler;
 }
 

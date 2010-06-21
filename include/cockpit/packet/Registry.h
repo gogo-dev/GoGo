@@ -5,7 +5,7 @@
 #pragma once
 #include <string>
 #include <cstddef>
-#include <boost/signals2.hpp>
+#include <boost/function.hpp>
 #include <boost/cstdint.hpp>
 #include <boost/array.hpp>
 #include <boost/tuple/tuple.hpp>
@@ -28,861 +28,861 @@ public:
 	~Registry();
 
 	/// This signal is called when the parsing of a packet has failed. Do whatever you want in here.
-	boost::signals2::signal<void (boost::uint16_t /* packetID */,
-	                              const boost::uint8_t* /* rawParameters */,
-	                              boost::uint16_t /* length */)> OnFailedParse;
+	boost::function<void (boost::uint16_t /* packetID */,
+	                      const boost::uint8_t* /* rawParameters */,
+	                      boost::uint16_t /* length */)> OnFailedParse;
 
 	// Ping
-	boost::signals2::signal<void (boost::uint32_t /* TimeStamp */)> Net_Ping;
+	boost::function<void (boost::uint32_t /* TimeStamp */)> Net_Ping;
 
 	// Pong
-	boost::signals2::signal<void (boost::uint32_t /* TimeStamp */)> Net_Pong;
+	boost::function<void (boost::uint32_t /* TimeStamp */)> Net_Pong;
 
 	// Announce Server Message
-	boost::signals2::signal<void (boost::uint32_t /* Type */, const std::string& /* Msg */)> Match_Announce;
+	boost::function<void (boost::uint32_t /* Type */, const std::string& /* Msg */)> Match_Announce;
 
 	// Synchronize Clock
-	boost::signals2::signal<void (boost::uint32_t /* GlobalClock_msec */)> Clock_Synchronize;
+	boost::function<void (boost::uint32_t /* GlobalClock_msec */)> Clock_Synchronize;
 
 	// Login Match Server
-	boost::signals2::signal<void (const std::string& /* UserID */, const std::string& /* Password */, boost::int32_t /* CommandVersion */, boost::uint32_t /* nChecksumPack */)> Match_Login;
+	boost::function<void (const std::string& /* UserID */, const std::string& /* Password */, boost::int32_t /* CommandVersion */, boost::uint32_t /* nChecksumPack */)> Match_Login;
 
 	// Response Login
-	boost::signals2::signal<void (boost::int32_t /* Result */, const std::string& /* ServerName */, const boost::array<boost::uint16_t, 3>& /* ServerMode */, const std::string& /* AccountID */, boost::uint8_t /* UGradeID */, boost::uint8_t /* PGradeID */, boost::uint64_t /* uidPlayer */, bool /* bEnabledSurvivalMode */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* EncryptMsg */)> Match_ResponseLogin;
+	boost::function<void (boost::int32_t /* Result */, const std::string& /* ServerName */, boost::int8_t /* ServerMode */, const std::string& /* AccountID */, boost::uint8_t /* UGradeID */, boost::uint8_t /* PGradeID */, boost::uint64_t /* uidPlayer */, bool /* bEnabledSurvivalMode */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* EncryptMsg */)> Match_ResponseLogin;
 
 	// Response Result
-	boost::signals2::signal<void (boost::int32_t /* Result */)> Match_Response_Result;
+	boost::function<void (boost::int32_t /* Result */)> Match_Response_Result;
 
 	// Login from Netmarble
-	boost::signals2::signal<void (const std::string& /* CPCookie */, const std::string& /* SpareParam */, boost::int32_t /* CommandVersion */, boost::uint32_t /* nChecksumPack */)> Match_LoginNetmarble;
+	boost::function<void (const std::string& /* CPCookie */, const std::string& /* SpareParam */, boost::int32_t /* CommandVersion */, boost::uint32_t /* nChecksumPack */)> Match_LoginNetmarble;
 
 	// disconnect reason
-	boost::signals2::signal<void (boost::uint32_t /* messageid */)> MC_MATCH_DISCONNMSG;
+	boost::function<void (boost::uint32_t /* messageid */)> MC_MATCH_DISCONNMSG;
 
 	// Login from nhn usa.
-	boost::signals2::signal<void (const std::string& /* UserID */, const std::string& /* szAuthStr */, boost::int32_t /* CommandVersion */, boost::uint32_t /* nChecksumPack */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* EncryptMD5Value */)> MC_MATCH_LOGIN_NHNUSA;
+	boost::function<void (const std::string& /* UserID */, const std::string& /* szAuthStr */, boost::int32_t /* CommandVersion */, boost::uint32_t /* nChecksumPack */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* EncryptMD5Value */)> MC_MATCH_LOGIN_NHNUSA;
 
 	// Login from GameOn Japan
-	boost::signals2::signal<void (const std::string& /* szString */, const std::string& /* szStatIndex */, boost::int32_t /* CommandVersion */, boost::uint32_t /* nChecksumPack */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* EncryptMD5Value */)> MC_MATCH_LOGIN_GAMEON_JP;
+	boost::function<void (const std::string& /* szString */, const std::string& /* szStatIndex */, boost::int32_t /* CommandVersion */, boost::uint32_t /* nChecksumPack */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* EncryptMD5Value */)> MC_MATCH_LOGIN_GAMEON_JP;
 
 	// Match Object Cache
-	boost::signals2::signal<void (boost::uint8_t /* Type */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* ObjectCache */)> Match_ObjectCache;
+	boost::function<void (boost::uint8_t /* Type */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* ObjectCache */)> Match_ObjectCache;
 
 	// Match BridgePeer
-	boost::signals2::signal<void (boost::uint64_t /* uidPlayer */, boost::uint32_t /* dwIP */, boost::uint32_t /* nPort */)> Match_BridgePeer;
+	boost::function<void (boost::uint64_t /* uidPlayer */, boost::uint32_t /* dwIP */, boost::uint32_t /* nPort */)> Match_BridgePeer;
 
 	// ACK for BridgePeer
-	boost::signals2::signal<void (boost::uint64_t /* uidPlayer */, boost::int32_t /* nCode */)> Match_BridgePeerACK;
+	boost::function<void (boost::uint64_t /* uidPlayer */, boost::int32_t /* nCode */)> Match_BridgePeerACK;
 
 	// Request recommanded channel
-	boost::signals2::signal<void ()> MatchServer_RequestRecommandedChannel;
+	boost::function<void ()> MatchServer_RequestRecommandedChannel;
 
 	// Response recommanded channel
-	boost::signals2::signal<void (boost::uint64_t /* uid */)> MatchServer_ResponseRecommandedChannel;
+	boost::function<void (boost::uint64_t /* uid */)> MatchServer_ResponseRecommandedChannel;
 
 	// Join a Channel
-	boost::signals2::signal<void (boost::uint64_t /* uidPlayer */, boost::uint64_t /* uidChannel */)> Channel_Join;
+	boost::function<void (boost::uint64_t /* uidPlayer */, boost::uint64_t /* uidChannel */)> Channel_Join;
 
 	// Response Join a Channel
-	boost::signals2::signal<void (boost::uint64_t /* uidChannel */, boost::int32_t /* ChannelType */, const std::string& /* ChannelName */, bool /* EnableInterface */)> Channel_ResponseJoin;
+	boost::function<void (boost::uint64_t /* uidChannel */, boost::int32_t /* ChannelType */, const std::string& /* ChannelName */, bool /* EnableInterface */)> Channel_ResponseJoin;
 
 	// Join a Channel From Name
-	boost::signals2::signal<void (boost::uint64_t /* uidPlayer */, boost::int32_t /* nChannelType */, boost::int32_t /* zero */, const std::string& /* ChannelName */)> Channel_RequestJoinFromName;
+	boost::function<void (boost::uint64_t /* uidPlayer */, boost::int32_t /* nChannelType */, boost::int32_t /* zero */, const std::string& /* ChannelName */)> Channel_RequestJoinFromName;
 
 	// Leave Channel
-	boost::signals2::signal<void (boost::uint64_t /* uidPlayer */, boost::uint64_t /* uidChannel */)> Channel_Leave;
+	boost::function<void (boost::uint64_t /* uidPlayer */, boost::uint64_t /* uidChannel */)> Channel_Leave;
 
 	// Channel List transmit start
-	boost::signals2::signal<void (boost::uint64_t /* uidPlayer */, boost::int32_t /* nChannelType */, boost::int32_t /* zero */)> Channel_ListStart;
+	boost::function<void (boost::uint64_t /* uidPlayer */, boost::int32_t /* nChannelType */, boost::int32_t /* zero */)> Channel_ListStart;
 
 	// Channel List transmit stop
-	boost::signals2::signal<void (boost::uint64_t /* uidPlayer */)> Channel_ListStop;
+	boost::function<void (boost::uint64_t /* uidPlayer */)> Channel_ListStop;
 
 	// Channel List
-	boost::signals2::signal<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* ChannelList */)> Channel_List;
+	boost::function<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* ChannelList */)> Channel_List;
 
 	// Request Chat to Channel
-	boost::signals2::signal<void (boost::uint64_t /* uidPlayer */, boost::uint64_t /* uidChannel */, const std::string& /* Chat */)> Channel_Request_Chat;
+	boost::function<void (boost::uint64_t /* uidPlayer */, boost::uint64_t /* uidChannel */, const std::string& /* Chat */)> Channel_Request_Chat;
 
 	// Chat to Channel
-	boost::signals2::signal<void (boost::uint64_t /* uidChannel */, const std::string& /* PlayerName */, const std::string& /* Chat */, boost::int32_t /* nGrade */)> Channel_Chat;
+	boost::function<void (boost::uint64_t /* uidChannel */, const std::string& /* PlayerName */, const std::string& /* Chat */, boost::int32_t /* nGrade */)> Channel_Chat;
 
 	// Request the Channel Rule
-	boost::signals2::signal<void (boost::uint64_t /* uidChannel */)> Channel_Request_Rule;
+	boost::function<void (boost::uint64_t /* uidChannel */)> Channel_Request_Rule;
 
 	// Response the Channel Rule
-	boost::signals2::signal<void (boost::uint64_t /* uidChannel */, const std::string& /* RuleName */)> Channel_Response_Rule;
+	boost::function<void (boost::uint64_t /* uidChannel */, const std::string& /* RuleName */)> Channel_Response_Rule;
 
 	// Request Channel All Player List
-	boost::signals2::signal<void (boost::uint64_t /* uidPlayer */, boost::uint64_t /* uidChannel */, boost::uint32_t /* PlaceFilter */, boost::uint32_t /* Options */)> Channel_RequestAllPlayerList;
+	boost::function<void (boost::uint64_t /* uidPlayer */, boost::uint64_t /* uidChannel */, boost::uint32_t /* PlaceFilter */, boost::uint32_t /* Options */)> Channel_RequestAllPlayerList;
 
 	// Response Channel All Player List
-	boost::signals2::signal<void (boost::uint64_t /* uidChannel */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* PlayerList */)> Channel_ResponseAllPlayerList;
+	boost::function<void (boost::uint64_t /* uidChannel */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* PlayerList */)> Channel_ResponseAllPlayerList;
 
 	// Create a Stage
-	boost::signals2::signal<void (boost::uint64_t /* uidChar */, const std::string& /* StageName */, bool /* IsPrivate */, const std::string& /* Password */)> Stage_Create;
+	boost::function<void (boost::uint64_t /* uidChar */, const std::string& /* StageName */, bool /* IsPrivate */, const std::string& /* Password */)> Stage_Create;
 
 	// Request Join a Stage
-	boost::signals2::signal<void (boost::uint64_t /* uidPlayer */, boost::uint64_t /* uidStage */)> Stage_RequestJoin;
+	boost::function<void (boost::uint64_t /* uidPlayer */, boost::uint64_t /* uidStage */)> Stage_RequestJoin;
 
 	// Request Join a Private Stage
-	boost::signals2::signal<void (boost::uint64_t /* uidPlayer */, boost::uint64_t /* uidStage */, const std::string& /* Password */)> Stage_RequestPrivateJoin;
+	boost::function<void (boost::uint64_t /* uidPlayer */, boost::uint64_t /* uidStage */, const std::string& /* Password */)> Stage_RequestPrivateJoin;
 
 	// Join a Stage
-	boost::signals2::signal<void (boost::uint64_t /* uidPlayer */, boost::uint64_t /* uidStage */, boost::uint32_t /* nRoomNo */, const std::string& /* StageName */)> Stage_Join;
+	boost::function<void (boost::uint64_t /* uidPlayer */, boost::uint64_t /* uidStage */, boost::uint32_t /* nRoomNo */, const std::string& /* StageName */)> Stage_Join;
 
 	// Leave Stage
-	boost::signals2::signal<void (boost::uint64_t /* uidPlayer */)> Stage_Leave;
+	boost::function<void (boost::uint64_t /* uidPlayer */)> Stage_Leave;
 
 	// Requst PlayerList from the Stage
-	boost::signals2::signal<void (boost::uint64_t /* uidStage */)> Stage_Request_PlayerList;
+	boost::function<void (boost::uint64_t /* uidStage */)> Stage_Request_PlayerList;
 
 	// Follow User to Stage
-	boost::signals2::signal<void (const std::string& /* strTarget */)> Stage_Follow;
+	boost::function<void (const std::string& /* strTarget */)> Stage_Follow;
 
 	// Response Follow User to Stage
-	boost::signals2::signal<void (boost::int32_t /* Result */)> Stage_Response_Follow;
+	boost::function<void (boost::int32_t /* Result */)> Stage_Response_Follow;
 
 	// Response Join a Stage
-	boost::signals2::signal<void (boost::int32_t /* Result */)> Stage_ResponseJoin;
+	boost::function<void (boost::int32_t /* Result */)> Stage_ResponseJoin;
 
 	// Require password
-	boost::signals2::signal<void (boost::uint64_t /* uidStage */, const std::string& /* StageName */)> Stage_RequirePassword;
+	boost::function<void (boost::uint64_t /* uidStage */, const std::string& /* StageName */)> Stage_RequirePassword;
 
 	// Request Game Info
-	boost::signals2::signal<void (boost::uint64_t /* uidChar */, boost::uint64_t /* uidStage */)> RequestGameInfo;
+	boost::function<void (boost::uint64_t /* uidChar */, boost::uint64_t /* uidStage */)> RequestGameInfo;
 
 	// Response Game Info
-	boost::signals2::signal<void (boost::uint64_t /* uidStage */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* GameInfo */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* RuleInfo */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* PlayerInfo */)> ResponseGameInfo;
+	boost::function<void (boost::uint64_t /* uidStage */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* GameInfo */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* RuleInfo */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* PlayerInfo */)> ResponseGameInfo;
 
 	// Response Create a Stage
-	boost::signals2::signal<void (boost::int32_t /* Result */)> Stage_ResponseCreate;
+	boost::function<void (boost::int32_t /* Result */)> Stage_ResponseCreate;
 
 	// Request Enter Stage Battle
-	boost::signals2::signal<void (boost::uint64_t /* uidPlayer */, boost::uint64_t /* uidStage */)> Stage_Request_EnterBattle;
+	boost::function<void (boost::uint64_t /* uidPlayer */, boost::uint64_t /* uidStage */)> Stage_Request_EnterBattle;
 
 	// Enter Stage Battle
-	boost::signals2::signal<void (boost::uint8_t /* Param */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* CharData */)> Stage_EnterBattle;
+	boost::function<void (boost::uint8_t /* Param */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* CharData */)> Stage_EnterBattle;
 
 	// Leave Stage Battle
-	boost::signals2::signal<void (boost::uint64_t /* uidPlayer */)> Stage_LeaveBattle;
+	boost::function<void (boost::uint64_t /* uidPlayer */)> Stage_LeaveBattle;
 
 	// Start Stage
-	boost::signals2::signal<void (boost::uint64_t /* uidPlayer */, boost::uint64_t /* uidStage */, boost::int32_t /* nCountdown */)> Stage_Start;
+	boost::function<void (boost::uint64_t /* uidPlayer */, boost::uint64_t /* uidStage */, boost::int32_t /* nCountdown */)> Stage_Start;
 
 	// Change Map
-	boost::signals2::signal<void (boost::uint64_t /* uidStage */, const std::string& /* MapName */)> Stage_Map;
+	boost::function<void (boost::uint64_t /* uidStage */, const std::string& /* MapName */)> Stage_Map;
 
 	// Chat to Stage
-	boost::signals2::signal<void (boost::uint64_t /* uidPlayer */, boost::uint64_t /* uidStage */, const std::string& /* Chat */)> Stage_Chat;
+	boost::function<void (boost::uint64_t /* uidPlayer */, boost::uint64_t /* uidStage */, const std::string& /* Chat */)> Stage_Chat;
 
 	// Stage Request QuickJoin
-	boost::signals2::signal<void (boost::uint64_t /* uidPlayer */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* Param */)> Stage_RequestQuickJoin;
+	boost::function<void (boost::uint64_t /* uidPlayer */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* Param */)> Stage_RequestQuickJoin;
 
 	// Stage Response QuickJoin
-	boost::signals2::signal<void (boost::int32_t /* Result */, boost::uint64_t /* uidStage */)> Stage_ResponseQuickJoin;
+	boost::function<void (boost::int32_t /* Result */, boost::uint64_t /* uidStage */)> Stage_ResponseQuickJoin;
 
 	// Stage Go
-	boost::signals2::signal<void (boost::uint32_t /* RoomNo */)> Stage_StageGo;
+	boost::function<void (boost::uint32_t /* RoomNo */)> Stage_StageGo;
 
 	// Change State In Stage
-	boost::signals2::signal<void (boost::uint64_t /* uidPlayer */, boost::uint64_t /* uidStage */, boost::int32_t /* nState */, boost::int32_t /* zero */)> Stage_State;
+	boost::function<void (boost::uint64_t /* uidPlayer */, boost::uint64_t /* uidStage */, boost::int32_t /* nState */, boost::int32_t /* zero */)> Stage_State;
 
 	// Change Team
-	boost::signals2::signal<void (boost::uint64_t /* uidPlayer */, boost::uint64_t /* uidStage */, boost::uint32_t /* nTeam */)> Stage_Team;
+	boost::function<void (boost::uint64_t /* uidPlayer */, boost::uint64_t /* uidStage */, boost::uint32_t /* nTeam */)> Stage_Team;
 
 	// Set Master
-	boost::signals2::signal<void (boost::uint64_t /* uidStage */, boost::uint64_t /* uidPlayer */)> Stage_Master;
+	boost::function<void (boost::uint64_t /* uidStage */, boost::uint64_t /* uidPlayer */)> Stage_Master;
 
 	// Stage List transmit start
-	boost::signals2::signal<void ()> Stage_ListStart;
+	boost::function<void ()> Stage_ListStart;
 
 	// Stage List transmit stop
-	boost::signals2::signal<void ()> Stage_ListStop;
+	boost::function<void ()> Stage_ListStop;
 
 	// Stage List
-	boost::signals2::signal<void (const boost::array<boost::uint16_t, 3>& /* PrevStageListCount */, const boost::array<boost::uint16_t, 3>& /* NextStageListCount */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* StageList */)> Stage_List;
+	boost::function<void (boost::int8_t /* PrevStageListCount */, boost::int8_t /* NextStageListCount */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* StageList */)> Stage_List;
 
 	// Request Stage List
-	boost::signals2::signal<void (boost::uint64_t /* uidPlayer */, boost::uint64_t /* uidChannel */, boost::int32_t /* StageCursor */)> Stage_RequestStageList;
+	boost::function<void (boost::uint64_t /* uidPlayer */, boost::uint64_t /* uidChannel */, boost::int32_t /* StageCursor */)> Stage_RequestStageList;
 
 	// Request Channel Player List
-	boost::signals2::signal<void (boost::uint64_t /* uidPlayer */, boost::uint64_t /* uidChannel */, boost::int32_t /* PlayerListPage */)> Channel_RequestPlayerList;
+	boost::function<void (boost::uint64_t /* uidPlayer */, boost::uint64_t /* uidChannel */, boost::int32_t /* PlayerListPage */)> Channel_RequestPlayerList;
 
 	// Response Channel Player List
-	boost::signals2::signal<void (boost::uint8_t /* TotalPlayerCount */, boost::uint8_t /* PlayerListPage */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* PlayerList */)> Channel_ResponsePlayerList;
+	boost::function<void (boost::uint8_t /* TotalPlayerCount */, boost::uint8_t /* PlayerListPage */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* PlayerList */)> Channel_ResponsePlayerList;
 
 	// Request stage setting
-	boost::signals2::signal<void (boost::uint64_t /* uidStage */)> Stage_RequestStageSetting;
+	boost::function<void (boost::uint64_t /* uidStage */)> Stage_RequestStageSetting;
 
 	// Response stage setting
-	boost::signals2::signal<void (boost::uint64_t /* uidStage */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* StageSetting */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* CharSetting */, boost::int32_t /* StageState */, boost::uint64_t /* uidMaster */)> Stage_ResponseStageSetting;
+	boost::function<void (boost::uint64_t /* uidStage */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* StageSetting */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* CharSetting */, boost::int32_t /* StageState */, boost::uint64_t /* uidMaster */)> Stage_ResponseStageSetting;
 
 	// Setting up Stage
-	boost::signals2::signal<void (boost::uint64_t /* uidPlayer */, boost::uint64_t /* uidStage */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* StageSetting */)> Stage_StageSetting;
+	boost::function<void (boost::uint64_t /* uidPlayer */, boost::uint64_t /* uidStage */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* StageSetting */)> Stage_StageSetting;
 
 	// Launch Stage
-	boost::signals2::signal<void (boost::uint64_t /* uidStage */, const std::string& /* MapName */)> Stage_Launch;
+	boost::function<void (boost::uint64_t /* uidStage */, const std::string& /* MapName */)> Stage_Launch;
 
 	// Finish Stage
-	boost::signals2::signal<void (boost::uint64_t /* uidStage */)> Stage_Finish;
+	boost::function<void (boost::uint64_t /* uidStage */)> Stage_Finish;
 
 	// Request peer list
-	boost::signals2::signal<void (boost::uint64_t /* uidPlayer */, boost::uint64_t /* uidStage */)> Stage_RequestPeerList;
+	boost::function<void (boost::uint64_t /* uidPlayer */, boost::uint64_t /* uidStage */)> Stage_RequestPeerList;
 
 	// Response peer list
-	boost::signals2::signal<void (boost::uint64_t /* uidStage */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* PeerList */)> Stage_ResponsePeerList;
+	boost::function<void (boost::uint64_t /* uidStage */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* PeerList */)> Stage_ResponsePeerList;
 
 	// Loading Complete
-	boost::signals2::signal<void (boost::uint64_t /* ChrUID */, boost::int32_t /* Percent */)> Loading_Complete;
+	boost::function<void (boost::uint64_t /* ChrUID */, boost::int32_t /* Percent */)> Loading_Complete;
 
 	// Request Peer Relay
-	boost::signals2::signal<void (boost::uint64_t /* PlayerUID */, boost::uint64_t /* PeerCharUID */)> Match_RequestPeerRelay;
+	boost::function<void (boost::uint64_t /* PlayerUID */, boost::uint64_t /* PeerCharUID */)> Match_RequestPeerRelay;
 
 	// Response Peer Relay
-	boost::signals2::signal<void (boost::uint64_t /* PeerCharUID */)> Match_ResponsePeerRelay;
+	boost::function<void (boost::uint64_t /* PeerCharUID */)> Match_ResponsePeerRelay;
 
 	// Sync State of a StageRound
-	boost::signals2::signal<void (boost::uint64_t /* uidStage */, boost::int32_t /* nRound */, boost::int32_t /* nState */, boost::int32_t /* nArg */)> Stage_RoundState;
+	boost::function<void (boost::uint64_t /* uidStage */, boost::int32_t /* nRound */, boost::int32_t /* nState */, boost::int32_t /* nArg */)> Stage_RoundState;
 
 	// Object Die
-	boost::signals2::signal<void (boost::uint64_t /* Attacker */)> Game_Kill;
+	boost::function<void (boost::uint64_t /* Attacker */)> Game_Kill;
 
 	// Request Spawn
-	boost::signals2::signal<void (boost::uint64_t /* CharUID */, const boost::array<float, 3>& /* Position */, const boost::array<float, 3>& /* Direction */)> Game_Requst_Spawn;
+	boost::function<void (boost::uint64_t /* CharUID */, const boost::array<float, 3>& /* Position */, const boost::array<float, 3>& /* Direction */)> Game_Requst_Spawn;
 
 	// Game.LevelUp
-	boost::signals2::signal<void (boost::uint64_t /* Player */, boost::int32_t /* Level */)> Game_LevelUp;
+	boost::function<void (boost::uint64_t /* Player */, boost::int32_t /* Level */)> Game_LevelUp;
 
 	// Game.LevelDown
-	boost::signals2::signal<void (boost::uint64_t /* Player */, boost::int32_t /* Level */)> Game_LevelDown;
+	boost::function<void (boost::uint64_t /* Player */, boost::int32_t /* Level */)> Game_LevelDown;
 
 	// Game.Dead
-	boost::signals2::signal<void (boost::uint64_t /* Attacker */, boost::uint32_t /* AttackerArg */, boost::uint64_t /* Victim */, boost::uint32_t /* VictimArg */)> Game_Dead;
+	boost::function<void (boost::uint64_t /* Attacker */, boost::uint32_t /* AttackerArg */, boost::uint64_t /* Victim */, boost::uint32_t /* VictimArg */)> Game_Dead;
 
 	// Game.TeamBonus
-	boost::signals2::signal<void (boost::uint64_t /* CharUID */, boost::uint32_t /* ExpArg */)> Game_TeamBonus;
+	boost::function<void (boost::uint64_t /* CharUID */, boost::uint32_t /* ExpArg */)> Game_TeamBonus;
 
 	// Request TimeSync for Game
-	boost::signals2::signal<void (boost::uint32_t /* LocalTimeStamp */)> Game_RequestTimeSync;
+	boost::function<void (boost::uint32_t /* LocalTimeStamp */)> Game_RequestTimeSync;
 
 	// Response TimeSync for Game
-	boost::signals2::signal<void (boost::uint32_t /* LocalTimeStamp */, boost::uint32_t /* GlobalTimeStamp */)> Game_ResponseTimeSync;
+	boost::function<void (boost::uint32_t /* LocalTimeStamp */, boost::uint32_t /* GlobalTimeStamp */)> Game_ResponseTimeSync;
 
 	// Report TimeSync for Verify SpeedHack
-	boost::signals2::signal<void (boost::uint32_t /* LocalTimeStamp */, boost::uint32_t /* MemoryChecksum */)> Game_ReportTimeSync;
+	boost::function<void (boost::uint32_t /* LocalTimeStamp */, boost::uint32_t /* MemoryChecksum */)> Game_ReportTimeSync;
 
 	// Request Forced Entry
-	boost::signals2::signal<void (boost::uint64_t /* uidChar */, boost::uint64_t /* uidStage */)> Stage_RequestForcedEntry;
+	boost::function<void (boost::uint64_t /* uidChar */, boost::uint64_t /* uidStage */)> Stage_RequestForcedEntry;
 
 	// Response Forced Entry
-	boost::signals2::signal<void (boost::int32_t /* Result */)> Stage_ResponseForcedEntry;
+	boost::function<void (boost::int32_t /* Result */)> Stage_ResponseForcedEntry;
 
 	// Update Round Finished Info
-	boost::signals2::signal<void (boost::uint64_t /* uidStage */, boost::uint64_t /* uidChar */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* PeerInfo */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* KillInfo */)> Stage_RoundFinishInfo;
+	boost::function<void (boost::uint64_t /* uidStage */, boost::uint64_t /* uidChar */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* PeerInfo */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* KillInfo */)> Stage_RoundFinishInfo;
 
 	// Notify Message
-	boost::signals2::signal<void (boost::uint32_t /* nMsgID */)> Match_Notify;
+	boost::function<void (boost::uint32_t /* nMsgID */)> Match_Notify;
 
 	// Whisper Message to a User
-	boost::signals2::signal<void (const std::string& /* SenderName */, const std::string& /* TargetName */, const std::string& /* Message */)> Match_Whisper;
+	boost::function<void (const std::string& /* SenderName */, const std::string& /* TargetName */, const std::string& /* Message */)> Match_Whisper;
 
 	// Ask Player Location
-	boost::signals2::signal<void (const std::string& /* TargetName */)> Match_Where;
+	boost::function<void (const std::string& /* TargetName */)> Match_Where;
 
 	// Set User Option
-	boost::signals2::signal<void (boost::uint32_t /* OptionFlags */)> Match_UserOption;
+	boost::function<void (boost::uint32_t /* OptionFlags */)> Match_UserOption;
 
 	// Create a ChatRoom
-	boost::signals2::signal<void (boost::uint64_t /* uidPlayer */, const std::string& /* ChatRoomName */)> ChatRoom_Create;
+	boost::function<void (boost::uint64_t /* uidPlayer */, const std::string& /* ChatRoomName */)> ChatRoom_Create;
 
 	// Join a ChatRoom
-	boost::signals2::signal<void (const std::string& /* PlayerName */, const std::string& /* ChatRoomName */)> ChatRoom_Join;
+	boost::function<void (const std::string& /* PlayerName */, const std::string& /* ChatRoomName */)> ChatRoom_Join;
 
 	// Leave a Chat Room
-	boost::signals2::signal<void (const std::string& /* PlayerName */, const std::string& /* ChatRoomName */)> ChatRoom_Leave;
+	boost::function<void (const std::string& /* PlayerName */, const std::string& /* ChatRoomName */)> ChatRoom_Leave;
 
 	// Select ChatRoom to Write
-	boost::signals2::signal<void (const std::string& /* ChatRoomName */)> ChatRoom_SelectWrite;
+	boost::function<void (const std::string& /* ChatRoomName */)> ChatRoom_SelectWrite;
 
 	// Invite a user to ChatRoom
-	boost::signals2::signal<void (const std::string& /* SenderName */, const std::string& /* TargetName */, const std::string& /* ChatRoomName */)> ChatRoom_Invite;
+	boost::function<void (const std::string& /* SenderName */, const std::string& /* TargetName */, const std::string& /* ChatRoomName */)> ChatRoom_Invite;
 
 	// ChatRoom Chat
-	boost::signals2::signal<void (const std::string& /* ChatRoomName */, const std::string& /* SenderName */, const std::string& /* Message */)> ChatRoom_Chat;
+	boost::function<void (const std::string& /* ChatRoomName */, const std::string& /* SenderName */, const std::string& /* Message */)> ChatRoom_Chat;
 
 	// Request Account Character List
-	boost::signals2::signal<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* EMsg */)> Match_RequestAccountCharList;
+	boost::function<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* EMsg */)> Match_RequestAccountCharList;
 
 	// Response Account Character List
-	boost::signals2::signal<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* CharList */)> Match_ResponseAccountCharList;
+	boost::function<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* CharList */)> Match_ResponseAccountCharList;
 
 	// Request Account Character Info
-	boost::signals2::signal<void (const boost::array<boost::uint16_t, 3>& /* CharNum */, boost::int32_t /* _0B */)> Match_RequestAccountCharInfo;
+	boost::function<void (boost::int8_t /* CharNum */, boost::int32_t /* _0B */)> Match_RequestAccountCharInfo;
 
 	// Response Account Character Info
-	boost::signals2::signal<void (const boost::array<boost::uint16_t, 3>& /* CharNum */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* CharInfo */)> Match_ResponseAccountCharInfo;
+	boost::function<void (boost::int8_t /* CharNum */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* CharInfo */)> Match_ResponseAccountCharInfo;
 
 	// Request Select Character
-	boost::signals2::signal<void (boost::uint64_t /* uid */, boost::uint32_t /* CharIndex */, boost::int32_t /* one */)> Match_RequestSelectChar;
+	boost::function<void (boost::uint64_t /* uid */, boost::uint32_t /* CharIndex */, boost::int32_t /* one */)> Match_RequestSelectChar;
 
 	// Response Select Character
-	boost::signals2::signal<void (boost::int32_t /* Result */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* CharInfo */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* MyExtraCharInfo */)> Match_ResponseSelectChar;
+	boost::function<void (boost::int32_t /* Result */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* CharInfo */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* MyExtraCharInfo */)> Match_ResponseSelectChar;
 
 	// Request Character Info
-	boost::signals2::signal<void (boost::uint64_t /* uid */, boost::uint32_t /* CharIndex */)> Match_RequestCharInfo;
+	boost::function<void (boost::uint64_t /* uid */, boost::uint32_t /* CharIndex */)> Match_RequestCharInfo;
 
 	// Response Character Info
-	boost::signals2::signal<void (boost::uint64_t /* uid */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* CharInfo */)> Match_ResponseCharInfo;
+	boost::function<void (boost::uint64_t /* uid */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* CharInfo */)> Match_ResponseCharInfo;
 
 	// Request Delete Character
-	boost::signals2::signal<void (boost::uint64_t /* uid */, boost::uint32_t /* CharIndex */, boost::int32_t /* one */, const std::string& /* CharName */)> Match_RequestDeleteChar;
+	boost::function<void (boost::uint64_t /* uid */, boost::uint32_t /* CharIndex */, boost::int32_t /* one */, const std::string& /* CharName */)> Match_RequestDeleteChar;
 
 	// Response Delete Character
-	boost::signals2::signal<void (boost::int32_t /* Result */)> Match_ResponseDeleteChar;
+	boost::function<void (boost::int32_t /* Result */)> Match_ResponseDeleteChar;
 
 	// Request Create Character
-	boost::signals2::signal<void (boost::uint64_t /* uid */, boost::uint32_t /* CharIndex */, boost::int32_t /* one */, const std::string& /* Name */, boost::uint32_t /* Sex */, boost::uint32_t /* Hair */, boost::uint32_t /* Face */, boost::uint32_t /* Costume */)> Match_RequestCreateChar;
+	boost::function<void (boost::uint64_t /* uid */, boost::uint32_t /* CharIndex */, boost::int32_t /* one */, const std::string& /* Name */, boost::uint32_t /* Sex */, boost::uint32_t /* Hair */, boost::uint32_t /* Face */, boost::uint32_t /* Costume */)> Match_RequestCreateChar;
 
 	// Response Create Character
-	boost::signals2::signal<void (boost::int32_t /* Result */, const std::string& /* CharName */)> Match_ResponseCreateChar;
+	boost::function<void (boost::int32_t /* Result */, const std::string& /* CharName */)> Match_ResponseCreateChar;
 
 	// Request Buy Item
-	boost::signals2::signal<void (boost::uint64_t /* uidChar */, boost::uint32_t /* ItemID */)> Match_RequestBuyItem;
+	boost::function<void (boost::uint64_t /* uidChar */, boost::uint32_t /* ItemID */)> Match_RequestBuyItem;
 
 	// Response Buy Item
-	boost::signals2::signal<void (boost::int32_t /* result */)> Match_ResponseBuyItem;
+	boost::function<void (boost::int32_t /* result */)> Match_ResponseBuyItem;
 
 	// Request Sell Item
-	boost::signals2::signal<void (boost::uint64_t /* uidChar */, boost::uint64_t /* uidItem */)> Match_RequestSellItem;
+	boost::function<void (boost::uint64_t /* uidChar */, boost::uint64_t /* uidItem */)> Match_RequestSellItem;
 
 	// Response Sell Item
-	boost::signals2::signal<void (boost::int32_t /* result */)> Match_ResponseSellItem;
+	boost::function<void (boost::int32_t /* result */)> Match_ResponseSellItem;
 
 	// Request Shop Item List
-	boost::signals2::signal<void (boost::uint64_t /* uid */, boost::int32_t /* FirstItemIndex */, boost::int32_t /* ItemCount */)> Match_RequestShopItemList;
+	boost::function<void (boost::uint64_t /* uid */, boost::int32_t /* FirstItemIndex */, boost::int32_t /* ItemCount */)> Match_RequestShopItemList;
 
 	// Response Shop Item List
-	boost::signals2::signal<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* GambleItemList */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* ItemList */)> Match_ResponseShopItemList;
+	boost::function<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* GambleItemList */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* ItemList */)> Match_ResponseShopItemList;
 
 	// Request Character Item List
-	boost::signals2::signal<void (boost::uint64_t /* uid */)> Match_RequestCharacterItemList;
+	boost::function<void (boost::uint64_t /* uid */)> Match_RequestCharacterItemList;
 
 	// Request Character Item List NonPrevent Duplicate Send
-	boost::signals2::signal<void (boost::uint64_t /* uid */)> Match_RequestCharacterItemListForce;
+	boost::function<void (boost::uint64_t /* uid */)> Match_RequestCharacterItemListForce;
 
 	// Response Character Item List
-	boost::signals2::signal<void (boost::int32_t /* Bounty */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* EquipItemList */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* ItemList */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* GambleItemList */)> Match_ResponseCharacterItemList;
+	boost::function<void (boost::int32_t /* Bounty */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* EquipItemList */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* ItemList */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* GambleItemList */)> Match_ResponseCharacterItemList;
 
 	// Request Equip Item
-	boost::signals2::signal<void (boost::uint64_t /* uidChar */, boost::uint64_t /* uidItem */, boost::uint32_t /* EquipmentSlot */, boost::int32_t /* one */)> MatchRequestEquipItem;
+	boost::function<void (boost::uint64_t /* uidChar */, boost::uint64_t /* uidItem */, boost::uint32_t /* EquipmentSlot */, boost::int32_t /* one */)> MatchRequestEquipItem;
 
 	// Response Equip Item
-	boost::signals2::signal<void (boost::int32_t /* Result */)> MatchResponseEquipItem;
+	boost::function<void (boost::int32_t /* Result */)> MatchResponseEquipItem;
 
 	// Request Takeoff Item
-	boost::signals2::signal<void (boost::uint64_t /* uid */, boost::uint32_t /* EquipmentSlot */, boost::int32_t /* one */)> MatchRequestTakeoffItem;
+	boost::function<void (boost::uint64_t /* uid */, boost::uint32_t /* EquipmentSlot */, boost::int32_t /* one */)> MatchRequestTakeoffItem;
 
 	// Response Takeoff Item
-	boost::signals2::signal<void (boost::int32_t /* Result */)> MatchResponseTakeoffItem;
+	boost::function<void (boost::int32_t /* Result */)> MatchResponseTakeoffItem;
 
 	// Request Account Item List
-	boost::signals2::signal<void (boost::uint64_t /* uid */)> Match_RequestAccountItemList;
+	boost::function<void (boost::uint64_t /* uid */)> Match_RequestAccountItemList;
 
 	// Response Account Item List
-	boost::signals2::signal<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* ItemList */)> Match_ResponseAccountItemList;
+	boost::function<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* ItemList */)> Match_ResponseAccountItemList;
 
 	// Request Bring Account Item
-	boost::signals2::signal<void (boost::uint64_t /* uidChar */, boost::int32_t /* AIID */)> Match_RequestBringAccountItem;
+	boost::function<void (boost::uint64_t /* uidChar */, boost::int32_t /* AIID */)> Match_RequestBringAccountItem;
 
 	// Response Bring Account Item
-	boost::signals2::signal<void (boost::int32_t /* Result */)> Match_ResponseBringAccountItem;
+	boost::function<void (boost::int32_t /* Result */)> Match_ResponseBringAccountItem;
 
 	// Request BringBack Account Item
-	boost::signals2::signal<void (boost::uint64_t /* uidChar */, boost::uint64_t /* uidItem */)> Match_RequestBringBackAccountItem;
+	boost::function<void (boost::uint64_t /* uidChar */, boost::uint64_t /* uidItem */)> Match_RequestBringBackAccountItem;
 
 	// Response BringBack Account Item
-	boost::signals2::signal<void (boost::int32_t /* Result */)> Match_ResponseBringBackAccountItem;
+	boost::function<void (boost::int32_t /* Result */)> Match_ResponseBringBackAccountItem;
 
 	// Match.Expired Rent Item
-	boost::signals2::signal<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* ItemIDList */)> Match_ExpiredRentItem;
+	boost::function<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* ItemIDList */)> Match_ExpiredRentItem;
 
 	// Request Item Gamble
-	boost::signals2::signal<void (boost::uint64_t /* uidItem */)> Match_ItemGamble;
+	boost::function<void (boost::uint64_t /* uidItem */)> Match_ItemGamble;
 
 	// Response Item Gamble Result Item
-	boost::signals2::signal<void (boost::uint32_t /* ItemID */, boost::uint32_t /* RentHourPeriodTimes60 */)> Match_GambleResultItem;
+	boost::function<void (boost::uint32_t /* ItemID */, boost::uint32_t /* RentHourPeriodTimes60 */)> Match_GambleResultItem;
 
 	// Request Suicide
-	boost::signals2::signal<void (boost::uint64_t /* uidChar */)> Match_Request_Suicide;
+	boost::function<void (boost::uint64_t /* uidChar */)> Match_Request_Suicide;
 
 	// Response Suicide
-	boost::signals2::signal<void (boost::int32_t /* Result */, boost::uint64_t /* uidChar */)> Match_Response_Suicide;
+	boost::function<void (boost::int32_t /* Result */, boost::uint64_t /* uidChar */)> Match_Response_Suicide;
 
 	// response suicide reserve
-	boost::signals2::signal<void ()> Match_Response_SuicideReserve;
+	boost::function<void ()> Match_Response_SuicideReserve;
 
 	// Request Obtain WorldItem
-	boost::signals2::signal<void (boost::uint64_t /* uidChar */, boost::int32_t /* nItemUID */)> Match_Request_Obtain_WorldItem;
+	boost::function<void (boost::uint64_t /* uidChar */, boost::int32_t /* nItemUID */)> Match_Request_Obtain_WorldItem;
 
 	// Obtain WorldItem
-	boost::signals2::signal<void (boost::uint64_t /* uidChar */, boost::int32_t /* nItemUID */)> Match_WorldItem_Obtain;
+	boost::function<void (boost::uint64_t /* uidChar */, boost::int32_t /* nItemUID */)> Match_WorldItem_Obtain;
 
 	// Spawn WorldItem
-	boost::signals2::signal<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* SpawnInfo */)> Match_WorldItem_Spawn;
+	boost::function<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* SpawnInfo */)> Match_WorldItem_Spawn;
 
 	// Request Spawn WorldItem
-	boost::signals2::signal<void (boost::uint64_t /* uidChar */, boost::int32_t /* ItemID */, const boost::array<float, 3>& /* ItemPos */, float /* ItemDropDelayTime */)> Match_Request_Spawn_WorldItem;
+	boost::function<void (boost::uint64_t /* uidChar */, boost::int32_t /* ItemID */, const boost::array<float, 3>& /* ItemPos */, float /* ItemDropDelayTime */)> Match_Request_Spawn_WorldItem;
 
 	// Request Spawn WorldItem
-	boost::signals2::signal<void (boost::int32_t /* nWorldItemUID */)> Match_Request_Spawn_WorldItem_UID;
+	boost::function<void (boost::int32_t /* nWorldItemUID */)> Match_Request_Spawn_WorldItem_UID;
 
 	// Reset Team Members
-	boost::signals2::signal<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* TeamMemberData */)> Match_Reset_TeamMembers;
+	boost::function<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* TeamMemberData */)> Match_Reset_TeamMembers;
 
 	// Assign Commander
-	boost::signals2::signal<void (boost::uint64_t /* uidRedCommander */, boost::uint64_t /* uidBlueCommander */)> Match_Assign_Commander;
+	boost::function<void (boost::uint64_t /* uidRedCommander */, boost::uint64_t /* uidBlueCommander */)> Match_Assign_Commander;
 
 	// Set Observer
-	boost::signals2::signal<void (boost::uint64_t /* uidChar */)> Match_Set_Observer;
+	boost::function<void (boost::uint64_t /* uidChar */)> Match_Set_Observer;
 
 	// Request Challenge a Ladder
-	boost::signals2::signal<void (boost::int32_t /* MemberCount */, boost::uint32_t /* Options */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* MemberNames */)> Match_Ladder_Request_Challenge;
+	boost::function<void (boost::int32_t /* MemberCount */, boost::uint32_t /* Options */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* MemberNames */)> Match_Ladder_Request_Challenge;
 
 	// Response Challenge a Ladder
-	boost::signals2::signal<void (boost::int32_t /* Result */)> Match_Ladder_Response_Challenge;
+	boost::function<void (boost::int32_t /* Result */)> Match_Ladder_Response_Challenge;
 
 	// Search a Ladder Rival
-	boost::signals2::signal<void ()> Match_Ladder_SearchRival;
+	boost::function<void ()> Match_Ladder_SearchRival;
 
 	// Request Cancel Challenge
-	boost::signals2::signal<void ()> Match_Ladder_Request_CancelChallenge;
+	boost::function<void ()> Match_Ladder_Request_CancelChallenge;
 
 	// Cancel Ladder Challenge
-	boost::signals2::signal<void (const std::string& /* CharName */)> Match_Ladder_CancelChallenge;
+	boost::function<void (const std::string& /* CharName */)> Match_Ladder_CancelChallenge;
 
 	// Prepare Ladder Game
-	boost::signals2::signal<void (boost::uint64_t /* uidStage */, boost::int32_t /* nTeam */)> Ladder_Prepare;
+	boost::function<void (boost::uint64_t /* uidStage */, boost::int32_t /* nTeam */)> Ladder_Prepare;
 
 	// Launch Ladder Game
-	boost::signals2::signal<void (boost::uint64_t /* uidStage */, const std::string& /* MapName */)> Ladder_Launch;
+	boost::function<void (boost::uint64_t /* uidStage */, const std::string& /* MapName */)> Ladder_Launch;
 
 	// Request Proposal
-	boost::signals2::signal<void (boost::uint64_t /* uidChar */, boost::int32_t /* ProposalMode */, boost::int32_t /* RequestID */, boost::int32_t /* ReplierCount */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* ReplierCharNames */)> Match_RequestProposal;
+	boost::function<void (boost::uint64_t /* uidChar */, boost::int32_t /* ProposalMode */, boost::int32_t /* RequestID */, boost::int32_t /* ReplierCount */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* ReplierCharNames */)> Match_RequestProposal;
 
 	// Response Proposal
-	boost::signals2::signal<void (boost::int32_t /* Result */, boost::int32_t /* ProposalMode */, boost::int32_t /* RequestID */)> Match_ResponseProposal;
+	boost::function<void (boost::int32_t /* Result */, boost::int32_t /* ProposalMode */, boost::int32_t /* RequestID */)> Match_ResponseProposal;
 
 	// Ask Agreement
-	boost::signals2::signal<void (boost::uint64_t /* uidProposer */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* MembersCharName */, boost::int32_t /* ProposalMode */, boost::int32_t /* RequestID */)> Match_AskAgreement;
+	boost::function<void (boost::uint64_t /* uidProposer */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* MembersCharName */, boost::int32_t /* ProposalMode */, boost::int32_t /* RequestID */)> Match_AskAgreement;
 
 	// Reply Agreement
-	boost::signals2::signal<void (boost::uint64_t /* uidProposer */, boost::uint64_t /* uidChar */, const std::string& /* Replier */, boost::int32_t /* ProposalMode */, boost::int32_t /* RequestID */, bool /* Agreement */)> Match_ReplyAgreement;
+	boost::function<void (boost::uint64_t /* uidProposer */, boost::uint64_t /* uidChar */, const std::string& /* Replier */, boost::int32_t /* ProposalMode */, boost::int32_t /* RequestID */, bool /* Agreement */)> Match_ReplyAgreement;
 
 	// Add a Friend
-	boost::signals2::signal<void (const std::string& /* Name */)> Match_Friend_Add;
+	boost::function<void (const std::string& /* Name */)> Match_Friend_Add;
 
 	// Remove a Friend
-	boost::signals2::signal<void (const std::string& /* Name */)> Match_Friend_Remove;
+	boost::function<void (const std::string& /* Name */)> Match_Friend_Remove;
 
 	// List Friend
-	boost::signals2::signal<void ()> Match_Friend_List;
+	boost::function<void ()> Match_Friend_List;
 
 	// Response List Friend
-	boost::signals2::signal<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* FriendList */)> Match_Response_FriendList;
+	boost::function<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* FriendList */)> Match_Response_FriendList;
 
 	// Message to Friends
-	boost::signals2::signal<void (const std::string& /* Msg */)> Match_Friend_Msg;
+	boost::function<void (const std::string& /* Msg */)> Match_Friend_Msg;
 
 	// Request Create Clan
-	boost::signals2::signal<void (boost::uint64_t /* uidChar */, boost::int32_t /* RequestID */, const std::string& /* ClanName */, const std::string& /* Member1CharName */, const std::string& /* Member2CharName */, const std::string& /* Member3CharName */, const std::string& /* Member4CharName */)> Match_Clan_RequestCreateClan;
+	boost::function<void (boost::uint64_t /* uidChar */, boost::int32_t /* RequestID */, const std::string& /* ClanName */, const std::string& /* Member1CharName */, const std::string& /* Member2CharName */, const std::string& /* Member3CharName */, const std::string& /* Member4CharName */)> Match_Clan_RequestCreateClan;
 
 	// Response Create Clan
-	boost::signals2::signal<void (boost::int32_t /* Result */, boost::int32_t /* RequestID */)> Match_Clan_ResponseCreateClan;
+	boost::function<void (boost::int32_t /* Result */, boost::int32_t /* RequestID */)> Match_Clan_ResponseCreateClan;
 
 	// Ask Sponsor's Agreement
-	boost::signals2::signal<void (boost::int32_t /* RequestID */, const std::string& /* ClanName */, boost::uint64_t /* uidClanMaster */, const std::string& /* szClanMaster */)> Match_Clan_AskSponsorAgreement;
+	boost::function<void (boost::int32_t /* RequestID */, const std::string& /* ClanName */, boost::uint64_t /* uidClanMaster */, const std::string& /* szClanMaster */)> Match_Clan_AskSponsorAgreement;
 
 	// Answer Sponsor's Agreement
-	boost::signals2::signal<void (boost::int32_t /* RequestID */, boost::uint64_t /* uidClanMaster */, const std::string& /* SponsorCharName */, bool /* Answer */)> Match_Clan_AnswerSponsorAgreement;
+	boost::function<void (boost::int32_t /* RequestID */, boost::uint64_t /* uidClanMaster */, const std::string& /* SponsorCharName */, bool /* Answer */)> Match_Clan_AnswerSponsorAgreement;
 
 	// Request Agreed Create Clan
-	boost::signals2::signal<void (boost::uint64_t /* uidChar */, const std::string& /* ClanName */, const std::string& /* Member1CharName */, const std::string& /* Member2CharName */, const std::string& /* Member3CharName */, const std::string& /* Member4CharName */)> Match_Clan_RequestAgreedCreateClan;
+	boost::function<void (boost::uint64_t /* uidChar */, const std::string& /* ClanName */, const std::string& /* Member1CharName */, const std::string& /* Member2CharName */, const std::string& /* Member3CharName */, const std::string& /* Member4CharName */)> Match_Clan_RequestAgreedCreateClan;
 
 	// Response Agreed Create Clan
-	boost::signals2::signal<void (boost::int32_t /* Result */)> Match_Clan_AgreedResponseCreateClan;
+	boost::function<void (boost::int32_t /* Result */)> Match_Clan_AgreedResponseCreateClan;
 
 	// Request Close Clan
-	boost::signals2::signal<void (boost::uint64_t /* uidChar */, const std::string& /* ClanName */)> Match_Clan_RequestCloseClan;
+	boost::function<void (boost::uint64_t /* uidChar */, const std::string& /* ClanName */)> Match_Clan_RequestCloseClan;
 
 	// Response Close Clan
-	boost::signals2::signal<void (boost::int32_t /* Result */)> Match_Clan_ResponseCloseClan;
+	boost::function<void (boost::int32_t /* Result */)> Match_Clan_ResponseCloseClan;
 
 	// Request Join Clan
-	boost::signals2::signal<void (boost::uint64_t /* uidChar */, const std::string& /* ClanName */, const std::string& /* szJoiner */)> Match_Clan_RequestJoinClan;
+	boost::function<void (boost::uint64_t /* uidChar */, const std::string& /* ClanName */, const std::string& /* szJoiner */)> Match_Clan_RequestJoinClan;
 
 	// Response Join Clan
-	boost::signals2::signal<void (boost::int32_t /* Result */)> Match_Clan_ResponseJoinClan;
+	boost::function<void (boost::int32_t /* Result */)> Match_Clan_ResponseJoinClan;
 
 	// Ask Join Agreement
-	boost::signals2::signal<void (const std::string& /* ClanName */, boost::uint64_t /* uidClanAdmin */, const std::string& /* szClanAdmin */)> Match_Clan_AskJoinAgreement;
+	boost::function<void (const std::string& /* ClanName */, boost::uint64_t /* uidClanAdmin */, const std::string& /* szClanAdmin */)> Match_Clan_AskJoinAgreement;
 
 	// Answer Join Agreement
-	boost::signals2::signal<void (boost::uint64_t /* uidClanAdmin */, const std::string& /* JoinerCharName */, bool /* Answer */)> Match_Clan_AnswerJoinAgreement;
+	boost::function<void (boost::uint64_t /* uidClanAdmin */, const std::string& /* JoinerCharName */, bool /* Answer */)> Match_Clan_AnswerJoinAgreement;
 
 	// Request Agreed Join Clan
-	boost::signals2::signal<void (boost::uint64_t /* uidClanAdmin */, const std::string& /* ClanName */, const std::string& /* szJoiner */)> Match_Clan_RequestAgreedJoinClan;
+	boost::function<void (boost::uint64_t /* uidClanAdmin */, const std::string& /* ClanName */, const std::string& /* szJoiner */)> Match_Clan_RequestAgreedJoinClan;
 
 	// Response Agreed Join Clan
-	boost::signals2::signal<void (boost::int32_t /* Result */)> Match_Clan_ResponseAgreedJoinClan;
+	boost::function<void (boost::int32_t /* Result */)> Match_Clan_ResponseAgreedJoinClan;
 
 	// Request Leave Clan
-	boost::signals2::signal<void (boost::uint64_t /* uidChar */)> Match_Clan_RequestLeaveClan;
+	boost::function<void (boost::uint64_t /* uidChar */)> Match_Clan_RequestLeaveClan;
 
 	// Response Leave Clan
-	boost::signals2::signal<void (boost::int32_t /* Result */)> Match_Clan_ResponseLeaveClan;
+	boost::function<void (boost::int32_t /* Result */)> Match_Clan_ResponseLeaveClan;
 
 	// Update Char ClanInfo
-	boost::signals2::signal<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* ClanInfo */)> Match_Clan_UpdateCharClanInfo;
+	boost::function<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* ClanInfo */)> Match_Clan_UpdateCharClanInfo;
 
 	// Request Change ClanGrade
-	boost::signals2::signal<void (boost::uint64_t /* uidClanMaster */, const std::string& /* szMember */, boost::int32_t /* Grade */, boost::int32_t /* zero */)> Match_Clan_Master_RequestChangeGrade;
+	boost::function<void (boost::uint64_t /* uidClanMaster */, const std::string& /* szMember */, boost::int32_t /* Grade */, boost::int32_t /* zero */)> Match_Clan_Master_RequestChangeGrade;
 
 	// Response Change ClanGrade
-	boost::signals2::signal<void (boost::int32_t /* Result */)> Match_Clan_Master_ResponseChangeGrade;
+	boost::function<void (boost::int32_t /* Result */)> Match_Clan_Master_ResponseChangeGrade;
 
 	// Request Expel ClanMember
-	boost::signals2::signal<void (boost::uint64_t /* uidClanAdmin */, const std::string& /* szMember */)> Match_Clan_Admin_RequestExpelMember;
+	boost::function<void (boost::uint64_t /* uidClanAdmin */, const std::string& /* szMember */)> Match_Clan_Admin_RequestExpelMember;
 
 	// Response Expel ClanMember
-	boost::signals2::signal<void (boost::int32_t /* Result */)> Match_Clan_Admin_ResponseLeaveMember;
+	boost::function<void (boost::int32_t /* Result */)> Match_Clan_Admin_ResponseLeaveMember;
 
 	// Request Clan Msg
-	boost::signals2::signal<void (boost::uint64_t /* uidSender */, const std::string& /* Msg */)> Match_Clan_Request_Msg;
+	boost::function<void (boost::uint64_t /* uidSender */, const std::string& /* Msg */)> Match_Clan_Request_Msg;
 
 	// Clan Msg
-	boost::signals2::signal<void (const std::string& /* SenderName */, const std::string& /* Msg */)> Match_Clan_Msg;
+	boost::function<void (const std::string& /* SenderName */, const std::string& /* Msg */)> Match_Clan_Msg;
 
 	// Request Clan Member List
-	boost::signals2::signal<void (boost::uint64_t /* uidChar */)> Match_Clan_Request_ClanMemberList;
+	boost::function<void (boost::uint64_t /* uidChar */)> Match_Clan_Request_ClanMemberList;
 
 	// Response Clan Member List
-	boost::signals2::signal<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* ClanMemberList */)> Match_Clan_Response_ClanMemberList;
+	boost::function<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* ClanMemberList */)> Match_Clan_Response_ClanMemberList;
 
 	// Request Clan Info
-	boost::signals2::signal<void (boost::uint64_t /* uidChar */, const std::string& /* ClanName */)> Match_Clan_Request_Clan_Info;
+	boost::function<void (boost::uint64_t /* uidChar */, const std::string& /* ClanName */)> Match_Clan_Request_Clan_Info;
 
 	// Response Clan Info
-	boost::signals2::signal<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* ClanInfo */)> Match_Clan_Response_Clan_Info;
+	boost::function<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* ClanInfo */)> Match_Clan_Response_Clan_Info;
 
 	// Standby Clan List
-	boost::signals2::signal<void (boost::int32_t /* PrevClanListCount */, boost::int32_t /* NextClanListCount */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* ClanList */)> Match_Clan_Standby_ClanList;
+	boost::function<void (boost::int32_t /* PrevClanListCount */, boost::int32_t /* NextClanListCount */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* ClanList */)> Match_Clan_Standby_ClanList;
 
 	// Member Connected
-	boost::signals2::signal<void (const std::string& /* szMember */)> Match_Clan_Member_Connected;
+	boost::function<void (const std::string& /* szMember */)> Match_Clan_Member_Connected;
 
 	// Request EmblemURL
-	boost::signals2::signal<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* ClanURLList */)> Match_Clan_Request_EmblemURL;
+	boost::function<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* ClanURLList */)> Match_Clan_Request_EmblemURL;
 
 	// Response EmblemURL
-	boost::signals2::signal<void (boost::int32_t /* ClanCLID */, boost::int32_t /* EmblemChecksum */, const std::string& /* EmblemURL */)> Match_Clan_Response_EmblemURL;
+	boost::function<void (boost::int32_t /* ClanCLID */, boost::int32_t /* EmblemChecksum */, const std::string& /* EmblemURL */)> Match_Clan_Response_EmblemURL;
 
 	// Notify Emblem Ready
-	boost::signals2::signal<void (boost::int32_t /* ClanCLID */, const std::string& /* EmblemURL */)> Match_Clan_Local_EmblemReady;
+	boost::function<void (boost::int32_t /* ClanCLID */, const std::string& /* EmblemURL */)> Match_Clan_Local_EmblemReady;
 
 	// delete clan info announce to clan member
-	boost::signals2::signal<void (const std::string& /* deleteinfo */)> MC_MATCH_CLAN_ACCOUNCE_DELETE;
+	boost::function<void (const std::string& /* deleteinfo */)> MC_MATCH_CLAN_ACCOUNCE_DELETE;
 
 	// Callvote
-	boost::signals2::signal<void (const std::string& /* strDiscuss */, const std::string& /* strArg */)> Match_Callvote;
+	boost::function<void (const std::string& /* strDiscuss */, const std::string& /* strArg */)> Match_Callvote;
 
 	// Notify Callvote
-	boost::signals2::signal<void (const std::string& /* strDiscuss */, const std::string& /* strArg */)> Match_NotifyCallvote;
+	boost::function<void (const std::string& /* strDiscuss */, const std::string& /* strArg */)> Match_NotifyCallvote;
 
 	// Notify Vote Result
-	boost::signals2::signal<void (const std::string& /* strDiscuss */, boost::int32_t /* nResult */)> Match_NotifyVoteResult;
+	boost::function<void (const std::string& /* strDiscuss */, boost::int32_t /* nResult */)> Match_NotifyVoteResult;
 
 	// Vote
-	boost::signals2::signal<void ()> Match_VoteYes;
+	boost::function<void ()> Match_VoteYes;
 
 	// Vote
-	boost::signals2::signal<void ()> Match_VoteNo;
+	boost::function<void ()> Match_VoteNo;
 
 	// Vote stop
-	boost::signals2::signal<void ()> Votestop;
+	boost::function<void ()> Votestop;
 
 	// Broadcast Clan Renew Victories
-	boost::signals2::signal<void (const std::string& /* strWinnerClanName */, const std::string& /* strLoserClanName */, boost::int32_t /* nVictories */)> Match_Broadcast_ClanRenewVictories;
+	boost::function<void (const std::string& /* strWinnerClanName */, const std::string& /* strLoserClanName */, boost::int32_t /* nVictories */)> Match_Broadcast_ClanRenewVictories;
 
 	// Broadcast Clan Interrupt Victories
-	boost::signals2::signal<void (const std::string& /* strWinnerClanName */, const std::string& /* strLoserClanName */, boost::int32_t /* nVictories */)> Match_Broadcast_ClanInterruptVictories;
+	boost::function<void (const std::string& /* strWinnerClanName */, const std::string& /* strLoserClanName */, boost::int32_t /* nVictories */)> Match_Broadcast_ClanInterruptVictories;
 
 	// Broadcast Duel Renew Victories
-	boost::signals2::signal<void (const std::string& /* strChampionName */, const std::string& /* strChannelName */, boost::int32_t /* nRoomNumber */, boost::int32_t /* nVictories */)> Match_Broadcast_DuelRenewVictories;
+	boost::function<void (const std::string& /* strChampionName */, const std::string& /* strChannelName */, boost::int32_t /* nRoomNumber */, boost::int32_t /* nVictories */)> Match_Broadcast_DuelRenewVictories;
 
 	// Broadcast Duel Interrupt Victories
-	boost::signals2::signal<void (const std::string& /* strChampionName */, const std::string& /* strInterrupterName */, boost::int32_t /* nVictories */)> Match_Broadcast_DuelInterruptVictories;
+	boost::function<void (const std::string& /* strChampionName */, const std::string& /* strInterrupterName */, boost::int32_t /* nVictories */)> Match_Broadcast_DuelInterruptVictories;
 
 	// Assign Berserker
-	boost::signals2::signal<void (boost::uint64_t /* uidPlayer */)> Match_Assign_Berserker;
+	boost::function<void (boost::uint64_t /* uidPlayer */)> Match_Assign_Berserker;
 
 	// Queue Info
-	boost::signals2::signal<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* QueueInfo */)> Match_Duel_QueueInfo;
+	boost::function<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* QueueInfo */)> Match_Duel_QueueInfo;
 
 	// QuestPing
-	boost::signals2::signal<void (boost::uint32_t /* nTimeStamp */)> Match_Quest_Ping;
+	boost::function<void (boost::uint32_t /* nTimeStamp */)> Match_Quest_Ping;
 
 	// QuestPong
-	boost::signals2::signal<void (boost::uint32_t /* nTimeStamp */)> Match_Quest_Pong;
+	boost::function<void (boost::uint32_t /* nTimeStamp */)> Match_Quest_Pong;
 
 	// Send npc info list to client.
-	boost::signals2::signal<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* NPCinfolist */, boost::int32_t /* eGameType */)> MC_QUEST_NPCLIST;
+	boost::function<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* NPCinfolist */, boost::int32_t /* eGameType */)> MC_QUEST_NPCLIST;
 
 	// Take out Master from Stage
-	boost::signals2::signal<void ()> Event_ChangeMaster;
+	boost::function<void ()> Event_ChangeMaster;
 
 	// Change Password on Stage
-	boost::signals2::signal<void (const std::string& /* strPassword */)> Event_ChangePassword;
+	boost::function<void (const std::string& /* strPassword */)> Event_ChangePassword;
 
 	// Request JJang mark to a Player
-	boost::signals2::signal<void (const std::string& /* strTargetName */)> Event_RequestJJang;
+	boost::function<void (const std::string& /* strTargetName */)> Event_RequestJJang;
 
 	// Remove JJang mark from a Player
-	boost::signals2::signal<void (const std::string& /* strTargetName */)> Event_RemoveJJang;
+	boost::function<void (const std::string& /* strTargetName */)> Event_RemoveJJang;
 
 	// Update JJang Player
-	boost::signals2::signal<void (boost::uint64_t /* uidPlayer */, bool /* bJjang */)> Event_UpdateJJang;
+	boost::function<void (boost::uint64_t /* uidPlayer */, bool /* bJjang */)> Event_UpdateJJang;
 
 	// Npc Spawn
-	boost::signals2::signal<void (boost::uint64_t /* uidChar */, boost::uint64_t /* nNpcUID */, boost::uint8_t /* nNpcType */, boost::uint8_t /* PositionIndex */)> Quest_NPCSpawn;
+	boost::function<void (boost::uint64_t /* uidChar */, boost::uint64_t /* nNpcUID */, boost::uint8_t /* nNpcType */, boost::uint8_t /* PositionIndex */)> Quest_NPCSpawn;
 
 	// Entrust Npc Control
-	boost::signals2::signal<void (boost::uint64_t /* uidChar */, boost::uint64_t /* nNpcUID */)> Quest_Entrust_NPC_Control;
+	boost::function<void (boost::uint64_t /* uidChar */, boost::uint64_t /* nNpcUID */)> Quest_Entrust_NPC_Control;
 
 	// Checksum NPC Info
-	boost::signals2::signal<void (boost::uint64_t /* uidChar */, boost::uint32_t /* checksum */)> Quest_Checksum_NPCInfo;
+	boost::function<void (boost::uint64_t /* uidChar */, boost::uint32_t /* checksum */)> Quest_Checksum_NPCInfo;
 
 	// Npc Dead
-	boost::signals2::signal<void (boost::uint64_t /* uidKillerPlayer */, boost::uint64_t /* uidNPC */)> Quest_NPCDead;
+	boost::function<void (boost::uint64_t /* uidKillerPlayer */, boost::uint64_t /* uidNPC */)> Quest_NPCDead;
 
 	// Refresh Player Status
-	boost::signals2::signal<void ()> Quest_RefreshPlayerStatus;
+	boost::function<void ()> Quest_RefreshPlayerStatus;
 
 	// Clear All NPC
-	boost::signals2::signal<void ()> Quest_NPC_AllClear;
+	boost::function<void ()> Quest_NPC_AllClear;
 
 	// Quest Start Round
-	boost::signals2::signal<void (boost::uint8_t /* round */)> Quest_Round_Start;
+	boost::function<void (boost::uint8_t /* round */)> Quest_Round_Start;
 
 	// Quest Request Dead
-	boost::signals2::signal<void ()> Quest_RequestDead;
+	boost::function<void ()> Quest_RequestDead;
 
 	// Quest Player Dead
-	boost::signals2::signal<void (boost::uint64_t /* Victim */)> Quest_PlayerDead;
+	boost::function<void (boost::uint64_t /* Victim */)> Quest_PlayerDead;
 
 	// Obtain QuestItem
-	boost::signals2::signal<void (boost::uint32_t /* QuestItemID */)> Quest_ObtainQuestItem;
+	boost::function<void (boost::uint32_t /* QuestItemID */)> Quest_ObtainQuestItem;
 
 	// Obtain ZItem
-	boost::signals2::signal<void (boost::uint32_t /* ItemID */)> Quest_ObtainZItem;
+	boost::function<void (boost::uint32_t /* ItemID */)> Quest_ObtainZItem;
 
 	// Change Stage Quest Mapset Setting
-	boost::signals2::signal<void (boost::uint64_t /* uidStage */, const boost::array<boost::uint16_t, 3>& /* QuestMapset */)> Quest_State_Mapset;
+	boost::function<void (boost::uint64_t /* uidStage */, boost::int8_t /* QuestMapset */)> Quest_State_Mapset;
 
 	// Quest Stage GameInfo
-	boost::signals2::signal<void (const boost::array<boost::uint16_t, 3>& /* Questlevel */, const boost::array<boost::uint16_t, 3>& /* MapsetID */, boost::uint32_t /* QuestScenarioID */)> Quest_Stage_GameInfo;
+	boost::function<void (boost::int8_t /* Questlevel */, boost::int8_t /* MapsetID */, boost::uint32_t /* QuestScenarioID */)> Quest_Stage_GameInfo;
 
 	// Quest Sector Bonus
-	boost::signals2::signal<void (boost::uint64_t /* uidPlayer */, boost::uint32_t /* XPBonus */, boost::uint32_t /* BPBonus */)> Quest_SectorBonus;
+	boost::function<void (boost::uint64_t /* uidPlayer */, boost::uint32_t /* XPBonus */, boost::uint32_t /* BPBonus */)> Quest_SectorBonus;
 
 	// Quest Game Info
-	boost::signals2::signal<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* Info */)> Quest_GameInfo;
+	boost::function<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* Info */)> Quest_GameInfo;
 
 	// Quest Combat State
-	boost::signals2::signal<void (const boost::array<boost::uint16_t, 3>& /* CombatState */)> Quest_Combat_State;
+	boost::function<void (boost::int8_t /* CombatState */)> Quest_Combat_State;
 
 	// Quest Sector Start
-	boost::signals2::signal<void (const boost::array<boost::uint16_t, 3>& /* SectorIndex */, boost::uint8_t /* RepeatIndex */)> Quest_Sector_Start;
+	boost::function<void (boost::int8_t /* SectorIndex */, boost::uint8_t /* RepeatIndex */)> Quest_Sector_Start;
 
 	// Complete Quest
-	boost::signals2::signal<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* RewardInfo */)> Quest_Complete;
+	boost::function<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* RewardInfo */)> Quest_Complete;
 
 	// Quest failed
-	boost::signals2::signal<void ()> Quest_Failed;
+	boost::function<void ()> Quest_Failed;
 
 	// Request Moveto Portal
-	boost::signals2::signal<void (const boost::array<boost::uint16_t, 3>& /* CurrSectorIndex */)> Quest_Request_Moveto_Portal;
+	boost::function<void (boost::int8_t /* CurrSectorIndex */)> Quest_Request_Moveto_Portal;
 
 	// Moveto Portal
-	boost::signals2::signal<void (const boost::array<boost::uint16_t, 3>& /* SectorIndex */, boost::uint8_t /* RepeatIndex */, boost::uint64_t /* uidPlayer */)> Quest_Moveto_Portal;
+	boost::function<void (boost::int8_t /* SectorIndex */, boost::uint8_t /* RepeatIndex */, boost::uint64_t /* uidPlayer */)> Quest_Moveto_Portal;
 
 	// Ready To New Sector
-	boost::signals2::signal<void (boost::uint64_t /* uidPlayer */)> Quest_Readyto_NewSector;
+	boost::function<void (boost::uint64_t /* uidPlayer */)> Quest_Readyto_NewSector;
 
 	// NPC BasicInfo
-	boost::signals2::signal<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* Info */)> Quest_Peer_NPC_BasicInfo;
+	boost::function<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* Info */)> Quest_Peer_NPC_BasicInfo;
 
 	// NPC HPInfo
-	boost::signals2::signal<void (boost::int32_t /* nNPCCount */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* HPTable */)> Quest_Peer_NPC_HPInfo;
+	boost::function<void (boost::int32_t /* nNPCCount */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* HPTable */)> Quest_Peer_NPC_HPInfo;
 
 	// NPC Melee Attack
-	boost::signals2::signal<void (boost::uint64_t /* uidOwner */)> Quest_Peer_NPC_Attack_Melee;
+	boost::function<void (boost::uint64_t /* uidOwner */)> Quest_Peer_NPC_Attack_Melee;
 
 	// NPC Range Attack
-	boost::signals2::signal<void (boost::uint64_t /* uidOwner */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* Info */)> Quest_Peer_NPC_Attack_Range;
+	boost::function<void (boost::uint64_t /* uidOwner */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* Info */)> Quest_Peer_NPC_Attack_Range;
 
 	// NPC Skill Start
-	boost::signals2::signal<void (boost::uint64_t /* uidOwner */, boost::int32_t /* nSkill */, boost::uint64_t /* uidTarget */, const boost::array<float, 3>& /* targetPos */)> Quest_Peer_NPC_Skill_Start;
+	boost::function<void (boost::uint64_t /* uidOwner */, boost::int32_t /* nSkill */, boost::uint64_t /* uidTarget */, const boost::array<float, 3>& /* targetPos */)> Quest_Peer_NPC_Skill_Start;
 
 	// NPC Skill Start
-	boost::signals2::signal<void (boost::uint64_t /* uidOwner */, boost::int32_t /* nSkill */, boost::uint64_t /* uidTarget */, const boost::array<float, 3>& /* targetPos */)> Quest_Peer_NPC_Skill_Execute;
+	boost::function<void (boost::uint64_t /* uidOwner */, boost::int32_t /* nSkill */, boost::uint64_t /* uidTarget */, const boost::array<float, 3>& /* targetPos */)> Quest_Peer_NPC_Skill_Execute;
 
 	// NPC Dead
-	boost::signals2::signal<void (boost::uint64_t /* uidKillerPlayer */, boost::uint64_t /* uidNPC */)> Quest_Peer_NPC_Dead;
+	boost::function<void (boost::uint64_t /* uidKillerPlayer */, boost::uint64_t /* uidNPC */)> Quest_Peer_NPC_Dead;
 
 	// NPC Spawn
-	boost::signals2::signal<void (boost::int32_t /* NPCType */, boost::int32_t /* NPCCount */)> Quest_Test_RequestNPCSpawn;
+	boost::function<void (boost::int32_t /* NPCType */, boost::int32_t /* NPCCount */)> Quest_Test_RequestNPCSpawn;
 
 	// Clear NPC
-	boost::signals2::signal<void ()> Quest_Test_ClearNPC;
+	boost::function<void ()> Quest_Test_ClearNPC;
 
 	// Sector Clear
-	boost::signals2::signal<void ()> Quest_Test_SectorClear;
+	boost::function<void ()> Quest_Test_SectorClear;
 
 	// Finish Quest
-	boost::signals2::signal<void ()> Quest_Test_Finish;
+	boost::function<void ()> Quest_Test_Finish;
 
 	// Announce
-	boost::signals2::signal<void (boost::uint64_t /* uidAdmin */, const std::string& /* Msg */, boost::uint32_t /* MsgType */)> Admin_Announce;
+	boost::function<void (boost::uint64_t /* uidAdmin */, const std::string& /* Msg */, boost::uint32_t /* MsgType */)> Admin_Announce;
 
 	// Request Ban Player
-	boost::signals2::signal<void (boost::uint64_t /* uidAdmin */, const std::string& /* uidTargetCharName */)> Admin_RequestBanPlayer;
+	boost::function<void (boost::uint64_t /* uidAdmin */, const std::string& /* uidTargetCharName */)> Admin_RequestBanPlayer;
 
 	// Response Ban Player
-	boost::signals2::signal<void (boost::int32_t /* Result */)> Admin_ResponseBanPlayer;
+	boost::function<void (boost::int32_t /* Result */)> Admin_ResponseBanPlayer;
 
 	// Hide Admin Player
-	boost::signals2::signal<void ()> Admin_Hide;
+	boost::function<void ()> Admin_Hide;
 
 	// reset all hacking block
-	boost::signals2::signal<void ()> MC_ADMIN_RESET_ALL_HACKING_BLOCK;
+	boost::function<void ()> MC_ADMIN_RESET_ALL_HACKING_BLOCK;
 
 	// reload gamble item info
-	boost::signals2::signal<void ()> MC_ADMIN_RELOAD_GAMBLEITEM;
+	boost::function<void ()> MC_ADMIN_RELOAD_GAMBLEITEM;
 
 	// choose admin as commander
-	boost::signals2::signal<void ()> MC_ADMIN_ASSASIN;
+	boost::function<void ()> MC_ADMIN_ASSASIN;
 
 	// Connect Agent to MatchServer
-	boost::signals2::signal<void (const std::string& /* Address */, boost::int32_t /* Port */)> Agent_Connect;
+	boost::function<void (const std::string& /* Address */, boost::int32_t /* Port */)> Agent_Connect;
 
 	// Unregister Agent from MatchServer
-	boost::signals2::signal<void ()> Agent_Disconnect;
+	boost::function<void ()> Agent_Disconnect;
 
 	// Register Agent to MatchServer
-	boost::signals2::signal<void (const std::string& /* Address */, boost::int32_t /* Port */, boost::int32_t /* UDPPort */)> Match_RegisterAgent;
+	boost::function<void (const std::string& /* Address */, boost::int32_t /* Port */, boost::int32_t /* UDPPort */)> Match_RegisterAgent;
 
 	// Unregister Agent from MatchServer
-	boost::signals2::signal<void ()> Match_UnRegisterAgent;
+	boost::function<void ()> Match_UnRegisterAgent;
 
 	// Request LiveCheck for Agent
-	boost::signals2::signal<void (boost::uint32_t /* TimeStamp */, boost::uint32_t /* StageCount */, boost::uint32_t /* UserCount */)> Match_Agent_RequestLiveCheck;
+	boost::function<void (boost::uint32_t /* TimeStamp */, boost::uint32_t /* StageCount */, boost::uint32_t /* UserCount */)> Match_Agent_RequestLiveCheck;
 
 	// Response LiveCheck for Agent
-	boost::signals2::signal<void (boost::uint32_t /* TimeStamp */)> Match_Agent_ResponseLiveCheck;
+	boost::function<void (boost::uint32_t /* TimeStamp */)> Match_Agent_ResponseLiveCheck;
 
 	// Reserve stage on AgentServer
-	boost::signals2::signal<void (boost::uint64_t /* StageUID */)> Agent_StageReserve;
+	boost::function<void (boost::uint64_t /* StageUID */)> Agent_StageReserve;
 
 	// Release stage on AgentServer
-	boost::signals2::signal<void (boost::uint64_t /* StageUID */)> Agent_StageRelease;
+	boost::function<void (boost::uint64_t /* StageUID */)> Agent_StageRelease;
 
 	// Ready to Handle stage
-	boost::signals2::signal<void (boost::uint64_t /* StageUID */)> Agent_StageReady;
+	boost::function<void (boost::uint64_t /* StageUID */)> Agent_StageReady;
 
 	// Let agent to Relay Peer
-	boost::signals2::signal<void (boost::uint64_t /* PlayerUID */, boost::uint64_t /* PeerCharUID */, boost::uint64_t /* StageUID */)> Agent_RelayPeer;
+	boost::function<void (boost::uint64_t /* PlayerUID */, boost::uint64_t /* PeerCharUID */, boost::uint64_t /* StageUID */)> Agent_RelayPeer;
 
 	// Request my quest item list
-	boost::signals2::signal<void (boost::uint64_t /* uid */)> Questitem;
+	boost::function<void (boost::uint64_t /* uid */)> Questitem;
 
 	// Response my quest item list
-	boost::signals2::signal<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* Myquestitemlist */)> Quest_item_response;
+	boost::function<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* Myquestitemlist */)> Quest_item_response;
 
 	// Request buy quest item
-	boost::signals2::signal<void (boost::uint64_t /* uidChar */, boost::int32_t /* QuestItemID */)> Quest_item_buy;
+	boost::function<void (boost::uint64_t /* uidChar */, boost::int32_t /* QuestItemID */)> Quest_item_buy;
 
 	// Response buy quest item
-	boost::signals2::signal<void (boost::int32_t /* Result */, boost::int32_t /* PlayerBounty */)> Quest_item_responsebuy;
+	boost::function<void (boost::int32_t /* Result */, boost::int32_t /* PlayerBounty */)> Quest_item_responsebuy;
 
 	// Request sell quest item
-	boost::signals2::signal<void (boost::uint64_t /* uidChar */, boost::int32_t /* QuestItemID */, boost::int32_t /* Count */)> Quest_item_sell;
+	boost::function<void (boost::uint64_t /* uidChar */, boost::int32_t /* QuestItemID */, boost::int32_t /* Count */)> Quest_item_sell;
 
 	// Response sell quest item
-	boost::signals2::signal<void (boost::int32_t /* Result */, boost::int32_t /* PlayerBounty */)> Quest_item_responsesell;
+	boost::function<void (boost::int32_t /* Result */, boost::int32_t /* PlayerBounty */)> Quest_item_responsesell;
 
 	// Quest reward.
-	boost::signals2::signal<void (boost::int32_t /* XP */, boost::int32_t /* Bounty */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* Rewardquestitem */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* RewardZItem */)> Quest_Reward;
+	boost::function<void (boost::int32_t /* XP */, boost::int32_t /* Bounty */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* Rewardquestitem */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* RewardZItem */)> Quest_Reward;
 
 	// Request drop sacrifice item
-	boost::signals2::signal<void (boost::uint64_t /* Dropitemowner */, boost::int32_t /* Slotindex */, boost::int32_t /* ItemID */)> Quest_Request_Sacrifice;
+	boost::function<void (boost::uint64_t /* Dropitemowner */, boost::int32_t /* Slotindex */, boost::int32_t /* ItemID */)> Quest_Request_Sacrifice;
 
 	// Response drop sacrifice item
-	boost::signals2::signal<void (boost::int32_t /* Result */, boost::uint64_t /* requesterofdropsacrificeitem_ */, boost::int32_t /* Slotindex */, boost::int32_t /* ItemID */)> Quest_Response_Sacrifice;
+	boost::function<void (boost::int32_t /* Result */, boost::uint64_t /* requesterofdropsacrificeitem_ */, boost::int32_t /* Slotindex */, boost::int32_t /* ItemID */)> Quest_Response_Sacrifice;
 
 	// Request callback sacrifice item
-	boost::signals2::signal<void (boost::uint64_t /* Callbackitemrequester */, boost::int32_t /* Slotindex */, boost::int32_t /* ItemID */)> Quest_Callback_Sacrifice;
+	boost::function<void (boost::uint64_t /* Callbackitemrequester */, boost::int32_t /* Slotindex */, boost::int32_t /* ItemID */)> Quest_Callback_Sacrifice;
 
 	// Request callback sacrifice item
-	boost::signals2::signal<void (boost::int32_t /* Result */, boost::uint64_t /* requesterofcallbacksacrificeitem_ */, boost::int32_t /* Slotindex */, boost::int32_t /* ItemID */)> Quest_Callback_Result;
+	boost::function<void (boost::int32_t /* Result */, boost::uint64_t /* requesterofcallbacksacrificeitem_ */, boost::int32_t /* Slotindex */, boost::int32_t /* ItemID */)> Quest_Callback_Result;
 
 	// Request slot info
-	boost::signals2::signal<void (boost::uint64_t /* Sender */)> Quest_Request_SlotInfo;
+	boost::function<void (boost::uint64_t /* Sender */)> Quest_Request_SlotInfo;
 
 	// Response slot info
-	boost::signals2::signal<void (boost::uint64_t /* Owner1 */, boost::int32_t /* ItemID1 */, boost::uint64_t /* Owner2 */, boost::int32_t /* ItemID2 */)> Quest_Resonse_SlotInfo;
+	boost::function<void (boost::uint64_t /* Owner1 */, boost::int32_t /* ItemID1 */, boost::uint64_t /* Owner2 */, boost::int32_t /* ItemID2 */)> Quest_Resonse_SlotInfo;
 
 	// Request stage quest level
-	boost::signals2::signal<void (boost::uint64_t /* sender */)> Quest_RequestLevel;
+	boost::function<void (boost::uint64_t /* sender */)> Quest_RequestLevel;
 
 	// Response stage quest level
-	boost::signals2::signal<void (boost::int32_t /* Questlevel */)> Quest_ResponseLevel;
+	boost::function<void (boost::int32_t /* Questlevel */)> Quest_ResponseLevel;
 
 	// Send survival result
-	boost::signals2::signal<void (boost::int32_t /* Reachedround */, boost::int32_t /* Point */)> Quest_Survival_Result;
+	boost::function<void (boost::int32_t /* Reachedround */, boost::int32_t /* Point */)> Quest_Survival_Result;
 
 	// Send survival top ranking list
-	boost::signals2::signal<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* Rankinglist */)> Quest_Survival_Ranking;
+	boost::function<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* Rankinglist */)> Quest_Survival_Ranking;
 
 	// Send survival private ranking
-	boost::signals2::signal<void (boost::uint32_t /* Rank */, boost::uint32_t /* Point */)> Quest_Survuval_PrivateRanking;
+	boost::function<void (boost::uint32_t /* Rank */, boost::uint32_t /* Point */)> Quest_Survuval_PrivateRanking;
 
 	// Failed start quest.
-	boost::signals2::signal<void (boost::int32_t /* Failedtype_ */, boost::uint64_t /* pairparam */)> Quest_Start_Fail;
+	boost::function<void (boost::int32_t /* Failedtype_ */, boost::uint64_t /* pairparam */)> Quest_Start_Fail;
 
 	// monster info
-	boost::signals2::signal<void (const boost::array<boost::uint16_t, 3>& /* monsterdbindex */)> monsterinfo;
+	boost::function<void (boost::int8_t /* monsterdbindex */)> monsterinfo;
 
 	// request monster bible info
-	boost::signals2::signal<void (boost::uint64_t /* requester */)> Quest_Bible_Request;
+	boost::function<void (boost::uint64_t /* requester */)> Quest_Bible_Request;
 
 	// response monster bible info
-	boost::signals2::signal<void (boost::uint64_t /* requester */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* Monsterbibleinfo */)> Quest_Bible_Response;
+	boost::function<void (boost::uint64_t /* requester */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* Monsterbibleinfo */)> Quest_Bible_Response;
 
 	// give oneself up
-	boost::signals2::signal<void ()> MC_REQUEST_GIVE_ONESELF_UP;
+	boost::function<void ()> MC_REQUEST_GIVE_ONESELF_UP;
 
 	// send gamble item info list to client
-	boost::signals2::signal<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* Gambleitemlist */)> MC_RESPONSE_GAMBLEITEMLIST;
+	boost::function<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* Gambleitemlist */)> MC_RESPONSE_GAMBLEITEMLIST;
 
 	// route updated user equip info
-	boost::signals2::signal<void (boost::uint64_t /* useruid */, boost::int32_t /* parts */, boost::int32_t /* itemid */)> MC_MATCH_ROUTE_UPDATE_STAGE_EQUIP_LOOK;
+	boost::function<void (boost::uint64_t /* useruid */, boost::int32_t /* parts */, boost::int32_t /* itemid */)> MC_MATCH_ROUTE_UPDATE_STAGE_EQUIP_LOOK;
 
 	// MC_REQUEST_RESOURCE_CRC32
-	boost::signals2::signal<void (boost::uint32_t /* key */)> MC_REQUEST_RESOURCE_CRC32;
+	boost::function<void (boost::uint32_t /* key */)> MC_REQUEST_RESOURCE_CRC32;
 
 	// MC_RESPONSE_RESOURCE_CRC32
-	boost::signals2::signal<void (boost::uint32_t /* crc32 */)> MC_RESPONSE_RESOURCE_CRC32;
+	boost::function<void (boost::uint32_t /* crc32 */)> MC_RESPONSE_RESOURCE_CRC32;
 };
 
 }

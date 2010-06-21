@@ -15,13 +15,13 @@ namespace protocol {
 class Quest_Sector_Start : public Packet
 {
 private:
-	packet::vector SectorIndex;
+	packet::int8 SectorIndex;
 	packet::uint8 RepeatIndex;
 
 public:
 	enum { packetID = 6053 };
 
-	Quest_Sector_Start(packet::vector SectorIndex, packet::uint8 RepeatIndex);
+	Quest_Sector_Start(packet::int8 SectorIndex, packet::uint8 RepeatIndex);
 
 	const char* name() const;
 	const char* doc() const;

@@ -40,7 +40,7 @@ def clean(commands):
 		elif paramID == 0x0A:
 			return "boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>"
 		elif paramID == 0x0B:
-			return "const boost::array<boost::uint16_t, 3>&"
+			return "boost::int8_t"
 		elif paramID == 0x0C:
 			return "boost::uint8_t"
 		elif paramID == 0x0D:
@@ -98,7 +98,7 @@ def make_packet_registry_header_header():
 #pragma once
 #include <string>
 #include <cstddef>
-#include <boost/signals2.hpp>
+#include <boost/function.hpp>
 #include <boost/cstdint.hpp>
 #include <boost/array.hpp>
 #include <boost/tuple/tuple.hpp>
@@ -121,9 +121,9 @@ public:
 	~Registry();
 
 	/// This signal is called when the parsing of a packet has failed. Do whatever you want in here.
-	boost::signals2::signal<void (boost::uint16_t /* packetID */,
-	                              const boost::uint8_t* /* rawParameters */,
-	                              boost::uint16_t /* length */)> OnFailedParse;"""
+	boost::function<void (boost::uint16_t /* packetID */,
+	                      const boost::uint8_t* /* rawParameters */,
+	                      boost::uint16_t /* length */)> OnFailedParse;"""
 
 def make_packet_registry_header_footer():
 	return "\n};\n\n}\n}\n"
@@ -135,7 +135,7 @@ def build_packet_registry_header(filename, commands):
 
 	for c in commands:
 		print('\n\n\t// ', c.docstring, '\n', sep='', end='', file=f)
-		print('\tboost::signals2::signal<void (', sep='',end='', file=f)
+		print('\tboost::function<void (', sep='',end='', file=f)
 		for p in c.parameters:
 			seperator = ''
 			if p == c.parameters[0]:
@@ -180,7 +180,7 @@ uint32_t extract_color(const uint8_t* paramStart, const uint8_t** currentParam, 
 uint64_t extract_MUID(const uint8_t* paramStart, const uint8_t** currentParam, uint16_t packetLength);
 tuple<Buffer /* data */, size_t /* count */, size_t /* size */>
 extract_blob(const uint8_t* paramStart, const uint8_t** currentParam, uint16_t packetLength);
-boost::array<uint16_t, 3> extract_vector(const uint8_t* paramStart, const uint8_t** currentParam, uint16_t packetLength);
+boost::int8_t extract_int8(const uint8_t* paramStart, const uint8_t** currentParam, uint16_t packetLength);
 boost::uint8_t extract_uint8(const uint8_t* paramStart, const uint8_t** currentParam, uint16_t packetLength);
 int16_t extract_int16(const uint8_t* paramStart, const uint8_t** currentParam, uint16_t packetLength);
 uint16_t extract_uint16(const uint8_t* paramStart, const uint8_t**currentParam, uint16_t packetLength);
@@ -188,14 +188,49 @@ uint16_t extract_uint16(const uint8_t* paramStart, const uint8_t**currentParam, 
 namespace cockpit {
 namespace packet {
 
-Registry::Registry()
-{
-}
-
 Registry::~Registry()
 {
 }
+
+static void do_nothing_0() {}
+template <typename T1>
+static void do_nothing(T1) {}
+template <typename T1, typename T2>
+static void do_nothing(T1, T2) {}
+template <typename T1, typename T2, typename T3>
+static void do_nothing(T1, T2, T3) {}
+template <typename T1, typename T2, typename T3, typename T4>
+static void do_nothing(T1, T2, T3, T4) {}
+template <typename T1, typename T2, typename T3, typename T4, typename T5>
+static void do_nothing(T1, T2, T3, T4, T5) {}
+template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
+static void do_nothing(T1, T2, T3, T4, T5, T6) {}
+template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7>
+static void do_nothing(T1, T2, T3, T4, T5, T6, T7) {}
+template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8>
+static void do_nothing(T1, T2, T3, T4, T5, T6, T7, T8) {}
+template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9>
+static void do_nothing(T1, T2, T3, T4, T5, T6, T7, T8, T9) {}
 """
+
+def make_packet_registry_constructor(commands):
+	ret =  """
+Registry::Registry()
+{
+"""
+
+	def make_params(command):
+		return ', '.join([p.type for p in command.parameters])
+
+	for c in commands:
+		if len(c.parameters) == 0:
+			ret = ''.join([ret, '\t', c.name, ' = do_nothing_0;\n'])
+		else:
+			ret = ''.join([ret, '\t', c.name, ' = do_nothing<', make_params(c), ' >;\n'])
+
+	ret = ''.join([ret, '}\n'])
+
+	return ret
 
 def make_packet_registry_cpp_footer():
 	return "\n\n}\n}\n"
@@ -212,7 +247,7 @@ def make_packet_registry_functions(commands):
 		0x08 : ("uint32_t", "extract_color"),
 		0x09 : ("uint64_t", "extract_MUID"),
 		0x0A : ("tuple<Buffer, size_t, size_t>", "extract_blob"),
-		0x0B : ("array<uint16_t, 3>", "extract_vector"),
+		0x0B : ("int8_t", "extract_int8"),
 		0x0C : ("uint8_t", "extract_uint8"),
 		0x0D : ("int16_t", "extract_int16"),
 		0x0E : ("uint16_t", "extract_uint16")
@@ -239,7 +274,8 @@ def make_packet_registry_functions(commands):
 		if len(c.parameters) > 0:
 			ret = ''.join([ret, '\n'])
 
-		ret = ''.join([ret, '\tself->', c.name, '('])
+		ret = ''.join([ret, '\tif(self->', c.name, ')'])
+		ret = ''.join([ret, '\t\tself->', c.name, '('])
 
 		for (p, i) in zip(c.parameters, range(9999999)):
 			sep = ''
@@ -274,6 +310,7 @@ def build_packet_registry_cpp(filename, commands):
 	f = open(filename, 'w')
 
 	print(make_packet_registry_cpp_header(), end='', file=f)
+	print(make_packet_registry_constructor(commands), end='', file=f)
 	print(make_packet_registry_functions(commands), end='', file=f)
 	print(make_dispatch(commands), end='', file=f)
 	print(make_packet_registry_cpp_footer(), end='', file=f)
@@ -371,7 +408,7 @@ typeMap = {
 	0x08 : "packet::color",
 	0x09 : "packet::MUID",
 	0x0A : "packet::blob",
-	0x0B : "packet::vector",
+	0x0B : "packet::int8",
 	0x0C : "packet::uint8",
 	0x0D : "packet::int16",
 	0x0E : "packet::uint16"

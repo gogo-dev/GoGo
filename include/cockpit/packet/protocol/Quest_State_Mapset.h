@@ -16,12 +16,12 @@ class Quest_State_Mapset : public Packet
 {
 private:
 	packet::MUID uidStage;
-	packet::vector QuestMapset;
+	packet::int8 QuestMapset;
 
 public:
 	enum { packetID = 6010 };
 
-	Quest_State_Mapset(packet::MUID uidStage, packet::vector QuestMapset);
+	Quest_State_Mapset(packet::MUID uidStage, packet::int8 QuestMapset);
 
 	const char* name() const;
 	const char* doc() const;

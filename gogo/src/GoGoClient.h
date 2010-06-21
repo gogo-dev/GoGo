@@ -21,15 +21,6 @@ private:
 	MUIDSanta* santa;
 	MUID myMUID;
 
-	std::vector<boost::signals2::connection> activeHandlers;
-
-private:
-	template <typename SignalType, typename Target>
-	void register_handler(SignalType& sig, Target func)
-	{
-		activeHandlers.push_back(sig.connect(func));
-	}
-
 public:
 	GoGoClient(cockpit::Logger* logger, MUIDSanta* santa);
 

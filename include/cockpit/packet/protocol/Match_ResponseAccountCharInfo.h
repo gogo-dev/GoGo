@@ -15,13 +15,13 @@ namespace protocol {
 class Match_ResponseAccountCharInfo : public Packet
 {
 private:
-	packet::vector CharNum;
+	packet::int8 CharNum;
 	packet::blob CharInfo;
 
 public:
 	enum { packetID = 1720 };
 
-	Match_ResponseAccountCharInfo(packet::vector CharNum, packet::blob CharInfo);
+	Match_ResponseAccountCharInfo(packet::int8 CharNum, packet::blob CharInfo);
 
 	const char* name() const;
 	const char* doc() const;

@@ -15,14 +15,14 @@ namespace protocol {
 class Quest_Moveto_Portal : public Packet
 {
 private:
-	packet::vector SectorIndex;
+	packet::int8 SectorIndex;
 	packet::uint8 RepeatIndex;
 	packet::MUID uidPlayer;
 
 public:
 	enum { packetID = 6058 };
 
-	Quest_Moveto_Portal(packet::vector SectorIndex, packet::uint8 RepeatIndex, packet::MUID uidPlayer);
+	Quest_Moveto_Portal(packet::int8 SectorIndex, packet::uint8 RepeatIndex, packet::MUID uidPlayer);
 
 	const char* name() const;
 	const char* doc() const;

@@ -279,27 +279,15 @@ Buffer blob::serialize() const
 	return serialized;
 }
 
-vector::vector(uint16_t x, uint16_t y, uint16_t z)
-	: value(x, y, z)
-{
-	type = 0x0B;
-}
-
-vector::vector(const Vec& _value)
+int8::int8(int8_t _value)
 	: value(_value)
 {
 	type = 0x0B;
 }
 
-Buffer vector::serialize() const
+Buffer int8::serialize() const
 {
-	uint16_t arrayValues[] = {
-		get<0>(value),
-		get<1>(value),
-		get<2>(value)
-	};
-
-	return serialize_built_in(arrayValues);
+	return serialize_built_in(value);
 }
 
 uint8::uint8(uint8_t _value)
@@ -337,3 +325,4 @@ Buffer uint16::serialize() const
 
 }
 }
+

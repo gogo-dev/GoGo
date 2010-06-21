@@ -35,6 +35,8 @@ private:
 	boost::mutex packetSendingLock;
 	boost::uint8_t currentPacketID;
 
+	bool connected;
+
 public:
 	boost::asio::ip::tcp::socket socket;
 

@@ -15,14 +15,14 @@ namespace protocol {
 class Quest_Stage_GameInfo : public Packet
 {
 private:
-	packet::vector Questlevel;
-	packet::vector MapsetID;
+	packet::int8 Questlevel;
+	packet::int8 MapsetID;
 	packet::uint32 QuestScenarioID;
 
 public:
 	enum { packetID = 6061 };
 
-	Quest_Stage_GameInfo(packet::vector Questlevel, packet::vector MapsetID, packet::uint32 QuestScenarioID);
+	Quest_Stage_GameInfo(packet::int8 Questlevel, packet::int8 MapsetID, packet::uint32 QuestScenarioID);
 
 	const char* name() const;
 	const char* doc() const;

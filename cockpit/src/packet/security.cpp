@@ -157,15 +157,9 @@ extract_blob(const uint8_t* paramStart, const uint8_t** currentParam, uint16_t p
 	);
 }
 
-array<uint16_t, 3> extract_vector(const uint8_t* paramStart, const uint8_t** currentParam, uint16_t packetLength)
+int8_t extract_int8(const uint8_t* paramStart, const uint8_t** currentParam, uint16_t packetLength)
 {
-	array<uint16_t, 3> ret = { {
-		extract_arbitrary_integer<uint16_t>(paramStart, currentParam, packetLength),
-		extract_arbitrary_integer<uint16_t>(paramStart, currentParam, packetLength),
-		extract_arbitrary_integer<uint16_t>(paramStart, currentParam, packetLength)
-	} };
-
-	return ret;
+	return extract_arbitrary_integer<int8_t>(paramStart, currentParam, packetLength);
 }
 
 uint8_t extract_uint8(const uint8_t* paramStart, const uint8_t** currentParam, uint16_t packetLength)
