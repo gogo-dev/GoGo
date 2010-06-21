@@ -158,7 +158,7 @@ static void test_int8()
 {
 	int8 packit(0x01);
 
-	BOOST_CHECK(packit.get_type() == 0x0C);
+	BOOST_CHECK(packit.get_type() == 0x0B);
 
 	int8_t expected[] = {
 		0x01
