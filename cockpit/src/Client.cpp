@@ -107,7 +107,6 @@ void Client::start()
 		handler->initialize(this, &registry);
 		cryptoKey = handler->handshake(socket);
 
-		recieve_packet_header();
 	} catch(const std::exception& ex) {
 		logger->info(format("[%1%] Connection terminated (%2%).") % get_ip() % ex.what());
 	} catch(...) {
@@ -115,6 +114,8 @@ void Client::start()
 	}
 
 	connected = true;
+
+	recieve_packet_header();
 }
 
 void Client::recieve_packet_header()
@@ -278,7 +279,6 @@ void Client::send(const packet::Packet* p)
 	packet::encrypt(raw.get() + 6, 4, 6, cryptoKey.c_array());	// Data header sans packetID.
 	packet::encrypt(raw.get() + 11, packetLength - PacketHeader::SIZE, SendablePacket::SIZE, cryptoKey.c_array());	// Parameters.
 
-	mutex::scoped_lock lock(packetSendingLock);
 	header->payloadHeader.packetID = currentPacketID++;
 	packet::encrypt(raw.get() + 10, 1, 10, cryptoKey.c_array());	// packetID.
 
@@ -317,8 +317,7 @@ void Client::disconnect()
 
 Client::~Client()
 {
-	if(connected)
-		disconnect();
+	disconnect();
 
 	delete handler;
 }

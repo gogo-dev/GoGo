@@ -274,7 +274,7 @@ def make_packet_registry_functions(commands):
 		if len(c.parameters) > 0:
 			ret = ''.join([ret, '\n'])
 
-		ret = ''.join([ret, '\t\tself->', c.name, '('])
+		ret = ''.join([ret, '\tself->', c.name, '('])
 
 		for (p, i) in zip(c.parameters, range(9999999)):
 			sep = ''

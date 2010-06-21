@@ -32,7 +32,6 @@ private:
 	packet::Registry registry;
 	boost::array<boost::uint8_t, 32> cryptoKey;
 
-	boost::mutex packetSendingLock;
 	boost::uint8_t currentPacketID;
 
 	bool connected;

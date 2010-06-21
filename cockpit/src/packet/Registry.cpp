@@ -356,7 +356,7 @@ static void do_Net_Ping(Registry* self, const uint8_t* parameters, uint16_t leng
 
 	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
 
-		self->Net_Ping(p0);
+	self->Net_Ping(p0);
 }
 
 static void do_Net_Pong(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -365,7 +365,7 @@ static void do_Net_Pong(Registry* self, const uint8_t* parameters, uint16_t leng
 
 	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
 
-		self->Net_Pong(p0);
+	self->Net_Pong(p0);
 }
 
 static void do_Match_Announce(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -375,7 +375,7 @@ static void do_Match_Announce(Registry* self, const uint8_t* parameters, uint16_
 	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 
-		self->Match_Announce(p0, p1);
+	self->Match_Announce(p0, p1);
 }
 
 static void do_Clock_Synchronize(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -384,7 +384,7 @@ static void do_Clock_Synchronize(Registry* self, const uint8_t* parameters, uint
 
 	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
 
-		self->Clock_Synchronize(p0);
+	self->Clock_Synchronize(p0);
 }
 
 static void do_Match_Login(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -396,7 +396,7 @@ static void do_Match_Login(Registry* self, const uint8_t* parameters, uint16_t l
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 	uint32_t p3 = extract_uint32(parameters, &paramPtr, length);
 
-		self->Match_Login(p0, p1, p2, p3);
+	self->Match_Login(p0, p1, p2, p3);
 }
 
 static void do_Match_ResponseLogin(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -413,7 +413,7 @@ static void do_Match_ResponseLogin(Registry* self, const uint8_t* parameters, ui
 	bool p7 = extract_bool(parameters, &paramPtr, length);
 	tuple<Buffer, size_t, size_t> p8 = extract_blob(parameters, &paramPtr, length);
 
-		self->Match_ResponseLogin(p0, p1, p2, p3, p4, p5, p6, p7, p8);
+	self->Match_ResponseLogin(p0, p1, p2, p3, p4, p5, p6, p7, p8);
 }
 
 static void do_Match_Response_Result(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -422,7 +422,7 @@ static void do_Match_Response_Result(Registry* self, const uint8_t* parameters, 
 
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 
-		self->Match_Response_Result(p0);
+	self->Match_Response_Result(p0);
 }
 
 static void do_Match_LoginNetmarble(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -434,7 +434,7 @@ static void do_Match_LoginNetmarble(Registry* self, const uint8_t* parameters, u
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 	uint32_t p3 = extract_uint32(parameters, &paramPtr, length);
 
-		self->Match_LoginNetmarble(p0, p1, p2, p3);
+	self->Match_LoginNetmarble(p0, p1, p2, p3);
 }
 
 static void do_MC_MATCH_DISCONNMSG(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -443,7 +443,7 @@ static void do_MC_MATCH_DISCONNMSG(Registry* self, const uint8_t* parameters, ui
 
 	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
 
-		self->MC_MATCH_DISCONNMSG(p0);
+	self->MC_MATCH_DISCONNMSG(p0);
 }
 
 static void do_MC_MATCH_LOGIN_NHNUSA(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -456,7 +456,7 @@ static void do_MC_MATCH_LOGIN_NHNUSA(Registry* self, const uint8_t* parameters, 
 	uint32_t p3 = extract_uint32(parameters, &paramPtr, length);
 	tuple<Buffer, size_t, size_t> p4 = extract_blob(parameters, &paramPtr, length);
 
-		self->MC_MATCH_LOGIN_NHNUSA(p0, p1, p2, p3, p4);
+	self->MC_MATCH_LOGIN_NHNUSA(p0, p1, p2, p3, p4);
 }
 
 static void do_MC_MATCH_LOGIN_GAMEON_JP(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -469,7 +469,7 @@ static void do_MC_MATCH_LOGIN_GAMEON_JP(Registry* self, const uint8_t* parameter
 	uint32_t p3 = extract_uint32(parameters, &paramPtr, length);
 	tuple<Buffer, size_t, size_t> p4 = extract_blob(parameters, &paramPtr, length);
 
-		self->MC_MATCH_LOGIN_GAMEON_JP(p0, p1, p2, p3, p4);
+	self->MC_MATCH_LOGIN_GAMEON_JP(p0, p1, p2, p3, p4);
 }
 
 static void do_Match_ObjectCache(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -479,7 +479,7 @@ static void do_Match_ObjectCache(Registry* self, const uint8_t* parameters, uint
 	uint8_t p0 = extract_uint8(parameters, &paramPtr, length);
 	tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
 
-		self->Match_ObjectCache(p0, p1);
+	self->Match_ObjectCache(p0, p1);
 }
 
 static void do_Match_BridgePeer(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -490,7 +490,7 @@ static void do_Match_BridgePeer(Registry* self, const uint8_t* parameters, uint1
 	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
 	uint32_t p2 = extract_uint32(parameters, &paramPtr, length);
 
-		self->Match_BridgePeer(p0, p1, p2);
+	self->Match_BridgePeer(p0, p1, p2);
 }
 
 static void do_Match_BridgePeerACK(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -500,12 +500,12 @@ static void do_Match_BridgePeerACK(Registry* self, const uint8_t* parameters, ui
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 
-		self->Match_BridgePeerACK(p0, p1);
+	self->Match_BridgePeerACK(p0, p1);
 }
 
 static void do_MatchServer_RequestRecommandedChannel(Registry* self, const uint8_t*, uint16_t)
 {
-		self->MatchServer_RequestRecommandedChannel();
+	self->MatchServer_RequestRecommandedChannel();
 }
 
 static void do_MatchServer_ResponseRecommandedChannel(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -514,7 +514,7 @@ static void do_MatchServer_ResponseRecommandedChannel(Registry* self, const uint
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-		self->MatchServer_ResponseRecommandedChannel(p0);
+	self->MatchServer_ResponseRecommandedChannel(p0);
 }
 
 static void do_Channel_Join(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -524,7 +524,7 @@ static void do_Channel_Join(Registry* self, const uint8_t* parameters, uint16_t 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 
-		self->Channel_Join(p0, p1);
+	self->Channel_Join(p0, p1);
 }
 
 static void do_Channel_ResponseJoin(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -536,7 +536,7 @@ static void do_Channel_ResponseJoin(Registry* self, const uint8_t* parameters, u
 	std::string p2 = extract_string(parameters, &paramPtr, length);
 	bool p3 = extract_bool(parameters, &paramPtr, length);
 
-		self->Channel_ResponseJoin(p0, p1, p2, p3);
+	self->Channel_ResponseJoin(p0, p1, p2, p3);
 }
 
 static void do_Channel_RequestJoinFromName(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -548,7 +548,7 @@ static void do_Channel_RequestJoinFromName(Registry* self, const uint8_t* parame
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 	std::string p3 = extract_string(parameters, &paramPtr, length);
 
-		self->Channel_RequestJoinFromName(p0, p1, p2, p3);
+	self->Channel_RequestJoinFromName(p0, p1, p2, p3);
 }
 
 static void do_Channel_Leave(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -558,7 +558,7 @@ static void do_Channel_Leave(Registry* self, const uint8_t* parameters, uint16_t
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 
-		self->Channel_Leave(p0, p1);
+	self->Channel_Leave(p0, p1);
 }
 
 static void do_Channel_ListStart(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -569,7 +569,7 @@ static void do_Channel_ListStart(Registry* self, const uint8_t* parameters, uint
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 
-		self->Channel_ListStart(p0, p1, p2);
+	self->Channel_ListStart(p0, p1, p2);
 }
 
 static void do_Channel_ListStop(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -578,7 +578,7 @@ static void do_Channel_ListStop(Registry* self, const uint8_t* parameters, uint1
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-		self->Channel_ListStop(p0);
+	self->Channel_ListStop(p0);
 }
 
 static void do_Channel_List(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -587,7 +587,7 @@ static void do_Channel_List(Registry* self, const uint8_t* parameters, uint16_t 
 
 	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
 
-		self->Channel_List(p0);
+	self->Channel_List(p0);
 }
 
 static void do_Channel_Request_Chat(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -598,7 +598,7 @@ static void do_Channel_Request_Chat(Registry* self, const uint8_t* parameters, u
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 	std::string p2 = extract_string(parameters, &paramPtr, length);
 
-		self->Channel_Request_Chat(p0, p1, p2);
+	self->Channel_Request_Chat(p0, p1, p2);
 }
 
 static void do_Channel_Chat(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -610,7 +610,7 @@ static void do_Channel_Chat(Registry* self, const uint8_t* parameters, uint16_t 
 	std::string p2 = extract_string(parameters, &paramPtr, length);
 	int32_t p3 = extract_int32(parameters, &paramPtr, length);
 
-		self->Channel_Chat(p0, p1, p2, p3);
+	self->Channel_Chat(p0, p1, p2, p3);
 }
 
 static void do_Channel_Request_Rule(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -619,7 +619,7 @@ static void do_Channel_Request_Rule(Registry* self, const uint8_t* parameters, u
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-		self->Channel_Request_Rule(p0);
+	self->Channel_Request_Rule(p0);
 }
 
 static void do_Channel_Response_Rule(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -629,7 +629,7 @@ static void do_Channel_Response_Rule(Registry* self, const uint8_t* parameters, 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 
-		self->Channel_Response_Rule(p0, p1);
+	self->Channel_Response_Rule(p0, p1);
 }
 
 static void do_Channel_RequestAllPlayerList(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -641,7 +641,7 @@ static void do_Channel_RequestAllPlayerList(Registry* self, const uint8_t* param
 	uint32_t p2 = extract_uint32(parameters, &paramPtr, length);
 	uint32_t p3 = extract_uint32(parameters, &paramPtr, length);
 
-		self->Channel_RequestAllPlayerList(p0, p1, p2, p3);
+	self->Channel_RequestAllPlayerList(p0, p1, p2, p3);
 }
 
 static void do_Channel_ResponseAllPlayerList(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -651,7 +651,7 @@ static void do_Channel_ResponseAllPlayerList(Registry* self, const uint8_t* para
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
 
-		self->Channel_ResponseAllPlayerList(p0, p1);
+	self->Channel_ResponseAllPlayerList(p0, p1);
 }
 
 static void do_Stage_Create(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -663,7 +663,7 @@ static void do_Stage_Create(Registry* self, const uint8_t* parameters, uint16_t 
 	bool p2 = extract_bool(parameters, &paramPtr, length);
 	std::string p3 = extract_string(parameters, &paramPtr, length);
 
-		self->Stage_Create(p0, p1, p2, p3);
+	self->Stage_Create(p0, p1, p2, p3);
 }
 
 static void do_Stage_RequestJoin(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -673,7 +673,7 @@ static void do_Stage_RequestJoin(Registry* self, const uint8_t* parameters, uint
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 
-		self->Stage_RequestJoin(p0, p1);
+	self->Stage_RequestJoin(p0, p1);
 }
 
 static void do_Stage_RequestPrivateJoin(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -684,7 +684,7 @@ static void do_Stage_RequestPrivateJoin(Registry* self, const uint8_t* parameter
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 	std::string p2 = extract_string(parameters, &paramPtr, length);
 
-		self->Stage_RequestPrivateJoin(p0, p1, p2);
+	self->Stage_RequestPrivateJoin(p0, p1, p2);
 }
 
 static void do_Stage_Join(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -696,7 +696,7 @@ static void do_Stage_Join(Registry* self, const uint8_t* parameters, uint16_t le
 	uint32_t p2 = extract_uint32(parameters, &paramPtr, length);
 	std::string p3 = extract_string(parameters, &paramPtr, length);
 
-		self->Stage_Join(p0, p1, p2, p3);
+	self->Stage_Join(p0, p1, p2, p3);
 }
 
 static void do_Stage_Leave(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -705,7 +705,7 @@ static void do_Stage_Leave(Registry* self, const uint8_t* parameters, uint16_t l
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-		self->Stage_Leave(p0);
+	self->Stage_Leave(p0);
 }
 
 static void do_Stage_Request_PlayerList(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -714,7 +714,7 @@ static void do_Stage_Request_PlayerList(Registry* self, const uint8_t* parameter
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-		self->Stage_Request_PlayerList(p0);
+	self->Stage_Request_PlayerList(p0);
 }
 
 static void do_Stage_Follow(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -723,7 +723,7 @@ static void do_Stage_Follow(Registry* self, const uint8_t* parameters, uint16_t 
 
 	std::string p0 = extract_string(parameters, &paramPtr, length);
 
-		self->Stage_Follow(p0);
+	self->Stage_Follow(p0);
 }
 
 static void do_Stage_Response_Follow(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -732,7 +732,7 @@ static void do_Stage_Response_Follow(Registry* self, const uint8_t* parameters, 
 
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 
-		self->Stage_Response_Follow(p0);
+	self->Stage_Response_Follow(p0);
 }
 
 static void do_Stage_ResponseJoin(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -741,7 +741,7 @@ static void do_Stage_ResponseJoin(Registry* self, const uint8_t* parameters, uin
 
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 
-		self->Stage_ResponseJoin(p0);
+	self->Stage_ResponseJoin(p0);
 }
 
 static void do_Stage_RequirePassword(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -751,7 +751,7 @@ static void do_Stage_RequirePassword(Registry* self, const uint8_t* parameters, 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 
-		self->Stage_RequirePassword(p0, p1);
+	self->Stage_RequirePassword(p0, p1);
 }
 
 static void do_RequestGameInfo(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -761,7 +761,7 @@ static void do_RequestGameInfo(Registry* self, const uint8_t* parameters, uint16
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 
-		self->RequestGameInfo(p0, p1);
+	self->RequestGameInfo(p0, p1);
 }
 
 static void do_ResponseGameInfo(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -773,7 +773,7 @@ static void do_ResponseGameInfo(Registry* self, const uint8_t* parameters, uint1
 	tuple<Buffer, size_t, size_t> p2 = extract_blob(parameters, &paramPtr, length);
 	tuple<Buffer, size_t, size_t> p3 = extract_blob(parameters, &paramPtr, length);
 
-		self->ResponseGameInfo(p0, p1, p2, p3);
+	self->ResponseGameInfo(p0, p1, p2, p3);
 }
 
 static void do_Stage_ResponseCreate(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -782,7 +782,7 @@ static void do_Stage_ResponseCreate(Registry* self, const uint8_t* parameters, u
 
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 
-		self->Stage_ResponseCreate(p0);
+	self->Stage_ResponseCreate(p0);
 }
 
 static void do_Stage_Request_EnterBattle(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -792,7 +792,7 @@ static void do_Stage_Request_EnterBattle(Registry* self, const uint8_t* paramete
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 
-		self->Stage_Request_EnterBattle(p0, p1);
+	self->Stage_Request_EnterBattle(p0, p1);
 }
 
 static void do_Stage_EnterBattle(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -802,7 +802,7 @@ static void do_Stage_EnterBattle(Registry* self, const uint8_t* parameters, uint
 	uint8_t p0 = extract_uint8(parameters, &paramPtr, length);
 	tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
 
-		self->Stage_EnterBattle(p0, p1);
+	self->Stage_EnterBattle(p0, p1);
 }
 
 static void do_Stage_LeaveBattle(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -811,7 +811,7 @@ static void do_Stage_LeaveBattle(Registry* self, const uint8_t* parameters, uint
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-		self->Stage_LeaveBattle(p0);
+	self->Stage_LeaveBattle(p0);
 }
 
 static void do_Stage_Start(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -822,7 +822,7 @@ static void do_Stage_Start(Registry* self, const uint8_t* parameters, uint16_t l
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 
-		self->Stage_Start(p0, p1, p2);
+	self->Stage_Start(p0, p1, p2);
 }
 
 static void do_Stage_Map(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -832,7 +832,7 @@ static void do_Stage_Map(Registry* self, const uint8_t* parameters, uint16_t len
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 
-		self->Stage_Map(p0, p1);
+	self->Stage_Map(p0, p1);
 }
 
 static void do_Stage_Chat(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -843,7 +843,7 @@ static void do_Stage_Chat(Registry* self, const uint8_t* parameters, uint16_t le
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 	std::string p2 = extract_string(parameters, &paramPtr, length);
 
-		self->Stage_Chat(p0, p1, p2);
+	self->Stage_Chat(p0, p1, p2);
 }
 
 static void do_Stage_RequestQuickJoin(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -853,7 +853,7 @@ static void do_Stage_RequestQuickJoin(Registry* self, const uint8_t* parameters,
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
 
-		self->Stage_RequestQuickJoin(p0, p1);
+	self->Stage_RequestQuickJoin(p0, p1);
 }
 
 static void do_Stage_ResponseQuickJoin(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -863,7 +863,7 @@ static void do_Stage_ResponseQuickJoin(Registry* self, const uint8_t* parameters
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 
-		self->Stage_ResponseQuickJoin(p0, p1);
+	self->Stage_ResponseQuickJoin(p0, p1);
 }
 
 static void do_Stage_StageGo(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -872,7 +872,7 @@ static void do_Stage_StageGo(Registry* self, const uint8_t* parameters, uint16_t
 
 	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
 
-		self->Stage_StageGo(p0);
+	self->Stage_StageGo(p0);
 }
 
 static void do_Stage_State(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -884,7 +884,7 @@ static void do_Stage_State(Registry* self, const uint8_t* parameters, uint16_t l
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 	int32_t p3 = extract_int32(parameters, &paramPtr, length);
 
-		self->Stage_State(p0, p1, p2, p3);
+	self->Stage_State(p0, p1, p2, p3);
 }
 
 static void do_Stage_Team(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -895,7 +895,7 @@ static void do_Stage_Team(Registry* self, const uint8_t* parameters, uint16_t le
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 	uint32_t p2 = extract_uint32(parameters, &paramPtr, length);
 
-		self->Stage_Team(p0, p1, p2);
+	self->Stage_Team(p0, p1, p2);
 }
 
 static void do_Stage_Master(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -905,17 +905,17 @@ static void do_Stage_Master(Registry* self, const uint8_t* parameters, uint16_t 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 
-		self->Stage_Master(p0, p1);
+	self->Stage_Master(p0, p1);
 }
 
 static void do_Stage_ListStart(Registry* self, const uint8_t*, uint16_t)
 {
-		self->Stage_ListStart();
+	self->Stage_ListStart();
 }
 
 static void do_Stage_ListStop(Registry* self, const uint8_t*, uint16_t)
 {
-		self->Stage_ListStop();
+	self->Stage_ListStop();
 }
 
 static void do_Stage_List(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -926,7 +926,7 @@ static void do_Stage_List(Registry* self, const uint8_t* parameters, uint16_t le
 	int8_t p1 = extract_int8(parameters, &paramPtr, length);
 	tuple<Buffer, size_t, size_t> p2 = extract_blob(parameters, &paramPtr, length);
 
-		self->Stage_List(p0, p1, p2);
+	self->Stage_List(p0, p1, p2);
 }
 
 static void do_Stage_RequestStageList(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -937,7 +937,7 @@ static void do_Stage_RequestStageList(Registry* self, const uint8_t* parameters,
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 
-		self->Stage_RequestStageList(p0, p1, p2);
+	self->Stage_RequestStageList(p0, p1, p2);
 }
 
 static void do_Channel_RequestPlayerList(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -948,7 +948,7 @@ static void do_Channel_RequestPlayerList(Registry* self, const uint8_t* paramete
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 
-		self->Channel_RequestPlayerList(p0, p1, p2);
+	self->Channel_RequestPlayerList(p0, p1, p2);
 }
 
 static void do_Channel_ResponsePlayerList(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -959,7 +959,7 @@ static void do_Channel_ResponsePlayerList(Registry* self, const uint8_t* paramet
 	uint8_t p1 = extract_uint8(parameters, &paramPtr, length);
 	tuple<Buffer, size_t, size_t> p2 = extract_blob(parameters, &paramPtr, length);
 
-		self->Channel_ResponsePlayerList(p0, p1, p2);
+	self->Channel_ResponsePlayerList(p0, p1, p2);
 }
 
 static void do_Stage_RequestStageSetting(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -968,7 +968,7 @@ static void do_Stage_RequestStageSetting(Registry* self, const uint8_t* paramete
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-		self->Stage_RequestStageSetting(p0);
+	self->Stage_RequestStageSetting(p0);
 }
 
 static void do_Stage_ResponseStageSetting(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -981,7 +981,7 @@ static void do_Stage_ResponseStageSetting(Registry* self, const uint8_t* paramet
 	int32_t p3 = extract_int32(parameters, &paramPtr, length);
 	uint64_t p4 = extract_MUID(parameters, &paramPtr, length);
 
-		self->Stage_ResponseStageSetting(p0, p1, p2, p3, p4);
+	self->Stage_ResponseStageSetting(p0, p1, p2, p3, p4);
 }
 
 static void do_Stage_StageSetting(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -992,7 +992,7 @@ static void do_Stage_StageSetting(Registry* self, const uint8_t* parameters, uin
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 	tuple<Buffer, size_t, size_t> p2 = extract_blob(parameters, &paramPtr, length);
 
-		self->Stage_StageSetting(p0, p1, p2);
+	self->Stage_StageSetting(p0, p1, p2);
 }
 
 static void do_Stage_Launch(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1002,7 +1002,7 @@ static void do_Stage_Launch(Registry* self, const uint8_t* parameters, uint16_t 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 
-		self->Stage_Launch(p0, p1);
+	self->Stage_Launch(p0, p1);
 }
 
 static void do_Stage_Finish(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1011,7 +1011,7 @@ static void do_Stage_Finish(Registry* self, const uint8_t* parameters, uint16_t 
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-		self->Stage_Finish(p0);
+	self->Stage_Finish(p0);
 }
 
 static void do_Stage_RequestPeerList(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1021,7 +1021,7 @@ static void do_Stage_RequestPeerList(Registry* self, const uint8_t* parameters, 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 
-		self->Stage_RequestPeerList(p0, p1);
+	self->Stage_RequestPeerList(p0, p1);
 }
 
 static void do_Stage_ResponsePeerList(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1031,7 +1031,7 @@ static void do_Stage_ResponsePeerList(Registry* self, const uint8_t* parameters,
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
 
-		self->Stage_ResponsePeerList(p0, p1);
+	self->Stage_ResponsePeerList(p0, p1);
 }
 
 static void do_Loading_Complete(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1041,7 +1041,7 @@ static void do_Loading_Complete(Registry* self, const uint8_t* parameters, uint1
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 
-		self->Loading_Complete(p0, p1);
+	self->Loading_Complete(p0, p1);
 }
 
 static void do_Match_RequestPeerRelay(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1051,7 +1051,7 @@ static void do_Match_RequestPeerRelay(Registry* self, const uint8_t* parameters,
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 
-		self->Match_RequestPeerRelay(p0, p1);
+	self->Match_RequestPeerRelay(p0, p1);
 }
 
 static void do_Match_ResponsePeerRelay(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1060,7 +1060,7 @@ static void do_Match_ResponsePeerRelay(Registry* self, const uint8_t* parameters
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-		self->Match_ResponsePeerRelay(p0);
+	self->Match_ResponsePeerRelay(p0);
 }
 
 static void do_Stage_RoundState(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1072,7 +1072,7 @@ static void do_Stage_RoundState(Registry* self, const uint8_t* parameters, uint1
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 	int32_t p3 = extract_int32(parameters, &paramPtr, length);
 
-		self->Stage_RoundState(p0, p1, p2, p3);
+	self->Stage_RoundState(p0, p1, p2, p3);
 }
 
 static void do_Game_Kill(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1081,7 +1081,7 @@ static void do_Game_Kill(Registry* self, const uint8_t* parameters, uint16_t len
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-		self->Game_Kill(p0);
+	self->Game_Kill(p0);
 }
 
 static void do_Game_Requst_Spawn(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1092,7 +1092,7 @@ static void do_Game_Requst_Spawn(Registry* self, const uint8_t* parameters, uint
 	array<float, 3> p1 = extract_position(parameters, &paramPtr, length);
 	array<float, 3> p2 = extract_direction(parameters, &paramPtr, length);
 
-		self->Game_Requst_Spawn(p0, p1, p2);
+	self->Game_Requst_Spawn(p0, p1, p2);
 }
 
 static void do_Game_LevelUp(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1102,7 +1102,7 @@ static void do_Game_LevelUp(Registry* self, const uint8_t* parameters, uint16_t 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 
-		self->Game_LevelUp(p0, p1);
+	self->Game_LevelUp(p0, p1);
 }
 
 static void do_Game_LevelDown(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1112,7 +1112,7 @@ static void do_Game_LevelDown(Registry* self, const uint8_t* parameters, uint16_
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 
-		self->Game_LevelDown(p0, p1);
+	self->Game_LevelDown(p0, p1);
 }
 
 static void do_Game_Dead(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1124,7 +1124,7 @@ static void do_Game_Dead(Registry* self, const uint8_t* parameters, uint16_t len
 	uint64_t p2 = extract_MUID(parameters, &paramPtr, length);
 	uint32_t p3 = extract_uint32(parameters, &paramPtr, length);
 
-		self->Game_Dead(p0, p1, p2, p3);
+	self->Game_Dead(p0, p1, p2, p3);
 }
 
 static void do_Game_TeamBonus(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1134,7 +1134,7 @@ static void do_Game_TeamBonus(Registry* self, const uint8_t* parameters, uint16_
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
 
-		self->Game_TeamBonus(p0, p1);
+	self->Game_TeamBonus(p0, p1);
 }
 
 static void do_Game_RequestTimeSync(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1143,7 +1143,7 @@ static void do_Game_RequestTimeSync(Registry* self, const uint8_t* parameters, u
 
 	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
 
-		self->Game_RequestTimeSync(p0);
+	self->Game_RequestTimeSync(p0);
 }
 
 static void do_Game_ResponseTimeSync(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1153,7 +1153,7 @@ static void do_Game_ResponseTimeSync(Registry* self, const uint8_t* parameters, 
 	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
 	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
 
-		self->Game_ResponseTimeSync(p0, p1);
+	self->Game_ResponseTimeSync(p0, p1);
 }
 
 static void do_Game_ReportTimeSync(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1163,7 +1163,7 @@ static void do_Game_ReportTimeSync(Registry* self, const uint8_t* parameters, ui
 	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
 	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
 
-		self->Game_ReportTimeSync(p0, p1);
+	self->Game_ReportTimeSync(p0, p1);
 }
 
 static void do_Stage_RequestForcedEntry(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1173,7 +1173,7 @@ static void do_Stage_RequestForcedEntry(Registry* self, const uint8_t* parameter
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 
-		self->Stage_RequestForcedEntry(p0, p1);
+	self->Stage_RequestForcedEntry(p0, p1);
 }
 
 static void do_Stage_ResponseForcedEntry(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1182,7 +1182,7 @@ static void do_Stage_ResponseForcedEntry(Registry* self, const uint8_t* paramete
 
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 
-		self->Stage_ResponseForcedEntry(p0);
+	self->Stage_ResponseForcedEntry(p0);
 }
 
 static void do_Stage_RoundFinishInfo(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1194,7 +1194,7 @@ static void do_Stage_RoundFinishInfo(Registry* self, const uint8_t* parameters, 
 	tuple<Buffer, size_t, size_t> p2 = extract_blob(parameters, &paramPtr, length);
 	tuple<Buffer, size_t, size_t> p3 = extract_blob(parameters, &paramPtr, length);
 
-		self->Stage_RoundFinishInfo(p0, p1, p2, p3);
+	self->Stage_RoundFinishInfo(p0, p1, p2, p3);
 }
 
 static void do_Match_Notify(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1203,7 +1203,7 @@ static void do_Match_Notify(Registry* self, const uint8_t* parameters, uint16_t 
 
 	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
 
-		self->Match_Notify(p0);
+	self->Match_Notify(p0);
 }
 
 static void do_Match_Whisper(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1214,7 +1214,7 @@ static void do_Match_Whisper(Registry* self, const uint8_t* parameters, uint16_t
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 	std::string p2 = extract_string(parameters, &paramPtr, length);
 
-		self->Match_Whisper(p0, p1, p2);
+	self->Match_Whisper(p0, p1, p2);
 }
 
 static void do_Match_Where(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1223,7 +1223,7 @@ static void do_Match_Where(Registry* self, const uint8_t* parameters, uint16_t l
 
 	std::string p0 = extract_string(parameters, &paramPtr, length);
 
-		self->Match_Where(p0);
+	self->Match_Where(p0);
 }
 
 static void do_Match_UserOption(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1232,7 +1232,7 @@ static void do_Match_UserOption(Registry* self, const uint8_t* parameters, uint1
 
 	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
 
-		self->Match_UserOption(p0);
+	self->Match_UserOption(p0);
 }
 
 static void do_ChatRoom_Create(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1242,7 +1242,7 @@ static void do_ChatRoom_Create(Registry* self, const uint8_t* parameters, uint16
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 
-		self->ChatRoom_Create(p0, p1);
+	self->ChatRoom_Create(p0, p1);
 }
 
 static void do_ChatRoom_Join(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1252,7 +1252,7 @@ static void do_ChatRoom_Join(Registry* self, const uint8_t* parameters, uint16_t
 	std::string p0 = extract_string(parameters, &paramPtr, length);
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 
-		self->ChatRoom_Join(p0, p1);
+	self->ChatRoom_Join(p0, p1);
 }
 
 static void do_ChatRoom_Leave(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1262,7 +1262,7 @@ static void do_ChatRoom_Leave(Registry* self, const uint8_t* parameters, uint16_
 	std::string p0 = extract_string(parameters, &paramPtr, length);
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 
-		self->ChatRoom_Leave(p0, p1);
+	self->ChatRoom_Leave(p0, p1);
 }
 
 static void do_ChatRoom_SelectWrite(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1271,7 +1271,7 @@ static void do_ChatRoom_SelectWrite(Registry* self, const uint8_t* parameters, u
 
 	std::string p0 = extract_string(parameters, &paramPtr, length);
 
-		self->ChatRoom_SelectWrite(p0);
+	self->ChatRoom_SelectWrite(p0);
 }
 
 static void do_ChatRoom_Invite(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1282,7 +1282,7 @@ static void do_ChatRoom_Invite(Registry* self, const uint8_t* parameters, uint16
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 	std::string p2 = extract_string(parameters, &paramPtr, length);
 
-		self->ChatRoom_Invite(p0, p1, p2);
+	self->ChatRoom_Invite(p0, p1, p2);
 }
 
 static void do_ChatRoom_Chat(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1293,7 +1293,7 @@ static void do_ChatRoom_Chat(Registry* self, const uint8_t* parameters, uint16_t
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 	std::string p2 = extract_string(parameters, &paramPtr, length);
 
-		self->ChatRoom_Chat(p0, p1, p2);
+	self->ChatRoom_Chat(p0, p1, p2);
 }
 
 static void do_Match_RequestAccountCharList(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1302,7 +1302,7 @@ static void do_Match_RequestAccountCharList(Registry* self, const uint8_t* param
 
 	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
 
-		self->Match_RequestAccountCharList(p0);
+	self->Match_RequestAccountCharList(p0);
 }
 
 static void do_Match_ResponseAccountCharList(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1311,7 +1311,7 @@ static void do_Match_ResponseAccountCharList(Registry* self, const uint8_t* para
 
 	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
 
-		self->Match_ResponseAccountCharList(p0);
+	self->Match_ResponseAccountCharList(p0);
 }
 
 static void do_Match_RequestAccountCharInfo(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1321,7 +1321,7 @@ static void do_Match_RequestAccountCharInfo(Registry* self, const uint8_t* param
 	int8_t p0 = extract_int8(parameters, &paramPtr, length);
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 
-		self->Match_RequestAccountCharInfo(p0, p1);
+	self->Match_RequestAccountCharInfo(p0, p1);
 }
 
 static void do_Match_ResponseAccountCharInfo(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1331,7 +1331,7 @@ static void do_Match_ResponseAccountCharInfo(Registry* self, const uint8_t* para
 	int8_t p0 = extract_int8(parameters, &paramPtr, length);
 	tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
 
-		self->Match_ResponseAccountCharInfo(p0, p1);
+	self->Match_ResponseAccountCharInfo(p0, p1);
 }
 
 static void do_Match_RequestSelectChar(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1342,7 +1342,7 @@ static void do_Match_RequestSelectChar(Registry* self, const uint8_t* parameters
 	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 
-		self->Match_RequestSelectChar(p0, p1, p2);
+	self->Match_RequestSelectChar(p0, p1, p2);
 }
 
 static void do_Match_ResponseSelectChar(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1353,7 +1353,7 @@ static void do_Match_ResponseSelectChar(Registry* self, const uint8_t* parameter
 	tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
 	tuple<Buffer, size_t, size_t> p2 = extract_blob(parameters, &paramPtr, length);
 
-		self->Match_ResponseSelectChar(p0, p1, p2);
+	self->Match_ResponseSelectChar(p0, p1, p2);
 }
 
 static void do_Match_RequestCharInfo(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1363,7 +1363,7 @@ static void do_Match_RequestCharInfo(Registry* self, const uint8_t* parameters, 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
 
-		self->Match_RequestCharInfo(p0, p1);
+	self->Match_RequestCharInfo(p0, p1);
 }
 
 static void do_Match_ResponseCharInfo(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1373,7 +1373,7 @@ static void do_Match_ResponseCharInfo(Registry* self, const uint8_t* parameters,
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
 
-		self->Match_ResponseCharInfo(p0, p1);
+	self->Match_ResponseCharInfo(p0, p1);
 }
 
 static void do_Match_RequestDeleteChar(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1385,7 +1385,7 @@ static void do_Match_RequestDeleteChar(Registry* self, const uint8_t* parameters
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 	std::string p3 = extract_string(parameters, &paramPtr, length);
 
-		self->Match_RequestDeleteChar(p0, p1, p2, p3);
+	self->Match_RequestDeleteChar(p0, p1, p2, p3);
 }
 
 static void do_Match_ResponseDeleteChar(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1394,7 +1394,7 @@ static void do_Match_ResponseDeleteChar(Registry* self, const uint8_t* parameter
 
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 
-		self->Match_ResponseDeleteChar(p0);
+	self->Match_ResponseDeleteChar(p0);
 }
 
 static void do_Match_RequestCreateChar(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1410,7 +1410,7 @@ static void do_Match_RequestCreateChar(Registry* self, const uint8_t* parameters
 	uint32_t p6 = extract_uint32(parameters, &paramPtr, length);
 	uint32_t p7 = extract_uint32(parameters, &paramPtr, length);
 
-		self->Match_RequestCreateChar(p0, p1, p2, p3, p4, p5, p6, p7);
+	self->Match_RequestCreateChar(p0, p1, p2, p3, p4, p5, p6, p7);
 }
 
 static void do_Match_ResponseCreateChar(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1420,7 +1420,7 @@ static void do_Match_ResponseCreateChar(Registry* self, const uint8_t* parameter
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 
-		self->Match_ResponseCreateChar(p0, p1);
+	self->Match_ResponseCreateChar(p0, p1);
 }
 
 static void do_Match_RequestBuyItem(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1430,7 +1430,7 @@ static void do_Match_RequestBuyItem(Registry* self, const uint8_t* parameters, u
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
 
-		self->Match_RequestBuyItem(p0, p1);
+	self->Match_RequestBuyItem(p0, p1);
 }
 
 static void do_Match_ResponseBuyItem(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1439,7 +1439,7 @@ static void do_Match_ResponseBuyItem(Registry* self, const uint8_t* parameters, 
 
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 
-		self->Match_ResponseBuyItem(p0);
+	self->Match_ResponseBuyItem(p0);
 }
 
 static void do_Match_RequestSellItem(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1449,7 +1449,7 @@ static void do_Match_RequestSellItem(Registry* self, const uint8_t* parameters, 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 
-		self->Match_RequestSellItem(p0, p1);
+	self->Match_RequestSellItem(p0, p1);
 }
 
 static void do_Match_ResponseSellItem(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1458,7 +1458,7 @@ static void do_Match_ResponseSellItem(Registry* self, const uint8_t* parameters,
 
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 
-		self->Match_ResponseSellItem(p0);
+	self->Match_ResponseSellItem(p0);
 }
 
 static void do_Match_RequestShopItemList(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1469,7 +1469,7 @@ static void do_Match_RequestShopItemList(Registry* self, const uint8_t* paramete
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 
-		self->Match_RequestShopItemList(p0, p1, p2);
+	self->Match_RequestShopItemList(p0, p1, p2);
 }
 
 static void do_Match_ResponseShopItemList(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1479,7 +1479,7 @@ static void do_Match_ResponseShopItemList(Registry* self, const uint8_t* paramet
 	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
 	tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
 
-		self->Match_ResponseShopItemList(p0, p1);
+	self->Match_ResponseShopItemList(p0, p1);
 }
 
 static void do_Match_RequestCharacterItemList(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1488,7 +1488,7 @@ static void do_Match_RequestCharacterItemList(Registry* self, const uint8_t* par
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-		self->Match_RequestCharacterItemList(p0);
+	self->Match_RequestCharacterItemList(p0);
 }
 
 static void do_Match_RequestCharacterItemListForce(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1497,7 +1497,7 @@ static void do_Match_RequestCharacterItemListForce(Registry* self, const uint8_t
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-		self->Match_RequestCharacterItemListForce(p0);
+	self->Match_RequestCharacterItemListForce(p0);
 }
 
 static void do_Match_ResponseCharacterItemList(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1509,7 +1509,7 @@ static void do_Match_ResponseCharacterItemList(Registry* self, const uint8_t* pa
 	tuple<Buffer, size_t, size_t> p2 = extract_blob(parameters, &paramPtr, length);
 	tuple<Buffer, size_t, size_t> p3 = extract_blob(parameters, &paramPtr, length);
 
-		self->Match_ResponseCharacterItemList(p0, p1, p2, p3);
+	self->Match_ResponseCharacterItemList(p0, p1, p2, p3);
 }
 
 static void do_MatchRequestEquipItem(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1521,7 +1521,7 @@ static void do_MatchRequestEquipItem(Registry* self, const uint8_t* parameters, 
 	uint32_t p2 = extract_uint32(parameters, &paramPtr, length);
 	int32_t p3 = extract_int32(parameters, &paramPtr, length);
 
-		self->MatchRequestEquipItem(p0, p1, p2, p3);
+	self->MatchRequestEquipItem(p0, p1, p2, p3);
 }
 
 static void do_MatchResponseEquipItem(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1530,7 +1530,7 @@ static void do_MatchResponseEquipItem(Registry* self, const uint8_t* parameters,
 
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 
-		self->MatchResponseEquipItem(p0);
+	self->MatchResponseEquipItem(p0);
 }
 
 static void do_MatchRequestTakeoffItem(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1541,7 +1541,7 @@ static void do_MatchRequestTakeoffItem(Registry* self, const uint8_t* parameters
 	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 
-		self->MatchRequestTakeoffItem(p0, p1, p2);
+	self->MatchRequestTakeoffItem(p0, p1, p2);
 }
 
 static void do_MatchResponseTakeoffItem(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1550,7 +1550,7 @@ static void do_MatchResponseTakeoffItem(Registry* self, const uint8_t* parameter
 
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 
-		self->MatchResponseTakeoffItem(p0);
+	self->MatchResponseTakeoffItem(p0);
 }
 
 static void do_Match_RequestAccountItemList(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1559,7 +1559,7 @@ static void do_Match_RequestAccountItemList(Registry* self, const uint8_t* param
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-		self->Match_RequestAccountItemList(p0);
+	self->Match_RequestAccountItemList(p0);
 }
 
 static void do_Match_ResponseAccountItemList(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1568,7 +1568,7 @@ static void do_Match_ResponseAccountItemList(Registry* self, const uint8_t* para
 
 	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
 
-		self->Match_ResponseAccountItemList(p0);
+	self->Match_ResponseAccountItemList(p0);
 }
 
 static void do_Match_RequestBringAccountItem(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1578,7 +1578,7 @@ static void do_Match_RequestBringAccountItem(Registry* self, const uint8_t* para
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 
-		self->Match_RequestBringAccountItem(p0, p1);
+	self->Match_RequestBringAccountItem(p0, p1);
 }
 
 static void do_Match_ResponseBringAccountItem(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1587,7 +1587,7 @@ static void do_Match_ResponseBringAccountItem(Registry* self, const uint8_t* par
 
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 
-		self->Match_ResponseBringAccountItem(p0);
+	self->Match_ResponseBringAccountItem(p0);
 }
 
 static void do_Match_RequestBringBackAccountItem(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1597,7 +1597,7 @@ static void do_Match_RequestBringBackAccountItem(Registry* self, const uint8_t* 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 
-		self->Match_RequestBringBackAccountItem(p0, p1);
+	self->Match_RequestBringBackAccountItem(p0, p1);
 }
 
 static void do_Match_ResponseBringBackAccountItem(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1606,7 +1606,7 @@ static void do_Match_ResponseBringBackAccountItem(Registry* self, const uint8_t*
 
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 
-		self->Match_ResponseBringBackAccountItem(p0);
+	self->Match_ResponseBringBackAccountItem(p0);
 }
 
 static void do_Match_ExpiredRentItem(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1615,7 +1615,7 @@ static void do_Match_ExpiredRentItem(Registry* self, const uint8_t* parameters, 
 
 	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
 
-		self->Match_ExpiredRentItem(p0);
+	self->Match_ExpiredRentItem(p0);
 }
 
 static void do_Match_ItemGamble(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1624,7 +1624,7 @@ static void do_Match_ItemGamble(Registry* self, const uint8_t* parameters, uint1
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-		self->Match_ItemGamble(p0);
+	self->Match_ItemGamble(p0);
 }
 
 static void do_Match_GambleResultItem(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1634,7 +1634,7 @@ static void do_Match_GambleResultItem(Registry* self, const uint8_t* parameters,
 	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
 	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
 
-		self->Match_GambleResultItem(p0, p1);
+	self->Match_GambleResultItem(p0, p1);
 }
 
 static void do_Match_Request_Suicide(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1643,7 +1643,7 @@ static void do_Match_Request_Suicide(Registry* self, const uint8_t* parameters, 
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-		self->Match_Request_Suicide(p0);
+	self->Match_Request_Suicide(p0);
 }
 
 static void do_Match_Response_Suicide(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1653,12 +1653,12 @@ static void do_Match_Response_Suicide(Registry* self, const uint8_t* parameters,
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 
-		self->Match_Response_Suicide(p0, p1);
+	self->Match_Response_Suicide(p0, p1);
 }
 
 static void do_Match_Response_SuicideReserve(Registry* self, const uint8_t*, uint16_t)
 {
-		self->Match_Response_SuicideReserve();
+	self->Match_Response_SuicideReserve();
 }
 
 static void do_Match_Request_Obtain_WorldItem(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1668,7 +1668,7 @@ static void do_Match_Request_Obtain_WorldItem(Registry* self, const uint8_t* par
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 
-		self->Match_Request_Obtain_WorldItem(p0, p1);
+	self->Match_Request_Obtain_WorldItem(p0, p1);
 }
 
 static void do_Match_WorldItem_Obtain(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1678,7 +1678,7 @@ static void do_Match_WorldItem_Obtain(Registry* self, const uint8_t* parameters,
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 
-		self->Match_WorldItem_Obtain(p0, p1);
+	self->Match_WorldItem_Obtain(p0, p1);
 }
 
 static void do_Match_WorldItem_Spawn(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1687,7 +1687,7 @@ static void do_Match_WorldItem_Spawn(Registry* self, const uint8_t* parameters, 
 
 	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
 
-		self->Match_WorldItem_Spawn(p0);
+	self->Match_WorldItem_Spawn(p0);
 }
 
 static void do_Match_Request_Spawn_WorldItem(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1699,7 +1699,7 @@ static void do_Match_Request_Spawn_WorldItem(Registry* self, const uint8_t* para
 	array<float, 3> p2 = extract_position(parameters, &paramPtr, length);
 	float p3 = extract_float(parameters, &paramPtr, length);
 
-		self->Match_Request_Spawn_WorldItem(p0, p1, p2, p3);
+	self->Match_Request_Spawn_WorldItem(p0, p1, p2, p3);
 }
 
 static void do_Match_Request_Spawn_WorldItem_UID(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1708,7 +1708,7 @@ static void do_Match_Request_Spawn_WorldItem_UID(Registry* self, const uint8_t* 
 
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 
-		self->Match_Request_Spawn_WorldItem_UID(p0);
+	self->Match_Request_Spawn_WorldItem_UID(p0);
 }
 
 static void do_Match_Reset_TeamMembers(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1717,7 +1717,7 @@ static void do_Match_Reset_TeamMembers(Registry* self, const uint8_t* parameters
 
 	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
 
-		self->Match_Reset_TeamMembers(p0);
+	self->Match_Reset_TeamMembers(p0);
 }
 
 static void do_Match_Assign_Commander(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1727,7 +1727,7 @@ static void do_Match_Assign_Commander(Registry* self, const uint8_t* parameters,
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 
-		self->Match_Assign_Commander(p0, p1);
+	self->Match_Assign_Commander(p0, p1);
 }
 
 static void do_Match_Set_Observer(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1736,7 +1736,7 @@ static void do_Match_Set_Observer(Registry* self, const uint8_t* parameters, uin
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-		self->Match_Set_Observer(p0);
+	self->Match_Set_Observer(p0);
 }
 
 static void do_Match_Ladder_Request_Challenge(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1747,7 +1747,7 @@ static void do_Match_Ladder_Request_Challenge(Registry* self, const uint8_t* par
 	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
 	tuple<Buffer, size_t, size_t> p2 = extract_blob(parameters, &paramPtr, length);
 
-		self->Match_Ladder_Request_Challenge(p0, p1, p2);
+	self->Match_Ladder_Request_Challenge(p0, p1, p2);
 }
 
 static void do_Match_Ladder_Response_Challenge(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1756,17 +1756,17 @@ static void do_Match_Ladder_Response_Challenge(Registry* self, const uint8_t* pa
 
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 
-		self->Match_Ladder_Response_Challenge(p0);
+	self->Match_Ladder_Response_Challenge(p0);
 }
 
 static void do_Match_Ladder_SearchRival(Registry* self, const uint8_t*, uint16_t)
 {
-		self->Match_Ladder_SearchRival();
+	self->Match_Ladder_SearchRival();
 }
 
 static void do_Match_Ladder_Request_CancelChallenge(Registry* self, const uint8_t*, uint16_t)
 {
-		self->Match_Ladder_Request_CancelChallenge();
+	self->Match_Ladder_Request_CancelChallenge();
 }
 
 static void do_Match_Ladder_CancelChallenge(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1775,7 +1775,7 @@ static void do_Match_Ladder_CancelChallenge(Registry* self, const uint8_t* param
 
 	std::string p0 = extract_string(parameters, &paramPtr, length);
 
-		self->Match_Ladder_CancelChallenge(p0);
+	self->Match_Ladder_CancelChallenge(p0);
 }
 
 static void do_Ladder_Prepare(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1785,7 +1785,7 @@ static void do_Ladder_Prepare(Registry* self, const uint8_t* parameters, uint16_
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 
-		self->Ladder_Prepare(p0, p1);
+	self->Ladder_Prepare(p0, p1);
 }
 
 static void do_Ladder_Launch(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1795,7 +1795,7 @@ static void do_Ladder_Launch(Registry* self, const uint8_t* parameters, uint16_t
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 
-		self->Ladder_Launch(p0, p1);
+	self->Ladder_Launch(p0, p1);
 }
 
 static void do_Match_RequestProposal(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1808,7 +1808,7 @@ static void do_Match_RequestProposal(Registry* self, const uint8_t* parameters, 
 	int32_t p3 = extract_int32(parameters, &paramPtr, length);
 	tuple<Buffer, size_t, size_t> p4 = extract_blob(parameters, &paramPtr, length);
 
-		self->Match_RequestProposal(p0, p1, p2, p3, p4);
+	self->Match_RequestProposal(p0, p1, p2, p3, p4);
 }
 
 static void do_Match_ResponseProposal(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1819,7 +1819,7 @@ static void do_Match_ResponseProposal(Registry* self, const uint8_t* parameters,
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 
-		self->Match_ResponseProposal(p0, p1, p2);
+	self->Match_ResponseProposal(p0, p1, p2);
 }
 
 static void do_Match_AskAgreement(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1831,7 +1831,7 @@ static void do_Match_AskAgreement(Registry* self, const uint8_t* parameters, uin
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 	int32_t p3 = extract_int32(parameters, &paramPtr, length);
 
-		self->Match_AskAgreement(p0, p1, p2, p3);
+	self->Match_AskAgreement(p0, p1, p2, p3);
 }
 
 static void do_Match_ReplyAgreement(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1845,7 +1845,7 @@ static void do_Match_ReplyAgreement(Registry* self, const uint8_t* parameters, u
 	int32_t p4 = extract_int32(parameters, &paramPtr, length);
 	bool p5 = extract_bool(parameters, &paramPtr, length);
 
-		self->Match_ReplyAgreement(p0, p1, p2, p3, p4, p5);
+	self->Match_ReplyAgreement(p0, p1, p2, p3, p4, p5);
 }
 
 static void do_Match_Friend_Add(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1854,7 +1854,7 @@ static void do_Match_Friend_Add(Registry* self, const uint8_t* parameters, uint1
 
 	std::string p0 = extract_string(parameters, &paramPtr, length);
 
-		self->Match_Friend_Add(p0);
+	self->Match_Friend_Add(p0);
 }
 
 static void do_Match_Friend_Remove(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1863,12 +1863,12 @@ static void do_Match_Friend_Remove(Registry* self, const uint8_t* parameters, ui
 
 	std::string p0 = extract_string(parameters, &paramPtr, length);
 
-		self->Match_Friend_Remove(p0);
+	self->Match_Friend_Remove(p0);
 }
 
 static void do_Match_Friend_List(Registry* self, const uint8_t*, uint16_t)
 {
-		self->Match_Friend_List();
+	self->Match_Friend_List();
 }
 
 static void do_Match_Response_FriendList(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1877,7 +1877,7 @@ static void do_Match_Response_FriendList(Registry* self, const uint8_t* paramete
 
 	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
 
-		self->Match_Response_FriendList(p0);
+	self->Match_Response_FriendList(p0);
 }
 
 static void do_Match_Friend_Msg(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1886,7 +1886,7 @@ static void do_Match_Friend_Msg(Registry* self, const uint8_t* parameters, uint1
 
 	std::string p0 = extract_string(parameters, &paramPtr, length);
 
-		self->Match_Friend_Msg(p0);
+	self->Match_Friend_Msg(p0);
 }
 
 static void do_Match_Clan_RequestCreateClan(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1901,7 +1901,7 @@ static void do_Match_Clan_RequestCreateClan(Registry* self, const uint8_t* param
 	std::string p5 = extract_string(parameters, &paramPtr, length);
 	std::string p6 = extract_string(parameters, &paramPtr, length);
 
-		self->Match_Clan_RequestCreateClan(p0, p1, p2, p3, p4, p5, p6);
+	self->Match_Clan_RequestCreateClan(p0, p1, p2, p3, p4, p5, p6);
 }
 
 static void do_Match_Clan_ResponseCreateClan(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1911,7 +1911,7 @@ static void do_Match_Clan_ResponseCreateClan(Registry* self, const uint8_t* para
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 
-		self->Match_Clan_ResponseCreateClan(p0, p1);
+	self->Match_Clan_ResponseCreateClan(p0, p1);
 }
 
 static void do_Match_Clan_AskSponsorAgreement(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1923,7 +1923,7 @@ static void do_Match_Clan_AskSponsorAgreement(Registry* self, const uint8_t* par
 	uint64_t p2 = extract_MUID(parameters, &paramPtr, length);
 	std::string p3 = extract_string(parameters, &paramPtr, length);
 
-		self->Match_Clan_AskSponsorAgreement(p0, p1, p2, p3);
+	self->Match_Clan_AskSponsorAgreement(p0, p1, p2, p3);
 }
 
 static void do_Match_Clan_AnswerSponsorAgreement(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1935,7 +1935,7 @@ static void do_Match_Clan_AnswerSponsorAgreement(Registry* self, const uint8_t* 
 	std::string p2 = extract_string(parameters, &paramPtr, length);
 	bool p3 = extract_bool(parameters, &paramPtr, length);
 
-		self->Match_Clan_AnswerSponsorAgreement(p0, p1, p2, p3);
+	self->Match_Clan_AnswerSponsorAgreement(p0, p1, p2, p3);
 }
 
 static void do_Match_Clan_RequestAgreedCreateClan(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1949,7 +1949,7 @@ static void do_Match_Clan_RequestAgreedCreateClan(Registry* self, const uint8_t*
 	std::string p4 = extract_string(parameters, &paramPtr, length);
 	std::string p5 = extract_string(parameters, &paramPtr, length);
 
-		self->Match_Clan_RequestAgreedCreateClan(p0, p1, p2, p3, p4, p5);
+	self->Match_Clan_RequestAgreedCreateClan(p0, p1, p2, p3, p4, p5);
 }
 
 static void do_Match_Clan_AgreedResponseCreateClan(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1958,7 +1958,7 @@ static void do_Match_Clan_AgreedResponseCreateClan(Registry* self, const uint8_t
 
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 
-		self->Match_Clan_AgreedResponseCreateClan(p0);
+	self->Match_Clan_AgreedResponseCreateClan(p0);
 }
 
 static void do_Match_Clan_RequestCloseClan(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1968,7 +1968,7 @@ static void do_Match_Clan_RequestCloseClan(Registry* self, const uint8_t* parame
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 
-		self->Match_Clan_RequestCloseClan(p0, p1);
+	self->Match_Clan_RequestCloseClan(p0, p1);
 }
 
 static void do_Match_Clan_ResponseCloseClan(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1977,7 +1977,7 @@ static void do_Match_Clan_ResponseCloseClan(Registry* self, const uint8_t* param
 
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 
-		self->Match_Clan_ResponseCloseClan(p0);
+	self->Match_Clan_ResponseCloseClan(p0);
 }
 
 static void do_Match_Clan_RequestJoinClan(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1988,7 +1988,7 @@ static void do_Match_Clan_RequestJoinClan(Registry* self, const uint8_t* paramet
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 	std::string p2 = extract_string(parameters, &paramPtr, length);
 
-		self->Match_Clan_RequestJoinClan(p0, p1, p2);
+	self->Match_Clan_RequestJoinClan(p0, p1, p2);
 }
 
 static void do_Match_Clan_ResponseJoinClan(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1997,7 +1997,7 @@ static void do_Match_Clan_ResponseJoinClan(Registry* self, const uint8_t* parame
 
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 
-		self->Match_Clan_ResponseJoinClan(p0);
+	self->Match_Clan_ResponseJoinClan(p0);
 }
 
 static void do_Match_Clan_AskJoinAgreement(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2008,7 +2008,7 @@ static void do_Match_Clan_AskJoinAgreement(Registry* self, const uint8_t* parame
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 	std::string p2 = extract_string(parameters, &paramPtr, length);
 
-		self->Match_Clan_AskJoinAgreement(p0, p1, p2);
+	self->Match_Clan_AskJoinAgreement(p0, p1, p2);
 }
 
 static void do_Match_Clan_AnswerJoinAgreement(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2019,7 +2019,7 @@ static void do_Match_Clan_AnswerJoinAgreement(Registry* self, const uint8_t* par
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 	bool p2 = extract_bool(parameters, &paramPtr, length);
 
-		self->Match_Clan_AnswerJoinAgreement(p0, p1, p2);
+	self->Match_Clan_AnswerJoinAgreement(p0, p1, p2);
 }
 
 static void do_Match_Clan_RequestAgreedJoinClan(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2030,7 +2030,7 @@ static void do_Match_Clan_RequestAgreedJoinClan(Registry* self, const uint8_t* p
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 	std::string p2 = extract_string(parameters, &paramPtr, length);
 
-		self->Match_Clan_RequestAgreedJoinClan(p0, p1, p2);
+	self->Match_Clan_RequestAgreedJoinClan(p0, p1, p2);
 }
 
 static void do_Match_Clan_ResponseAgreedJoinClan(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2039,7 +2039,7 @@ static void do_Match_Clan_ResponseAgreedJoinClan(Registry* self, const uint8_t* 
 
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 
-		self->Match_Clan_ResponseAgreedJoinClan(p0);
+	self->Match_Clan_ResponseAgreedJoinClan(p0);
 }
 
 static void do_Match_Clan_RequestLeaveClan(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2048,7 +2048,7 @@ static void do_Match_Clan_RequestLeaveClan(Registry* self, const uint8_t* parame
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-		self->Match_Clan_RequestLeaveClan(p0);
+	self->Match_Clan_RequestLeaveClan(p0);
 }
 
 static void do_Match_Clan_ResponseLeaveClan(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2057,7 +2057,7 @@ static void do_Match_Clan_ResponseLeaveClan(Registry* self, const uint8_t* param
 
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 
-		self->Match_Clan_ResponseLeaveClan(p0);
+	self->Match_Clan_ResponseLeaveClan(p0);
 }
 
 static void do_Match_Clan_UpdateCharClanInfo(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2066,7 +2066,7 @@ static void do_Match_Clan_UpdateCharClanInfo(Registry* self, const uint8_t* para
 
 	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
 
-		self->Match_Clan_UpdateCharClanInfo(p0);
+	self->Match_Clan_UpdateCharClanInfo(p0);
 }
 
 static void do_Match_Clan_Master_RequestChangeGrade(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2078,7 +2078,7 @@ static void do_Match_Clan_Master_RequestChangeGrade(Registry* self, const uint8_
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 	int32_t p3 = extract_int32(parameters, &paramPtr, length);
 
-		self->Match_Clan_Master_RequestChangeGrade(p0, p1, p2, p3);
+	self->Match_Clan_Master_RequestChangeGrade(p0, p1, p2, p3);
 }
 
 static void do_Match_Clan_Master_ResponseChangeGrade(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2087,7 +2087,7 @@ static void do_Match_Clan_Master_ResponseChangeGrade(Registry* self, const uint8
 
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 
-		self->Match_Clan_Master_ResponseChangeGrade(p0);
+	self->Match_Clan_Master_ResponseChangeGrade(p0);
 }
 
 static void do_Match_Clan_Admin_RequestExpelMember(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2097,7 +2097,7 @@ static void do_Match_Clan_Admin_RequestExpelMember(Registry* self, const uint8_t
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 
-		self->Match_Clan_Admin_RequestExpelMember(p0, p1);
+	self->Match_Clan_Admin_RequestExpelMember(p0, p1);
 }
 
 static void do_Match_Clan_Admin_ResponseLeaveMember(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2106,7 +2106,7 @@ static void do_Match_Clan_Admin_ResponseLeaveMember(Registry* self, const uint8_
 
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 
-		self->Match_Clan_Admin_ResponseLeaveMember(p0);
+	self->Match_Clan_Admin_ResponseLeaveMember(p0);
 }
 
 static void do_Match_Clan_Request_Msg(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2116,7 +2116,7 @@ static void do_Match_Clan_Request_Msg(Registry* self, const uint8_t* parameters,
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 
-		self->Match_Clan_Request_Msg(p0, p1);
+	self->Match_Clan_Request_Msg(p0, p1);
 }
 
 static void do_Match_Clan_Msg(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2126,7 +2126,7 @@ static void do_Match_Clan_Msg(Registry* self, const uint8_t* parameters, uint16_
 	std::string p0 = extract_string(parameters, &paramPtr, length);
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 
-		self->Match_Clan_Msg(p0, p1);
+	self->Match_Clan_Msg(p0, p1);
 }
 
 static void do_Match_Clan_Request_ClanMemberList(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2135,7 +2135,7 @@ static void do_Match_Clan_Request_ClanMemberList(Registry* self, const uint8_t* 
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-		self->Match_Clan_Request_ClanMemberList(p0);
+	self->Match_Clan_Request_ClanMemberList(p0);
 }
 
 static void do_Match_Clan_Response_ClanMemberList(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2144,7 +2144,7 @@ static void do_Match_Clan_Response_ClanMemberList(Registry* self, const uint8_t*
 
 	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
 
-		self->Match_Clan_Response_ClanMemberList(p0);
+	self->Match_Clan_Response_ClanMemberList(p0);
 }
 
 static void do_Match_Clan_Request_Clan_Info(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2154,7 +2154,7 @@ static void do_Match_Clan_Request_Clan_Info(Registry* self, const uint8_t* param
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 
-		self->Match_Clan_Request_Clan_Info(p0, p1);
+	self->Match_Clan_Request_Clan_Info(p0, p1);
 }
 
 static void do_Match_Clan_Response_Clan_Info(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2163,7 +2163,7 @@ static void do_Match_Clan_Response_Clan_Info(Registry* self, const uint8_t* para
 
 	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
 
-		self->Match_Clan_Response_Clan_Info(p0);
+	self->Match_Clan_Response_Clan_Info(p0);
 }
 
 static void do_Match_Clan_Standby_ClanList(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2174,7 +2174,7 @@ static void do_Match_Clan_Standby_ClanList(Registry* self, const uint8_t* parame
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 	tuple<Buffer, size_t, size_t> p2 = extract_blob(parameters, &paramPtr, length);
 
-		self->Match_Clan_Standby_ClanList(p0, p1, p2);
+	self->Match_Clan_Standby_ClanList(p0, p1, p2);
 }
 
 static void do_Match_Clan_Member_Connected(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2183,7 +2183,7 @@ static void do_Match_Clan_Member_Connected(Registry* self, const uint8_t* parame
 
 	std::string p0 = extract_string(parameters, &paramPtr, length);
 
-		self->Match_Clan_Member_Connected(p0);
+	self->Match_Clan_Member_Connected(p0);
 }
 
 static void do_Match_Clan_Request_EmblemURL(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2192,7 +2192,7 @@ static void do_Match_Clan_Request_EmblemURL(Registry* self, const uint8_t* param
 
 	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
 
-		self->Match_Clan_Request_EmblemURL(p0);
+	self->Match_Clan_Request_EmblemURL(p0);
 }
 
 static void do_Match_Clan_Response_EmblemURL(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2203,7 +2203,7 @@ static void do_Match_Clan_Response_EmblemURL(Registry* self, const uint8_t* para
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 	std::string p2 = extract_string(parameters, &paramPtr, length);
 
-		self->Match_Clan_Response_EmblemURL(p0, p1, p2);
+	self->Match_Clan_Response_EmblemURL(p0, p1, p2);
 }
 
 static void do_Match_Clan_Local_EmblemReady(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2213,7 +2213,7 @@ static void do_Match_Clan_Local_EmblemReady(Registry* self, const uint8_t* param
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 
-		self->Match_Clan_Local_EmblemReady(p0, p1);
+	self->Match_Clan_Local_EmblemReady(p0, p1);
 }
 
 static void do_MC_MATCH_CLAN_ACCOUNCE_DELETE(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2222,7 +2222,7 @@ static void do_MC_MATCH_CLAN_ACCOUNCE_DELETE(Registry* self, const uint8_t* para
 
 	std::string p0 = extract_string(parameters, &paramPtr, length);
 
-		self->MC_MATCH_CLAN_ACCOUNCE_DELETE(p0);
+	self->MC_MATCH_CLAN_ACCOUNCE_DELETE(p0);
 }
 
 static void do_Match_Callvote(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2232,7 +2232,7 @@ static void do_Match_Callvote(Registry* self, const uint8_t* parameters, uint16_
 	std::string p0 = extract_string(parameters, &paramPtr, length);
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 
-		self->Match_Callvote(p0, p1);
+	self->Match_Callvote(p0, p1);
 }
 
 static void do_Match_NotifyCallvote(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2242,7 +2242,7 @@ static void do_Match_NotifyCallvote(Registry* self, const uint8_t* parameters, u
 	std::string p0 = extract_string(parameters, &paramPtr, length);
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 
-		self->Match_NotifyCallvote(p0, p1);
+	self->Match_NotifyCallvote(p0, p1);
 }
 
 static void do_Match_NotifyVoteResult(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2252,22 +2252,22 @@ static void do_Match_NotifyVoteResult(Registry* self, const uint8_t* parameters,
 	std::string p0 = extract_string(parameters, &paramPtr, length);
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 
-		self->Match_NotifyVoteResult(p0, p1);
+	self->Match_NotifyVoteResult(p0, p1);
 }
 
 static void do_Match_VoteYes(Registry* self, const uint8_t*, uint16_t)
 {
-		self->Match_VoteYes();
+	self->Match_VoteYes();
 }
 
 static void do_Match_VoteNo(Registry* self, const uint8_t*, uint16_t)
 {
-		self->Match_VoteNo();
+	self->Match_VoteNo();
 }
 
 static void do_Votestop(Registry* self, const uint8_t*, uint16_t)
 {
-		self->Votestop();
+	self->Votestop();
 }
 
 static void do_Match_Broadcast_ClanRenewVictories(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2278,7 +2278,7 @@ static void do_Match_Broadcast_ClanRenewVictories(Registry* self, const uint8_t*
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 
-		self->Match_Broadcast_ClanRenewVictories(p0, p1, p2);
+	self->Match_Broadcast_ClanRenewVictories(p0, p1, p2);
 }
 
 static void do_Match_Broadcast_ClanInterruptVictories(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2289,7 +2289,7 @@ static void do_Match_Broadcast_ClanInterruptVictories(Registry* self, const uint
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 
-		self->Match_Broadcast_ClanInterruptVictories(p0, p1, p2);
+	self->Match_Broadcast_ClanInterruptVictories(p0, p1, p2);
 }
 
 static void do_Match_Broadcast_DuelRenewVictories(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2301,7 +2301,7 @@ static void do_Match_Broadcast_DuelRenewVictories(Registry* self, const uint8_t*
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 	int32_t p3 = extract_int32(parameters, &paramPtr, length);
 
-		self->Match_Broadcast_DuelRenewVictories(p0, p1, p2, p3);
+	self->Match_Broadcast_DuelRenewVictories(p0, p1, p2, p3);
 }
 
 static void do_Match_Broadcast_DuelInterruptVictories(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2312,7 +2312,7 @@ static void do_Match_Broadcast_DuelInterruptVictories(Registry* self, const uint
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 
-		self->Match_Broadcast_DuelInterruptVictories(p0, p1, p2);
+	self->Match_Broadcast_DuelInterruptVictories(p0, p1, p2);
 }
 
 static void do_Match_Assign_Berserker(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2321,7 +2321,7 @@ static void do_Match_Assign_Berserker(Registry* self, const uint8_t* parameters,
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-		self->Match_Assign_Berserker(p0);
+	self->Match_Assign_Berserker(p0);
 }
 
 static void do_Match_Duel_QueueInfo(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2330,7 +2330,7 @@ static void do_Match_Duel_QueueInfo(Registry* self, const uint8_t* parameters, u
 
 	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
 
-		self->Match_Duel_QueueInfo(p0);
+	self->Match_Duel_QueueInfo(p0);
 }
 
 static void do_Match_Quest_Ping(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2339,7 +2339,7 @@ static void do_Match_Quest_Ping(Registry* self, const uint8_t* parameters, uint1
 
 	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
 
-		self->Match_Quest_Ping(p0);
+	self->Match_Quest_Ping(p0);
 }
 
 static void do_Match_Quest_Pong(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2348,7 +2348,7 @@ static void do_Match_Quest_Pong(Registry* self, const uint8_t* parameters, uint1
 
 	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
 
-		self->Match_Quest_Pong(p0);
+	self->Match_Quest_Pong(p0);
 }
 
 static void do_MC_QUEST_NPCLIST(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2358,12 +2358,12 @@ static void do_MC_QUEST_NPCLIST(Registry* self, const uint8_t* parameters, uint1
 	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 
-		self->MC_QUEST_NPCLIST(p0, p1);
+	self->MC_QUEST_NPCLIST(p0, p1);
 }
 
 static void do_Event_ChangeMaster(Registry* self, const uint8_t*, uint16_t)
 {
-		self->Event_ChangeMaster();
+	self->Event_ChangeMaster();
 }
 
 static void do_Event_ChangePassword(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2372,7 +2372,7 @@ static void do_Event_ChangePassword(Registry* self, const uint8_t* parameters, u
 
 	std::string p0 = extract_string(parameters, &paramPtr, length);
 
-		self->Event_ChangePassword(p0);
+	self->Event_ChangePassword(p0);
 }
 
 static void do_Event_RequestJJang(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2381,7 +2381,7 @@ static void do_Event_RequestJJang(Registry* self, const uint8_t* parameters, uin
 
 	std::string p0 = extract_string(parameters, &paramPtr, length);
 
-		self->Event_RequestJJang(p0);
+	self->Event_RequestJJang(p0);
 }
 
 static void do_Event_RemoveJJang(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2390,7 +2390,7 @@ static void do_Event_RemoveJJang(Registry* self, const uint8_t* parameters, uint
 
 	std::string p0 = extract_string(parameters, &paramPtr, length);
 
-		self->Event_RemoveJJang(p0);
+	self->Event_RemoveJJang(p0);
 }
 
 static void do_Event_UpdateJJang(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2400,7 +2400,7 @@ static void do_Event_UpdateJJang(Registry* self, const uint8_t* parameters, uint
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	bool p1 = extract_bool(parameters, &paramPtr, length);
 
-		self->Event_UpdateJJang(p0, p1);
+	self->Event_UpdateJJang(p0, p1);
 }
 
 static void do_Quest_NPCSpawn(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2412,7 +2412,7 @@ static void do_Quest_NPCSpawn(Registry* self, const uint8_t* parameters, uint16_
 	uint8_t p2 = extract_uint8(parameters, &paramPtr, length);
 	uint8_t p3 = extract_uint8(parameters, &paramPtr, length);
 
-		self->Quest_NPCSpawn(p0, p1, p2, p3);
+	self->Quest_NPCSpawn(p0, p1, p2, p3);
 }
 
 static void do_Quest_Entrust_NPC_Control(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2422,7 +2422,7 @@ static void do_Quest_Entrust_NPC_Control(Registry* self, const uint8_t* paramete
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 
-		self->Quest_Entrust_NPC_Control(p0, p1);
+	self->Quest_Entrust_NPC_Control(p0, p1);
 }
 
 static void do_Quest_Checksum_NPCInfo(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2432,7 +2432,7 @@ static void do_Quest_Checksum_NPCInfo(Registry* self, const uint8_t* parameters,
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
 
-		self->Quest_Checksum_NPCInfo(p0, p1);
+	self->Quest_Checksum_NPCInfo(p0, p1);
 }
 
 static void do_Quest_NPCDead(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2442,17 +2442,17 @@ static void do_Quest_NPCDead(Registry* self, const uint8_t* parameters, uint16_t
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 
-		self->Quest_NPCDead(p0, p1);
+	self->Quest_NPCDead(p0, p1);
 }
 
 static void do_Quest_RefreshPlayerStatus(Registry* self, const uint8_t*, uint16_t)
 {
-		self->Quest_RefreshPlayerStatus();
+	self->Quest_RefreshPlayerStatus();
 }
 
 static void do_Quest_NPC_AllClear(Registry* self, const uint8_t*, uint16_t)
 {
-		self->Quest_NPC_AllClear();
+	self->Quest_NPC_AllClear();
 }
 
 static void do_Quest_Round_Start(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2461,12 +2461,12 @@ static void do_Quest_Round_Start(Registry* self, const uint8_t* parameters, uint
 
 	uint8_t p0 = extract_uint8(parameters, &paramPtr, length);
 
-		self->Quest_Round_Start(p0);
+	self->Quest_Round_Start(p0);
 }
 
 static void do_Quest_RequestDead(Registry* self, const uint8_t*, uint16_t)
 {
-		self->Quest_RequestDead();
+	self->Quest_RequestDead();
 }
 
 static void do_Quest_PlayerDead(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2475,7 +2475,7 @@ static void do_Quest_PlayerDead(Registry* self, const uint8_t* parameters, uint1
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-		self->Quest_PlayerDead(p0);
+	self->Quest_PlayerDead(p0);
 }
 
 static void do_Quest_ObtainQuestItem(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2484,7 +2484,7 @@ static void do_Quest_ObtainQuestItem(Registry* self, const uint8_t* parameters, 
 
 	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
 
-		self->Quest_ObtainQuestItem(p0);
+	self->Quest_ObtainQuestItem(p0);
 }
 
 static void do_Quest_ObtainZItem(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2493,7 +2493,7 @@ static void do_Quest_ObtainZItem(Registry* self, const uint8_t* parameters, uint
 
 	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
 
-		self->Quest_ObtainZItem(p0);
+	self->Quest_ObtainZItem(p0);
 }
 
 static void do_Quest_State_Mapset(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2503,7 +2503,7 @@ static void do_Quest_State_Mapset(Registry* self, const uint8_t* parameters, uin
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	int8_t p1 = extract_int8(parameters, &paramPtr, length);
 
-		self->Quest_State_Mapset(p0, p1);
+	self->Quest_State_Mapset(p0, p1);
 }
 
 static void do_Quest_Stage_GameInfo(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2514,7 +2514,7 @@ static void do_Quest_Stage_GameInfo(Registry* self, const uint8_t* parameters, u
 	int8_t p1 = extract_int8(parameters, &paramPtr, length);
 	uint32_t p2 = extract_uint32(parameters, &paramPtr, length);
 
-		self->Quest_Stage_GameInfo(p0, p1, p2);
+	self->Quest_Stage_GameInfo(p0, p1, p2);
 }
 
 static void do_Quest_SectorBonus(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2525,7 +2525,7 @@ static void do_Quest_SectorBonus(Registry* self, const uint8_t* parameters, uint
 	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
 	uint32_t p2 = extract_uint32(parameters, &paramPtr, length);
 
-		self->Quest_SectorBonus(p0, p1, p2);
+	self->Quest_SectorBonus(p0, p1, p2);
 }
 
 static void do_Quest_GameInfo(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2534,7 +2534,7 @@ static void do_Quest_GameInfo(Registry* self, const uint8_t* parameters, uint16_
 
 	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
 
-		self->Quest_GameInfo(p0);
+	self->Quest_GameInfo(p0);
 }
 
 static void do_Quest_Combat_State(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2543,7 +2543,7 @@ static void do_Quest_Combat_State(Registry* self, const uint8_t* parameters, uin
 
 	int8_t p0 = extract_int8(parameters, &paramPtr, length);
 
-		self->Quest_Combat_State(p0);
+	self->Quest_Combat_State(p0);
 }
 
 static void do_Quest_Sector_Start(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2553,7 +2553,7 @@ static void do_Quest_Sector_Start(Registry* self, const uint8_t* parameters, uin
 	int8_t p0 = extract_int8(parameters, &paramPtr, length);
 	uint8_t p1 = extract_uint8(parameters, &paramPtr, length);
 
-		self->Quest_Sector_Start(p0, p1);
+	self->Quest_Sector_Start(p0, p1);
 }
 
 static void do_Quest_Complete(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2562,12 +2562,12 @@ static void do_Quest_Complete(Registry* self, const uint8_t* parameters, uint16_
 
 	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
 
-		self->Quest_Complete(p0);
+	self->Quest_Complete(p0);
 }
 
 static void do_Quest_Failed(Registry* self, const uint8_t*, uint16_t)
 {
-		self->Quest_Failed();
+	self->Quest_Failed();
 }
 
 static void do_Quest_Request_Moveto_Portal(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2576,7 +2576,7 @@ static void do_Quest_Request_Moveto_Portal(Registry* self, const uint8_t* parame
 
 	int8_t p0 = extract_int8(parameters, &paramPtr, length);
 
-		self->Quest_Request_Moveto_Portal(p0);
+	self->Quest_Request_Moveto_Portal(p0);
 }
 
 static void do_Quest_Moveto_Portal(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2587,7 +2587,7 @@ static void do_Quest_Moveto_Portal(Registry* self, const uint8_t* parameters, ui
 	uint8_t p1 = extract_uint8(parameters, &paramPtr, length);
 	uint64_t p2 = extract_MUID(parameters, &paramPtr, length);
 
-		self->Quest_Moveto_Portal(p0, p1, p2);
+	self->Quest_Moveto_Portal(p0, p1, p2);
 }
 
 static void do_Quest_Readyto_NewSector(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2596,7 +2596,7 @@ static void do_Quest_Readyto_NewSector(Registry* self, const uint8_t* parameters
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-		self->Quest_Readyto_NewSector(p0);
+	self->Quest_Readyto_NewSector(p0);
 }
 
 static void do_Quest_Peer_NPC_BasicInfo(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2605,7 +2605,7 @@ static void do_Quest_Peer_NPC_BasicInfo(Registry* self, const uint8_t* parameter
 
 	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
 
-		self->Quest_Peer_NPC_BasicInfo(p0);
+	self->Quest_Peer_NPC_BasicInfo(p0);
 }
 
 static void do_Quest_Peer_NPC_HPInfo(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2615,7 +2615,7 @@ static void do_Quest_Peer_NPC_HPInfo(Registry* self, const uint8_t* parameters, 
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 	tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
 
-		self->Quest_Peer_NPC_HPInfo(p0, p1);
+	self->Quest_Peer_NPC_HPInfo(p0, p1);
 }
 
 static void do_Quest_Peer_NPC_Attack_Melee(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2624,7 +2624,7 @@ static void do_Quest_Peer_NPC_Attack_Melee(Registry* self, const uint8_t* parame
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-		self->Quest_Peer_NPC_Attack_Melee(p0);
+	self->Quest_Peer_NPC_Attack_Melee(p0);
 }
 
 static void do_Quest_Peer_NPC_Attack_Range(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2634,7 +2634,7 @@ static void do_Quest_Peer_NPC_Attack_Range(Registry* self, const uint8_t* parame
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
 
-		self->Quest_Peer_NPC_Attack_Range(p0, p1);
+	self->Quest_Peer_NPC_Attack_Range(p0, p1);
 }
 
 static void do_Quest_Peer_NPC_Skill_Start(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2646,7 +2646,7 @@ static void do_Quest_Peer_NPC_Skill_Start(Registry* self, const uint8_t* paramet
 	uint64_t p2 = extract_MUID(parameters, &paramPtr, length);
 	array<float, 3> p3 = extract_position(parameters, &paramPtr, length);
 
-		self->Quest_Peer_NPC_Skill_Start(p0, p1, p2, p3);
+	self->Quest_Peer_NPC_Skill_Start(p0, p1, p2, p3);
 }
 
 static void do_Quest_Peer_NPC_Skill_Execute(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2658,7 +2658,7 @@ static void do_Quest_Peer_NPC_Skill_Execute(Registry* self, const uint8_t* param
 	uint64_t p2 = extract_MUID(parameters, &paramPtr, length);
 	array<float, 3> p3 = extract_position(parameters, &paramPtr, length);
 
-		self->Quest_Peer_NPC_Skill_Execute(p0, p1, p2, p3);
+	self->Quest_Peer_NPC_Skill_Execute(p0, p1, p2, p3);
 }
 
 static void do_Quest_Peer_NPC_Dead(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2668,7 +2668,7 @@ static void do_Quest_Peer_NPC_Dead(Registry* self, const uint8_t* parameters, ui
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 
-		self->Quest_Peer_NPC_Dead(p0, p1);
+	self->Quest_Peer_NPC_Dead(p0, p1);
 }
 
 static void do_Quest_Test_RequestNPCSpawn(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2678,22 +2678,22 @@ static void do_Quest_Test_RequestNPCSpawn(Registry* self, const uint8_t* paramet
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 
-		self->Quest_Test_RequestNPCSpawn(p0, p1);
+	self->Quest_Test_RequestNPCSpawn(p0, p1);
 }
 
 static void do_Quest_Test_ClearNPC(Registry* self, const uint8_t*, uint16_t)
 {
-		self->Quest_Test_ClearNPC();
+	self->Quest_Test_ClearNPC();
 }
 
 static void do_Quest_Test_SectorClear(Registry* self, const uint8_t*, uint16_t)
 {
-		self->Quest_Test_SectorClear();
+	self->Quest_Test_SectorClear();
 }
 
 static void do_Quest_Test_Finish(Registry* self, const uint8_t*, uint16_t)
 {
-		self->Quest_Test_Finish();
+	self->Quest_Test_Finish();
 }
 
 static void do_Admin_Announce(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2704,7 +2704,7 @@ static void do_Admin_Announce(Registry* self, const uint8_t* parameters, uint16_
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 	uint32_t p2 = extract_uint32(parameters, &paramPtr, length);
 
-		self->Admin_Announce(p0, p1, p2);
+	self->Admin_Announce(p0, p1, p2);
 }
 
 static void do_Admin_RequestBanPlayer(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2714,7 +2714,7 @@ static void do_Admin_RequestBanPlayer(Registry* self, const uint8_t* parameters,
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 
-		self->Admin_RequestBanPlayer(p0, p1);
+	self->Admin_RequestBanPlayer(p0, p1);
 }
 
 static void do_Admin_ResponseBanPlayer(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2723,27 +2723,27 @@ static void do_Admin_ResponseBanPlayer(Registry* self, const uint8_t* parameters
 
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 
-		self->Admin_ResponseBanPlayer(p0);
+	self->Admin_ResponseBanPlayer(p0);
 }
 
 static void do_Admin_Hide(Registry* self, const uint8_t*, uint16_t)
 {
-		self->Admin_Hide();
+	self->Admin_Hide();
 }
 
 static void do_MC_ADMIN_RESET_ALL_HACKING_BLOCK(Registry* self, const uint8_t*, uint16_t)
 {
-		self->MC_ADMIN_RESET_ALL_HACKING_BLOCK();
+	self->MC_ADMIN_RESET_ALL_HACKING_BLOCK();
 }
 
 static void do_MC_ADMIN_RELOAD_GAMBLEITEM(Registry* self, const uint8_t*, uint16_t)
 {
-		self->MC_ADMIN_RELOAD_GAMBLEITEM();
+	self->MC_ADMIN_RELOAD_GAMBLEITEM();
 }
 
 static void do_MC_ADMIN_ASSASIN(Registry* self, const uint8_t*, uint16_t)
 {
-		self->MC_ADMIN_ASSASIN();
+	self->MC_ADMIN_ASSASIN();
 }
 
 static void do_Agent_Connect(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2753,12 +2753,12 @@ static void do_Agent_Connect(Registry* self, const uint8_t* parameters, uint16_t
 	std::string p0 = extract_string(parameters, &paramPtr, length);
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 
-		self->Agent_Connect(p0, p1);
+	self->Agent_Connect(p0, p1);
 }
 
 static void do_Agent_Disconnect(Registry* self, const uint8_t*, uint16_t)
 {
-		self->Agent_Disconnect();
+	self->Agent_Disconnect();
 }
 
 static void do_Match_RegisterAgent(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2769,12 +2769,12 @@ static void do_Match_RegisterAgent(Registry* self, const uint8_t* parameters, ui
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 
-		self->Match_RegisterAgent(p0, p1, p2);
+	self->Match_RegisterAgent(p0, p1, p2);
 }
 
 static void do_Match_UnRegisterAgent(Registry* self, const uint8_t*, uint16_t)
 {
-		self->Match_UnRegisterAgent();
+	self->Match_UnRegisterAgent();
 }
 
 static void do_Match_Agent_RequestLiveCheck(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2785,7 +2785,7 @@ static void do_Match_Agent_RequestLiveCheck(Registry* self, const uint8_t* param
 	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
 	uint32_t p2 = extract_uint32(parameters, &paramPtr, length);
 
-		self->Match_Agent_RequestLiveCheck(p0, p1, p2);
+	self->Match_Agent_RequestLiveCheck(p0, p1, p2);
 }
 
 static void do_Match_Agent_ResponseLiveCheck(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2794,7 +2794,7 @@ static void do_Match_Agent_ResponseLiveCheck(Registry* self, const uint8_t* para
 
 	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
 
-		self->Match_Agent_ResponseLiveCheck(p0);
+	self->Match_Agent_ResponseLiveCheck(p0);
 }
 
 static void do_Agent_StageReserve(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2803,7 +2803,7 @@ static void do_Agent_StageReserve(Registry* self, const uint8_t* parameters, uin
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-		self->Agent_StageReserve(p0);
+	self->Agent_StageReserve(p0);
 }
 
 static void do_Agent_StageRelease(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2812,7 +2812,7 @@ static void do_Agent_StageRelease(Registry* self, const uint8_t* parameters, uin
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-		self->Agent_StageRelease(p0);
+	self->Agent_StageRelease(p0);
 }
 
 static void do_Agent_StageReady(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2821,7 +2821,7 @@ static void do_Agent_StageReady(Registry* self, const uint8_t* parameters, uint1
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-		self->Agent_StageReady(p0);
+	self->Agent_StageReady(p0);
 }
 
 static void do_Agent_RelayPeer(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2832,7 +2832,7 @@ static void do_Agent_RelayPeer(Registry* self, const uint8_t* parameters, uint16
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 	uint64_t p2 = extract_MUID(parameters, &paramPtr, length);
 
-		self->Agent_RelayPeer(p0, p1, p2);
+	self->Agent_RelayPeer(p0, p1, p2);
 }
 
 static void do_Questitem(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2841,7 +2841,7 @@ static void do_Questitem(Registry* self, const uint8_t* parameters, uint16_t len
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-		self->Questitem(p0);
+	self->Questitem(p0);
 }
 
 static void do_Quest_item_response(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2850,7 +2850,7 @@ static void do_Quest_item_response(Registry* self, const uint8_t* parameters, ui
 
 	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
 
-		self->Quest_item_response(p0);
+	self->Quest_item_response(p0);
 }
 
 static void do_Quest_item_buy(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2860,7 +2860,7 @@ static void do_Quest_item_buy(Registry* self, const uint8_t* parameters, uint16_
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 
-		self->Quest_item_buy(p0, p1);
+	self->Quest_item_buy(p0, p1);
 }
 
 static void do_Quest_item_responsebuy(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2870,7 +2870,7 @@ static void do_Quest_item_responsebuy(Registry* self, const uint8_t* parameters,
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 
-		self->Quest_item_responsebuy(p0, p1);
+	self->Quest_item_responsebuy(p0, p1);
 }
 
 static void do_Quest_item_sell(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2881,7 +2881,7 @@ static void do_Quest_item_sell(Registry* self, const uint8_t* parameters, uint16
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 
-		self->Quest_item_sell(p0, p1, p2);
+	self->Quest_item_sell(p0, p1, p2);
 }
 
 static void do_Quest_item_responsesell(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2891,7 +2891,7 @@ static void do_Quest_item_responsesell(Registry* self, const uint8_t* parameters
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 
-		self->Quest_item_responsesell(p0, p1);
+	self->Quest_item_responsesell(p0, p1);
 }
 
 static void do_Quest_Reward(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2903,7 +2903,7 @@ static void do_Quest_Reward(Registry* self, const uint8_t* parameters, uint16_t 
 	tuple<Buffer, size_t, size_t> p2 = extract_blob(parameters, &paramPtr, length);
 	tuple<Buffer, size_t, size_t> p3 = extract_blob(parameters, &paramPtr, length);
 
-		self->Quest_Reward(p0, p1, p2, p3);
+	self->Quest_Reward(p0, p1, p2, p3);
 }
 
 static void do_Quest_Request_Sacrifice(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2914,7 +2914,7 @@ static void do_Quest_Request_Sacrifice(Registry* self, const uint8_t* parameters
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 
-		self->Quest_Request_Sacrifice(p0, p1, p2);
+	self->Quest_Request_Sacrifice(p0, p1, p2);
 }
 
 static void do_Quest_Response_Sacrifice(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2926,7 +2926,7 @@ static void do_Quest_Response_Sacrifice(Registry* self, const uint8_t* parameter
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 	int32_t p3 = extract_int32(parameters, &paramPtr, length);
 
-		self->Quest_Response_Sacrifice(p0, p1, p2, p3);
+	self->Quest_Response_Sacrifice(p0, p1, p2, p3);
 }
 
 static void do_Quest_Callback_Sacrifice(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2937,7 +2937,7 @@ static void do_Quest_Callback_Sacrifice(Registry* self, const uint8_t* parameter
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 
-		self->Quest_Callback_Sacrifice(p0, p1, p2);
+	self->Quest_Callback_Sacrifice(p0, p1, p2);
 }
 
 static void do_Quest_Callback_Result(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2949,7 +2949,7 @@ static void do_Quest_Callback_Result(Registry* self, const uint8_t* parameters, 
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 	int32_t p3 = extract_int32(parameters, &paramPtr, length);
 
-		self->Quest_Callback_Result(p0, p1, p2, p3);
+	self->Quest_Callback_Result(p0, p1, p2, p3);
 }
 
 static void do_Quest_Request_SlotInfo(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2958,7 +2958,7 @@ static void do_Quest_Request_SlotInfo(Registry* self, const uint8_t* parameters,
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-		self->Quest_Request_SlotInfo(p0);
+	self->Quest_Request_SlotInfo(p0);
 }
 
 static void do_Quest_Resonse_SlotInfo(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2970,7 +2970,7 @@ static void do_Quest_Resonse_SlotInfo(Registry* self, const uint8_t* parameters,
 	uint64_t p2 = extract_MUID(parameters, &paramPtr, length);
 	int32_t p3 = extract_int32(parameters, &paramPtr, length);
 
-		self->Quest_Resonse_SlotInfo(p0, p1, p2, p3);
+	self->Quest_Resonse_SlotInfo(p0, p1, p2, p3);
 }
 
 static void do_Quest_RequestLevel(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2979,7 +2979,7 @@ static void do_Quest_RequestLevel(Registry* self, const uint8_t* parameters, uin
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-		self->Quest_RequestLevel(p0);
+	self->Quest_RequestLevel(p0);
 }
 
 static void do_Quest_ResponseLevel(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2988,7 +2988,7 @@ static void do_Quest_ResponseLevel(Registry* self, const uint8_t* parameters, ui
 
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 
-		self->Quest_ResponseLevel(p0);
+	self->Quest_ResponseLevel(p0);
 }
 
 static void do_Quest_Survival_Result(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2998,7 +2998,7 @@ static void do_Quest_Survival_Result(Registry* self, const uint8_t* parameters, 
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 
-		self->Quest_Survival_Result(p0, p1);
+	self->Quest_Survival_Result(p0, p1);
 }
 
 static void do_Quest_Survival_Ranking(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -3007,7 +3007,7 @@ static void do_Quest_Survival_Ranking(Registry* self, const uint8_t* parameters,
 
 	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
 
-		self->Quest_Survival_Ranking(p0);
+	self->Quest_Survival_Ranking(p0);
 }
 
 static void do_Quest_Survuval_PrivateRanking(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -3017,7 +3017,7 @@ static void do_Quest_Survuval_PrivateRanking(Registry* self, const uint8_t* para
 	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
 	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
 
-		self->Quest_Survuval_PrivateRanking(p0, p1);
+	self->Quest_Survuval_PrivateRanking(p0, p1);
 }
 
 static void do_Quest_Start_Fail(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -3027,7 +3027,7 @@ static void do_Quest_Start_Fail(Registry* self, const uint8_t* parameters, uint1
 	int32_t p0 = extract_int32(parameters, &paramPtr, length);
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 
-		self->Quest_Start_Fail(p0, p1);
+	self->Quest_Start_Fail(p0, p1);
 }
 
 static void do_monsterinfo(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -3036,7 +3036,7 @@ static void do_monsterinfo(Registry* self, const uint8_t* parameters, uint16_t l
 
 	int8_t p0 = extract_int8(parameters, &paramPtr, length);
 
-		self->monsterinfo(p0);
+	self->monsterinfo(p0);
 }
 
 static void do_Quest_Bible_Request(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -3045,7 +3045,7 @@ static void do_Quest_Bible_Request(Registry* self, const uint8_t* parameters, ui
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
-		self->Quest_Bible_Request(p0);
+	self->Quest_Bible_Request(p0);
 }
 
 static void do_Quest_Bible_Response(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -3055,12 +3055,12 @@ static void do_Quest_Bible_Response(Registry* self, const uint8_t* parameters, u
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
 
-		self->Quest_Bible_Response(p0, p1);
+	self->Quest_Bible_Response(p0, p1);
 }
 
 static void do_MC_REQUEST_GIVE_ONESELF_UP(Registry* self, const uint8_t*, uint16_t)
 {
-		self->MC_REQUEST_GIVE_ONESELF_UP();
+	self->MC_REQUEST_GIVE_ONESELF_UP();
 }
 
 static void do_MC_RESPONSE_GAMBLEITEMLIST(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -3069,7 +3069,7 @@ static void do_MC_RESPONSE_GAMBLEITEMLIST(Registry* self, const uint8_t* paramet
 
 	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
 
-		self->MC_RESPONSE_GAMBLEITEMLIST(p0);
+	self->MC_RESPONSE_GAMBLEITEMLIST(p0);
 }
 
 static void do_MC_MATCH_ROUTE_UPDATE_STAGE_EQUIP_LOOK(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -3080,7 +3080,7 @@ static void do_MC_MATCH_ROUTE_UPDATE_STAGE_EQUIP_LOOK(Registry* self, const uint
 	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 
-		self->MC_MATCH_ROUTE_UPDATE_STAGE_EQUIP_LOOK(p0, p1, p2);
+	self->MC_MATCH_ROUTE_UPDATE_STAGE_EQUIP_LOOK(p0, p1, p2);
 }
 
 static void do_MC_REQUEST_RESOURCE_CRC32(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -3089,7 +3089,7 @@ static void do_MC_REQUEST_RESOURCE_CRC32(Registry* self, const uint8_t* paramete
 
 	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
 
-		self->MC_REQUEST_RESOURCE_CRC32(p0);
+	self->MC_REQUEST_RESOURCE_CRC32(p0);
 }
 
 static void do_MC_RESPONSE_RESOURCE_CRC32(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -3098,7 +3098,7 @@ static void do_MC_RESPONSE_RESOURCE_CRC32(Registry* self, const uint8_t* paramet
 
 	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
 
-		self->MC_RESPONSE_RESOURCE_CRC32(p0);
+	self->MC_RESPONSE_RESOURCE_CRC32(p0);
 }
 
 void Registry::dispatch(uint16_t packetID,
