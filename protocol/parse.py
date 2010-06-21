@@ -216,19 +216,19 @@ static void do_nothing_9(T1, T2, T3, T4, T5, T6, T7, T8, T9) {}
 def make_packet_registry_constructor(commands):
 	ret =  """
 Registry::Registry()
-{
-"""
+	:
+	"""
 
 	def make_params(command):
 		return ', '.join([p.type for p in command.parameters])
 
-	for c in commands:
-		if len(c.parameters) == 0:
-			ret = ''.join([ret, '\t', c.name, ' = do_nothing_0;\n'])
-		else:
-			ret = ''.join([ret, '\t', c.name, ' = do_nothing_', str(len(c.parameters)), '<', make_params(c), ' >;\n'])
+	# Don't even TRY to understand this function :( My head hurts.
+	def make_command_string(command):
+		return ''.join([command.name, '(do_nothing_', str(len(command.parameters)), ((''.join(['< ', make_params(command), ' >'])) if len(command.parameters) != 0 else ''), ')'])
 
-	ret = ''.join([ret, '}\n'])
+	ret = ''.join([ret, ',\n\t'.join([make_command_string(s) for s in commands])])
+
+	ret = ''.join([ret, '\n{\n}\n'])
 
 	return ret
 

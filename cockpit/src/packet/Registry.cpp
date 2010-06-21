@@ -61,291 +61,292 @@ template <typename T1, typename T2, typename T3, typename T4, typename T5, typen
 static void do_nothing_9(T1, T2, T3, T4, T5, T6, T7, T8, T9) {}
 
 Registry::Registry()
+	:
+	Net_Ping(do_nothing_1< boost::uint32_t >),
+	Net_Pong(do_nothing_1< boost::uint32_t >),
+	Match_Announce(do_nothing_2< boost::uint32_t, const std::string& >),
+	Clock_Synchronize(do_nothing_1< boost::uint32_t >),
+	Match_Login(do_nothing_4< const std::string&, const std::string&, boost::int32_t, boost::uint32_t >),
+	Match_ResponseLogin(do_nothing_9< boost::int32_t, const std::string&, boost::int8_t, const std::string&, boost::uint8_t, boost::uint8_t, boost::uint64_t, bool, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
+	Match_Response_Result(do_nothing_1< boost::int32_t >),
+	Match_LoginNetmarble(do_nothing_4< const std::string&, const std::string&, boost::int32_t, boost::uint32_t >),
+	MC_MATCH_DISCONNMSG(do_nothing_1< boost::uint32_t >),
+	MC_MATCH_LOGIN_NHNUSA(do_nothing_5< const std::string&, const std::string&, boost::int32_t, boost::uint32_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
+	MC_MATCH_LOGIN_GAMEON_JP(do_nothing_5< const std::string&, const std::string&, boost::int32_t, boost::uint32_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
+	Match_ObjectCache(do_nothing_2< boost::uint8_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
+	Match_BridgePeer(do_nothing_3< boost::uint64_t, boost::uint32_t, boost::uint32_t >),
+	Match_BridgePeerACK(do_nothing_2< boost::uint64_t, boost::int32_t >),
+	MatchServer_RequestRecommandedChannel(do_nothing_0),
+	MatchServer_ResponseRecommandedChannel(do_nothing_1< boost::uint64_t >),
+	Channel_Join(do_nothing_2< boost::uint64_t, boost::uint64_t >),
+	Channel_ResponseJoin(do_nothing_4< boost::uint64_t, boost::int32_t, const std::string&, bool >),
+	Channel_RequestJoinFromName(do_nothing_4< boost::uint64_t, boost::int32_t, boost::int32_t, const std::string& >),
+	Channel_Leave(do_nothing_2< boost::uint64_t, boost::uint64_t >),
+	Channel_ListStart(do_nothing_3< boost::uint64_t, boost::int32_t, boost::int32_t >),
+	Channel_ListStop(do_nothing_1< boost::uint64_t >),
+	Channel_List(do_nothing_1< boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
+	Channel_Request_Chat(do_nothing_3< boost::uint64_t, boost::uint64_t, const std::string& >),
+	Channel_Chat(do_nothing_4< boost::uint64_t, const std::string&, const std::string&, boost::int32_t >),
+	Channel_Request_Rule(do_nothing_1< boost::uint64_t >),
+	Channel_Response_Rule(do_nothing_2< boost::uint64_t, const std::string& >),
+	Channel_RequestAllPlayerList(do_nothing_4< boost::uint64_t, boost::uint64_t, boost::uint32_t, boost::uint32_t >),
+	Channel_ResponseAllPlayerList(do_nothing_2< boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
+	Stage_Create(do_nothing_4< boost::uint64_t, const std::string&, bool, const std::string& >),
+	Stage_RequestJoin(do_nothing_2< boost::uint64_t, boost::uint64_t >),
+	Stage_RequestPrivateJoin(do_nothing_3< boost::uint64_t, boost::uint64_t, const std::string& >),
+	Stage_Join(do_nothing_4< boost::uint64_t, boost::uint64_t, boost::uint32_t, const std::string& >),
+	Stage_Leave(do_nothing_1< boost::uint64_t >),
+	Stage_Request_PlayerList(do_nothing_1< boost::uint64_t >),
+	Stage_Follow(do_nothing_1< const std::string& >),
+	Stage_Response_Follow(do_nothing_1< boost::int32_t >),
+	Stage_ResponseJoin(do_nothing_1< boost::int32_t >),
+	Stage_RequirePassword(do_nothing_2< boost::uint64_t, const std::string& >),
+	RequestGameInfo(do_nothing_2< boost::uint64_t, boost::uint64_t >),
+	ResponseGameInfo(do_nothing_4< boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
+	Stage_ResponseCreate(do_nothing_1< boost::int32_t >),
+	Stage_Request_EnterBattle(do_nothing_2< boost::uint64_t, boost::uint64_t >),
+	Stage_EnterBattle(do_nothing_2< boost::uint8_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
+	Stage_LeaveBattle(do_nothing_1< boost::uint64_t >),
+	Stage_Start(do_nothing_3< boost::uint64_t, boost::uint64_t, boost::int32_t >),
+	Stage_Map(do_nothing_2< boost::uint64_t, const std::string& >),
+	Stage_Chat(do_nothing_3< boost::uint64_t, boost::uint64_t, const std::string& >),
+	Stage_RequestQuickJoin(do_nothing_2< boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
+	Stage_ResponseQuickJoin(do_nothing_2< boost::int32_t, boost::uint64_t >),
+	Stage_StageGo(do_nothing_1< boost::uint32_t >),
+	Stage_State(do_nothing_4< boost::uint64_t, boost::uint64_t, boost::int32_t, boost::int32_t >),
+	Stage_Team(do_nothing_3< boost::uint64_t, boost::uint64_t, boost::uint32_t >),
+	Stage_Master(do_nothing_2< boost::uint64_t, boost::uint64_t >),
+	Stage_ListStart(do_nothing_0),
+	Stage_ListStop(do_nothing_0),
+	Stage_List(do_nothing_3< boost::int8_t, boost::int8_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
+	Stage_RequestStageList(do_nothing_3< boost::uint64_t, boost::uint64_t, boost::int32_t >),
+	Channel_RequestPlayerList(do_nothing_3< boost::uint64_t, boost::uint64_t, boost::int32_t >),
+	Channel_ResponsePlayerList(do_nothing_3< boost::uint8_t, boost::uint8_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
+	Stage_RequestStageSetting(do_nothing_1< boost::uint64_t >),
+	Stage_ResponseStageSetting(do_nothing_5< boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::int32_t, boost::uint64_t >),
+	Stage_StageSetting(do_nothing_3< boost::uint64_t, boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
+	Stage_Launch(do_nothing_2< boost::uint64_t, const std::string& >),
+	Stage_Finish(do_nothing_1< boost::uint64_t >),
+	Stage_RequestPeerList(do_nothing_2< boost::uint64_t, boost::uint64_t >),
+	Stage_ResponsePeerList(do_nothing_2< boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
+	Loading_Complete(do_nothing_2< boost::uint64_t, boost::int32_t >),
+	Match_RequestPeerRelay(do_nothing_2< boost::uint64_t, boost::uint64_t >),
+	Match_ResponsePeerRelay(do_nothing_1< boost::uint64_t >),
+	Stage_RoundState(do_nothing_4< boost::uint64_t, boost::int32_t, boost::int32_t, boost::int32_t >),
+	Game_Kill(do_nothing_1< boost::uint64_t >),
+	Game_Requst_Spawn(do_nothing_3< boost::uint64_t, const boost::array<float, 3>&, const boost::array<float, 3>& >),
+	Game_LevelUp(do_nothing_2< boost::uint64_t, boost::int32_t >),
+	Game_LevelDown(do_nothing_2< boost::uint64_t, boost::int32_t >),
+	Game_Dead(do_nothing_4< boost::uint64_t, boost::uint32_t, boost::uint64_t, boost::uint32_t >),
+	Game_TeamBonus(do_nothing_2< boost::uint64_t, boost::uint32_t >),
+	Game_RequestTimeSync(do_nothing_1< boost::uint32_t >),
+	Game_ResponseTimeSync(do_nothing_2< boost::uint32_t, boost::uint32_t >),
+	Game_ReportTimeSync(do_nothing_2< boost::uint32_t, boost::uint32_t >),
+	Stage_RequestForcedEntry(do_nothing_2< boost::uint64_t, boost::uint64_t >),
+	Stage_ResponseForcedEntry(do_nothing_1< boost::int32_t >),
+	Stage_RoundFinishInfo(do_nothing_4< boost::uint64_t, boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
+	Match_Notify(do_nothing_1< boost::uint32_t >),
+	Match_Whisper(do_nothing_3< const std::string&, const std::string&, const std::string& >),
+	Match_Where(do_nothing_1< const std::string& >),
+	Match_UserOption(do_nothing_1< boost::uint32_t >),
+	ChatRoom_Create(do_nothing_2< boost::uint64_t, const std::string& >),
+	ChatRoom_Join(do_nothing_2< const std::string&, const std::string& >),
+	ChatRoom_Leave(do_nothing_2< const std::string&, const std::string& >),
+	ChatRoom_SelectWrite(do_nothing_1< const std::string& >),
+	ChatRoom_Invite(do_nothing_3< const std::string&, const std::string&, const std::string& >),
+	ChatRoom_Chat(do_nothing_3< const std::string&, const std::string&, const std::string& >),
+	Match_RequestAccountCharList(do_nothing_1< boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
+	Match_ResponseAccountCharList(do_nothing_1< boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
+	Match_RequestAccountCharInfo(do_nothing_2< boost::int8_t, boost::int32_t >),
+	Match_ResponseAccountCharInfo(do_nothing_2< boost::int8_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
+	Match_RequestSelectChar(do_nothing_3< boost::uint64_t, boost::uint32_t, boost::int32_t >),
+	Match_ResponseSelectChar(do_nothing_3< boost::int32_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
+	Match_RequestCharInfo(do_nothing_2< boost::uint64_t, boost::uint32_t >),
+	Match_ResponseCharInfo(do_nothing_2< boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
+	Match_RequestDeleteChar(do_nothing_4< boost::uint64_t, boost::uint32_t, boost::int32_t, const std::string& >),
+	Match_ResponseDeleteChar(do_nothing_1< boost::int32_t >),
+	Match_RequestCreateChar(do_nothing_8< boost::uint64_t, boost::uint32_t, boost::int32_t, const std::string&, boost::uint32_t, boost::uint32_t, boost::uint32_t, boost::uint32_t >),
+	Match_ResponseCreateChar(do_nothing_2< boost::int32_t, const std::string& >),
+	Match_RequestBuyItem(do_nothing_2< boost::uint64_t, boost::uint32_t >),
+	Match_ResponseBuyItem(do_nothing_1< boost::int32_t >),
+	Match_RequestSellItem(do_nothing_2< boost::uint64_t, boost::uint64_t >),
+	Match_ResponseSellItem(do_nothing_1< boost::int32_t >),
+	Match_RequestShopItemList(do_nothing_3< boost::uint64_t, boost::int32_t, boost::int32_t >),
+	Match_ResponseShopItemList(do_nothing_2< boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
+	Match_RequestCharacterItemList(do_nothing_1< boost::uint64_t >),
+	Match_RequestCharacterItemListForce(do_nothing_1< boost::uint64_t >),
+	Match_ResponseCharacterItemList(do_nothing_4< boost::int32_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
+	MatchRequestEquipItem(do_nothing_4< boost::uint64_t, boost::uint64_t, boost::uint32_t, boost::int32_t >),
+	MatchResponseEquipItem(do_nothing_1< boost::int32_t >),
+	MatchRequestTakeoffItem(do_nothing_3< boost::uint64_t, boost::uint32_t, boost::int32_t >),
+	MatchResponseTakeoffItem(do_nothing_1< boost::int32_t >),
+	Match_RequestAccountItemList(do_nothing_1< boost::uint64_t >),
+	Match_ResponseAccountItemList(do_nothing_1< boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
+	Match_RequestBringAccountItem(do_nothing_2< boost::uint64_t, boost::int32_t >),
+	Match_ResponseBringAccountItem(do_nothing_1< boost::int32_t >),
+	Match_RequestBringBackAccountItem(do_nothing_2< boost::uint64_t, boost::uint64_t >),
+	Match_ResponseBringBackAccountItem(do_nothing_1< boost::int32_t >),
+	Match_ExpiredRentItem(do_nothing_1< boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
+	Match_ItemGamble(do_nothing_1< boost::uint64_t >),
+	Match_GambleResultItem(do_nothing_2< boost::uint32_t, boost::uint32_t >),
+	Match_Request_Suicide(do_nothing_1< boost::uint64_t >),
+	Match_Response_Suicide(do_nothing_2< boost::int32_t, boost::uint64_t >),
+	Match_Response_SuicideReserve(do_nothing_0),
+	Match_Request_Obtain_WorldItem(do_nothing_2< boost::uint64_t, boost::int32_t >),
+	Match_WorldItem_Obtain(do_nothing_2< boost::uint64_t, boost::int32_t >),
+	Match_WorldItem_Spawn(do_nothing_1< boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
+	Match_Request_Spawn_WorldItem(do_nothing_4< boost::uint64_t, boost::int32_t, const boost::array<float, 3>&, float >),
+	Match_Request_Spawn_WorldItem_UID(do_nothing_1< boost::int32_t >),
+	Match_Reset_TeamMembers(do_nothing_1< boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
+	Match_Assign_Commander(do_nothing_2< boost::uint64_t, boost::uint64_t >),
+	Match_Set_Observer(do_nothing_1< boost::uint64_t >),
+	Match_Ladder_Request_Challenge(do_nothing_3< boost::int32_t, boost::uint32_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
+	Match_Ladder_Response_Challenge(do_nothing_1< boost::int32_t >),
+	Match_Ladder_SearchRival(do_nothing_0),
+	Match_Ladder_Request_CancelChallenge(do_nothing_0),
+	Match_Ladder_CancelChallenge(do_nothing_1< const std::string& >),
+	Ladder_Prepare(do_nothing_2< boost::uint64_t, boost::int32_t >),
+	Ladder_Launch(do_nothing_2< boost::uint64_t, const std::string& >),
+	Match_RequestProposal(do_nothing_5< boost::uint64_t, boost::int32_t, boost::int32_t, boost::int32_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
+	Match_ResponseProposal(do_nothing_3< boost::int32_t, boost::int32_t, boost::int32_t >),
+	Match_AskAgreement(do_nothing_4< boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::int32_t, boost::int32_t >),
+	Match_ReplyAgreement(do_nothing_6< boost::uint64_t, boost::uint64_t, const std::string&, boost::int32_t, boost::int32_t, bool >),
+	Match_Friend_Add(do_nothing_1< const std::string& >),
+	Match_Friend_Remove(do_nothing_1< const std::string& >),
+	Match_Friend_List(do_nothing_0),
+	Match_Response_FriendList(do_nothing_1< boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
+	Match_Friend_Msg(do_nothing_1< const std::string& >),
+	Match_Clan_RequestCreateClan(do_nothing_7< boost::uint64_t, boost::int32_t, const std::string&, const std::string&, const std::string&, const std::string&, const std::string& >),
+	Match_Clan_ResponseCreateClan(do_nothing_2< boost::int32_t, boost::int32_t >),
+	Match_Clan_AskSponsorAgreement(do_nothing_4< boost::int32_t, const std::string&, boost::uint64_t, const std::string& >),
+	Match_Clan_AnswerSponsorAgreement(do_nothing_4< boost::int32_t, boost::uint64_t, const std::string&, bool >),
+	Match_Clan_RequestAgreedCreateClan(do_nothing_6< boost::uint64_t, const std::string&, const std::string&, const std::string&, const std::string&, const std::string& >),
+	Match_Clan_AgreedResponseCreateClan(do_nothing_1< boost::int32_t >),
+	Match_Clan_RequestCloseClan(do_nothing_2< boost::uint64_t, const std::string& >),
+	Match_Clan_ResponseCloseClan(do_nothing_1< boost::int32_t >),
+	Match_Clan_RequestJoinClan(do_nothing_3< boost::uint64_t, const std::string&, const std::string& >),
+	Match_Clan_ResponseJoinClan(do_nothing_1< boost::int32_t >),
+	Match_Clan_AskJoinAgreement(do_nothing_3< const std::string&, boost::uint64_t, const std::string& >),
+	Match_Clan_AnswerJoinAgreement(do_nothing_3< boost::uint64_t, const std::string&, bool >),
+	Match_Clan_RequestAgreedJoinClan(do_nothing_3< boost::uint64_t, const std::string&, const std::string& >),
+	Match_Clan_ResponseAgreedJoinClan(do_nothing_1< boost::int32_t >),
+	Match_Clan_RequestLeaveClan(do_nothing_1< boost::uint64_t >),
+	Match_Clan_ResponseLeaveClan(do_nothing_1< boost::int32_t >),
+	Match_Clan_UpdateCharClanInfo(do_nothing_1< boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
+	Match_Clan_Master_RequestChangeGrade(do_nothing_4< boost::uint64_t, const std::string&, boost::int32_t, boost::int32_t >),
+	Match_Clan_Master_ResponseChangeGrade(do_nothing_1< boost::int32_t >),
+	Match_Clan_Admin_RequestExpelMember(do_nothing_2< boost::uint64_t, const std::string& >),
+	Match_Clan_Admin_ResponseLeaveMember(do_nothing_1< boost::int32_t >),
+	Match_Clan_Request_Msg(do_nothing_2< boost::uint64_t, const std::string& >),
+	Match_Clan_Msg(do_nothing_2< const std::string&, const std::string& >),
+	Match_Clan_Request_ClanMemberList(do_nothing_1< boost::uint64_t >),
+	Match_Clan_Response_ClanMemberList(do_nothing_1< boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
+	Match_Clan_Request_Clan_Info(do_nothing_2< boost::uint64_t, const std::string& >),
+	Match_Clan_Response_Clan_Info(do_nothing_1< boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
+	Match_Clan_Standby_ClanList(do_nothing_3< boost::int32_t, boost::int32_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
+	Match_Clan_Member_Connected(do_nothing_1< const std::string& >),
+	Match_Clan_Request_EmblemURL(do_nothing_1< boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
+	Match_Clan_Response_EmblemURL(do_nothing_3< boost::int32_t, boost::int32_t, const std::string& >),
+	Match_Clan_Local_EmblemReady(do_nothing_2< boost::int32_t, const std::string& >),
+	MC_MATCH_CLAN_ACCOUNCE_DELETE(do_nothing_1< const std::string& >),
+	Match_Callvote(do_nothing_2< const std::string&, const std::string& >),
+	Match_NotifyCallvote(do_nothing_2< const std::string&, const std::string& >),
+	Match_NotifyVoteResult(do_nothing_2< const std::string&, boost::int32_t >),
+	Match_VoteYes(do_nothing_0),
+	Match_VoteNo(do_nothing_0),
+	Votestop(do_nothing_0),
+	Match_Broadcast_ClanRenewVictories(do_nothing_3< const std::string&, const std::string&, boost::int32_t >),
+	Match_Broadcast_ClanInterruptVictories(do_nothing_3< const std::string&, const std::string&, boost::int32_t >),
+	Match_Broadcast_DuelRenewVictories(do_nothing_4< const std::string&, const std::string&, boost::int32_t, boost::int32_t >),
+	Match_Broadcast_DuelInterruptVictories(do_nothing_3< const std::string&, const std::string&, boost::int32_t >),
+	Match_Assign_Berserker(do_nothing_1< boost::uint64_t >),
+	Match_Duel_QueueInfo(do_nothing_1< boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
+	Match_Quest_Ping(do_nothing_1< boost::uint32_t >),
+	Match_Quest_Pong(do_nothing_1< boost::uint32_t >),
+	MC_QUEST_NPCLIST(do_nothing_2< boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::int32_t >),
+	Event_ChangeMaster(do_nothing_0),
+	Event_ChangePassword(do_nothing_1< const std::string& >),
+	Event_RequestJJang(do_nothing_1< const std::string& >),
+	Event_RemoveJJang(do_nothing_1< const std::string& >),
+	Event_UpdateJJang(do_nothing_2< boost::uint64_t, bool >),
+	Quest_NPCSpawn(do_nothing_4< boost::uint64_t, boost::uint64_t, boost::uint8_t, boost::uint8_t >),
+	Quest_Entrust_NPC_Control(do_nothing_2< boost::uint64_t, boost::uint64_t >),
+	Quest_Checksum_NPCInfo(do_nothing_2< boost::uint64_t, boost::uint32_t >),
+	Quest_NPCDead(do_nothing_2< boost::uint64_t, boost::uint64_t >),
+	Quest_RefreshPlayerStatus(do_nothing_0),
+	Quest_NPC_AllClear(do_nothing_0),
+	Quest_Round_Start(do_nothing_1< boost::uint8_t >),
+	Quest_RequestDead(do_nothing_0),
+	Quest_PlayerDead(do_nothing_1< boost::uint64_t >),
+	Quest_ObtainQuestItem(do_nothing_1< boost::uint32_t >),
+	Quest_ObtainZItem(do_nothing_1< boost::uint32_t >),
+	Quest_State_Mapset(do_nothing_2< boost::uint64_t, boost::int8_t >),
+	Quest_Stage_GameInfo(do_nothing_3< boost::int8_t, boost::int8_t, boost::uint32_t >),
+	Quest_SectorBonus(do_nothing_3< boost::uint64_t, boost::uint32_t, boost::uint32_t >),
+	Quest_GameInfo(do_nothing_1< boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
+	Quest_Combat_State(do_nothing_1< boost::int8_t >),
+	Quest_Sector_Start(do_nothing_2< boost::int8_t, boost::uint8_t >),
+	Quest_Complete(do_nothing_1< boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
+	Quest_Failed(do_nothing_0),
+	Quest_Request_Moveto_Portal(do_nothing_1< boost::int8_t >),
+	Quest_Moveto_Portal(do_nothing_3< boost::int8_t, boost::uint8_t, boost::uint64_t >),
+	Quest_Readyto_NewSector(do_nothing_1< boost::uint64_t >),
+	Quest_Peer_NPC_BasicInfo(do_nothing_1< boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
+	Quest_Peer_NPC_HPInfo(do_nothing_2< boost::int32_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
+	Quest_Peer_NPC_Attack_Melee(do_nothing_1< boost::uint64_t >),
+	Quest_Peer_NPC_Attack_Range(do_nothing_2< boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
+	Quest_Peer_NPC_Skill_Start(do_nothing_4< boost::uint64_t, boost::int32_t, boost::uint64_t, const boost::array<float, 3>& >),
+	Quest_Peer_NPC_Skill_Execute(do_nothing_4< boost::uint64_t, boost::int32_t, boost::uint64_t, const boost::array<float, 3>& >),
+	Quest_Peer_NPC_Dead(do_nothing_2< boost::uint64_t, boost::uint64_t >),
+	Quest_Test_RequestNPCSpawn(do_nothing_2< boost::int32_t, boost::int32_t >),
+	Quest_Test_ClearNPC(do_nothing_0),
+	Quest_Test_SectorClear(do_nothing_0),
+	Quest_Test_Finish(do_nothing_0),
+	Admin_Announce(do_nothing_3< boost::uint64_t, const std::string&, boost::uint32_t >),
+	Admin_RequestBanPlayer(do_nothing_2< boost::uint64_t, const std::string& >),
+	Admin_ResponseBanPlayer(do_nothing_1< boost::int32_t >),
+	Admin_Hide(do_nothing_0),
+	MC_ADMIN_RESET_ALL_HACKING_BLOCK(do_nothing_0),
+	MC_ADMIN_RELOAD_GAMBLEITEM(do_nothing_0),
+	MC_ADMIN_ASSASIN(do_nothing_0),
+	Agent_Connect(do_nothing_2< const std::string&, boost::int32_t >),
+	Agent_Disconnect(do_nothing_0),
+	Match_RegisterAgent(do_nothing_3< const std::string&, boost::int32_t, boost::int32_t >),
+	Match_UnRegisterAgent(do_nothing_0),
+	Match_Agent_RequestLiveCheck(do_nothing_3< boost::uint32_t, boost::uint32_t, boost::uint32_t >),
+	Match_Agent_ResponseLiveCheck(do_nothing_1< boost::uint32_t >),
+	Agent_StageReserve(do_nothing_1< boost::uint64_t >),
+	Agent_StageRelease(do_nothing_1< boost::uint64_t >),
+	Agent_StageReady(do_nothing_1< boost::uint64_t >),
+	Agent_RelayPeer(do_nothing_3< boost::uint64_t, boost::uint64_t, boost::uint64_t >),
+	Questitem(do_nothing_1< boost::uint64_t >),
+	Quest_item_response(do_nothing_1< boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
+	Quest_item_buy(do_nothing_2< boost::uint64_t, boost::int32_t >),
+	Quest_item_responsebuy(do_nothing_2< boost::int32_t, boost::int32_t >),
+	Quest_item_sell(do_nothing_3< boost::uint64_t, boost::int32_t, boost::int32_t >),
+	Quest_item_responsesell(do_nothing_2< boost::int32_t, boost::int32_t >),
+	Quest_Reward(do_nothing_4< boost::int32_t, boost::int32_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
+	Quest_Request_Sacrifice(do_nothing_3< boost::uint64_t, boost::int32_t, boost::int32_t >),
+	Quest_Response_Sacrifice(do_nothing_4< boost::int32_t, boost::uint64_t, boost::int32_t, boost::int32_t >),
+	Quest_Callback_Sacrifice(do_nothing_3< boost::uint64_t, boost::int32_t, boost::int32_t >),
+	Quest_Callback_Result(do_nothing_4< boost::int32_t, boost::uint64_t, boost::int32_t, boost::int32_t >),
+	Quest_Request_SlotInfo(do_nothing_1< boost::uint64_t >),
+	Quest_Resonse_SlotInfo(do_nothing_4< boost::uint64_t, boost::int32_t, boost::uint64_t, boost::int32_t >),
+	Quest_RequestLevel(do_nothing_1< boost::uint64_t >),
+	Quest_ResponseLevel(do_nothing_1< boost::int32_t >),
+	Quest_Survival_Result(do_nothing_2< boost::int32_t, boost::int32_t >),
+	Quest_Survival_Ranking(do_nothing_1< boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
+	Quest_Survuval_PrivateRanking(do_nothing_2< boost::uint32_t, boost::uint32_t >),
+	Quest_Start_Fail(do_nothing_2< boost::int32_t, boost::uint64_t >),
+	monsterinfo(do_nothing_1< boost::int8_t >),
+	Quest_Bible_Request(do_nothing_1< boost::uint64_t >),
+	Quest_Bible_Response(do_nothing_2< boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
+	MC_REQUEST_GIVE_ONESELF_UP(do_nothing_0),
+	MC_RESPONSE_GAMBLEITEMLIST(do_nothing_1< boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
+	MC_MATCH_ROUTE_UPDATE_STAGE_EQUIP_LOOK(do_nothing_3< boost::uint64_t, boost::int32_t, boost::int32_t >),
+	MC_REQUEST_RESOURCE_CRC32(do_nothing_1< boost::uint32_t >),
+	MC_RESPONSE_RESOURCE_CRC32(do_nothing_1< boost::uint32_t >)
 {
-	Net_Ping = do_nothing_1<boost::uint32_t >;
-	Net_Pong = do_nothing_1<boost::uint32_t >;
-	Match_Announce = do_nothing_2<boost::uint32_t, const std::string& >;
-	Clock_Synchronize = do_nothing_1<boost::uint32_t >;
-	Match_Login = do_nothing_4<const std::string&, const std::string&, boost::int32_t, boost::uint32_t >;
-	Match_ResponseLogin = do_nothing_9<boost::int32_t, const std::string&, boost::int8_t, const std::string&, boost::uint8_t, boost::uint8_t, boost::uint64_t, bool, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Match_Response_Result = do_nothing_1<boost::int32_t >;
-	Match_LoginNetmarble = do_nothing_4<const std::string&, const std::string&, boost::int32_t, boost::uint32_t >;
-	MC_MATCH_DISCONNMSG = do_nothing_1<boost::uint32_t >;
-	MC_MATCH_LOGIN_NHNUSA = do_nothing_5<const std::string&, const std::string&, boost::int32_t, boost::uint32_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	MC_MATCH_LOGIN_GAMEON_JP = do_nothing_5<const std::string&, const std::string&, boost::int32_t, boost::uint32_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Match_ObjectCache = do_nothing_2<boost::uint8_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Match_BridgePeer = do_nothing_3<boost::uint64_t, boost::uint32_t, boost::uint32_t >;
-	Match_BridgePeerACK = do_nothing_2<boost::uint64_t, boost::int32_t >;
-	MatchServer_RequestRecommandedChannel = do_nothing_0;
-	MatchServer_ResponseRecommandedChannel = do_nothing_1<boost::uint64_t >;
-	Channel_Join = do_nothing_2<boost::uint64_t, boost::uint64_t >;
-	Channel_ResponseJoin = do_nothing_4<boost::uint64_t, boost::int32_t, const std::string&, bool >;
-	Channel_RequestJoinFromName = do_nothing_4<boost::uint64_t, boost::int32_t, boost::int32_t, const std::string& >;
-	Channel_Leave = do_nothing_2<boost::uint64_t, boost::uint64_t >;
-	Channel_ListStart = do_nothing_3<boost::uint64_t, boost::int32_t, boost::int32_t >;
-	Channel_ListStop = do_nothing_1<boost::uint64_t >;
-	Channel_List = do_nothing_1<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Channel_Request_Chat = do_nothing_3<boost::uint64_t, boost::uint64_t, const std::string& >;
-	Channel_Chat = do_nothing_4<boost::uint64_t, const std::string&, const std::string&, boost::int32_t >;
-	Channel_Request_Rule = do_nothing_1<boost::uint64_t >;
-	Channel_Response_Rule = do_nothing_2<boost::uint64_t, const std::string& >;
-	Channel_RequestAllPlayerList = do_nothing_4<boost::uint64_t, boost::uint64_t, boost::uint32_t, boost::uint32_t >;
-	Channel_ResponseAllPlayerList = do_nothing_2<boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Stage_Create = do_nothing_4<boost::uint64_t, const std::string&, bool, const std::string& >;
-	Stage_RequestJoin = do_nothing_2<boost::uint64_t, boost::uint64_t >;
-	Stage_RequestPrivateJoin = do_nothing_3<boost::uint64_t, boost::uint64_t, const std::string& >;
-	Stage_Join = do_nothing_4<boost::uint64_t, boost::uint64_t, boost::uint32_t, const std::string& >;
-	Stage_Leave = do_nothing_1<boost::uint64_t >;
-	Stage_Request_PlayerList = do_nothing_1<boost::uint64_t >;
-	Stage_Follow = do_nothing_1<const std::string& >;
-	Stage_Response_Follow = do_nothing_1<boost::int32_t >;
-	Stage_ResponseJoin = do_nothing_1<boost::int32_t >;
-	Stage_RequirePassword = do_nothing_2<boost::uint64_t, const std::string& >;
-	RequestGameInfo = do_nothing_2<boost::uint64_t, boost::uint64_t >;
-	ResponseGameInfo = do_nothing_4<boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Stage_ResponseCreate = do_nothing_1<boost::int32_t >;
-	Stage_Request_EnterBattle = do_nothing_2<boost::uint64_t, boost::uint64_t >;
-	Stage_EnterBattle = do_nothing_2<boost::uint8_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Stage_LeaveBattle = do_nothing_1<boost::uint64_t >;
-	Stage_Start = do_nothing_3<boost::uint64_t, boost::uint64_t, boost::int32_t >;
-	Stage_Map = do_nothing_2<boost::uint64_t, const std::string& >;
-	Stage_Chat = do_nothing_3<boost::uint64_t, boost::uint64_t, const std::string& >;
-	Stage_RequestQuickJoin = do_nothing_2<boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Stage_ResponseQuickJoin = do_nothing_2<boost::int32_t, boost::uint64_t >;
-	Stage_StageGo = do_nothing_1<boost::uint32_t >;
-	Stage_State = do_nothing_4<boost::uint64_t, boost::uint64_t, boost::int32_t, boost::int32_t >;
-	Stage_Team = do_nothing_3<boost::uint64_t, boost::uint64_t, boost::uint32_t >;
-	Stage_Master = do_nothing_2<boost::uint64_t, boost::uint64_t >;
-	Stage_ListStart = do_nothing_0;
-	Stage_ListStop = do_nothing_0;
-	Stage_List = do_nothing_3<boost::int8_t, boost::int8_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Stage_RequestStageList = do_nothing_3<boost::uint64_t, boost::uint64_t, boost::int32_t >;
-	Channel_RequestPlayerList = do_nothing_3<boost::uint64_t, boost::uint64_t, boost::int32_t >;
-	Channel_ResponsePlayerList = do_nothing_3<boost::uint8_t, boost::uint8_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Stage_RequestStageSetting = do_nothing_1<boost::uint64_t >;
-	Stage_ResponseStageSetting = do_nothing_5<boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::int32_t, boost::uint64_t >;
-	Stage_StageSetting = do_nothing_3<boost::uint64_t, boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Stage_Launch = do_nothing_2<boost::uint64_t, const std::string& >;
-	Stage_Finish = do_nothing_1<boost::uint64_t >;
-	Stage_RequestPeerList = do_nothing_2<boost::uint64_t, boost::uint64_t >;
-	Stage_ResponsePeerList = do_nothing_2<boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Loading_Complete = do_nothing_2<boost::uint64_t, boost::int32_t >;
-	Match_RequestPeerRelay = do_nothing_2<boost::uint64_t, boost::uint64_t >;
-	Match_ResponsePeerRelay = do_nothing_1<boost::uint64_t >;
-	Stage_RoundState = do_nothing_4<boost::uint64_t, boost::int32_t, boost::int32_t, boost::int32_t >;
-	Game_Kill = do_nothing_1<boost::uint64_t >;
-	Game_Requst_Spawn = do_nothing_3<boost::uint64_t, const boost::array<float, 3>&, const boost::array<float, 3>& >;
-	Game_LevelUp = do_nothing_2<boost::uint64_t, boost::int32_t >;
-	Game_LevelDown = do_nothing_2<boost::uint64_t, boost::int32_t >;
-	Game_Dead = do_nothing_4<boost::uint64_t, boost::uint32_t, boost::uint64_t, boost::uint32_t >;
-	Game_TeamBonus = do_nothing_2<boost::uint64_t, boost::uint32_t >;
-	Game_RequestTimeSync = do_nothing_1<boost::uint32_t >;
-	Game_ResponseTimeSync = do_nothing_2<boost::uint32_t, boost::uint32_t >;
-	Game_ReportTimeSync = do_nothing_2<boost::uint32_t, boost::uint32_t >;
-	Stage_RequestForcedEntry = do_nothing_2<boost::uint64_t, boost::uint64_t >;
-	Stage_ResponseForcedEntry = do_nothing_1<boost::int32_t >;
-	Stage_RoundFinishInfo = do_nothing_4<boost::uint64_t, boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Match_Notify = do_nothing_1<boost::uint32_t >;
-	Match_Whisper = do_nothing_3<const std::string&, const std::string&, const std::string& >;
-	Match_Where = do_nothing_1<const std::string& >;
-	Match_UserOption = do_nothing_1<boost::uint32_t >;
-	ChatRoom_Create = do_nothing_2<boost::uint64_t, const std::string& >;
-	ChatRoom_Join = do_nothing_2<const std::string&, const std::string& >;
-	ChatRoom_Leave = do_nothing_2<const std::string&, const std::string& >;
-	ChatRoom_SelectWrite = do_nothing_1<const std::string& >;
-	ChatRoom_Invite = do_nothing_3<const std::string&, const std::string&, const std::string& >;
-	ChatRoom_Chat = do_nothing_3<const std::string&, const std::string&, const std::string& >;
-	Match_RequestAccountCharList = do_nothing_1<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Match_ResponseAccountCharList = do_nothing_1<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Match_RequestAccountCharInfo = do_nothing_2<boost::int8_t, boost::int32_t >;
-	Match_ResponseAccountCharInfo = do_nothing_2<boost::int8_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Match_RequestSelectChar = do_nothing_3<boost::uint64_t, boost::uint32_t, boost::int32_t >;
-	Match_ResponseSelectChar = do_nothing_3<boost::int32_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Match_RequestCharInfo = do_nothing_2<boost::uint64_t, boost::uint32_t >;
-	Match_ResponseCharInfo = do_nothing_2<boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Match_RequestDeleteChar = do_nothing_4<boost::uint64_t, boost::uint32_t, boost::int32_t, const std::string& >;
-	Match_ResponseDeleteChar = do_nothing_1<boost::int32_t >;
-	Match_RequestCreateChar = do_nothing_8<boost::uint64_t, boost::uint32_t, boost::int32_t, const std::string&, boost::uint32_t, boost::uint32_t, boost::uint32_t, boost::uint32_t >;
-	Match_ResponseCreateChar = do_nothing_2<boost::int32_t, const std::string& >;
-	Match_RequestBuyItem = do_nothing_2<boost::uint64_t, boost::uint32_t >;
-	Match_ResponseBuyItem = do_nothing_1<boost::int32_t >;
-	Match_RequestSellItem = do_nothing_2<boost::uint64_t, boost::uint64_t >;
-	Match_ResponseSellItem = do_nothing_1<boost::int32_t >;
-	Match_RequestShopItemList = do_nothing_3<boost::uint64_t, boost::int32_t, boost::int32_t >;
-	Match_ResponseShopItemList = do_nothing_2<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Match_RequestCharacterItemList = do_nothing_1<boost::uint64_t >;
-	Match_RequestCharacterItemListForce = do_nothing_1<boost::uint64_t >;
-	Match_ResponseCharacterItemList = do_nothing_4<boost::int32_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	MatchRequestEquipItem = do_nothing_4<boost::uint64_t, boost::uint64_t, boost::uint32_t, boost::int32_t >;
-	MatchResponseEquipItem = do_nothing_1<boost::int32_t >;
-	MatchRequestTakeoffItem = do_nothing_3<boost::uint64_t, boost::uint32_t, boost::int32_t >;
-	MatchResponseTakeoffItem = do_nothing_1<boost::int32_t >;
-	Match_RequestAccountItemList = do_nothing_1<boost::uint64_t >;
-	Match_ResponseAccountItemList = do_nothing_1<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Match_RequestBringAccountItem = do_nothing_2<boost::uint64_t, boost::int32_t >;
-	Match_ResponseBringAccountItem = do_nothing_1<boost::int32_t >;
-	Match_RequestBringBackAccountItem = do_nothing_2<boost::uint64_t, boost::uint64_t >;
-	Match_ResponseBringBackAccountItem = do_nothing_1<boost::int32_t >;
-	Match_ExpiredRentItem = do_nothing_1<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Match_ItemGamble = do_nothing_1<boost::uint64_t >;
-	Match_GambleResultItem = do_nothing_2<boost::uint32_t, boost::uint32_t >;
-	Match_Request_Suicide = do_nothing_1<boost::uint64_t >;
-	Match_Response_Suicide = do_nothing_2<boost::int32_t, boost::uint64_t >;
-	Match_Response_SuicideReserve = do_nothing_0;
-	Match_Request_Obtain_WorldItem = do_nothing_2<boost::uint64_t, boost::int32_t >;
-	Match_WorldItem_Obtain = do_nothing_2<boost::uint64_t, boost::int32_t >;
-	Match_WorldItem_Spawn = do_nothing_1<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Match_Request_Spawn_WorldItem = do_nothing_4<boost::uint64_t, boost::int32_t, const boost::array<float, 3>&, float >;
-	Match_Request_Spawn_WorldItem_UID = do_nothing_1<boost::int32_t >;
-	Match_Reset_TeamMembers = do_nothing_1<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Match_Assign_Commander = do_nothing_2<boost::uint64_t, boost::uint64_t >;
-	Match_Set_Observer = do_nothing_1<boost::uint64_t >;
-	Match_Ladder_Request_Challenge = do_nothing_3<boost::int32_t, boost::uint32_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Match_Ladder_Response_Challenge = do_nothing_1<boost::int32_t >;
-	Match_Ladder_SearchRival = do_nothing_0;
-	Match_Ladder_Request_CancelChallenge = do_nothing_0;
-	Match_Ladder_CancelChallenge = do_nothing_1<const std::string& >;
-	Ladder_Prepare = do_nothing_2<boost::uint64_t, boost::int32_t >;
-	Ladder_Launch = do_nothing_2<boost::uint64_t, const std::string& >;
-	Match_RequestProposal = do_nothing_5<boost::uint64_t, boost::int32_t, boost::int32_t, boost::int32_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Match_ResponseProposal = do_nothing_3<boost::int32_t, boost::int32_t, boost::int32_t >;
-	Match_AskAgreement = do_nothing_4<boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::int32_t, boost::int32_t >;
-	Match_ReplyAgreement = do_nothing_6<boost::uint64_t, boost::uint64_t, const std::string&, boost::int32_t, boost::int32_t, bool >;
-	Match_Friend_Add = do_nothing_1<const std::string& >;
-	Match_Friend_Remove = do_nothing_1<const std::string& >;
-	Match_Friend_List = do_nothing_0;
-	Match_Response_FriendList = do_nothing_1<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Match_Friend_Msg = do_nothing_1<const std::string& >;
-	Match_Clan_RequestCreateClan = do_nothing_7<boost::uint64_t, boost::int32_t, const std::string&, const std::string&, const std::string&, const std::string&, const std::string& >;
-	Match_Clan_ResponseCreateClan = do_nothing_2<boost::int32_t, boost::int32_t >;
-	Match_Clan_AskSponsorAgreement = do_nothing_4<boost::int32_t, const std::string&, boost::uint64_t, const std::string& >;
-	Match_Clan_AnswerSponsorAgreement = do_nothing_4<boost::int32_t, boost::uint64_t, const std::string&, bool >;
-	Match_Clan_RequestAgreedCreateClan = do_nothing_6<boost::uint64_t, const std::string&, const std::string&, const std::string&, const std::string&, const std::string& >;
-	Match_Clan_AgreedResponseCreateClan = do_nothing_1<boost::int32_t >;
-	Match_Clan_RequestCloseClan = do_nothing_2<boost::uint64_t, const std::string& >;
-	Match_Clan_ResponseCloseClan = do_nothing_1<boost::int32_t >;
-	Match_Clan_RequestJoinClan = do_nothing_3<boost::uint64_t, const std::string&, const std::string& >;
-	Match_Clan_ResponseJoinClan = do_nothing_1<boost::int32_t >;
-	Match_Clan_AskJoinAgreement = do_nothing_3<const std::string&, boost::uint64_t, const std::string& >;
-	Match_Clan_AnswerJoinAgreement = do_nothing_3<boost::uint64_t, const std::string&, bool >;
-	Match_Clan_RequestAgreedJoinClan = do_nothing_3<boost::uint64_t, const std::string&, const std::string& >;
-	Match_Clan_ResponseAgreedJoinClan = do_nothing_1<boost::int32_t >;
-	Match_Clan_RequestLeaveClan = do_nothing_1<boost::uint64_t >;
-	Match_Clan_ResponseLeaveClan = do_nothing_1<boost::int32_t >;
-	Match_Clan_UpdateCharClanInfo = do_nothing_1<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Match_Clan_Master_RequestChangeGrade = do_nothing_4<boost::uint64_t, const std::string&, boost::int32_t, boost::int32_t >;
-	Match_Clan_Master_ResponseChangeGrade = do_nothing_1<boost::int32_t >;
-	Match_Clan_Admin_RequestExpelMember = do_nothing_2<boost::uint64_t, const std::string& >;
-	Match_Clan_Admin_ResponseLeaveMember = do_nothing_1<boost::int32_t >;
-	Match_Clan_Request_Msg = do_nothing_2<boost::uint64_t, const std::string& >;
-	Match_Clan_Msg = do_nothing_2<const std::string&, const std::string& >;
-	Match_Clan_Request_ClanMemberList = do_nothing_1<boost::uint64_t >;
-	Match_Clan_Response_ClanMemberList = do_nothing_1<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Match_Clan_Request_Clan_Info = do_nothing_2<boost::uint64_t, const std::string& >;
-	Match_Clan_Response_Clan_Info = do_nothing_1<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Match_Clan_Standby_ClanList = do_nothing_3<boost::int32_t, boost::int32_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Match_Clan_Member_Connected = do_nothing_1<const std::string& >;
-	Match_Clan_Request_EmblemURL = do_nothing_1<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Match_Clan_Response_EmblemURL = do_nothing_3<boost::int32_t, boost::int32_t, const std::string& >;
-	Match_Clan_Local_EmblemReady = do_nothing_2<boost::int32_t, const std::string& >;
-	MC_MATCH_CLAN_ACCOUNCE_DELETE = do_nothing_1<const std::string& >;
-	Match_Callvote = do_nothing_2<const std::string&, const std::string& >;
-	Match_NotifyCallvote = do_nothing_2<const std::string&, const std::string& >;
-	Match_NotifyVoteResult = do_nothing_2<const std::string&, boost::int32_t >;
-	Match_VoteYes = do_nothing_0;
-	Match_VoteNo = do_nothing_0;
-	Votestop = do_nothing_0;
-	Match_Broadcast_ClanRenewVictories = do_nothing_3<const std::string&, const std::string&, boost::int32_t >;
-	Match_Broadcast_ClanInterruptVictories = do_nothing_3<const std::string&, const std::string&, boost::int32_t >;
-	Match_Broadcast_DuelRenewVictories = do_nothing_4<const std::string&, const std::string&, boost::int32_t, boost::int32_t >;
-	Match_Broadcast_DuelInterruptVictories = do_nothing_3<const std::string&, const std::string&, boost::int32_t >;
-	Match_Assign_Berserker = do_nothing_1<boost::uint64_t >;
-	Match_Duel_QueueInfo = do_nothing_1<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Match_Quest_Ping = do_nothing_1<boost::uint32_t >;
-	Match_Quest_Pong = do_nothing_1<boost::uint32_t >;
-	MC_QUEST_NPCLIST = do_nothing_2<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::int32_t >;
-	Event_ChangeMaster = do_nothing_0;
-	Event_ChangePassword = do_nothing_1<const std::string& >;
-	Event_RequestJJang = do_nothing_1<const std::string& >;
-	Event_RemoveJJang = do_nothing_1<const std::string& >;
-	Event_UpdateJJang = do_nothing_2<boost::uint64_t, bool >;
-	Quest_NPCSpawn = do_nothing_4<boost::uint64_t, boost::uint64_t, boost::uint8_t, boost::uint8_t >;
-	Quest_Entrust_NPC_Control = do_nothing_2<boost::uint64_t, boost::uint64_t >;
-	Quest_Checksum_NPCInfo = do_nothing_2<boost::uint64_t, boost::uint32_t >;
-	Quest_NPCDead = do_nothing_2<boost::uint64_t, boost::uint64_t >;
-	Quest_RefreshPlayerStatus = do_nothing_0;
-	Quest_NPC_AllClear = do_nothing_0;
-	Quest_Round_Start = do_nothing_1<boost::uint8_t >;
-	Quest_RequestDead = do_nothing_0;
-	Quest_PlayerDead = do_nothing_1<boost::uint64_t >;
-	Quest_ObtainQuestItem = do_nothing_1<boost::uint32_t >;
-	Quest_ObtainZItem = do_nothing_1<boost::uint32_t >;
-	Quest_State_Mapset = do_nothing_2<boost::uint64_t, boost::int8_t >;
-	Quest_Stage_GameInfo = do_nothing_3<boost::int8_t, boost::int8_t, boost::uint32_t >;
-	Quest_SectorBonus = do_nothing_3<boost::uint64_t, boost::uint32_t, boost::uint32_t >;
-	Quest_GameInfo = do_nothing_1<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Quest_Combat_State = do_nothing_1<boost::int8_t >;
-	Quest_Sector_Start = do_nothing_2<boost::int8_t, boost::uint8_t >;
-	Quest_Complete = do_nothing_1<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Quest_Failed = do_nothing_0;
-	Quest_Request_Moveto_Portal = do_nothing_1<boost::int8_t >;
-	Quest_Moveto_Portal = do_nothing_3<boost::int8_t, boost::uint8_t, boost::uint64_t >;
-	Quest_Readyto_NewSector = do_nothing_1<boost::uint64_t >;
-	Quest_Peer_NPC_BasicInfo = do_nothing_1<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Quest_Peer_NPC_HPInfo = do_nothing_2<boost::int32_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Quest_Peer_NPC_Attack_Melee = do_nothing_1<boost::uint64_t >;
-	Quest_Peer_NPC_Attack_Range = do_nothing_2<boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Quest_Peer_NPC_Skill_Start = do_nothing_4<boost::uint64_t, boost::int32_t, boost::uint64_t, const boost::array<float, 3>& >;
-	Quest_Peer_NPC_Skill_Execute = do_nothing_4<boost::uint64_t, boost::int32_t, boost::uint64_t, const boost::array<float, 3>& >;
-	Quest_Peer_NPC_Dead = do_nothing_2<boost::uint64_t, boost::uint64_t >;
-	Quest_Test_RequestNPCSpawn = do_nothing_2<boost::int32_t, boost::int32_t >;
-	Quest_Test_ClearNPC = do_nothing_0;
-	Quest_Test_SectorClear = do_nothing_0;
-	Quest_Test_Finish = do_nothing_0;
-	Admin_Announce = do_nothing_3<boost::uint64_t, const std::string&, boost::uint32_t >;
-	Admin_RequestBanPlayer = do_nothing_2<boost::uint64_t, const std::string& >;
-	Admin_ResponseBanPlayer = do_nothing_1<boost::int32_t >;
-	Admin_Hide = do_nothing_0;
-	MC_ADMIN_RESET_ALL_HACKING_BLOCK = do_nothing_0;
-	MC_ADMIN_RELOAD_GAMBLEITEM = do_nothing_0;
-	MC_ADMIN_ASSASIN = do_nothing_0;
-	Agent_Connect = do_nothing_2<const std::string&, boost::int32_t >;
-	Agent_Disconnect = do_nothing_0;
-	Match_RegisterAgent = do_nothing_3<const std::string&, boost::int32_t, boost::int32_t >;
-	Match_UnRegisterAgent = do_nothing_0;
-	Match_Agent_RequestLiveCheck = do_nothing_3<boost::uint32_t, boost::uint32_t, boost::uint32_t >;
-	Match_Agent_ResponseLiveCheck = do_nothing_1<boost::uint32_t >;
-	Agent_StageReserve = do_nothing_1<boost::uint64_t >;
-	Agent_StageRelease = do_nothing_1<boost::uint64_t >;
-	Agent_StageReady = do_nothing_1<boost::uint64_t >;
-	Agent_RelayPeer = do_nothing_3<boost::uint64_t, boost::uint64_t, boost::uint64_t >;
-	Questitem = do_nothing_1<boost::uint64_t >;
-	Quest_item_response = do_nothing_1<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Quest_item_buy = do_nothing_2<boost::uint64_t, boost::int32_t >;
-	Quest_item_responsebuy = do_nothing_2<boost::int32_t, boost::int32_t >;
-	Quest_item_sell = do_nothing_3<boost::uint64_t, boost::int32_t, boost::int32_t >;
-	Quest_item_responsesell = do_nothing_2<boost::int32_t, boost::int32_t >;
-	Quest_Reward = do_nothing_4<boost::int32_t, boost::int32_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Quest_Request_Sacrifice = do_nothing_3<boost::uint64_t, boost::int32_t, boost::int32_t >;
-	Quest_Response_Sacrifice = do_nothing_4<boost::int32_t, boost::uint64_t, boost::int32_t, boost::int32_t >;
-	Quest_Callback_Sacrifice = do_nothing_3<boost::uint64_t, boost::int32_t, boost::int32_t >;
-	Quest_Callback_Result = do_nothing_4<boost::int32_t, boost::uint64_t, boost::int32_t, boost::int32_t >;
-	Quest_Request_SlotInfo = do_nothing_1<boost::uint64_t >;
-	Quest_Resonse_SlotInfo = do_nothing_4<boost::uint64_t, boost::int32_t, boost::uint64_t, boost::int32_t >;
-	Quest_RequestLevel = do_nothing_1<boost::uint64_t >;
-	Quest_ResponseLevel = do_nothing_1<boost::int32_t >;
-	Quest_Survival_Result = do_nothing_2<boost::int32_t, boost::int32_t >;
-	Quest_Survival_Ranking = do_nothing_1<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	Quest_Survuval_PrivateRanking = do_nothing_2<boost::uint32_t, boost::uint32_t >;
-	Quest_Start_Fail = do_nothing_2<boost::int32_t, boost::uint64_t >;
-	monsterinfo = do_nothing_1<boost::int8_t >;
-	Quest_Bible_Request = do_nothing_1<boost::uint64_t >;
-	Quest_Bible_Response = do_nothing_2<boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	MC_REQUEST_GIVE_ONESELF_UP = do_nothing_0;
-	MC_RESPONSE_GAMBLEITEMLIST = do_nothing_1<boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >;
-	MC_MATCH_ROUTE_UPDATE_STAGE_EQUIP_LOOK = do_nothing_3<boost::uint64_t, boost::int32_t, boost::int32_t >;
-	MC_REQUEST_RESOURCE_CRC32 = do_nothing_1<boost::uint32_t >;
-	MC_RESPONSE_RESOURCE_CRC32 = do_nothing_1<boost::uint32_t >;
 }
 
 
