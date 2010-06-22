@@ -123,7 +123,7 @@ std::vector<CharacterEntry> MySQLGunzDB::GetCharacterList (boost::uint32_t aid)
 			CharacterEntry character;
 			character.CharacterIndex = row["marker"];
 			character.CharacterLevel = row["level"];
-			character.CharacterName  = row["name"];
+			character.CharacterName  = std::string(row["name"]);
 
 			charList.push_back(character);
 		}
