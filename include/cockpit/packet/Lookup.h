@@ -20,7 +20,7 @@ struct BadCommandId : public std::runtime_error
 	boost::uint16_t commandId;
 
 	BadCommandId(boost::uint16_t commandId);
-	~BadCommandId();
+	~BadCommandId() throw();
 };
 
 /**

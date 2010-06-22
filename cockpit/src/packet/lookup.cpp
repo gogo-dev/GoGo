@@ -20,7 +20,7 @@ BadCommandId::BadCommandId(uint16_t _commandId)
 {
 }
 
-BadCommandId::~BadCommandId()
+BadCommandId::~BadCommandId() throw()
 {
 }
 

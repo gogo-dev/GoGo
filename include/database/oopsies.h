@@ -25,6 +25,10 @@ public:
 	{
 		return error.c_str();
 	}
+
+	~BannedUser() throw()
+	{
+	}
 };
 
 class InvalidCharacterInfo : public std::exception

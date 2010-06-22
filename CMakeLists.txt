@@ -62,8 +62,17 @@ else(MSVC)
   else()
     if(CMAKE_BUILD_TYPE STREQUAL None)
     else()
-      if(CMAKE_C_COMPILER STREQUAL gcc)
-        add_definitions(-flto -fwhole-program)
+      if(CMAKE_COMPILER_IS_GNUCXX)
+	try_compile(
+		COMPILER_SUPPORTS_LTO ${CMAKE_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/cmake/empty_program.cpp
+		COMPILE_DEFINITIONS -flto
+	)
+
+	message("LTO SUPPORT: " ${COMPILER_SUPPORTS_LTO})
+
+	if(COMPILER_SUPPORTS_LTO)
+	  add_definitions(-flto -fwhole-program)
+	endif()
       endif()
       add_definitions(-O3 -finline-functions -funroll-loops -funswitch-loops)
     endif()
