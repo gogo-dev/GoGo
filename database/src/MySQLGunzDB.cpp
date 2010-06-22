@@ -1,6 +1,6 @@
+#include <database/oopsies.h>
 #include <database/MySQLGunzDB.h>
 #include <exception>
-#include <database/oopsies.h>
 
 using namespace std;
 using namespace boost;
@@ -117,7 +117,7 @@ std::vector<CharacterEntry> MySQLGunzDB::GetCharacterList (boost::uint32_t aid)
 		mysqlpp::Query query = gunzconn.query();
 		query << "SELECT name,level,marker FROM `character` where accountid=" << aid << " ORDER BY marker ASC";
 		mysqlpp::Row row;
-		
+
 		while (row = query.use().fetch_row())
 		{
 			CharacterEntry character;

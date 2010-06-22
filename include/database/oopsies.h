@@ -1,5 +1,6 @@
 #pragma once
 #include <exception>
+#include <string>
 
 class InvalidAccountInfo : public std::exception
 {
@@ -17,7 +18,7 @@ public:
 
 	BannedUser(std::string account)
 	{
-		error = "Account is banned: " + account + "!";
+		error = std::string("Account is banned: ") + account + "!";
 	}
 
 	virtual const char* what() throw()

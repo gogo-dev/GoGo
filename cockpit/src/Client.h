@@ -31,7 +31,7 @@ public:
 
 private:
 	Logger* logger;
-	std::auto_ptr<ClientHandler> handler;
+	const std::auto_ptr<ClientHandler> handler;
 	packet::Registry registry;
 	boost::array<boost::uint8_t, 32> cryptoKey;
 
