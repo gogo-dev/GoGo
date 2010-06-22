@@ -24,5 +24,6 @@ public:
 	//Character process related function
 	std::vector<Item> GetEquipment (boost::uint32_t cid);
 	std::vector<Item> GetInventory (boost::uint32_t cid);
+	std::vector<CharacterEntry> GetCharacterList(boost::uint32_t aid);
 	CharacterInfo GetCharacterInfo(boost::uint32_t cid, boost::uint8_t slot);
 };

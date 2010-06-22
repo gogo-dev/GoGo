@@ -10,6 +10,22 @@ public:
 	}
 };
 
+class BannedUser : public std::exception
+{
+public:
+	std::string error;
+
+	BannedUser(std::string account)
+	{
+		error = "Account is banned: " + account + "!";
+	}
+
+	virtual const char* what() throw()
+	{
+		return error.c_str();
+	}
+};
+
 class InvalidCharacterInfo : public std::exception
 {
 	virtual const char* what() throw()

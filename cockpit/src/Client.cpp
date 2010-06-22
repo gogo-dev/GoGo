@@ -139,7 +139,7 @@ void Client::recieve_packet_header()
 // http://code.google.com/p/gunzemulator/wiki/RawPacketStructure
 static void decrypt_header(Client::PacketHeader* p, const uint8_t* cryptoKey)
 {
-	packet::decrypt(reinterpret_cast<uint8_t*>(&(p->fullSize)), sizeof(p->fullSize), 2, cryptoKey);
+	packet::decrypt(reinterpret_cast<uint8_t*>(&(p->fullSize)), sizeof(p->fullSize), 0, cryptoKey);
 }
 
 void Client::on_packet_header(
@@ -160,6 +160,7 @@ void Client::on_packet_header(
 	{
 		logger->debug(format("[%1%] Packet encrypted. Decrypting...") % get_ip());
 		decrypt_header(p.get(), cryptoKey.c_array());
+		logger->debug(format("[%1%] Packet Size: %2%") % get_ip() % p->fullSize);
 	}
 
 	else if(p->version != 0x64)
@@ -190,21 +191,27 @@ void Client::recieve_payload(uint16_t fullSize, bool encrypted)
 static Client::PayloadHeader extract_payload(shared_array<uint8_t> p, bool encrypted, const uint8_t* cryptoKey)
 {
 	uint8_t* ptr = p.get();
+	uint16_t counter = 0;
 	Client::PayloadHeader payload;
 
 	if(encrypted)
-		packet::decrypt(ptr, Client::PayloadHeader::SIZE, 6, cryptoKey);
+		packet::decrypt(ptr, Client::PayloadHeader::SIZE, 0, cryptoKey);
 
-	ptr = reinterpret_cast<uint8_t*>(memory::pcopy(&payload.dataSize, ptr, sizeof(payload.dataSize)));
-	ptr = reinterpret_cast<uint8_t*>(memory::pcopy(&payload.commandID, ptr, sizeof(payload.commandID)));
-	ptr = reinterpret_cast<uint8_t*>(memory::pcopy(&payload.packetID, ptr, sizeof(payload.packetID)));
+	memory::copy(&payload.dataSize, ptr+counter, sizeof(payload.dataSize));
+	counter += sizeof(payload.dataSize);
+
+	memory::copy(&payload.commandID, ptr+counter, sizeof(payload.commandID));
+	counter += sizeof(payload.commandID);
+
+	memory::copy(&payload.packetID, ptr+counter, sizeof(payload.packetID));
+	counter += sizeof(payload.packetID);
 
 	return payload;
 }
 
 static void decrypt_params(uint8_t* params, uint16_t paramLength, const uint8_t* cryptoKey)
 {
-	packet::decrypt(params, paramLength, SendablePacket::SIZE, cryptoKey);
+	packet::decrypt(params, paramLength, Client::PayloadHeader::SIZE, cryptoKey);
 }
 
 void Client::on_payload(shared_array<uint8_t> p, uint16_t payloadSize, bool encrypted, system::error_code err, size_t bytesTransferred)
@@ -230,8 +237,9 @@ void Client::on_payload(shared_array<uint8_t> p, uint16_t payloadSize, bool encr
 	assert(bytesTransferred == payloadSize);
 
 	PayloadHeader payload = extract_payload(p, encrypted, cryptoKey.c_array());
-	uint16_t paramLength = payloadSize - PayloadHeader::SIZE;
-	uint8_t* params = p.get() + PayloadHeader::SIZE;
+	logger->debug(format("Got Packet: %X") % payload.commandID);
+	uint16_t paramLength = payloadSize - Client::PayloadHeader::SIZE;	// LOL.
+	uint8_t* params = p.get() + Client::PayloadHeader::SIZE;
 
 	if(encrypted)
 		decrypt_params(params, paramLength, cryptoKey.c_array());
@@ -265,7 +273,7 @@ void Client::send(const packet::Packet* p)
 
 	SendablePacket* header = reinterpret_cast<SendablePacket*>(raw.get());
 
-	header->packetHeader.version = 0x65;
+	header->packetHeader.version = 0x65 ;
 	assert(packetLength <= 0xFFFF);
 	header->packetHeader.fullSize = static_cast<uint16_t>(packetLength);
 	header->packetHeader.checksum = 0;
@@ -275,13 +283,10 @@ void Client::send(const packet::Packet* p)
 	header->payloadHeader.commandID = p->id();
 	memory::copy(raw.get() + SendablePacket::SIZE, params.data(), params.length());
 
-	packet::encrypt(raw.get() + 2, 2, 2, cryptoKey.c_array());	// fullSize
-	packet::encrypt(raw.get() + 6, 4, 6, cryptoKey.c_array());	// Data header sans packetID.
-	packet::encrypt(raw.get() + 11, packetLength - PacketHeader::SIZE, SendablePacket::SIZE, cryptoKey.c_array());	// Parameters.
-
 	header->payloadHeader.packetID = currentPacketID++;
-	packet::encrypt(raw.get() + 10, 1, 10, cryptoKey.c_array());	// packetID.
-
+	packet::encrypt(raw.get() + 2, 2, 0, cryptoKey.c_array());	// fullSize
+	packet::encrypt(raw.get() + 6, packetLength - PacketHeader::SIZE, 0, cryptoKey.c_array());	//CommandId + PacketId + Parameters.		
+	
 	header->packetHeader.checksum = packet::checksum(raw.get(), packetLength);
 
 	socket.async_send(

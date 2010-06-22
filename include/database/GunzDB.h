@@ -6,6 +6,7 @@
 
 #include "AccountInfo.h"
 #include "CharacterInfo.h"
+#include "CharacterEntry.h"
 
 class GunzDB : boost::noncopyable
 {
@@ -14,6 +15,9 @@ public:
 	// InvalidAccountInfo if the information is invalid.
 	virtual AccountInfo GetAccountInfo(const std::string& user,
 	                                   const std::string& password) = 0;
+	
+	// Gets the character info from an account ID
+	virtual std::vector<CharacterEntry> GetCharacterList (const boost::uint32_t aid) = 0;
 
 	// Gets the character info from a character ID and slot in the character
 	// select screen, throwing InvalidCharacterInfo if any information is

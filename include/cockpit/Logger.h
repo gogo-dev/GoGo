@@ -21,8 +21,9 @@ public:
 #ifdef DEBUG
 	inline void debug(const char* message) { info(message); }
 #else
-	inline void debug(const char*)
+	inline void debug(const char* message)
 	{
+		info(message);
 	}
 #endif
 

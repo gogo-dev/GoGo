@@ -9,7 +9,7 @@ namespace packet {
 uint8_t* decrypt(uint8_t* toDecrypt, size_t length, size_t packetIndex, const uint8_t* key)
 {
 	uint8_t a, b;
-
+	
 	for(size_t loopEnd = packetIndex + length; packetIndex != loopEnd; ++packetIndex, ++toDecrypt)
 	{
 		a = *toDecrypt ^ 0xF0;

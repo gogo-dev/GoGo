@@ -27,7 +27,7 @@ AccountInfo MySQLGunzDB::GetAccountInfo(const std::string& user, const std::stri
 	{
 		mysqlpp::Query query = gunzconn.query();
 
-		query << "SELECT aid, ugradeid, pgradeid FROM account"
+		query << "SELECT aid, ugradeid, pgradeid FROM account "
 		         "WHERE username=" << mysqlpp::quote << user.c_str() <<
 		         " AND password=md5(" << mysqlpp::quote << password.c_str() << ")"
 		         " LIMIT 1";
@@ -42,7 +42,9 @@ AccountInfo MySQLGunzDB::GetAccountInfo(const std::string& user, const std::stri
 		accountInfo.AccountPremium = row["ugradeid"];
 		accountInfo.AccountName = user;
 
-		logger->info(format("Account Id: %1%    Access: %2%    Premium: %3%    Name: %4%") % accountInfo.AccountId % static_cast<uint32_t>(accountInfo.AccountAccess) % static_cast<uint32_t>(accountInfo.AccountPremium) % accountInfo.AccountName);
+		if (accountInfo.AccountAccess == 253 || accountInfo.AccountAccess == 105)
+			throw BannedUser (user);
+
 		return accountInfo;
 
 	} catch(mysqlpp::Exception& ex)	{
@@ -107,6 +109,31 @@ vector<Item> MySQLGunzDB::GetInventory(uint32_t cid)
 	return items;
 }
 
+std::vector<CharacterEntry> MySQLGunzDB::GetCharacterList (boost::uint32_t aid)
+{
+	std::vector<CharacterEntry> charList;
+	try
+	{
+		mysqlpp::Query query = gunzconn.query();
+		query << "SELECT name,level,marker FROM `character` where accountid=" << aid << " ORDER BY marker ASC";
+		mysqlpp::Row row;
+		
+		while (row = query.use().fetch_row())
+		{
+			CharacterEntry character;
+			character.CharacterIndex = row["marker"];
+			character.CharacterLevel = row["level"];
+			character.CharacterName  = row["name"];
+
+			charList.push_back(character);
+		}
+
+	} catch(mysqlpp::Exception& ex) {
+		logger->warning(format("MySQL Error: %1%") % ex.what());
+	}
+
+	return charList;
+}
 CharacterInfo MySQLGunzDB::GetCharacterInfo(boost::uint32_t cid, boost::uint8_t slot)
 {
 	CharacterInfo charInfo;
@@ -114,7 +141,7 @@ CharacterInfo MySQLGunzDB::GetCharacterInfo(boost::uint32_t cid, boost::uint8_t 
 	try
 	{
 		mysqlpp::Query query = gunzconn.query();
-		query << "SELECT * FROM character WHERE id=" << cid << " AND marker=" << slot <<" LIMIT 1";
+		query << "SELECT * FROM `character` WHERE id=" << cid << " AND marker=" << slot <<" LIMIT 1";
 		mysqlpp::Row row = query.use().fetch_row();
 
 		if(!row)

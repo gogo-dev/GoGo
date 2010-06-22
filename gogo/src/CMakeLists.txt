@@ -21,6 +21,7 @@ set(GOGO_SRC
 set(GOGO_MODULES
 	modules/handshake.cpp
 	modules/OnMatchLogin.cpp
+	modules/OnCharList.cpp
 	# Feel free to add more source files when they're added.
 )
 

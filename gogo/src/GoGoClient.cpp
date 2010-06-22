@@ -11,7 +11,7 @@ using namespace std;
 using namespace boost;
 using namespace cockpit;
 
-GoGoClient::GoGoClient(Logger* _logger, MUIDSanta* _santa)
+GoGoClient::GoGoClient(Logger* _logger, MUIDSanta* _santa, GunzDB* _database)
 {
 	assert(_logger);
 	logger = _logger;
@@ -19,6 +19,9 @@ GoGoClient::GoGoClient(Logger* _logger, MUIDSanta* _santa)
 	assert(_santa);
 	santa = _santa;
 	myMUID = santa->get();
+
+	assert (database);
+	database = _database;
 }
 
 void GoGoClient::initialize(Transmitter* _transmitter, packet::Registry* _registry)
@@ -30,7 +33,10 @@ void GoGoClient::initialize(Transmitter* _transmitter, packet::Registry* _regist
 	registry = _registry;
 
 	registry->Match_Login = bind(&GoGoClient::OnMatchLogin, this, _1, _2, _3, _4);
+	registry->Match_RequestAccountCharList = bind(&GoGoClient::OnCharList, this);
 }
+
+
 
 GoGoClient::~GoGoClient()
 {

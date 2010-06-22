@@ -136,7 +136,7 @@ string::string(const std::string& _value)
 
 Buffer string::serialize() const
 {
-	size_t bigSize = value.size() + 1;
+	size_t bigSize = value.size() + 2;
 	uint16_t len = static_cast<uint16_t>(bigSize);
 
 	// TODO: Truncate the string instead. (Will this have a major
@@ -267,7 +267,7 @@ Buffer blob::serialize() const
 {
 	uint32_t totalSize = (elementCount * elementSize) + 8;
 
-	Buffer serialized(totalSize + 12);
+	Buffer serialized(totalSize + 4);
 
 	uint8_t* rawPointer = serialized.data();
 	rawPointer = memory::pcopy(rawPointer, &totalSize, sizeof(uint32_t));

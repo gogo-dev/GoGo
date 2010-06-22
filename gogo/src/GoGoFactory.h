@@ -2,6 +2,7 @@
 
 #include <cockpit/ClientHandlerFactory.h>
 #include <cockpit/Logger.h>
+#include <database/GunzDB.h>
 #include "MUIDSanta.h"
 
 class GoGoFactory : public cockpit::ClientHandlerFactory
@@ -9,9 +10,10 @@ class GoGoFactory : public cockpit::ClientHandlerFactory
 private:
 	cockpit::Logger* logger;
 	MUIDSanta santa;
+	GunzDB* database;
 
 public:
-	GoGoFactory(cockpit::Logger* logger);
+	GoGoFactory(cockpit::Logger* logger, GunzDB* database);
 
 	cockpit::ClientHandler* create_client_handler();
 };

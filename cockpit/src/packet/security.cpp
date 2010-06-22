@@ -89,7 +89,7 @@ string extract_string(const uint8_t* paramStart, const uint8_t** currentParam, u
 	// Real length includes
 	uint16_t realLength = get_real_string_length(*currentParam, len);
 
-	if(realLength != (len - 1))
+	if(realLength != (len - 2))
 		throw ParseFailed();
 
 	string ret;
@@ -98,7 +98,7 @@ string extract_string(const uint8_t* paramStart, const uint8_t** currentParam, u
 	for(uint16_t i = 0; i < realLength; ++i)
 		ret += *(*currentParam)++;
 
-	++(*currentParam);	// Compensate for the null-terminator.
+	*currentParam += 2;	// Compensate for the null-terminator.
 
 	return ret;
 }
