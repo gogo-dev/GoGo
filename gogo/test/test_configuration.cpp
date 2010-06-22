@@ -3,6 +3,8 @@
 #include "../src/Configuration.h"
 #include "../src/Configuration.cpp"
 
+#include <boost/format.hpp>
+
 #include <sstream>
 
 using namespace std;

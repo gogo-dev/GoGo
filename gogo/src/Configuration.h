@@ -6,7 +6,6 @@
 
 #include <boost/call_traits.hpp>
 #include <boost/unordered_map.hpp>
-#include <boost/format.hpp>
 #include <boost/lexical_cast.hpp>
 
 #include <cstdio>
