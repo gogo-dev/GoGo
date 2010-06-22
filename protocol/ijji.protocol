@@ -70,9 +70,6 @@ Command Help = "Response Login"
     Parameter Type = 9
     Parameter = "uidPlayer"
 
-    Parameter Type = 3
-    Parameter = "bEnabledSurvivalMode"
-
     Parameter Type = A
     Parameter = "EncryptMsg"
 
