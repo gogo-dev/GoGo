@@ -13,7 +13,6 @@
 
 #include "Structures.h"
 
-using namespace boost;
 class MUIDSanta;
 
 class GoGoClient : public cockpit::ClientHandler
@@ -23,7 +22,7 @@ private:
 	cockpit::Transmitter* transmitter;
 	cockpit::packet::Registry* registry;
 	GunzDB* database;
-	
+
 	MUIDSanta* santa;
 	MUID myMUID;
 	AccountInfo myAccount;
@@ -33,6 +32,9 @@ public:
 	~GoGoClient();
 
 	void initialize(cockpit::Transmitter* transmitter, cockpit::packet::Registry* registry);
+
+	void OnFailedParse(boost::uint16_t commandID, const boost::uint8_t* parameters, boost::uint16_t length);
+	void OnInvalidPacketType(boost::uint16_t commandID);
 
 	void OnMatchLogin(const std::string& username, const std::string& password, boost::int32_t commandVersion, boost::uint32_t nChecksumPack);
 	void OnCharList();

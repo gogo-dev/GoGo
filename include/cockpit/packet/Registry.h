@@ -27,11 +27,13 @@ public:
 
 	~Registry();
 
-	/// This signal is called when the parsing of a packet has failed. Do whatever you want in here.
+	/// This function is called whenever a corrupt packet is encountered.
 	boost::function<void (boost::uint16_t /* packetID */,
 	                      const boost::uint8_t* /* rawParameters */,
 	                      boost::uint16_t /* length */)> OnFailedParse;
 
+	/// This function is called whenever a packet has a commandID that hasn't
+	/// been enumerated by the protocol.
 	boost::function<void (boost::uint16_t /* packetID */)> OnInvalidPacketType;
 
 	// Ping
