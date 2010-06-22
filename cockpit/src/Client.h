@@ -67,7 +67,7 @@ public:
 
 	void start();
 
-	void send(const packet::Packet* packet);
+	void send(const packet::Packet& packet);
 
 	void disconnect();
 

@@ -264,9 +264,9 @@ void Client::on_send(system::error_code err, size_t bytesTransferred, shared_arr
 
 
 
-void Client::send(const packet::Packet* p)
+void Client::send(const packet::Packet& p)
 {
-	Buffer params = p->serialize();
+	Buffer params = p.serialize();
 	size_t packetLength = SendablePacket::SIZE + params.length();
 
 	shared_array<uint8_t> raw(new uint8_t[packetLength]);
@@ -280,13 +280,13 @@ void Client::send(const packet::Packet* p)
 
 	assert((params.length() + PayloadHeader::SIZE) <= 0xFFFF);
 	header->payloadHeader.dataSize = static_cast<uint16_t>(params.length() + PayloadHeader::SIZE);
-	header->payloadHeader.commandID = p->id();
+	header->payloadHeader.commandID = p.id();
 	memory::copy(raw.get() + SendablePacket::SIZE, params.data(), params.length());
 
 	header->payloadHeader.packetID = currentPacketID++;
 	packet::encrypt(raw.get() + 2, 2, 0, cryptoKey.c_array());	// fullSize
-	packet::encrypt(raw.get() + 6, packetLength - PacketHeader::SIZE, 0, cryptoKey.c_array());	//CommandId + PacketId + Parameters.		
-	
+	packet::encrypt(raw.get() + 6, packetLength - PacketHeader::SIZE, 0, cryptoKey.c_array());	//CommandId + PacketId + Parameters.
+
 	header->packetHeader.checksum = packet::checksum(raw.get(), packetLength);
 
 	socket.async_send(

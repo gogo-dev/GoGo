@@ -9,12 +9,12 @@
 using namespace std;
 using namespace boost;
 using namespace cockpit;
-using namespace packet;
-
 void GoGoClient::OnCharList()
 {
-	std::vector<CharacterEntry> charList = database->GetCharacterList(myAccount.AccountId);
-	blob charBlob (charList.size(), 34);
+	using packet::protocol::Match_ResponseAccountCharList;
+
+	vector<CharacterEntry> charList = database->GetCharacterList(myAccount.AccountId);
+	packet::blob charBlob (charList.size(), 34);
 	logger->info(format("Character Count: %1%") % charList.size());
 
 	if (charList.size() == 0)
@@ -32,7 +32,5 @@ void GoGoClient::OnCharList()
 		}
 	}
 
-	protocol::Match_ResponseAccountCharList toSend(charBlob);
-
-	transmitter->send(&toSend);
+	transmitter->send(Match_ResponseAccountCharList(charBlob));
 }

@@ -19,7 +19,7 @@ public:
 
 		@param packet A pointer to a valid packet to send.
 	*/
-	virtual void send(const packet::Packet* packet) = 0;
+	virtual void send(const packet::Packet& packet) = 0;
 
 	/**
 		Disconnects the client. No more handlers will be called, the

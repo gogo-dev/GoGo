@@ -48,7 +48,6 @@ void GoGoClient::OnMatchLogin(
 	for (int i = 0; i < 5; ++i)
 		encryptMSG.add_param(packet::int32(0));
 
-	protocol::Match_ResponseLogin toSend(result, serverName, mode, account, ugrade, pgrade, muid, encryptMSG);
-	transmitter->send(&toSend);
+	transmitter->send(protocol::Match_ResponseLogin(result, serverName, mode, account, ugrade, pgrade, muid, encryptMSG));
 
 }
