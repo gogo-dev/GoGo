@@ -11,6 +11,7 @@
 #include <util/buffer.h>
 
 #include <string>
+#include <memory>
 
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/shared_ptr.hpp>
@@ -30,7 +31,7 @@ public:
 
 private:
 	Logger* logger;
-	ClientHandler* handler;
+	std::auto_ptr<ClientHandler> handler;
 	packet::Registry registry;
 	boost::array<boost::uint8_t, 32> cryptoKey;
 

@@ -81,7 +81,7 @@ Client::Client(Logger* _logger, ClientHandlerFactory* factory, io_service* io)
 {
 	assert(_logger);
 	assert(factory);
-	assert(handler);
+	assert(handler.get());
 	assert(io);
 
 	currentPacketID = 0;
@@ -335,8 +335,6 @@ void Client::disconnect()
 Client::~Client()
 {
 	disconnect();
-
-	delete handler;
 }
 
 }

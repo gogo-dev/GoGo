@@ -15,5 +15,5 @@ private:
 public:
 	GoGoFactory(cockpit::Logger* logger, GunzDB* database);
 
-	cockpit::ClientHandler* create_client_handler();
+	std::auto_ptr<cockpit::ClientHandler> create_client_handler();
 };

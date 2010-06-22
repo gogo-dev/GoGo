@@ -1,10 +1,12 @@
 #include "GoGoFactory.h"
-
 #include "GoGoClient.h"
 
 #include <cassert>
 
-GoGoFactory::GoGoFactory(cockpit::Logger* _logger, GunzDB* _database)
+using namespace std;
+using namespace cockpit;
+
+GoGoFactory::GoGoFactory(Logger* _logger, GunzDB* _database)
 {
 	assert(_logger);
 	logger = _logger;
@@ -13,7 +15,7 @@ GoGoFactory::GoGoFactory(cockpit::Logger* _logger, GunzDB* _database)
 	database = _database;
 }
 
-cockpit::ClientHandler* GoGoFactory::create_client_handler()
+auto_ptr<ClientHandler> GoGoFactory::create_client_handler()
 {
-	return new GoGoClient(logger, &santa, database);
+	return auto_ptr<ClientHandler>(new GoGoClient(logger, &santa, database));
 }

@@ -1,5 +1,5 @@
 #pragma once
-#include "ClientHandler.h"
+#include <memory>
 
 namespace cockpit {
 
@@ -17,9 +17,9 @@ public:
 		This is called whenever a client connects, and must create a valid
 		ClientHandler.
 
-		@return A valid ClientHandler, allocated with "new".
+		@return A valid ClientHandler.
 	*/
-	virtual ClientHandler* create_client_handler() = 0;
+	virtual std::auto_ptr<ClientHandler> create_client_handler() = 0;
 
 	virtual ~ClientHandlerFactory()
 	{
