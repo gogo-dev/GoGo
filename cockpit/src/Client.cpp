@@ -120,12 +120,14 @@ void Client::start()
 
 void Client::recieve_packet_header()
 {
-	shared_ptr<PacketHeader> p = make_shared<PacketHeader>();
+	packetPool.purge();
+
+	PacketHeader* p = packetPool.allocate<PacketHeader>();
 
 	async_read(socket,
 		// Instead of doing sizeof(RawPacket), we just get the packet header so
 		// we can drop the payload into an appropriately sized buffer.
-		buffer(p.get(), PacketHeader::SIZE),
+		buffer(p, PacketHeader::SIZE),
 		bind(
 			&Client::on_packet_header,
 			shared_from_this(),
@@ -143,10 +145,13 @@ static void decrypt_header(Client::PacketHeader* p, const uint8_t* cryptoKey)
 }
 
 void Client::on_packet_header(
-	shared_ptr<PacketHeader> p,
+	PacketHeader* p,
 	system::error_code err,
 	size_t bytesTransferred)
 {
+	assert(p);
+	PacketAllocator::auto_free f(packetPool, reinterpret_cast<boost::uint8_t*>(p));
+
 	if(err)
 	{
 		logger->info(format("[%1%] Failure in recv(Header).") % get_ip());
@@ -159,7 +164,7 @@ void Client::on_packet_header(
 	if(p->version == 0x65)
 	{
 		logger->debug(format("[%1%] Packet encrypted. Decrypting...") % get_ip());
-		decrypt_header(p.get(), cryptoKey.c_array());
+		decrypt_header(p, cryptoKey.c_array());
 		logger->debug(format("[%1%] Packet Size: %2%") % get_ip() % p->fullSize);
 	}
 
@@ -172,10 +177,12 @@ void Client::on_packet_header(
 void Client::recieve_payload(uint16_t fullSize, bool encrypted)
 {
 	uint16_t payloadSize = fullSize - PacketHeader::SIZE;
-	shared_array<uint8_t> payload(new uint8_t[payloadSize]);
+
+	packetPool.purge();
+	uint8_t* payload = packetPool.allocate(payloadSize);
 
 	async_read(socket,
-		buffer(payload.get(), payloadSize),
+		buffer(payload, payloadSize),
 		bind(
 			&Client::on_payload,
 			shared_from_this(),
@@ -188,22 +195,21 @@ void Client::recieve_payload(uint16_t fullSize, bool encrypted)
 	);
 }
 
-static Client::PayloadHeader extract_payload(shared_array<uint8_t> p, bool encrypted, const uint8_t* cryptoKey)
+static Client::PayloadHeader extract_payload(uint8_t* p, bool encrypted, const uint8_t* cryptoKey)
 {
-	uint8_t* ptr = p.get();
 	uint16_t counter = 0;
 	Client::PayloadHeader payload;
 
 	if(encrypted)
-		packet::decrypt(ptr, Client::PayloadHeader::SIZE, 0, cryptoKey);
+		packet::decrypt(p, Client::PayloadHeader::SIZE, 0, cryptoKey);
 
-	memory::copy(&payload.dataSize, ptr+counter, sizeof(payload.dataSize));
+	memory::copy(&payload.dataSize, p+counter, sizeof(payload.dataSize));
 	counter += sizeof(payload.dataSize);
 
-	memory::copy(&payload.commandID, ptr+counter, sizeof(payload.commandID));
+	memory::copy(&payload.commandID, p+counter, sizeof(payload.commandID));
 	counter += sizeof(payload.commandID);
 
-	memory::copy(&payload.packetID, ptr+counter, sizeof(payload.packetID));
+	memory::copy(&payload.packetID, p+counter, sizeof(payload.packetID));
 	counter += sizeof(payload.packetID);
 
 	return payload;
@@ -214,8 +220,10 @@ static void decrypt_params(uint8_t* params, uint16_t paramLength, const uint8_t*
 	packet::decrypt(params, paramLength, Client::PayloadHeader::SIZE, cryptoKey);
 }
 
-void Client::on_payload(shared_array<uint8_t> p, uint16_t payloadSize, bool encrypted, system::error_code err, size_t bytesTransferred)
+void Client::on_payload(uint8_t* p, uint16_t payloadSize, bool encrypted, system::error_code err, size_t bytesTransferred)
 {
+	PacketAllocator::auto_free f(packetPool, p);
+
 	if(err)
 	{
 		logger->debug(format("[%1%] Failure in recv(Payload).") % get_ip());
@@ -239,7 +247,7 @@ void Client::on_payload(shared_array<uint8_t> p, uint16_t payloadSize, bool encr
 	PayloadHeader payload = extract_payload(p, encrypted, cryptoKey.c_array());
 	logger->debug(format("Got Packet: %X") % payload.commandID);
 	uint16_t paramLength = payloadSize - Client::PayloadHeader::SIZE;	// LOL.
-	uint8_t* params = p.get() + Client::PayloadHeader::SIZE;
+	uint8_t* params = p + Client::PayloadHeader::SIZE;
 
 	if(encrypted)
 		decrypt_params(params, paramLength, cryptoKey.c_array());
@@ -250,8 +258,10 @@ void Client::on_payload(shared_array<uint8_t> p, uint16_t payloadSize, bool encr
 	recieve_packet_header();
 }
 
-void Client::on_send(system::error_code err, size_t bytesTransferred, shared_array<uint8_t>, size_t packetLength)
+void Client::on_send(system::error_code err, size_t bytesTransferred, uint8_t* p, size_t packetLength)
 {
+	PacketAllocator::auto_free f(packetPool, p);
+
 	if(err)
 	{
 		logger->info(format("Sending to %1% failed (%2%).") % get_ip() % err.message());
@@ -262,16 +272,14 @@ void Client::on_send(system::error_code err, size_t bytesTransferred, shared_arr
 	assert(bytesTransferred == packetLength);
 }
 
-
-
 void Client::send(const packet::Packet& p, bool encrypted)
 {
 	Buffer params = p.serialize();
 	size_t packetLength = SendablePacket::SIZE + params.length();
 
-	shared_array<uint8_t> raw(new uint8_t[packetLength]);
+	uint8_t* raw = packetPool.allocate(packetLength);
 
-	SendablePacket* header = reinterpret_cast<SendablePacket*>(raw.get());
+	SendablePacket* header = reinterpret_cast<SendablePacket*>(raw);
 
 	header->packetHeader.version = encrypted ? 0x65 : 0x64;
 	assert(packetLength <= 0xFFFF);
@@ -281,20 +289,20 @@ void Client::send(const packet::Packet& p, bool encrypted)
 	assert((params.length() + PayloadHeader::SIZE) <= 0xFFFF);
 	header->payloadHeader.dataSize = static_cast<uint16_t>(params.length() + PayloadHeader::SIZE);
 	header->payloadHeader.commandID = p.id();
-	memory::copy(raw.get() + SendablePacket::SIZE, params.data(), params.length());
+	memory::copy(raw + SendablePacket::SIZE, params.data(), params.length());
 
 	header->payloadHeader.packetID = currentPacketID++;
 
 	if(encrypted)
 	{
-		packet::encrypt(raw.get() + 2, 2, 0, cryptoKey.c_array());	// fullSize
-		packet::encrypt(raw.get() + 6, packetLength - PacketHeader::SIZE, 0, cryptoKey.c_array());	//CommandId + PacketId + Parameters.
+		packet::encrypt(raw + 2, 2, 0, cryptoKey.c_array());	// fullSize
+		packet::encrypt(raw + 6, packetLength - PacketHeader::SIZE, 0, cryptoKey.c_array());	//CommandId + PacketId + Parameters.
 	}
 
-	header->packetHeader.checksum = packet::checksum(raw.get(), packetLength);
+	header->packetHeader.checksum = packet::checksum(raw, packetLength);
 
 	socket.async_send(
-		buffer(raw.get(), packetLength),
+		buffer(raw, packetLength),
 		bind(
 			&Client::on_send,
 			shared_from_this(),
