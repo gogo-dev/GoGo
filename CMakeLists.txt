@@ -57,27 +57,33 @@ else(MSVC)
 	  -Wimplicit -Wparentheses -Wno-long-long -Wpointer-arith -Wcast-qual
 	  -Wdisabled-optimization)
 
-  if(CMAKE_BUILD_TYPE STREQUAL Debug)
-    add_definitions(-O0 -ggdb)
-  else()
-    if(CMAKE_BUILD_TYPE STREQUAL None)
-    else()
-      if(CMAKE_COMPILER_IS_GNUCXX)
-	try_compile(
-		COMPILER_SUPPORTS_LTO ${CMAKE_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/cmake/empty_program.cpp
-		COMPILE_DEFINITIONS -flto
-	)
+  #  try_compile(
+  #    COMPILER_SUPPORTS_LTO ${CMAKE_BINARY_DIR}
+  # ${CMAKE_CURRENT_SOURCE_DIR}/cmake/empty_program.cpp
+  # COMPILE_DEFINITIONS -flto -fwhole-program
+  #)
+ 
+  #list(APPEND CMAKE_C_FLAGS_DEBUG -O0 -DDEBUG)
+  #list(APPEND CMAKE_CXX_FLAGS_DEBUG -O0 -DDEBUG)
 
-	message("LTO SUPPORT: " ${COMPILER_SUPPORTS_LTO})
+  #list(APPEND CMAKE_C_FLAGS_RELEASE -finline-functions -funroll-loops -funswitch-loops)
+  #list(APPEND CMAKE_CXX_FLAGS_RELEASE -finline-functions -funroll-loops -funswitch-loops)
 
-	if(COMPILER_SUPPORTS_LTO)
-	  add_definitions(-flto -fwhole-program)
-	endif()
-      endif()
-      add_definitions(-O3 -finline-functions -funroll-loops -funswitch-loops)
-    endif()
-  endif()
-endif(MSVC)
+  #if(COMPILER_SUPPORTS_LTO)
+  # list(APPEND CMAKE_C_FLAGS_RELEASE -flto -fwhole-program)
+  # list(APPEND CMAKE_CXX_FLAGS_RELEASE -flto -fwhole-program)
+  #endif()
+
+endif()
+
+#message("BUILD TYPE: " ${CMAKE_BUILD_TYPE})
+#message("C FLAGS (Global): " ${CMAKE_C_FLAGS})
+#message("C FLAGS (Debug): " ${CMAKE_C_FLAGS_DEBUG})
+#message("C FLAGS (Release): " ${CMAKE_C_FLAGS_RELEASE})
+#message("")
+#message("CXX FLAGS (Global): " ${CMAKE_CXX_FLAGS})
+#message("CXX FLAGS (Debug): " ${CMAKE_C_FLAGS_DEBUG})
+#message("CXX FLAGS (Release): " ${CMAKE_CXX_FLAGS_RELEASE})
 
 # Add Source groups for lazy windows users.
 source_group("Header Files" REGULAR_EXPRESSION .*\\.h)
