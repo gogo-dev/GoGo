@@ -67,7 +67,7 @@ Registry::Registry()
 	Match_Announce(do_nothing_2< boost::uint32_t, const std::string& >),
 	Clock_Synchronize(do_nothing_1< boost::uint32_t >),
 	Match_Login(do_nothing_4< const std::string&, const std::string&, boost::int32_t, boost::uint32_t >),
-	Match_ResponseLogin(do_nothing_9< boost::int32_t, const std::string&, boost::int8_t, const std::string&, boost::uint8_t, boost::uint8_t, boost::uint64_t, bool, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
+	Match_ResponseLogin(do_nothing_8< boost::int32_t, const std::string&, boost::int8_t, const std::string&, boost::uint8_t, boost::uint8_t, boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
 	Match_Response_Result(do_nothing_1< boost::int32_t >),
 	Match_LoginNetmarble(do_nothing_4< const std::string&, const std::string&, boost::int32_t, boost::uint32_t >),
 	MC_MATCH_DISCONNMSG(do_nothing_1< boost::uint32_t >),
@@ -410,10 +410,9 @@ static void do_Match_ResponseLogin(Registry* self, const uint8_t* parameters, ui
 	uint8_t p4 = extract_uint8(parameters, &paramPtr, length);
 	uint8_t p5 = extract_uint8(parameters, &paramPtr, length);
 	uint64_t p6 = extract_MUID(parameters, &paramPtr, length);
-	bool p7 = extract_bool(parameters, &paramPtr, length);
-	tuple<Buffer, size_t, size_t> p8 = extract_blob(parameters, &paramPtr, length);
+	tuple<Buffer, size_t, size_t> p7 = extract_blob(parameters, &paramPtr, length);
 
-	self->Match_ResponseLogin(p0, p1, p2, p3, p4, p5, p6, p7, p8);
+	self->Match_ResponseLogin(p0, p1, p2, p3, p4, p5, p6, p7);
 }
 
 static void do_Match_Response_Result(Registry* self, const uint8_t* parameters, uint16_t length)

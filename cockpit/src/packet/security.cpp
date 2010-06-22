@@ -86,7 +86,7 @@ string extract_string(const uint8_t* paramStart, const uint8_t** currentParam, u
 	uint16_t len = extract_arbitrary_integer<uint16_t>(paramStart, currentParam, packetLength);
 	overflow_check(paramStart, packetLength, *currentParam, len);
 
-	// Real length includes
+	// Real length includes the null-terminators.
 	uint16_t realLength = get_real_string_length(*currentParam, len);
 
 	if(realLength != (len - 2))
@@ -98,7 +98,7 @@ string extract_string(const uint8_t* paramStart, const uint8_t** currentParam, u
 	for(uint16_t i = 0; i < realLength; ++i)
 		ret += *(*currentParam)++;
 
-	*currentParam += 2;	// Compensate for the null-terminator.
+	*currentParam += 2;	// Compensate for the null-terminators.
 
 	return ret;
 }

@@ -181,8 +181,8 @@ Buffer Match_Login::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_ResponseLogin::Match_ResponseLogin(packet::int32 _Result, packet::string _ServerName, packet::int8 _ServerMode, packet::string _AccountID, packet::uint8 _UGradeID, packet::uint8 _PGradeID, packet::MUID _uidPlayer, packet::boolean _bEnabledSurvivalMode, packet::blob _EncryptMsg)
-	: Result(_Result), ServerName(_ServerName), ServerMode(_ServerMode), AccountID(_AccountID), UGradeID(_UGradeID), PGradeID(_PGradeID), uidPlayer(_uidPlayer), bEnabledSurvivalMode(_bEnabledSurvivalMode), EncryptMsg(_EncryptMsg)
+Match_ResponseLogin::Match_ResponseLogin(packet::int32 _Result, packet::string _ServerName, packet::int8 _ServerMode, packet::string _AccountID, packet::uint8 _UGradeID, packet::uint8 _PGradeID, packet::MUID _uidPlayer, packet::blob _EncryptMsg)
+	: Result(_Result), ServerName(_ServerName), ServerMode(_ServerMode), AccountID(_AccountID), UGradeID(_UGradeID), PGradeID(_PGradeID), uidPlayer(_uidPlayer), EncryptMsg(_EncryptMsg)
 {
 }
 
@@ -211,7 +211,6 @@ Buffer Match_ResponseLogin::serialize() const
 		UGradeID.serialize(),
 		PGradeID.serialize(),
 		uidPlayer.serialize(),
-		bEnabledSurvivalMode.serialize(),
 		EncryptMsg.serialize()
 	};
 
