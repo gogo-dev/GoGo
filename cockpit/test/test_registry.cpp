@@ -3,7 +3,7 @@
 
 #include <cstddef>
 
-void test_no_handler_for_call()
+static void test_no_handler_for_call()
 {
 	cockpit::packet::Registry r;
 
