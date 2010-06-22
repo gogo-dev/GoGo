@@ -17,9 +17,11 @@ public:
 		Sends a raw packet across the 'net to our client. It is assumed you are
 		already connected to the client.
 
-		@param packet A pointer to a valid packet to send.
+		@param packet    A pointer to a valid packet to send.
+		@param encrypted Shall we send this packet encrypted, or raw? If you
+		                 don't know, just leave it blank.
 	*/
-	virtual void send(const packet::Packet& packet) = 0;
+	virtual void send(const packet::Packet& packet, bool encrypted = true) = 0;
 
 	/**
 		Disconnects the client. No more handlers will be called, the

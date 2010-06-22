@@ -264,7 +264,7 @@ void Client::on_send(system::error_code err, size_t bytesTransferred, shared_arr
 
 
 
-void Client::send(const packet::Packet& p)
+void Client::send(const packet::Packet& p, bool encrypted)
 {
 	Buffer params = p.serialize();
 	size_t packetLength = SendablePacket::SIZE + params.length();
@@ -273,7 +273,7 @@ void Client::send(const packet::Packet& p)
 
 	SendablePacket* header = reinterpret_cast<SendablePacket*>(raw.get());
 
-	header->packetHeader.version = 0x65 ;
+	header->packetHeader.version = encrypted ? 0x65 : 0x64;
 	assert(packetLength <= 0xFFFF);
 	header->packetHeader.fullSize = static_cast<uint16_t>(packetLength);
 	header->packetHeader.checksum = 0;
@@ -284,8 +284,12 @@ void Client::send(const packet::Packet& p)
 	memory::copy(raw.get() + SendablePacket::SIZE, params.data(), params.length());
 
 	header->payloadHeader.packetID = currentPacketID++;
-	packet::encrypt(raw.get() + 2, 2, 0, cryptoKey.c_array());	// fullSize
-	packet::encrypt(raw.get() + 6, packetLength - PacketHeader::SIZE, 0, cryptoKey.c_array());	//CommandId + PacketId + Parameters.
+
+	if(encrypted)
+	{
+		packet::encrypt(raw.get() + 2, 2, 0, cryptoKey.c_array());	// fullSize
+		packet::encrypt(raw.get() + 6, packetLength - PacketHeader::SIZE, 0, cryptoKey.c_array());	//CommandId + PacketId + Parameters.
+	}
 
 	header->packetHeader.checksum = packet::checksum(raw.get(), packetLength);
 
