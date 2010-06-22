@@ -516,6 +516,59 @@ def build_all_packets_cpp(filename, commands):
 
 	print(make_all_packets_cpp_footer(), end='', file=f)
 
+def make_lookup_header():
+	return """#include <cockpit/packet/Lookup.h>
+#include <cockpit/packet/protocol/all>
+
+using namespace boost;
+
+namespace cockpit {
+namespace packet {
+
+PacketInfo::PacketInfo(const char* _name, const char* _doc, uint16_t _commandID)
+	: name(_name), doc(_doc), commandId(_commandID)
+{
+}
+
+PacketInfo::~PacketInfo()
+{
+}
+
+BadCommandId::BadCommandId(uint16_t _commandId)
+	: std::runtime_error("Bad command ID!"), commandId(_commandId)
+{
+}
+
+BadCommandId::~BadCommandId()
+{
+}
+
+PacketInfo lookup(uint16_t commandID)
+{
+	switch(commandID)
+	{
+\t\t"""
+
+def make_lookup_command(command):
+	return 'case protocol::%s::packetID: return PacketInfo("%s", "%s", commandID);' % (command.name, command.name, command.docstring)
+
+def make_lookup_footer():
+	return """
+		default: throw BadCommandId(commandID);
+	}
+}
+
+}
+}
+"""
+
+def build_lookup(filename, commands):
+	f = open(filename, 'w')
+
+	print(make_lookup_header(), end='', file=f)
+	print('\n\t\t'.join([make_lookup_command(c) for c in commands]), end='', file=f)
+	print(make_lookup_footer(), end='', file=f)
+
 commands = list()
 
 from sys import argv
@@ -528,6 +581,7 @@ if len(argv) == 2:
 	for c in commands:
 		build_command_header(''.join(["include/cockpit/packet/protocol/", c.name, '.h']), c)
 	build_all_packets_cpp("cockpit/src/packet/all_packets.cpp", commands)
+	build_lookup("cockpit/src/packet/lookup.cpp", commands)
 else:
 	print('Usage: "./parse.py [protocol file]"')
 	print("Please note that the build files will be generated in subdirectories of parse.py.")

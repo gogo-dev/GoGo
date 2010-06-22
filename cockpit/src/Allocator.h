@@ -6,6 +6,10 @@
 #include <boost/static_assert.hpp>
 #include <cassert>
 
+#ifdef BOOST_NO_NULLPTR
+	#define nullptr NULL
+#endif
+
 namespace cockpit {
 
 // A very basic arena implementation. Useful for the "many small allocations"
@@ -56,7 +60,7 @@ public:
 		if((ptr < heap) || (ptr >= heapEnd))
 			delete[] ptr;
 
-		ptr = NULL;
+		ptr = nullptr;
 	}
 
 	// Resets the heap. This is hugely unsafe. Make sure you've called free()
@@ -65,6 +69,10 @@ public:
 	void purge()
 	{
 		currentElem = heap;
+	}
+
+	~Allocator()
+	{
 	}
 
 	/**
@@ -120,10 +128,10 @@ public:
 			alloc.free(ptr);
 		}
 	};
-
-	~Allocator()
-	{
-	}
 };
 
 }
+
+#ifdef BOOST_NO_NULLPTR
+	#undef nullptr
+#endif
