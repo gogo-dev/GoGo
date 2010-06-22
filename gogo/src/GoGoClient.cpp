@@ -40,22 +40,6 @@ void GoGoClient::initialize(Transmitter* _transmitter, packet::Registry* _regist
 	registry->Match_RequestAccountCharList = bind(&GoGoClient::OnCharList, this);
 }
 
-void GoGoClient::OnFailedParse(boost::uint16_t commandID, const boost::uint8_t* /* parameters */, boost::uint16_t /* length */)
-{
-	try {
-		packet::PacketInfo info = packet::lookup(commandID);
-		logger->info(format("[%1%] Parsing failed for %2% (doc=\"%3%\", id=%4%)") % transmitter->get_ip() % info.name % info.doc % info.commandId);
-
-	} catch(const packet::BadCommandId&) {
-		logger->error("Cockpit tried to parse a commandID that isn't valid. It will be dropped. Please report this error.");
-	}
-}
-
-void GoGoClient::OnInvalidPacketType(boost::uint16_t commandID)
-{
-	logger->info(format("[%1%] Nonpresent commandID [%2%] detected. This is not part of the protocol!") % transmitter->get_ip() % commandID);
-}
-
 GoGoClient::~GoGoClient()
 {
 	santa->give_back(myMUID);
