@@ -7,7 +7,7 @@ void test_no_handler_for_call()
 {
 	cockpit::packet::Registry r;
 
-	r.dispatch(531, NULL, 0);
+	r.dispatch(531 /* Admin_Hide */, NULL, 0);
 }
 
 int test_main(int, char**)
