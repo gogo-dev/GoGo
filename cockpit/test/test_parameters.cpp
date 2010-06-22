@@ -69,7 +69,7 @@ static void test_string()
 	Buffer serialized = packit.serialize();
 
 	uint8_t expected[] = {
-		0x05, 0x00, 't', 'e', 's', 't', 0x00, 0x0
+		0x04, 0x00, 't', 'e', 's', 't', 0x00, 0x00
 	};
 
 	check_array_equal(serialized.data(), expected, countof(expected));
@@ -127,7 +127,7 @@ static void test_blob()
 		28, 0, 0, 0, //totalSize
 		20, 0, 0, 0, //elementSize
 		1,  0, 0, 0, //elementCount
-		
+
 		0, 0, 0, 0, 0,
 		0, 0, 0, 0, 0,
 		0, 0, 0, 0, 0,
@@ -205,18 +205,18 @@ int test_main(int, char**)
 	test_uint32();
 	test_floating_point();
 	test_boolean();
-	
-	//test_blob_string();
-	//test_string();
-	//test_position();
-	//test_direction();
-	//test_color();
-	//test_MUID();
+
+	test_blob_string();
+	test_string();
+	test_position();
+	test_direction();
+	test_color();
+	test_MUID();
 	test_blob();
-	//test_int8();
-	//test_uint8();
-	//test_int16();
-	//test_uint16();
+	test_int8();
+	test_uint8();
+	test_int16();
+	test_uint16();
 
 	return 0;
 }

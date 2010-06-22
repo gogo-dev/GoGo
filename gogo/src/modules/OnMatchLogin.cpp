@@ -13,8 +13,8 @@ using namespace packet;
 void GoGoClient::OnMatchLogin(
     const std::string& username,
 	const std::string& password,
-	int32_t commandVersion,
-	uint32_t ChecksumPack)
+	int32_t /* commandVersion */,
+	uint32_t /* ChecksumPack */)
 {
 	PacketErrorCode errorCode;
 

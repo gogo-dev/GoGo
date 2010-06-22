@@ -136,20 +136,23 @@ string::string(const std::string& _value)
 
 Buffer string::serialize() const
 {
-	size_t bigSize = value.size() + 2;
-	uint16_t len = static_cast<uint16_t>(bigSize);
+	static const uint16_t zero = 0;
+
+	size_t actualSize = value.length() + 4; // Includes the length header and two null-terminators.
+	uint16_t len = static_cast<uint16_t>(value.length());
 
 	// TODO: Truncate the string instead. (Will this have a major
 	// performance penalty?) (answer: probably not.)
-	if(bigSize > 0xFFFF)
+	if(actualSize > 0xFFFF)
 		return ::cockpit::packet::string("[string too large]").serialize();
 
-	Buffer serialized(sizeof(uint16_t) + len);
+	Buffer serialized(actualSize);
 
 	uint8_t* rawPointer = serialized.data();
 
 	rawPointer = memory::pcopy(rawPointer, &len, sizeof(len));
-	memory::copy(rawPointer, value.c_str(), len);
+	rawPointer = memory::pcopy(rawPointer, value.c_str(), value.length());
+	memory::copy(rawPointer, &zero, sizeof(zero));	// The null-terminators.
 
 	return serialized;
 }

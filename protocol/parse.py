@@ -217,6 +217,7 @@ def make_packet_registry_constructor(commands):
 	ret =  """
 Registry::Registry()
 	:
+	OnFailedParse(do_nothing_3<uint16_t, const uint8_t*, uint16_t>),
 	"""
 
 	def make_params(command):

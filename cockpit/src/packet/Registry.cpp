@@ -62,6 +62,7 @@ static void do_nothing_9(T1, T2, T3, T4, T5, T6, T7, T8, T9) {}
 
 Registry::Registry()
 	:
+	OnFailedParse(do_nothing_3<uint16_t, const uint8_t*, uint16_t>),
 	Net_Ping(do_nothing_1< boost::uint32_t >),
 	Net_Pong(do_nothing_1< boost::uint32_t >),
 	Match_Announce(do_nothing_2< boost::uint32_t, const std::string& >),
