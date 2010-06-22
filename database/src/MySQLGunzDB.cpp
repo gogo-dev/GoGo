@@ -27,8 +27,8 @@ AccountInfo MySQLGunzDB::GetAccountInfo(const std::string& user, const std::stri
 	{
 		mysqlpp::Query query = gunzconn.query();
 
-		query << "SELECT aid, ugradeid, pgradeid FROM account "
-		         "WHERE username=" << mysqlpp::quote << user.c_str() <<
+		query << "SELECT aid, ugradeid, pgradeid FROM account"
+		         " WHERE username=" << mysqlpp::quote << user.c_str() <<
 		         " AND password=md5(" << mysqlpp::quote << password.c_str() << ")"
 		         " LIMIT 1";
 
@@ -42,8 +42,8 @@ AccountInfo MySQLGunzDB::GetAccountInfo(const std::string& user, const std::stri
 		accountInfo.AccountPremium = row["ugradeid"];
 		accountInfo.AccountName = user;
 
-		if (accountInfo.AccountAccess == 253 || accountInfo.AccountAccess == 105)
-			throw BannedUser (user);
+		if ((accountInfo.AccountAccess == 253) || (accountInfo.AccountAccess == 105))
+			throw BannedUser(user);
 
 		return accountInfo;
 
