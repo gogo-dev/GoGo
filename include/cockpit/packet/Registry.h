@@ -32,6 +32,8 @@ public:
 	                      const boost::uint8_t* /* rawParameters */,
 	                      boost::uint16_t /* length */)> OnFailedParse;
 
+	boost::function<void (boost::uint16_t /* packetID */)> OnInvalidPacketType;
+
 	// Ping
 	boost::function<void (boost::uint32_t /* TimeStamp */)> Net_Ping;
 

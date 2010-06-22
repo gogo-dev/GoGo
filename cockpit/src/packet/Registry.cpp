@@ -63,6 +63,7 @@ static void do_nothing_9(T1, T2, T3, T4, T5, T6, T7, T8, T9) {}
 Registry::Registry()
 	:
 	OnFailedParse(do_nothing_3<uint16_t, const uint8_t*, uint16_t>),
+	OnInvalidPacketType(do_nothing_1<uint16_t>),
 	Net_Ping(do_nothing_1< boost::uint32_t >),
 	Net_Pong(do_nothing_1< boost::uint32_t >),
 	Match_Announce(do_nothing_2< boost::uint32_t, const std::string& >),
@@ -3392,6 +3393,7 @@ void Registry::dispatch(uint16_t packetID,
 			case protocol::MC_MATCH_ROUTE_UPDATE_STAGE_EQUIP_LOOK::packetID: return do_MC_MATCH_ROUTE_UPDATE_STAGE_EQUIP_LOOK(this, parameters, length);
 			case protocol::MC_REQUEST_RESOURCE_CRC32::packetID: return do_MC_REQUEST_RESOURCE_CRC32(this, parameters, length);
 			case protocol::MC_RESPONSE_RESOURCE_CRC32::packetID: return do_MC_RESPONSE_RESOURCE_CRC32(this, parameters, length);
+			default: return this->OnInvalidPacketType(packetID);
 		}
 	} catch(...) {
 		this->OnFailedParse(packetID, parameters, length);

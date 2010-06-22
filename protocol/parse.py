@@ -123,7 +123,9 @@ public:
 	/// This signal is called when the parsing of a packet has failed. Do whatever you want in here.
 	boost::function<void (boost::uint16_t /* packetID */,
 	                      const boost::uint8_t* /* rawParameters */,
-	                      boost::uint16_t /* length */)> OnFailedParse;"""
+	                      boost::uint16_t /* length */)> OnFailedParse;
+
+	boost::function<void (boost::uint16_t /* packetID */)> OnInvalidPacketType;"""
 
 def make_packet_registry_header_footer():
 	return "\n};\n\n}\n}\n"
@@ -218,6 +220,7 @@ def make_packet_registry_constructor(commands):
 Registry::Registry()
 	:
 	OnFailedParse(do_nothing_3<uint16_t, const uint8_t*, uint16_t>),
+	OnInvalidPacketType(do_nothing_1<uint16_t>),
 	"""
 
 	def make_params(command):
@@ -302,7 +305,7 @@ def make_dispatch(commands):
 	for c in commands:
 		ret = ''.join([ret, '\n\t\t\tcase protocol::', c.name, '::packetID: return do_', c.name, '(this, parameters, length);'])
 
-	ret = ''.join([ret, '\n\t\t}\n\t} catch(...) {\n\t\tthis->OnFailedParse(packetID, parameters, length);\n\t}\n}'])
+	ret = ''.join([ret, '\n\t\t\tdefault: return this->OnInvalidPacketType(packetID);\n\t\t}\n\t} catch(...) {\n\t\tthis->OnFailedParse(packetID, parameters, length);\n\t}\n}'])
 
 	return ret
 
