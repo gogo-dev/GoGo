@@ -19,7 +19,7 @@ public:
 		and are optimized out by the compiler.
 	*/
 #ifdef DEBUG
-	inline void debug(const char* message) { info(message); }
+	inline void debug(const char* message) {}
 #else
 	inline void debug(const char* message)
 	{
