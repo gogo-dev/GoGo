@@ -18,7 +18,7 @@ template <size_t heapSize>
 class Allocator : boost::noncopyable
 {
 private:
-	uint8_t heap[heapSize];
+	boost::uint8_t heap[heapSize];
 	boost::uint8_t* currentElem;
 	boost::uint8_t* heapEnd;
 
