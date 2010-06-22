@@ -74,11 +74,15 @@ public:
 		the configuration. If the value is not present, std::runtime_error is
 		thrown.
 
-		@throws std::runtime_error Thrown when the key could not be found.
+		@throws std::runtime_error      If the key could not be found in the
+		                                configuration file.
 
-		@param  key                The key used to look up the correct value.
+		@throws boost::bad_lexical_cast If the value could be found, but
+		                                casting it to the correct type failed.
 
-		@return                    The value for the requested key.
+		@param  key                     The key used to look up the correct value.
+
+		@return                         The value for the requested key.
 	*/
 	template <typename T>
 	T get_value(const std::string& key) const
@@ -89,13 +93,9 @@ public:
 		ValueMap::const_iterator loc = values.find(key);
 
 		if(loc == values.end())
-			throw runtime_error((format("[%1% => ???] Could not find %1% in the configuration file.") % key).str().c_str());
+			throw runtime_error("Key could not be found in the configuration file.");
 
-		try {
-			return lexical_cast<T>(loc->second);
-		} catch(const boost::bad_lexical_cast&) {
-			throw runtime_error((format("[%1% => %2%] Could not coerce %2% to the correct type.") % key % loc->second).str().c_str());
-		}
+		return lexical_cast<T>(loc->second);
 	}
 
 	~Configuration();

@@ -90,8 +90,14 @@ static void acceptance_test()
 		check_equal(9, conf.get_value<int>("penis.size"));
 
 		try {
+			conf.get_value<int>("db.username");
+			BOOST_FAIL("Exception should be thrown!");
+		} catch(const boost::bad_lexical_cast&) {
+		}
+
+		try {
 			conf.get_value<string>("nonexistant");
-			BOOST_FAIL("Exception shoul dbe thrown.");
+			BOOST_FAIL("Exception should be thrown.");
 		} catch(const std::runtime_error&) {
 		}
 
