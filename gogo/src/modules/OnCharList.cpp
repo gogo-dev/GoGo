@@ -32,5 +32,7 @@ void GoGoClient::OnCharList()
 		}
 	}
 
-	transmitter->send(&protocol::Match_ResponseAccountCharList(charBlob));
+	Protocol::Match_ResponseAccountCharList toSend(charBlob);
+
+	transmitter->send(&toSend);
 }
