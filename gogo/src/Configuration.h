@@ -86,15 +86,12 @@ public:
 	template <typename T>
 	T get_value(const std::string& key) const
 	{
-		using namespace std;
-		using namespace boost;
-
 		ValueMap::const_iterator loc = values.find(key);
 
 		if(loc == values.end())
-			throw runtime_error("Key could not be found in the configuration file.");
+			throw std::runtime_error("Key could not be found in the configuration file.");
 
-		return lexical_cast<T>(loc->second);
+		return boost::lexical_cast<T>(loc->second);
 	}
 
 	~Configuration();
