@@ -1058,9 +1058,6 @@ Command Help = "Request Select Character"
     Parameter Type = 1
     Parameter = "CharIndex"
 
-    Parameter Type = 0
-    Parameter = "one"
-
 Command ID = 6A8
 Command = "Match.ResponseSelectChar"
 Command Help = "Response Select Character"
@@ -1104,9 +1101,6 @@ Command Help = "Request Delete Character"
     Parameter Type = 1
     Parameter = "CharIndex"
 
-    Parameter Type = 0
-    Parameter = "one"
-
     Parameter Type = 4
     Parameter = "CharName"
 
@@ -1126,9 +1120,6 @@ Command Help = "Request Create Character"
 
     Parameter Type = 1
     Parameter = "CharIndex"
-
-    Parameter Type = 0
-    Parameter = "one"
 
     Parameter Type = 4
     Parameter = "Name"
@@ -1256,9 +1247,6 @@ Command Help = "Request Equip Item"
     Parameter Type = 1
     Parameter = "EquipmentSlot"
 
-    Parameter Type = 0
-    Parameter = "one"
-
 Command ID = 720
 Command = "MatchResponseEquipItem"
 Command Help = "Response Equip Item"
@@ -1275,9 +1263,6 @@ Command Help = "Request Takeoff Item"
 
     Parameter Type = 1
     Parameter = "EquipmentSlot"
-
-    Parameter Type = 0
-    Parameter = "one"
 
 Command ID = 722
 Command = "MatchResponseTakeoffItem"
