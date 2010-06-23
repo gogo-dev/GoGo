@@ -26,7 +26,7 @@ Handshake::Handshake(MUID player)
 {
 	Header = 10;
 	Size = 26;
-	ServerId = 1;
+	ServerId = 0;
 	PlayerId = player;
 	Timestamp = 0x0DEADCA7;
 }

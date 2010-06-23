@@ -138,7 +138,7 @@ Buffer string::serialize() const
 {
 	static const uint16_t zero = 0;
 
-	size_t actualSize = value.length() + 4; // Includes the length header and two null-terminators.
+	size_t actualSize = value.length() + 2; // Includes the length header and two null-terminators.
 	uint16_t len = static_cast<uint16_t>(value.length());
 
 	// TODO: Truncate the string instead. (Will this have a major

@@ -83,12 +83,11 @@ static uint16_t get_real_string_length(const uint8_t* buffer, size_t maxLen)
 #include <cstdio>
 string extract_string(const uint8_t* paramStart, const uint8_t** currentParam, uint16_t packetLength)
 {
-	uint16_t len = extract_arbitrary_integer<uint16_t>(paramStart, currentParam, packetLength) + 2;
+	uint16_t len = extract_arbitrary_integer<uint16_t>(paramStart, currentParam, packetLength);
 	overflow_check(paramStart, packetLength, *currentParam, len);
 
 	// Real length does not include the null-terminators.
 	uint16_t realLength = get_real_string_length(*currentParam, len);
-
 	if(realLength != (len - 2))
 		throw ParseFailed();
 
