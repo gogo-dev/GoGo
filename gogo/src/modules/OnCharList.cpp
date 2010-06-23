@@ -15,7 +15,6 @@ void GoGoClient::OnCharList()
 
 	vector<CharacterEntry> charList = database->GetCharacterList(myAccount.AccountId);
 	packet::blob charBlob (charList.size(), 34);
-	logger->info(format("Character Count: %1%") % charList.size());
 
 	if (charList.size() == 0)
 	{

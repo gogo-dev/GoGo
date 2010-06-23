@@ -17,7 +17,13 @@ public:
 	                                   const std::string& password) = 0;
 	
 	// Gets the character info from an account ID
-	virtual std::vector<CharacterEntry> GetCharacterList (const boost::uint32_t aid) = 0;
+	virtual std::vector<CharacterEntry> GetCharacterList (boost::uint32_t aid) = 0;
+
+	// Checks if character name exists.
+	virtual bool DoesNameExist(std::string name) = 0;
+
+	// Creates a character from an account ID, character marker, sex, hair, face, and costume
+	virtual bool CreateCharacter(boost::uint32_t aid, std::string name, boost::uint32_t marker, boost::uint32_t sex, boost::uint32_t hair, boost::uint32_t face, boost::uint32_t costume) = 0;
 
 	// Gets the character info from a character ID and slot in the character
 	// select screen, throwing InvalidCharacterInfo if any information is

@@ -12,6 +12,7 @@ MySQLGunzDB::MySQLGunzDB(Logger* log, const char* dbname, const char* host, cons
 	if (!gunzconn.connect(dbname, host, user, password, port))
 		throw std::runtime_error((format("Error connecting to the database: %1%") % gunzconn.error()).str().c_str());
 
+	gunzMutex.initialize();
 	logger->info("Successfully connected to database.");
 }
 
@@ -25,6 +26,7 @@ AccountInfo MySQLGunzDB::GetAccountInfo(const std::string& user, const std::stri
 
 	try
 	{
+		mutex::scoped_lock(gunzMutex);
 		mysqlpp::Query query = gunzconn.query();
 
 		query << "SELECT aid, ugradeid, pgradeid FROM account"
@@ -85,6 +87,7 @@ std::vector<Item> MySQLGunzDB::GetEquipment(boost::uint32_t cid)
 vector<Item> MySQLGunzDB::GetInventory(uint32_t cid)
 {
 	std::vector<Item> items;
+
 	mysqlpp::Query query = gunzconn.query();
 	query << "SELECT * FROM character_inventory where charid=" << cid;
 
@@ -114,11 +117,13 @@ std::vector<CharacterEntry> MySQLGunzDB::GetCharacterList (boost::uint32_t aid)
 	std::vector<CharacterEntry> charList;
 	try
 	{
+		mutex::scoped_lock(gunzMutex);
+
 		mysqlpp::Query query = gunzconn.query();
 		query << "SELECT name,level,marker FROM `character` where accountid=" << aid << " ORDER BY marker ASC";
 		mysqlpp::Row row;
-
-		while (row = query.use().fetch_row())
+		mysqlpp::UseQueryResult user = query.use();
+		while (row = user.fetch_row())
 		{
 			CharacterEntry character;
 			character.CharacterIndex = row["marker"];
@@ -134,12 +139,54 @@ std::vector<CharacterEntry> MySQLGunzDB::GetCharacterList (boost::uint32_t aid)
 
 	return charList;
 }
+
+bool MySQLGunzDB::DoesNameExist(std::string name)
+{
+	try
+	{
+		mutex::scoped_lock(gunzMutex);
+
+		mysqlpp::Query query = gunzconn.query();
+		query << "SELECT accountid FROM `character` where name=" << mysqlpp::quote << name.c_str();
+		
+		return query.store().num_rows() == 1;
+
+	} catch(mysqlpp::Exception& ex) {
+		logger->warning(format("MySQL Error: %1%") % ex.what());
+	}
+
+	return true;
+}
+
+bool MySQLGunzDB::CreateCharacter(boost::uint32_t aid, std::string name, boost::uint32_t marker, boost::uint32_t sex, boost::uint32_t hair, boost::uint32_t face, boost::uint32_t costume)
+{
+	try
+	{
+
+		if (DoesNameExist (name))
+			throw NameInUse();
+		
+		mutex::scoped_lock(gunzMutex);
+		mysqlpp::Query query = gunzconn.query();
+		query << "INSERT INTO `character` (accountid,name,sex,hair,face,costume,marker) values (" <<
+			aid << "," << mysqlpp::quote << name.c_str() << "," << sex << "," << hair << "," << face << "," << costume << "," << marker << ")";
+		
+		return query.exec();
+	}
+	catch (mysqlpp::Exception& ex)
+	{
+		logger->warning(format("MySQL Error: %1%") % ex.what());
+	}
+
+	return false;
+}
 CharacterInfo MySQLGunzDB::GetCharacterInfo(boost::uint32_t cid, boost::uint8_t slot)
 {
 	CharacterInfo charInfo;
 
 	try
 	{
+		mutex::scoped_lock(gunzMutex);
 		mysqlpp::Query query = gunzconn.query();
 		query << "SELECT * FROM `character` WHERE id=" << cid << " AND marker=" << slot <<" LIMIT 1";
 		mysqlpp::Row row = query.use().fetch_row();

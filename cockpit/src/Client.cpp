@@ -245,7 +245,7 @@ void Client::on_payload(uint8_t* p, uint16_t payloadSize, bool encrypted, system
 	assert(bytesTransferred == payloadSize);
 
 	PayloadHeader payload = extract_payload(p, encrypted, cryptoKey.c_array());
-	logger->debug(format("Got Packet: %X") % payload.commandID);
+	logger->info(format("Got Packet: %X") % payload.commandID);
 	uint16_t paramLength = payloadSize - Client::PayloadHeader::SIZE;	// LOL.
 	uint8_t* params = p + Client::PayloadHeader::SIZE;
 

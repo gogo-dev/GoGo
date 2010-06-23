@@ -33,6 +33,7 @@ public:
 
 class InvalidCharacterInfo : public std::exception
 {
+public:
 	virtual const char* what() throw()
 	{
 		return "Invalid character info!";
@@ -41,8 +42,18 @@ class InvalidCharacterInfo : public std::exception
 
 class InvalidCID : public std::exception
 {
+public:
 	virtual const char* what() throw()
 	{
 		return "Invalid CID!";
+	}
+};
+
+class NameInUse : public std::exception
+{
+public: 
+	virtual const char* what() throw()
+	{
+		return "Character name is in use!";
 	}
 };
