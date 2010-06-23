@@ -15,6 +15,7 @@ private:
 private:
 	static std::vector<Item> GetItemsFromRow(const mysqlpp::Row& row);
 	boost::uint32_t GetCID (boost::uint32_t aid, boost::uint32_t marker);
+	bool DoesNameExist(std::string name);
 
 public:
 	MySQLGunzDB(cockpit::Logger* _logger, const char* dbname, const char* host, const char* user, const char* password, unsigned int port = 3306);
@@ -27,7 +28,8 @@ public:
 	std::vector<Item> GetEquipment (boost::uint32_t cid);
 	std::vector<Item> GetInventory (boost::uint32_t cid);
 	std::vector<CharacterEntry> GetCharacterList(boost::uint32_t aid);
-	bool DoesNameExist(std::string name);
 	bool CreateCharacter(boost::uint32_t aid, std::string name, boost::uint32_t marker, boost::uint32_t sex, boost::uint32_t hair, boost::uint32_t face, boost::uint32_t costume);
+	bool DeleteCharacter(boost::uint32_t cid, boost::uint32_t marker, std::string name);
+
 	CharacterInfo GetCharacterInfo(boost::uint32_t cid, boost::uint8_t slot);
 };
