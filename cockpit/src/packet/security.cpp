@@ -64,7 +64,7 @@ bool extract_bool(const uint8_t* paramStart, const uint8_t** currentParam, uint1
 // next character. However, if it ISN'T null, ParseFailed() will be thrown.
 static void check_for_null(const uint8_t*& c)
 {
-	if(*c++ != NULL)
+	if((*c++) != '\0')
 		throw ParseFailed();
 }
 

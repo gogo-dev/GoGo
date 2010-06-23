@@ -15,7 +15,7 @@ void GoGoClient::OnCharInfo(uint8_t marker)
 {
 	using packet::protocol::Match_ResponseAccountCharInfo;
 
-	if (marker < 0 || marker > 4)
+	if (marker > 4)
 	{
 		logger->info(format("[%1%] Character Info Hack Detected!") % transmitter->get_ip());
 		transmitter->disconnect();
