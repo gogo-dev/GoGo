@@ -12,7 +12,6 @@ MySQLGunzDB::MySQLGunzDB(Logger* log, const char* dbname, const char* host, cons
 	if (!gunzconn.connect(dbname, host, user, password, port))
 		throw std::runtime_error((format("Error connecting to the database: %1%") % gunzconn.error()).str().c_str());
 
-	gunzMutex.initialize();
 	logger->info("Successfully connected to database.");
 }
 
@@ -148,7 +147,7 @@ bool MySQLGunzDB::DoesNameExist(std::string name)
 
 		mysqlpp::Query query = gunzconn.query();
 		query << "SELECT accountid FROM `character` where name=" << mysqlpp::quote << name.c_str();
-		
+
 		return query.store().num_rows() == 1;
 
 	} catch(mysqlpp::Exception& ex) {
@@ -165,12 +164,12 @@ bool MySQLGunzDB::CreateCharacter(boost::uint32_t aid, std::string name, boost::
 
 		if (DoesNameExist (name))
 			throw NameInUse();
-		
+
 		mutex::scoped_lock(gunzMutex);
 		mysqlpp::Query query = gunzconn.query();
 		query << "INSERT INTO `character` (accountid,name,sex,hair,face,costume,marker) values (" <<
 			aid << "," << mysqlpp::quote << name.c_str() << "," << sex << "," << hair << "," << face << "," << costume << "," << marker << ")";
-		
+
 		return query.exec();
 	}
 	catch (mysqlpp::Exception& ex)
