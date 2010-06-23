@@ -115,8 +115,8 @@ Buffer blob_string::serialize() const
 
 	uint8_t* rawPointer = serialized.data();
 
+	memory::zero(rawPointer, len);
 	rawPointer = memory::pcopy(rawPointer, value.c_str(), value.length());
-	memory::zero(rawPointer, len - bigSize - 1);
 
 	return serialized;
 }
