@@ -39,6 +39,7 @@ void GoGoClient::initialize(Transmitter* _transmitter, packet::Registry* _regist
 	registry->Match_Login = bind(&GoGoClient::OnMatchLogin, this, _1, _2, _3, _4);
 	registry->Match_RequestAccountCharList = bind(&GoGoClient::OnCharList, this);
 	registry->Match_RequestCreateChar = bind(&GoGoClient::OnCharCreate, this, _1, _2, _3, _4, _5, _6, _7);
+	registry->Match_RequestAccountCharInfo = bind(&GoGoClient::OnCharInfo, this, _1);
 }
 
 GoGoClient::~GoGoClient()

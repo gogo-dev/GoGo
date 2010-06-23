@@ -163,9 +163,7 @@ void Client::on_packet_header(
 
 	if(p->version == 0x65)
 	{
-		logger->debug(format("[%1%] Packet encrypted. Decrypting...") % get_ip());
 		decrypt_header(p, cryptoKey.c_array());
-		logger->debug(format("[%1%] Packet Size: %2%") % get_ip() % p->fullSize);
 	}
 
 	else if(p->version != 0x64)
@@ -245,7 +243,7 @@ void Client::on_payload(uint8_t* p, uint16_t payloadSize, bool encrypted, system
 	assert(bytesTransferred == payloadSize);
 
 	PayloadHeader payload = extract_payload(p, encrypted, cryptoKey.c_array());
-	logger->info(format("Got Packet: %X") % payload.commandID);
+	logger->debug(format("Got Packet: %X") % payload.commandID);
 	uint16_t paramLength = payloadSize - Client::PayloadHeader::SIZE;	// LOL.
 	uint8_t* params = p + Client::PayloadHeader::SIZE;
 

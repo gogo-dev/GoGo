@@ -14,6 +14,7 @@ private:
 	boost::mutex gunzMutex;
 private:
 	static std::vector<Item> GetItemsFromRow(const mysqlpp::Row& row);
+	boost::uint32_t GetCID (boost::uint32_t aid, boost::uint32_t marker);
 
 public:
 	MySQLGunzDB(cockpit::Logger* _logger, const char* dbname, const char* host, const char* user, const char* password, unsigned int port = 3306);

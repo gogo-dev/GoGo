@@ -59,6 +59,9 @@ vector<Item> MySQLGunzDB::GetItemsFromRow(const mysqlpp::Row& row)
 	Item temp;
 	vector<Item> ret;
 
+	if (!row)
+		return ret;
+
 	for(size_t i = 1; i < row.size(); ++i)
 	{
 		temp.ItemCID = row[i];
@@ -76,9 +79,6 @@ std::vector<Item> MySQLGunzDB::GetEquipment(boost::uint32_t cid)
 	query << "SELECT * from character_equip where charid=" << cid;
 
 	mysqlpp::Row row = query.use().fetch_row();
-
-	if(!row)
-		throw InvalidCID();
 
 	return GetItemsFromRow(row);
 }
@@ -157,11 +157,25 @@ bool MySQLGunzDB::DoesNameExist(std::string name)
 	return true;
 }
 
+boost::uint32_t MySQLGunzDB::GetCID(boost::uint32_t aid, boost::uint32_t marker)
+{
+	try
+	{
+		mysqlpp::Query query = gunzconn.query(); 
+		query << "SELECT id FROM `character` where accountid=" << aid << " AND marker=" << marker;
+		return query.use().fetch_row()["id"];
+	}
+	catch (mysqlpp::Exception& ex)
+	{
+		logger->warning(format("MySQL Error: %1%") % ex.what());
+		throw InvalidCID();
+	}
+	return 0;
+}
 bool MySQLGunzDB::CreateCharacter(boost::uint32_t aid, std::string name, boost::uint32_t marker, boost::uint32_t sex, boost::uint32_t hair, boost::uint32_t face, boost::uint32_t costume)
 {
 	try
 	{
-
 		if (DoesNameExist (name))
 			throw NameInUse();
 
@@ -170,6 +184,12 @@ bool MySQLGunzDB::CreateCharacter(boost::uint32_t aid, std::string name, boost::
 		query << "INSERT INTO `character` (accountid,name,sex,hair,face,costume,marker) values (" <<
 			aid << "," << mysqlpp::quote << name.c_str() << "," << sex << "," << hair << "," << face << "," << costume << "," << marker << ")";
 
+		query.exec();
+
+		boost::uint32_t cid = GetCID (aid, marker);
+		query.reset();
+		query << "INSERT INTO character_equip(charid) VALUES (" << cid <<")";
+		
 		return query.exec();
 	}
 	catch (mysqlpp::Exception& ex)
@@ -179,7 +199,7 @@ bool MySQLGunzDB::CreateCharacter(boost::uint32_t aid, std::string name, boost::
 
 	return false;
 }
-CharacterInfo MySQLGunzDB::GetCharacterInfo(boost::uint32_t cid, boost::uint8_t slot)
+CharacterInfo MySQLGunzDB::GetCharacterInfo(boost::uint32_t aid, boost::uint8_t slot)
 {
 	CharacterInfo charInfo;
 
@@ -187,13 +207,13 @@ CharacterInfo MySQLGunzDB::GetCharacterInfo(boost::uint32_t cid, boost::uint8_t 
 	{
 		mutex::scoped_lock(gunzMutex);
 		mysqlpp::Query query = gunzconn.query();
-		query << "SELECT * FROM `character` WHERE id=" << cid << " AND marker=" << slot <<" LIMIT 1";
+		query << "SELECT * FROM `character` WHERE accountid=" << aid << " AND marker=" << static_cast<boost::uint32_t>(slot);
 		mysqlpp::Row row = query.use().fetch_row();
 
 		if(!row)
 			throw InvalidCharacterInfo();
 
-		charInfo.CharacterId = cid;
+		charInfo.CharacterId = row["id"];
 		charInfo.CharacterMarker = slot;
 		charInfo.CharacterName = std::string(row["name"]);
 		charInfo.ClanId = row["clanid"];
@@ -208,7 +228,7 @@ CharacterInfo MySQLGunzDB::GetCharacterInfo(boost::uint32_t cid, boost::uint8_t 
 
 		if (charInfo.ClanId > 0)
 		{
-			query << "SELECT * FROM clan WHERE cid=" << cid;
+			query << "SELECT * FROM clan WHERE id=" << charInfo.ClanId;
 			row = query.use().fetch_row();
 
 			if(row)
@@ -220,8 +240,8 @@ CharacterInfo MySQLGunzDB::GetCharacterInfo(boost::uint32_t cid, boost::uint8_t 
 			query.reset();
 		}
 
-		charInfo.Equipment = GetEquipment(cid);
-		charInfo.Inventory = GetInventory(cid);
+		charInfo.Equipment = GetEquipment(charInfo.CharacterId);
+		charInfo.Inventory = GetInventory(charInfo.CharacterId);
 
 		return charInfo;
 

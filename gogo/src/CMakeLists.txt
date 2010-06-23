@@ -24,6 +24,7 @@ set(GOGO_MODULES
 	modules/OnMatchLogin.cpp
 	modules/OnCharList.cpp
 	modules/OnCharCreate.cpp
+	modules/OnCharInfo.cpp
 	# Feel free to add more source files when they're added.
 )
 
