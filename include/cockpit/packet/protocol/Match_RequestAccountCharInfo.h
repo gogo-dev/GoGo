@@ -16,12 +16,11 @@ class Match_RequestAccountCharInfo : public Packet
 {
 private:
 	packet::int8 CharNum;
-	packet::int32 _0B;
 
 public:
 	enum { packetID = 1719 };
 
-	Match_RequestAccountCharInfo(packet::int8 CharNum, packet::int32 _0B);
+	Match_RequestAccountCharInfo(packet::int8 CharNum);
 
 	const char* name() const;
 	const char* doc() const;

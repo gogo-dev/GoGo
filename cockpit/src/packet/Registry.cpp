@@ -159,7 +159,7 @@ Registry::Registry()
 	ChatRoom_Chat(do_nothing_3< const std::string&, const std::string&, const std::string& >),
 	Match_RequestAccountCharList(do_nothing_1< boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
 	Match_ResponseAccountCharList(do_nothing_1< boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
-	Match_RequestAccountCharInfo(do_nothing_2< boost::int8_t, boost::int32_t >),
+	Match_RequestAccountCharInfo(do_nothing_1< boost::int8_t >),
 	Match_ResponseAccountCharInfo(do_nothing_2< boost::int8_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
 	Match_RequestSelectChar(do_nothing_2< boost::uint64_t, boost::uint32_t >),
 	Match_ResponseSelectChar(do_nothing_3< boost::int32_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
@@ -1320,9 +1320,8 @@ static void do_Match_RequestAccountCharInfo(Registry* self, const uint8_t* param
 	const uint8_t* paramPtr = parameters;
 
 	int8_t p0 = extract_int8(parameters, &paramPtr, length);
-	int32_t p1 = extract_int32(parameters, &paramPtr, length);
 
-	self->Match_RequestAccountCharInfo(p0, p1);
+	self->Match_RequestAccountCharInfo(p0);
 }
 
 static void do_Match_ResponseAccountCharInfo(Registry* self, const uint8_t* parameters, uint16_t length)

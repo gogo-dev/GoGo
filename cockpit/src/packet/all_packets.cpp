@@ -2892,8 +2892,8 @@ Buffer Match_ResponseAccountCharList::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_RequestAccountCharInfo::Match_RequestAccountCharInfo(packet::int8 _CharNum, packet::int32 __0B)
-	: CharNum(_CharNum), _0B(__0B)
+Match_RequestAccountCharInfo::Match_RequestAccountCharInfo(packet::int8 _CharNum)
+	: CharNum(_CharNum)
 {
 }
 
@@ -2915,8 +2915,7 @@ uint16_t Match_RequestAccountCharInfo::id() const
 Buffer Match_RequestAccountCharInfo::serialize() const
 {
 	Buffer serializedParameters[] = {
-		CharNum.serialize(),
-		_0B.serialize()
+		CharNum.serialize()
 	};
 
 	return merge_parameters(serializedParameters, countof(serializedParameters));

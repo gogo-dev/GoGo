@@ -322,7 +322,7 @@ public:
 	boost::function<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* CharList */)> Match_ResponseAccountCharList;
 
 	// Request Account Character Info
-	boost::function<void (boost::int8_t /* CharNum */, boost::int32_t /* _0B */)> Match_RequestAccountCharInfo;
+	boost::function<void (boost::int8_t /* CharNum */)> Match_RequestAccountCharInfo;
 
 	// Response Account Character Info
 	boost::function<void (boost::int8_t /* CharNum */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* CharInfo */)> Match_ResponseAccountCharInfo;
