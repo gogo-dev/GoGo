@@ -1035,8 +1035,6 @@ Command Help = "Request Account Character Info"
     Parameter Type = B
     Parameter = "CharNum"
 
-    Parameter Type = 0
-    Parameter = "_0B"
 
 Command ID = 6B8
 Command = "Match.ResponseAccountCharInfo"
