@@ -17,12 +17,11 @@ class MatchRequestTakeoffItem : public Packet
 private:
 	packet::MUID uid;
 	packet::uint32 EquipmentSlot;
-	packet::int32 one;
 
 public:
 	enum { packetID = 1825 };
 
-	MatchRequestTakeoffItem(packet::MUID uid, packet::uint32 EquipmentSlot, packet::int32 one);
+	MatchRequestTakeoffItem(packet::MUID uid, packet::uint32 EquipmentSlot);
 
 	const char* name() const;
 	const char* doc() const;

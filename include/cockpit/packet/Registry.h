@@ -328,7 +328,7 @@ public:
 	boost::function<void (boost::int8_t /* CharNum */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* CharInfo */)> Match_ResponseAccountCharInfo;
 
 	// Request Select Character
-	boost::function<void (boost::uint64_t /* uid */, boost::uint32_t /* CharIndex */, boost::int32_t /* one */)> Match_RequestSelectChar;
+	boost::function<void (boost::uint64_t /* uid */, boost::uint32_t /* CharIndex */)> Match_RequestSelectChar;
 
 	// Response Select Character
 	boost::function<void (boost::int32_t /* Result */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* CharInfo */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* MyExtraCharInfo */)> Match_ResponseSelectChar;
@@ -340,13 +340,13 @@ public:
 	boost::function<void (boost::uint64_t /* uid */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* CharInfo */)> Match_ResponseCharInfo;
 
 	// Request Delete Character
-	boost::function<void (boost::uint64_t /* uid */, boost::uint32_t /* CharIndex */, boost::int32_t /* one */, const std::string& /* CharName */)> Match_RequestDeleteChar;
+	boost::function<void (boost::uint64_t /* uid */, boost::uint32_t /* CharIndex */, const std::string& /* CharName */)> Match_RequestDeleteChar;
 
 	// Response Delete Character
 	boost::function<void (boost::int32_t /* Result */)> Match_ResponseDeleteChar;
 
 	// Request Create Character
-	boost::function<void (boost::uint64_t /* uid */, boost::uint32_t /* CharIndex */, boost::int32_t /* one */, const std::string& /* Name */, boost::uint32_t /* Sex */, boost::uint32_t /* Hair */, boost::uint32_t /* Face */, boost::uint32_t /* Costume */)> Match_RequestCreateChar;
+	boost::function<void (boost::uint64_t /* uid */, boost::uint32_t /* CharIndex */, const std::string& /* Name */, boost::uint32_t /* Sex */, boost::uint32_t /* Hair */, boost::uint32_t /* Face */, boost::uint32_t /* Costume */)> Match_RequestCreateChar;
 
 	// Response Create Character
 	boost::function<void (boost::int32_t /* Result */, const std::string& /* CharName */)> Match_ResponseCreateChar;
@@ -379,13 +379,13 @@ public:
 	boost::function<void (boost::int32_t /* Bounty */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* EquipItemList */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* ItemList */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* GambleItemList */)> Match_ResponseCharacterItemList;
 
 	// Request Equip Item
-	boost::function<void (boost::uint64_t /* uidChar */, boost::uint64_t /* uidItem */, boost::uint32_t /* EquipmentSlot */, boost::int32_t /* one */)> MatchRequestEquipItem;
+	boost::function<void (boost::uint64_t /* uidChar */, boost::uint64_t /* uidItem */, boost::uint32_t /* EquipmentSlot */)> MatchRequestEquipItem;
 
 	// Response Equip Item
 	boost::function<void (boost::int32_t /* Result */)> MatchResponseEquipItem;
 
 	// Request Takeoff Item
-	boost::function<void (boost::uint64_t /* uid */, boost::uint32_t /* EquipmentSlot */, boost::int32_t /* one */)> MatchRequestTakeoffItem;
+	boost::function<void (boost::uint64_t /* uid */, boost::uint32_t /* EquipmentSlot */)> MatchRequestTakeoffItem;
 
 	// Response Takeoff Item
 	boost::function<void (boost::int32_t /* Result */)> MatchResponseTakeoffItem;

@@ -17,12 +17,11 @@ class Match_RequestSelectChar : public Packet
 private:
 	packet::MUID uid;
 	packet::uint32 CharIndex;
-	packet::int32 one;
 
 public:
 	enum { packetID = 1703 };
 
-	Match_RequestSelectChar(packet::MUID uid, packet::uint32 CharIndex, packet::int32 one);
+	Match_RequestSelectChar(packet::MUID uid, packet::uint32 CharIndex);
 
 	const char* name() const;
 	const char* doc() const;

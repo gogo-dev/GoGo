@@ -17,13 +17,12 @@ class Match_RequestDeleteChar : public Packet
 private:
 	packet::MUID uid;
 	packet::uint32 CharIndex;
-	packet::int32 one;
 	packet::string CharName;
 
 public:
 	enum { packetID = 1713 };
 
-	Match_RequestDeleteChar(packet::MUID uid, packet::uint32 CharIndex, packet::int32 one, packet::string CharName);
+	Match_RequestDeleteChar(packet::MUID uid, packet::uint32 CharIndex, packet::string CharName);
 
 	const char* name() const;
 	const char* doc() const;

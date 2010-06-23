@@ -161,13 +161,13 @@ Registry::Registry()
 	Match_ResponseAccountCharList(do_nothing_1< boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
 	Match_RequestAccountCharInfo(do_nothing_2< boost::int8_t, boost::int32_t >),
 	Match_ResponseAccountCharInfo(do_nothing_2< boost::int8_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
-	Match_RequestSelectChar(do_nothing_3< boost::uint64_t, boost::uint32_t, boost::int32_t >),
+	Match_RequestSelectChar(do_nothing_2< boost::uint64_t, boost::uint32_t >),
 	Match_ResponseSelectChar(do_nothing_3< boost::int32_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
 	Match_RequestCharInfo(do_nothing_2< boost::uint64_t, boost::uint32_t >),
 	Match_ResponseCharInfo(do_nothing_2< boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
-	Match_RequestDeleteChar(do_nothing_4< boost::uint64_t, boost::uint32_t, boost::int32_t, const std::string& >),
+	Match_RequestDeleteChar(do_nothing_3< boost::uint64_t, boost::uint32_t, const std::string& >),
 	Match_ResponseDeleteChar(do_nothing_1< boost::int32_t >),
-	Match_RequestCreateChar(do_nothing_8< boost::uint64_t, boost::uint32_t, boost::int32_t, const std::string&, boost::uint32_t, boost::uint32_t, boost::uint32_t, boost::uint32_t >),
+	Match_RequestCreateChar(do_nothing_7< boost::uint64_t, boost::uint32_t, const std::string&, boost::uint32_t, boost::uint32_t, boost::uint32_t, boost::uint32_t >),
 	Match_ResponseCreateChar(do_nothing_2< boost::int32_t, const std::string& >),
 	Match_RequestBuyItem(do_nothing_2< boost::uint64_t, boost::uint32_t >),
 	Match_ResponseBuyItem(do_nothing_1< boost::int32_t >),
@@ -178,9 +178,9 @@ Registry::Registry()
 	Match_RequestCharacterItemList(do_nothing_1< boost::uint64_t >),
 	Match_RequestCharacterItemListForce(do_nothing_1< boost::uint64_t >),
 	Match_ResponseCharacterItemList(do_nothing_4< boost::int32_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
-	MatchRequestEquipItem(do_nothing_4< boost::uint64_t, boost::uint64_t, boost::uint32_t, boost::int32_t >),
+	MatchRequestEquipItem(do_nothing_3< boost::uint64_t, boost::uint64_t, boost::uint32_t >),
 	MatchResponseEquipItem(do_nothing_1< boost::int32_t >),
-	MatchRequestTakeoffItem(do_nothing_3< boost::uint64_t, boost::uint32_t, boost::int32_t >),
+	MatchRequestTakeoffItem(do_nothing_2< boost::uint64_t, boost::uint32_t >),
 	MatchResponseTakeoffItem(do_nothing_1< boost::int32_t >),
 	Match_RequestAccountItemList(do_nothing_1< boost::uint64_t >),
 	Match_ResponseAccountItemList(do_nothing_1< boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >),
@@ -1341,9 +1341,8 @@ static void do_Match_RequestSelectChar(Registry* self, const uint8_t* parameters
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
-	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 
-	self->Match_RequestSelectChar(p0, p1, p2);
+	self->Match_RequestSelectChar(p0, p1);
 }
 
 static void do_Match_ResponseSelectChar(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1383,10 +1382,9 @@ static void do_Match_RequestDeleteChar(Registry* self, const uint8_t* parameters
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
-	int32_t p2 = extract_int32(parameters, &paramPtr, length);
-	std::string p3 = extract_string(parameters, &paramPtr, length);
+	std::string p2 = extract_string(parameters, &paramPtr, length);
 
-	self->Match_RequestDeleteChar(p0, p1, p2, p3);
+	self->Match_RequestDeleteChar(p0, p1, p2);
 }
 
 static void do_Match_ResponseDeleteChar(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1404,14 +1402,13 @@ static void do_Match_RequestCreateChar(Registry* self, const uint8_t* parameters
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
-	int32_t p2 = extract_int32(parameters, &paramPtr, length);
-	std::string p3 = extract_string(parameters, &paramPtr, length);
+	std::string p2 = extract_string(parameters, &paramPtr, length);
+	uint32_t p3 = extract_uint32(parameters, &paramPtr, length);
 	uint32_t p4 = extract_uint32(parameters, &paramPtr, length);
 	uint32_t p5 = extract_uint32(parameters, &paramPtr, length);
 	uint32_t p6 = extract_uint32(parameters, &paramPtr, length);
-	uint32_t p7 = extract_uint32(parameters, &paramPtr, length);
 
-	self->Match_RequestCreateChar(p0, p1, p2, p3, p4, p5, p6, p7);
+	self->Match_RequestCreateChar(p0, p1, p2, p3, p4, p5, p6);
 }
 
 static void do_Match_ResponseCreateChar(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1520,9 +1517,8 @@ static void do_MatchRequestEquipItem(Registry* self, const uint8_t* parameters, 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 	uint32_t p2 = extract_uint32(parameters, &paramPtr, length);
-	int32_t p3 = extract_int32(parameters, &paramPtr, length);
 
-	self->MatchRequestEquipItem(p0, p1, p2, p3);
+	self->MatchRequestEquipItem(p0, p1, p2);
 }
 
 static void do_MatchResponseEquipItem(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1540,9 +1536,8 @@ static void do_MatchRequestTakeoffItem(Registry* self, const uint8_t* parameters
 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
-	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 
-	self->MatchRequestTakeoffItem(p0, p1, p2);
+	self->MatchRequestTakeoffItem(p0, p1);
 }
 
 static void do_MatchResponseTakeoffItem(Registry* self, const uint8_t* parameters, uint16_t length)

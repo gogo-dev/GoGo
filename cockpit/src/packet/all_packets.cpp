@@ -2952,8 +2952,8 @@ Buffer Match_ResponseAccountCharInfo::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_RequestSelectChar::Match_RequestSelectChar(packet::MUID _uid, packet::uint32 _CharIndex, packet::int32 _one)
-	: uid(_uid), CharIndex(_CharIndex), one(_one)
+Match_RequestSelectChar::Match_RequestSelectChar(packet::MUID _uid, packet::uint32 _CharIndex)
+	: uid(_uid), CharIndex(_CharIndex)
 {
 }
 
@@ -2976,8 +2976,7 @@ Buffer Match_RequestSelectChar::serialize() const
 {
 	Buffer serializedParameters[] = {
 		uid.serialize(),
-		CharIndex.serialize(),
-		one.serialize()
+		CharIndex.serialize()
 	};
 
 	return merge_parameters(serializedParameters, countof(serializedParameters));
@@ -3074,8 +3073,8 @@ Buffer Match_ResponseCharInfo::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_RequestDeleteChar::Match_RequestDeleteChar(packet::MUID _uid, packet::uint32 _CharIndex, packet::int32 _one, packet::string _CharName)
-	: uid(_uid), CharIndex(_CharIndex), one(_one), CharName(_CharName)
+Match_RequestDeleteChar::Match_RequestDeleteChar(packet::MUID _uid, packet::uint32 _CharIndex, packet::string _CharName)
+	: uid(_uid), CharIndex(_CharIndex), CharName(_CharName)
 {
 }
 
@@ -3099,7 +3098,6 @@ Buffer Match_RequestDeleteChar::serialize() const
 	Buffer serializedParameters[] = {
 		uid.serialize(),
 		CharIndex.serialize(),
-		one.serialize(),
 		CharName.serialize()
 	};
 
@@ -3135,8 +3133,8 @@ Buffer Match_ResponseDeleteChar::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_RequestCreateChar::Match_RequestCreateChar(packet::MUID _uid, packet::uint32 _CharIndex, packet::int32 _one, packet::string _Name, packet::uint32 _Sex, packet::uint32 _Hair, packet::uint32 _Face, packet::uint32 _Costume)
-	: uid(_uid), CharIndex(_CharIndex), one(_one), Name(_Name), Sex(_Sex), Hair(_Hair), Face(_Face), Costume(_Costume)
+Match_RequestCreateChar::Match_RequestCreateChar(packet::MUID _uid, packet::uint32 _CharIndex, packet::string _Name, packet::uint32 _Sex, packet::uint32 _Hair, packet::uint32 _Face, packet::uint32 _Costume)
+	: uid(_uid), CharIndex(_CharIndex), Name(_Name), Sex(_Sex), Hair(_Hair), Face(_Face), Costume(_Costume)
 {
 }
 
@@ -3160,7 +3158,6 @@ Buffer Match_RequestCreateChar::serialize() const
 	Buffer serializedParameters[] = {
 		uid.serialize(),
 		CharIndex.serialize(),
-		one.serialize(),
 		Name.serialize(),
 		Sex.serialize(),
 		Hair.serialize(),
@@ -3470,8 +3467,8 @@ Buffer Match_ResponseCharacterItemList::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-MatchRequestEquipItem::MatchRequestEquipItem(packet::MUID _uidChar, packet::MUID _uidItem, packet::uint32 _EquipmentSlot, packet::int32 _one)
-	: uidChar(_uidChar), uidItem(_uidItem), EquipmentSlot(_EquipmentSlot), one(_one)
+MatchRequestEquipItem::MatchRequestEquipItem(packet::MUID _uidChar, packet::MUID _uidItem, packet::uint32 _EquipmentSlot)
+	: uidChar(_uidChar), uidItem(_uidItem), EquipmentSlot(_EquipmentSlot)
 {
 }
 
@@ -3495,8 +3492,7 @@ Buffer MatchRequestEquipItem::serialize() const
 	Buffer serializedParameters[] = {
 		uidChar.serialize(),
 		uidItem.serialize(),
-		EquipmentSlot.serialize(),
-		one.serialize()
+		EquipmentSlot.serialize()
 	};
 
 	return merge_parameters(serializedParameters, countof(serializedParameters));
@@ -3531,8 +3527,8 @@ Buffer MatchResponseEquipItem::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-MatchRequestTakeoffItem::MatchRequestTakeoffItem(packet::MUID _uid, packet::uint32 _EquipmentSlot, packet::int32 _one)
-	: uid(_uid), EquipmentSlot(_EquipmentSlot), one(_one)
+MatchRequestTakeoffItem::MatchRequestTakeoffItem(packet::MUID _uid, packet::uint32 _EquipmentSlot)
+	: uid(_uid), EquipmentSlot(_EquipmentSlot)
 {
 }
 
@@ -3555,8 +3551,7 @@ Buffer MatchRequestTakeoffItem::serialize() const
 {
 	Buffer serializedParameters[] = {
 		uid.serialize(),
-		EquipmentSlot.serialize(),
-		one.serialize()
+		EquipmentSlot.serialize()
 	};
 
 	return merge_parameters(serializedParameters, countof(serializedParameters));

@@ -18,12 +18,11 @@ private:
 	packet::MUID uidChar;
 	packet::MUID uidItem;
 	packet::uint32 EquipmentSlot;
-	packet::int32 one;
 
 public:
 	enum { packetID = 1823 };
 
-	MatchRequestEquipItem(packet::MUID uidChar, packet::MUID uidItem, packet::uint32 EquipmentSlot, packet::int32 one);
+	MatchRequestEquipItem(packet::MUID uidChar, packet::MUID uidItem, packet::uint32 EquipmentSlot);
 
 	const char* name() const;
 	const char* doc() const;
