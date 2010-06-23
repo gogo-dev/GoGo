@@ -80,7 +80,8 @@ string extract_string(const uint8_t* paramStart, const uint8_t** currentParam, u
 		ret += *(*currentParam)++;
 
 	check_for_null(*currentParam);
-	check_for_null(*currentParam);
+	(*currentParam)++;	// Gunz is weird. This is necessary to handle one
+	                    // garbage byte at the end of the string.
 
 	return ret;
 }

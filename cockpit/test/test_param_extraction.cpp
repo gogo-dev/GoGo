@@ -275,6 +275,7 @@ static void test_string_non_null_terminated()
 	BOOST_CHECK(succeeded);
 }
 
+// Gunz does this. How gay is that?
 static void test_string_badly_null_terminated()
 {
 	bool succeeded = false;
@@ -286,10 +287,10 @@ static void test_string_badly_null_terminated()
 	const uint8_t* ptr = buffer;
 
 	try {
-		extract_string(buffer, &ptr, countof(buffer));
-		succeeded = false;
-	} catch(ParseFailed) {
+		check_equal(string("test"), extract_string(buffer, &ptr, countof(buffer)));
 		succeeded = true;
+	} catch(ParseFailed) {
+		succeeded = false;
 	}
 
 	BOOST_CHECK(succeeded);
