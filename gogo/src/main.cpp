@@ -25,11 +25,17 @@ int main()
 {
 	ConsoleLogger loggerImpl;
 	cockpit::Logger* logger = &loggerImpl;
-	Configuration conf = get_config("gogo.conf");
 
 	try {
-		MySQLGunzDB database(logger, conf.get_value<string>("database.dbname", "GunzDB").c_str(), conf.get_value<string>("database.host", "localhost").c_str(), 
-			conf.get_value<string>("database.user", "root").c_str(), conf.get_value<string>("database.password", "password").c_str());
+		Configuration conf = get_config("gogo.conf");
+
+		MySQLGunzDB database(
+			logger,
+			conf.get_value<string>("database.dbname", "GunzDB").c_str(),
+			conf.get_value<string>("database.host", "localhost").c_str(),
+			conf.get_value<string>("database.user", "root").c_str(),
+			conf.get_value<string>("database.password", "password").c_str()
+		);
 
 		GoGoFactory factory(logger, &database);
 
@@ -38,12 +44,17 @@ int main()
 		server.start();
 		server.wait();
 
+	} catch(const SyntaxError& ex) {
+		logger->warning(format("Syntax Error on line %1%: %2%") % ex.lineNumber % ex.what());
+	} catch(const std::runtime_error& ex) {
+		logger->warning(format("Runtime error: %1%") % ex.what());
+	} catch(const std::logic_error& ex) {
+		logger->error(format("Logic error! Please report this: %1%") % ex.what());
 	} catch(const std::exception& ex) {
 		logger->error(format("Fatal error: %1%") % ex.what());
-		return 1;
 	} catch(...) {
 		logger->error("Unknown exception encountered. This is a programming error. Report this message to the bugtracker.");
-		return 2;
+		return 1;
 	}
 
 	return 0;

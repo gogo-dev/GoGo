@@ -6,6 +6,7 @@
 #include <utility>
 
 #include <boost/tuple/tuple.hpp>
+#include <boost/lambda/lambda.hpp>
 #include <boost/bind.hpp>
 
 using namespace std;
@@ -88,6 +89,12 @@ static Line strip_whitespace(const Line& in)
 	return make_tuple(get<0>(in), filter(get<1>(in), is_not_whitespace_char));
 }
 
+static void preprocess(VecOfLines& lines)
+{
+	transform(lines.begin(), lines.end(), lines.begin(), strip_comments);
+	transform(lines.begin(), lines.end(), lines.begin(), strip_whitespace);
+}
+
 static MapElem parse_pure(const Line& toParse)
 {
 	const size_t& lineNumber = get<0>(toParse);
@@ -130,9 +137,7 @@ static unordered_map<string, string> init_config(VecOfLines lines)
 {
 	unordered_map<string, string> values;
 
-	transform(lines.begin(), lines.end(), lines.begin(), strip_comments);
-	transform(lines.begin(), lines.end(), lines.begin(), strip_whitespace);
-
+	preprocess(lines);
 	map_func(lines, bind(parse, _1, &values));
 
 	return values;
