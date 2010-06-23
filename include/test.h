@@ -24,7 +24,7 @@ inline HexChars hexify(boost::uint8_t byte)
 	return retVal;
 }
 
-inline std::string stringify(boost::uint8_t* data, size_t len)
+inline std::string stringify(const boost::uint8_t* data, size_t len)
 {
 	std::string retVal;
 
@@ -58,7 +58,7 @@ inline std::string stringify(const T& data)
 
 template <typename T>
 inline void do_check_equal(
-	T a, T b,
+	const T a, const T b,
 	const char* file, int line, const char* function)
 {
 	if(a != b)
@@ -75,14 +75,14 @@ inline void do_check_equal(
 
 #define check_array_equal(a, b, len) \
 	do_check_array_equal( \
-		reinterpret_cast<boost::uint8_t*>(a), \
-		reinterpret_cast<boost::uint8_t*>(b), \
+		reinterpret_cast<const boost::uint8_t*>(a), \
+		reinterpret_cast<const boost::uint8_t*>(b), \
 		len, \
 		__FILE__, __LINE__, BOOST_CURRENT_FUNCTION \
 	)
 
 inline void do_check_array_equal(
-	boost::uint8_t* a, boost::uint8_t* b, size_t len,
+	const boost::uint8_t* a, const boost::uint8_t* b, size_t len,
 	const char* file, int line, const char* function)
 {
 	for(size_t i = 0; i < len; ++i)

@@ -69,13 +69,13 @@ static void test_string()
 	Buffer serialized = packit.serialize();
 
 	uint8_t expected[] = {
-		0x04, 0x00, 't', 'e', 's', 't', 0x00, 0x00
+		0x06, 0x00, 't', 'e', 's', 't', 0x00, 0x00
 	};
+
+	check_equal(serialized.length(), sizeof(expected));
 
 	check_array_equal(serialized.data(), expected, countof(expected));
 	BOOST_CHECK(packit.get_type() == 0x04);
-
-	check_equal(serialized.length(), sizeof(expected));
 }
 
 static void test_position()

@@ -60,44 +60,27 @@ bool extract_bool(const uint8_t* paramStart, const uint8_t** currentParam, uint1
 	return static_cast<bool>(extract_arbitrary_integer<uint8_t>(paramStart, currentParam, packetLength));
 }
 
-// Gets the length of the underlying string (ends at the null-terminator) not including the
-// null-termiantor. If the length is greater than maxLen, this function throws ParseFailed.
-static uint16_t get_real_string_length(const uint8_t* buffer, size_t maxLen)
+// Checks for null-terminators. If all goes well, the pointer will move to the
+// next character. However, if it ISN'T null, ParseFailed() will be thrown.
+static void check_for_null(const uint8_t*& c)
 {
-	size_t len = 0;
-
-	for(size_t i = 0; i < maxLen; ++i, ++len)
-	{
-		if(*buffer++ == '\0')
-		{
-			if(len > 0xFFFF)
-				throw ParseFailed();
-			else
-				return static_cast<uint16_t>(len);
-		}
-	}
-
-	// If the string isn't null terminated, die.
-	throw ParseFailed();
+	if(*c++ != NULL)
+		throw ParseFailed();
 }
-#include <cstdio>
+
 string extract_string(const uint8_t* paramStart, const uint8_t** currentParam, uint16_t packetLength)
 {
 	uint16_t len = extract_arbitrary_integer<uint16_t>(paramStart, currentParam, packetLength);
 	overflow_check(paramStart, packetLength, *currentParam, len);
 
-	// Real length does not include the null-terminators.
-	uint16_t realLength = get_real_string_length(*currentParam, len);
-	if(realLength != (len - 2))
-		throw ParseFailed();
-
 	string ret;
-	ret.reserve(realLength + 1);
+	ret.reserve(len - 1); // We only need room for ONE null-terminator.
 
-	for(uint16_t i = 0; i < realLength; ++i)
+	for(uint16_t i = 0; i < (len - 2); ++i)
 		ret += *(*currentParam)++;
 
-	*currentParam += 2;	// Compensate for the null-terminators.
+	check_for_null(*currentParam);
+	check_for_null(*currentParam);
 
 	return ret;
 }

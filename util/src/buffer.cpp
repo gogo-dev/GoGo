@@ -62,5 +62,6 @@ bool Buffer::operator==(const Buffer& other) const
 
 Buffer::~Buffer()
 {
-	checked_array_delete(data_);
+	if(data_ != NULL)
+		delete[] data_;
 }

@@ -208,9 +208,9 @@ static void test_string_clean_extraction()
 
 	const uint8_t buffer[] = {
 		0x00, // Just some padding to see what happens =P
-		0x04, 0x00, 't', 'e', 's', 't', '\0', '\0',
-		0x01, 0x00, 'a', '\0', '\0',
-		0x0C, 0x00, 'h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd', '!', '\0', '\0'
+		0x06, 0x00, 't', 'e', 's', 't', 0x00, 0x00,
+		0x03, 0x00, 'a', 0x00, 0x00,
+		0x0E, 0x00, 'h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd', '!', 0x00, 0x00
 	};
 
 	const uint8_t* ptr = buffer + 1;	// Compensate for the padding.
@@ -239,7 +239,7 @@ static void test_string_kore()
 	bool succeeded = false;
 
 	const uint8_t buffer[] = {
-		0x06, 0x00, 't', 'e', 's', 't', '\0', '\0'
+		0x07, 0x00, 't', 'e', 's', 't', '\0', '\0'
 	};
 
 	const uint8_t* ptr = buffer;
