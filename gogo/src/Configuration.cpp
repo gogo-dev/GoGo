@@ -3,7 +3,7 @@
 #include <util/SmallVector.h>
 #include <vector>
 #include <algorithm>
-#include <memory>
+#include <utility>
 
 #include <boost/tuple/tuple.hpp>
 #include <boost/bind.hpp>
@@ -157,8 +157,6 @@ Configuration::Configuration(std::istream&& stream)
 Configuration::Configuration(const Configuration&& rhs)
 	: values(std::move(rhs.values))
 {
-	// If you know where std::move is, please add the #include and remove
-	// my guess of <memory>
 }
 #endif
 
