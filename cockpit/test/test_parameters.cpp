@@ -60,9 +60,10 @@ static void test_blob_string()
 		0x00, 0x00
 	};
 
+	check_equal(serialized.length(), countof(expected));
 	check_array_equal(packit.serialize().data(), expected, countof(expected));
-	check_equal(serialized.length(), sizeof(expected));
 }
+
 static void test_string()
 {
 	cockpit::packet::string packit("test");
@@ -128,19 +129,15 @@ static void test_blob()
 		20, 0, 0, 0, //elementSize
 		1,  0, 0, 0, //elementCount
 
-		0, 0, 0, 0, 0,
-		0, 0, 0, 0, 0,
-		0, 0, 0, 0, 0,
-		0, 0, 0, 0, 0,
-		0, 0, 0, 0, 0
+		0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0
 	};
 
 	blob packit(1, 20);
 
-	for(int i = 0; i < 5; ++i)
-	{
-		packit.add_param(int32(0));
-	}
+	for(int i = 0; i < 20; ++i)
+		packit.add_param(uint8(0));
 
 	check_array_equal(packit.serialize().data(), expected, countof(expected));
 
