@@ -10,28 +10,21 @@ using namespace std;
 using namespace boost;
 using namespace cockpit;
 
-void GoGoClient::OnCharDelete(MUID uidPlayer, uint32_t charMarker, std::string charName)
+static void send_result(Transmitter* transmitter, PacketErrorCode err)
 {
 	using packet::protocol::Match_ResponseDeleteChar;
-	PacketErrorCode errorCode = PEC_NONE;
+	transmitter->send(Match_ResponseDeleteChar(packet::int32(err)));
+}
 
+void GoGoClient::OnCharDelete(MUID uidPlayer, uint32_t charMarker, const std::string& /* charName */)
+{
 	if (uidPlayer != myMUID)
 	{
 		logger->info(format("[%1%] MUID Hacking Detected!") % transmitter->get_ip());
-		transmitter->disconnect();
-		return;
+		return transmitter->disconnect();
 	}
 
-	if (charName.length() <= 3)
-		errorCode = PEC_NAME_SHORT;
+	database->DeleteCharacter(myAccount.AccountId, charMarker);
 
-	else if (charName.length() >= 16)
-		errorCode = PEC_NAME_LONG;
-
-	else if (!database->DeleteCharacter(myAccount.AccountId, charMarker, charName))
-		errorCode = PEC_INVALID_NAME;
-
-	packet::int32 result(errorCode);
-
-	transmitter->send(Match_ResponseDeleteChar(result));
+	return send_result(transmitter, PEC_NONE);
 }

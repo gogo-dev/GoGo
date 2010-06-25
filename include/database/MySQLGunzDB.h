@@ -87,7 +87,7 @@ public:
 	//Login Process related functions
 	AccountInfo GetAccountInfo(const std::string& user, const std::string& password);
 
-	bool DeleteCharacter(boost::uint32_t cid, boost::uint32_t marker, const std::string& name);
+	void DeleteCharacter(boost::uint32_t cid, boost::uint32_t marker);
 
 	//Character processing related functions
 	SmallVector<Item, 12> GetEquipment(boost::uint32_t cid);

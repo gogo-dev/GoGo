@@ -33,8 +33,13 @@ public:
 	virtual AccountInfo GetAccountInfo(const std::string& user,
 	                                   const std::string& password) = 0;
 
-	// Deletes a character from an account ID, marker, and name.
-	virtual bool DeleteCharacter(boost::uint32_t aid, boost::uint32_t marker, const std::string& name) = 0;
+	/**
+		Deletes a character from the database. FOREVAR!
+
+		@param  aid    The account ID of the owning player.
+		@param  marker Where in the character list (0-3) the character to be deleted is.
+	*/
+	virtual void DeleteCharacter(boost::uint32_t aid, boost::uint32_t marker) = 0;
 
 	/**
 		Gets the character info from an account identifier.
@@ -77,7 +82,7 @@ public:
 		Gets the associated info for a character represented by the ID.
 
 		@param  aid    The ID for the account we'll look for the character info in.
-		@param  marker The position (1-4) of the character in the character list.
+		@param  marker The position (0-3) of the character in the character list.
 
 		@return The character's full info.
 
