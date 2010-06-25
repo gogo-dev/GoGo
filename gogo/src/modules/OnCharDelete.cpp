@@ -1,6 +1,10 @@
 #include "../GoGoClient.h"
 
+#include "../Structures.h"
+
 #include <database/oopsies.h>
+#include <database/GunzDB.h>
+
 #include <cockpit/Transmitter.h>
 #include <cockpit/packet/protocol/Match_ResponseDeleteChar.h>
 #include <cockpit/packet/Parameters.h>

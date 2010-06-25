@@ -1,6 +1,7 @@
 #include "../GoGoClient.h"
 
 #include <database/oopsies.h>
+#include <database/GunzDB.h>
 
 #include <cockpit/Logger.h>
 #include <cockpit/Transmitter.h>

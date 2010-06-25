@@ -1,6 +1,9 @@
 #include "../GoGoClient.h"
 
+#include <database/CharacterEntry.h>
+#include <database/GunzDB.h>
 #include <database/oopsies.h>
+
 #include <cockpit/Transmitter.h>
 #include <cockpit/packet/protocol/Match_ResponseAccountCharList.h>
 #include <cockpit/packet/Parameters.h>

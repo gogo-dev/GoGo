@@ -1,10 +1,7 @@
 #pragma once
-#include "Structures.h"
 
 #include <cockpit/ClientHandler.h>
-#include <cockpit/packet/Parameters.h>
 
-#include <database/GunzDB.h>
 #include <database/AccountInfo.h>
 #include <database/CharacterInfo.h>
 
@@ -17,6 +14,10 @@ namespace cockpit {
 }
 
 class MUIDSanta;
+class GunzDB;
+
+typedef boost::uint64_t MUID;
+
 using namespace boost;
 class GoGoClient : public cockpit::ClientHandler
 {
@@ -50,4 +51,3 @@ public:
 	boost::array<boost::uint8_t, 32>
 	handshake(boost::asio::ip::tcp::socket& s) const;
 };
-
