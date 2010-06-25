@@ -13,7 +13,7 @@ using namespace boost;
 using namespace cockpit;
 using namespace mysqlpp;
 
-typedef StoreQueryResult::const_iterator ResultIt;
+typedef mysqlpp::StoreQueryResult::const_iterator ResultIt;
 
 MySQLGunzDB::MySQLGunzDB(Logger* log, const char* dbname, const char* host, const char* user, const char* password, unsigned int port)
 	: logger(log)
