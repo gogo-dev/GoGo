@@ -34,7 +34,7 @@ public:
 	                                   const std::string& password) = 0;
 
 	// Deletes a character from an account ID, marker, and name.
-	virtual bool DeleteCharacter(boost::uint32_t aid, boost::uint32_t marker, std::string name) = 0;
+	virtual bool DeleteCharacter(boost::uint32_t aid, boost::uint32_t marker, const std::string& name) = 0;
 
 	/**
 		Gets the character info from an account identifier.
@@ -103,7 +103,6 @@ public:
 
 		@param  cid The character's unique identification number retrieved from
 		            the CharacterInfo struct.
->>>>>>> Made the design of MySQLGunzDB more modular, and added
 
 		@return The contents of the character's inventory.
 

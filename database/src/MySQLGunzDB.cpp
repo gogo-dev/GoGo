@@ -248,29 +248,6 @@ Query make_create_character_equip_query(Connection& c, uint32_t cid)
 	return q;
 }
 
-bool MySQLGunzDB::DeleteCharacter(boost::uint32_t aid, boost::uint32_t marker, std::string name)
-{
-	try
-	{
-		mutex::scoped_lock(gunzMutex);
-		mysqlpp::Query query = gunzconn.query();
-		query << "DELETE FROM `character` WHERE accountid=" << aid << " AND marker=" << marker << " AND name=" << mysqlpp::quote <<  name.c_str();
-		
-		if (!query.exec())
-			return false;
-
-		query.reset();
-		query << "UPDATE `character` set marker=marker-1 where marker > " << marker << " and accountid=" << aid;
-		return query.exec();
-	}
-	catch (mysqlpp::Exception& ex)
-	{
-		logger->warning(format("MySQL Error: %1%") % ex.what());
-	}
-
-	return false;
-}
-
 void MySQLGunzDB::CreateCharacter(boost::uint32_t aid, std::string name, boost::uint32_t marker, boost::uint32_t sex, boost::uint32_t hair, boost::uint32_t face, boost::uint32_t costume)
 {
 	if (!NameExists(name))

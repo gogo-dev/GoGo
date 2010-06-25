@@ -39,13 +39,6 @@ private:
 	};
 
 private:
-<<<<<<< HEAD
-	static std::vector<Item> GetItemsFromRow(const mysqlpp::Row& row);
-	boost::uint32_t GetCID (boost::uint32_t aid, boost::uint32_t marker);
-	bool DoesNameExist(std::string name);
-=======
-	boost::uint32_t GetCID(boost::uint32_t aid, boost::uint32_t marker);
-
 	/**
 		Runs a query, automatically protecting the database from non-serial
 		access.
@@ -94,7 +87,7 @@ public:
 	//Login Process related functions
 	AccountInfo GetAccountInfo(const std::string& user, const std::string& password);
 
-	bool DeleteCharacter(boost::uint32_t cid, boost::uint32_t marker, std::string name);
+	bool DeleteCharacter(boost::uint32_t cid, boost::uint32_t marker, const std::string& name);
 
 	//Character processing related functions
 	SmallVector<Item, 12> GetEquipment(boost::uint32_t cid);
@@ -103,4 +96,6 @@ public:
 	bool NameExists(std::string name);
 	void CreateCharacter(boost::uint32_t aid, std::string name, boost::uint32_t marker, boost::uint32_t sex, boost::uint32_t hair, boost::uint32_t face, boost::uint32_t costume);
 	CharacterInfo GetCharacterInfo(boost::uint32_t cid, boost::uint8_t slot);
+
+	boost::uint32_t GetCID(uint32_t aid, uint32_t marker);
 };

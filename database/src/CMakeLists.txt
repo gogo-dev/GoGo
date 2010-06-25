@@ -1,5 +1,6 @@
 set(DATABASE_MYSQL_MODULES
 	MySQL/modules/CreateCharacter.cpp
+	MySQL/modules/DeleteCharacter.cpp
 	MySQL/modules/GetAccountInfo.cpp
 	MySQL/modules/GetCharacterInfo.cpp
 	MySQL/modules/GetCharacterList.cpp
