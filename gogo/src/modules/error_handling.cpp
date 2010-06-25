@@ -26,3 +26,9 @@ void GoGoClient::OnInvalidPacketType(uint16_t commandID)
 {
 	logger->info(format("[%1%] Nonpresent commandID [%2%] detected. This is not part of the protocol!") % transmitter->get_ip() % commandID);
 }
+
+void GoGoClient::OnUnimplementedPacket(uint16_t commandID)
+{
+	PacketInfo info = lookup(commandID);
+	logger->debug(format("[%1%] Unhandled packet: %2% (doc=\"%3%\", id=%4%)") % transmitter->get_ip() % info.name % info.doc % info.commandId);
+}
