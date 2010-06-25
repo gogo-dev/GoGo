@@ -1,6 +1,8 @@
 #include "../GoGoClient.h"
 
 #include <database/oopsies.h>
+
+#include <cockpit/Logger.h>
 #include <cockpit/Transmitter.h>
 #include <cockpit/packet/protocol/Match_ResponseAccountCharInfo.h>
 #include <cockpit/packet/Parameters.h>

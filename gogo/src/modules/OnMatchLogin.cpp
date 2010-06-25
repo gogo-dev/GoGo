@@ -1,9 +1,13 @@
 #include "../GoGoClient.h"
 
 #include <database/oopsies.h>
+
+#include <cockpit/Logger.h>
 #include <cockpit/Transmitter.h>
 #include <cockpit/packet/protocol/Match_ResponseLogin.h>
 #include <cockpit/packet/Parameters.h>
+
+#include <boost/format.hpp>
 
 using namespace std;
 using namespace boost;

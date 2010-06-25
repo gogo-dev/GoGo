@@ -2,6 +2,9 @@
 
 #include <cockpit/Transmitter.h>
 #include <cockpit/packet/Lookup.h>
+#include <cockpit/Logger.h>
+
+#include <boost/format.hpp>
 
 using namespace std;
 using namespace boost;

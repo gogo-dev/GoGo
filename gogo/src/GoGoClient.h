@@ -1,17 +1,20 @@
 #pragma once
-
-#include <boost/signals2.hpp>
-#include <boost/cstdint.hpp>
+#include "Structures.h"
 
 #include <cockpit/ClientHandler.h>
-#include <cockpit/Logger.h>
 #include <cockpit/packet/Parameters.h>
+
 #include <database/GunzDB.h>
 #include <database/AccountInfo.h>
 #include <database/CharacterInfo.h>
+
 #include <string>
 
-#include "Structures.h"
+#include <boost/cstdint.hpp>
+
+namespace cockpit {
+	class Logger;
+}
 
 class MUIDSanta;
 using namespace boost;
@@ -39,7 +42,7 @@ public:
 
 	void OnMatchLogin(const std::string& username, const std::string& password, boost::int32_t commandVersion, boost::uint32_t nChecksumPack);
 	void OnCharList();
-	void OnCharCreate(MUID uidPlayer, uint32_t charMarker, std::string charName, uint32_t charSex, uint32_t charHair, uint32_t charFace, uint32_t charCostume);
+	void OnCharCreate(MUID uidPlayer, uint32_t charMarker, const std::string& charName, uint32_t charSex, uint32_t charHair, uint32_t charFace, uint32_t charCostume);
 	void OnCharDelete(MUID uid, uint32_t marker, const std::string& name);
 	void OnCharInfo(uint8_t marker);
 	void OnCharSelect(MUID uid, uint8_t marker);
