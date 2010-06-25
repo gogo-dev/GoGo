@@ -15,14 +15,8 @@ using namespace std;
 using namespace boost;
 using namespace cockpit;
 
-static void send_result(Transmitter* transmitter, PacketErrorCode err)
-{
-	using packet::protocol::Match_ResponseDeleteChar;
-	transmitter->send(Match_ResponseDeleteChar(packet::int32(err)));
-}
-
 void GoGoClient::OnCharDelete(MUID /* uidPlayer */, uint32_t charMarker, const std::string& /* charName */)
 {
 	database->DeleteCharacter(myAccount.AccountId, charMarker);
-	return send_result(transmitter, PEC_NONE);
+	transmitter->send(packet::protocol::Match_ResponseDeleteChar(PEC_NONE));
 }

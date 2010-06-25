@@ -19,7 +19,7 @@ using namespace cockpit;
 static void reply(Transmitter* t, int32_t result, const std::string& characterName)
 {
 	t->send(packet::protocol::Match_ResponseCreateChar(
-		packet::int32(result), packet::string(characterName)
+		result, characterName
 	));
 }
 
