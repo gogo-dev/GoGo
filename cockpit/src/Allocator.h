@@ -114,7 +114,7 @@ public:
 	{
 	private:
 		const Allocator& alloc;
-		boost::uint8_t*& ptr;
+		boost::uint8_t* ptr;
 
 	public:
 		auto_free(const Allocator& _alloc, boost::uint8_t* _ptr)
@@ -125,7 +125,9 @@ public:
 		~auto_free()
 		{
 			assert(ptr);
-			alloc.free(ptr);
+
+			if(ptr)
+				alloc.free(ptr);
 		}
 	};
 };

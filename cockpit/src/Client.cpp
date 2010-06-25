@@ -150,7 +150,7 @@ void Client::on_packet_header(
 	size_t bytesTransferred)
 {
 	assert(p);
-	PacketAllocator::auto_free f(packetPool, reinterpret_cast<boost::uint8_t*>(p));
+	PacketAllocator::auto_free f(packetPool, reinterpret_cast<uint8_t*>(p));
 
 	if(err)
 	{

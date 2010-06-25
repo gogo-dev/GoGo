@@ -6,7 +6,7 @@
 
 #include "MUIDSanta.h"
 
-#include <boost/bind/bind.hpp>
+#include <boost/bind.hpp>
 
 #include <cassert>
 
