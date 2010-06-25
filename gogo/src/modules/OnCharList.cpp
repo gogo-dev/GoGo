@@ -6,9 +6,11 @@
 #include <cockpit/packet/Parameters.h>
 
 #include <vector>
+
 using namespace std;
 using namespace boost;
 using namespace cockpit;
+
 void GoGoClient::OnCharList()
 {
 	using packet::protocol::Match_ResponseAccountCharList;

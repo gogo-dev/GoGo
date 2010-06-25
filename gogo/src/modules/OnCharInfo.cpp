@@ -6,6 +6,8 @@
 #include <cockpit/packet/Parameters.h>
 
 #include <vector>
+#include <cstddef>
+
 using namespace std;
 using namespace boost;
 using namespace cockpit;
@@ -15,18 +17,15 @@ void GoGoClient::OnCharInfo(uint8_t marker)
 {
 	using packet::protocol::Match_ResponseAccountCharInfo;
 
-	if (marker > 4)
+	if (marker > 3)
 	{
 		logger->info(format("[%1%] Hack Detected! (Tried to get info for an out-of-bounds character)") % transmitter->get_ip());
 		return transmitter->disconnect();
 	}
 
-	try
-	{
+	try {
 		myCharacter = database->GetCharacterInfo(myAccount.AccountId, marker);
-	}
-	catch(InvalidCharacterInfo& e)
-	{
+	} catch(InvalidCharacterInfo& e) {
 		logger->debug(e.what());
 		return;
 	}
@@ -51,7 +50,7 @@ void GoGoClient::OnCharInfo(uint8_t marker)
 
 	assert(myCharacter.Equipment.size() == 12);
 
-	for (int i = 0; i < 12; ++i)
+	for(size_t i = 0; i < myCharacter.Equipment.size(); ++i)
 		info.add_param(int32(myCharacter.Equipment[i].ItemID));
 
 	info.add_param(int32(myAccount.AccountAccess));

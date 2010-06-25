@@ -17,15 +17,8 @@ static void send_result(Transmitter* transmitter, PacketErrorCode err)
 	transmitter->send(Match_ResponseDeleteChar(packet::int32(err)));
 }
 
-void GoGoClient::OnCharDelete(MUID uidPlayer, uint32_t charMarker, const std::string& /* charName */)
+void GoGoClient::OnCharDelete(MUID /* uidPlayer */, uint32_t charMarker, const std::string& /* charName */)
 {
-	if (uidPlayer != myMUID)
-	{
-		logger->info(format("[%1%] MUID Hacking Detected!") % transmitter->get_ip());
-		return transmitter->disconnect();
-	}
-
 	database->DeleteCharacter(myAccount.AccountId, charMarker);
-
 	return send_result(transmitter, PEC_NONE);
 }

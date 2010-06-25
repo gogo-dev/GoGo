@@ -17,14 +17,8 @@ static void reply(Transmitter* t, int32_t result, const std::string& characterNa
 	));
 }
 
-void GoGoClient::OnCharCreate(MUID uidPlayer, uint32_t charMarker, std::string charName, uint32_t charSex, uint32_t charHair, uint32_t charFace, uint32_t charCostume)
+void GoGoClient::OnCharCreate(MUID /* uidPlayer */, uint32_t charMarker, std::string charName, uint32_t charSex, uint32_t charHair, uint32_t charFace, uint32_t charCostume)
 {
-	if (uidPlayer != myMUID)
-	{
-		logger->info(format("[%1%] MUID Spoofing Detected!") % transmitter->get_ip());
-		return transmitter->disconnect();
-	}
-
 	try
 	{
 		if(charName.length() <= 3)

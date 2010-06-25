@@ -11,32 +11,28 @@ using namespace boost;
 using namespace cockpit;
 using namespace packet;
 
-void GoGoClient::OnCharSelect(boost::uint64_t uid, uint8_t marker)
+void GoGoClient::OnCharSelect(boost::uint64_t /* uid */, uint8_t marker)
 {
 	using packet::protocol::Match_ResponseSelectChar;
 
-	if (marker > 4 || uid != myMUID)
+	if (marker > 3)
 	{
-		logger->info(format("[%1%] Character Select Hack Detected!") % transmitter->get_ip());
-		transmitter->disconnect();
-		return;
+		logger->info(format("[%1%] Hack Detected! (Tried to get info for an out-of-bounds character)") % transmitter->get_ip());
+		return transmitter->disconnect();
 	}
 
 	try
 	{
 		myCharacter = database->GetCharacterInfo(myAccount.AccountId, marker);
-	}
-	catch(InvalidCharacterInfo& e)
-	{
+	} catch(InvalidCharacterInfo& e) {
 		logger->debug(e.what());
-		transmitter->disconnect();
-		return;
+		return transmitter->disconnect();
 	}
 
 	// Oh my god, good luck guys.
 	int32 result(0);
 	blob info(1, 146);
-	
+
 	info.add_param(blob_string(myCharacter.CharacterName.c_str(), 32));
 	info.add_param(blob_string(myCharacter.ClanName.c_str(), 16));
 	info.add_param(int32(myCharacter.CharacterGrade));
@@ -49,16 +45,16 @@ void GoGoClient::OnCharSelect(boost::uint64_t uid, uint8_t marker)
 	info.add_param(uint32(myCharacter.CharacterXP));
 	info.add_param(uint32(myCharacter.CharacterBP));
 	info.add_param(floating_point(0)); // fBonusRate - not used.
+	info.add_param(zeros(18));
 
-	for (int i = 0; i < 9; ++i)
-		info.add_param(int16(0)); // not used :/
-	
-	for (int i = 0; i < 12; ++i)
+	assert(myCharacter.Equipment.size() == 12);
+
+	for(int i = 0; i < 12; ++i)
 		info.add_param(int32(myCharacter.Equipment[i].ItemID));
-	
+
 	info.add_param(int32((uint32_t)myAccount.AccountAccess));
 	info.add_param(int32(myCharacter.ClanId));
-	
+
 	blob extra(1,1);
 	extra.add_param(uint8(0x3E));
 

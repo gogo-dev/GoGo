@@ -10,43 +10,51 @@ using namespace boost;
 using namespace cockpit;
 using namespace packet;
 
+static void reply(
+	Transmitter* transmitter,
+	PacketErrorCode result,
+	const char* serverName,
+	int8_t mode,
+	const char* account,
+	uint8_t ugrade,
+	uint8_t pgrade,
+	MUID muid)
+{
+	packet::blob encryptMSG(1, 20);
+	encryptMSG.add_param(packet::zeros(20));
+
+	transmitter->send(protocol::Match_ResponseLogin(result, serverName, mode, account, ugrade, pgrade, muid, encryptMSG));
+}
+
 void GoGoClient::OnMatchLogin(
     const std::string& username,
 	const std::string& password,
 	int32_t /* commandVersion */,
 	uint32_t /* ChecksumPack */)
 {
-	PacketErrorCode errorCode;
+	PacketErrorCode errorCode = PEC_NONE;
 
-	try
-	{
-		myAccount = database->GetAccountInfo (username, password);
+	try {
+		myAccount = database->GetAccountInfo(username, password);
+		logger->debug(format("User: %1% has logged in!") % username);
 
-		logger->info(format("User: %1% has logged in!") % username);
-		errorCode = PEC_NONE;
-	}
-	catch (InvalidAccountInfo &e)
-	{
+	} catch (InvalidAccountInfo &e) {
 		logger->info(e.what());
 		errorCode = PEC_WRONG_PASSWORD;
-	}
-	catch (BannedUser &e)
-	{
+
+	} catch (BannedUser &e) {
 		logger->info(e.what());
 		errorCode = PEC_USER_BANNED;
 	}
 
-	packet::int32 result(errorCode);
-	packet::string serverName("Lol Emu Test");	// TODO: Not this.
-	packet::int8 mode(2);
-	packet::string account(username);
-	packet::uint8 ugrade(myAccount.AccountAccess);
-	packet::uint8 pgrade(myAccount.AccountPremium);
-	packet::MUID muid(myMUID);
-
-	packet::blob encryptMSG(1, 20);
-	encryptMSG.add_param(packet::zeros(20));
-
-	transmitter->send(protocol::Match_ResponseLogin(result, serverName, mode, account, ugrade, pgrade, muid, encryptMSG));
-
+	return reply(
+		transmitter,
+		errorCode,
+		"Lol Emu Test",	// TODO(Jacob): NOT THIS!
+		2,	// What? Is this supposed to mean something?
+		username.c_str(),
+		myAccount.AccountAccess,
+		myAccount.AccountPremium,
+		myMUID
+	);
 }
