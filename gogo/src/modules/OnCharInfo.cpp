@@ -17,9 +17,8 @@ void GoGoClient::OnCharInfo(uint8_t marker)
 
 	if (marker > 4)
 	{
-		logger->info(format("[%1%] Character Info Hack Detected!") % transmitter->get_ip());
-		transmitter->disconnect();
-		return;
+		logger->info(format("[%1%] Hack Detected! (Tried to get info for an out-of-bounds character)") % transmitter->get_ip());
+		return transmitter->disconnect();
 	}
 
 	try
@@ -35,7 +34,7 @@ void GoGoClient::OnCharInfo(uint8_t marker)
 	// Oh my god, good luck guys.
 	uint8 index(marker);
 	blob info(1, 146);
-	
+
 	info.add_param(blob_string(myCharacter.CharacterName.c_str(), 32));
 	info.add_param(blob_string(myCharacter.ClanName.c_str(), 16));
 	info.add_param(int32(myCharacter.CharacterGrade));
@@ -48,14 +47,14 @@ void GoGoClient::OnCharInfo(uint8_t marker)
 	info.add_param(uint32(myCharacter.CharacterXP));
 	info.add_param(uint32(myCharacter.CharacterBP));
 	info.add_param(floating_point(0)); // fBonusRate - not used.
+	info.add_param(zeros(18)); // not used :/
 
-	for (int i = 0; i < 9; ++i)
-		info.add_param(int16(0)); // not used :/
-	
+	assert(myCharacter.Equipment.size() == 12);
+
 	for (int i = 0; i < 12; ++i)
 		info.add_param(int32(myCharacter.Equipment[i].ItemID));
-	
-	info.add_param(int32((uint32_t)myAccount.AccountAccess));
+
+	info.add_param(int32(myAccount.AccountAccess));
 	info.add_param(int32(myCharacter.ClanId));
 
 	transmitter->send(Match_ResponseAccountCharInfo(myCharacter.CharacterMarker, info));

@@ -43,10 +43,9 @@ void GoGoClient::OnMatchLogin(
 	packet::uint8 ugrade(myAccount.AccountAccess);
 	packet::uint8 pgrade(myAccount.AccountPremium);
 	packet::MUID muid(myMUID);
-	packet::blob encryptMSG (1, 20);
 
-	for (int i = 0; i < 5; ++i)
-		encryptMSG.add_param(packet::int32(0));
+	packet::blob encryptMSG(1, 20);
+	encryptMSG.add_param(packet::zeros(20));
 
 	transmitter->send(protocol::Match_ResponseLogin(result, serverName, mode, account, ugrade, pgrade, muid, encryptMSG));
 
