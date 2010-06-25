@@ -127,7 +127,11 @@ public:
 
 	/// This function is called whenever a packet has a commandID that hasn't
 	/// been enumerated by the protocol.
-	boost::function<void (boost::uint16_t /* packetID */)> OnInvalidPacketType;"""
+	boost::function<void (boost::uint16_t /* packetID */)> OnInvalidPacketType;
+
+	/// This function is called whenever a packet has a commandID that hasn't
+	/// been hooked yet. This can be noisy while gogo is in development ;)
+	boost::function<void (boost::uint16_t /* packetID */)> OnUnimplementedPacket;"""
 
 def make_packet_registry_header_footer():
 	return "\n};\n\n}\n}\n"
@@ -161,6 +165,8 @@ def make_packet_registry_cpp_header():
 
 #include <boost/array.hpp>
 #include <boost/format.hpp>
+#include <boost/bind.hpp>
+
 #include <util/buffer.h>
 #include <cockpit/packet/Registry.h>
 #include <cockpit/packet/protocol/all>
@@ -196,33 +202,53 @@ Registry::~Registry()
 {
 }
 
-static void do_nothing_0() {}
+namespace {
+	// Represents the first parameter to do_nothing_*
+	struct nothing_info
+	{
+		const Registry* self;
+		uint16_t packetID;
+
+		nothing_info(const Registry* _self, uint16_t _packetID)
+			: self(_self), packetID(_packetID)
+		{
+		}
+	};
+}
+
+static void do_nothing_0(nothing_info info)
+{
+	if(info.packetID && info.self->OnUnimplementedPacket)
+		info.self->OnUnimplementedPacket(info.packetID);
+}
+
 template <typename T1>
-static void do_nothing_1(T1) {}
+static void do_nothing_1(nothing_info info, T1) { return do_nothing_0(info); }
 template <typename T1, typename T2>
-static void do_nothing_2(T1, T2) {}
+static void do_nothing_2(nothing_info info, T1, T2) { return do_nothing_0(info); }
 template <typename T1, typename T2, typename T3>
-static void do_nothing_3(T1, T2, T3) {}
+static void do_nothing_3(nothing_info info, T1, T2, T3) { return do_nothing_0(info); }
 template <typename T1, typename T2, typename T3, typename T4>
-static void do_nothing_4(T1, T2, T3, T4) {}
+static void do_nothing_4(nothing_info info, T1, T2, T3, T4) { return do_nothing_0(info); }
 template <typename T1, typename T2, typename T3, typename T4, typename T5>
-static void do_nothing_5(T1, T2, T3, T4, T5) {}
+static void do_nothing_5(nothing_info info, T1, T2, T3, T4, T5) { return do_nothing_0(info); }
 template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
-static void do_nothing_6(T1, T2, T3, T4, T5, T6) {}
+static void do_nothing_6(nothing_info info, T1, T2, T3, T4, T5, T6) { return do_nothing_0(info); }
 template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7>
-static void do_nothing_7(T1, T2, T3, T4, T5, T6, T7) {}
+static void do_nothing_7(nothing_info info, T1, T2, T3, T4, T5, T6, T7) { return do_nothing_0(info); }
 template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8>
-static void do_nothing_8(T1, T2, T3, T4, T5, T6, T7, T8) {}
+static void do_nothing_8(nothing_info info, T1, T2, T3, T4, T5, T6, T7, T8) { return do_nothing_0(info); }
 template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9>
-static void do_nothing_9(T1, T2, T3, T4, T5, T6, T7, T8, T9) {}
+static void do_nothing_9(nothing_info info, T1, T2, T3, T4, T5, T6, T7, T8, T9) { return do_nothing_0(info); }
 """
 
 def make_packet_registry_constructor(commands):
 	ret =  """
 Registry::Registry()
 	:
-	OnFailedParse(do_nothing_3<uint16_t, const uint8_t*, uint16_t>),
-	OnInvalidPacketType(do_nothing_1<uint16_t>),
+	OnFailedParse(bind(do_nothing_3<uint16_t, const uint8_t*, uint16_t>, nothing_info(this, 0), _1, _2, _3)),
+	OnInvalidPacketType(bind(do_nothing_1<uint16_t>, nothing_info(this, 0), _1)),
+	OnUnimplementedPacket(bind(do_nothing_1<uint16_t>, nothing_info(this, 0), _1)),
 	"""
 
 	def make_params(command):
@@ -230,7 +256,14 @@ Registry::Registry()
 
 	# Don't even TRY to understand this function :( My head hurts.
 	def make_command_string(command):
-		return ''.join([command.name, '(do_nothing_', str(len(command.parameters)), ((''.join(['< ', make_params(command), ' >'])) if len(command.parameters) != 0 else ''), ')'])
+		return ''.join([
+			command.name,
+			'(bind(do_nothing_', str(len(command.parameters)),
+			((''.join(['< ', make_params(command), ' >'])) if len(command.parameters) != 0 else ''),
+			''.join([', nothing_info(this, ', str(command.id), ')']),
+			(''.join([', ', ', '.join([''.join(["_", str(x + 1)]) for x in range(len(command.parameters))])]) if len(command.parameters) != 0 else ''),
+			'))'
+		])
 
 	ret = ''.join([ret, ',\n\t'.join([make_command_string(s) for s in commands])])
 

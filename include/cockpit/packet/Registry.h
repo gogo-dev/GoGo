@@ -36,6 +36,10 @@ public:
 	/// been enumerated by the protocol.
 	boost::function<void (boost::uint16_t /* packetID */)> OnInvalidPacketType;
 
+	/// This function is called whenever a packet has a commandID that hasn't
+	/// been hooked yet. This can be noisy while gogo is in development ;)
+	boost::function<void (boost::uint16_t /* packetID */)> OnUnimplementedPacket;
+
 	// Ping
 	boost::function<void (boost::uint32_t /* TimeStamp */)> Net_Ping;
 

@@ -3,7 +3,6 @@
 #include <boost/cstdint.hpp>
 #include <boost/array.hpp>
 
-
 namespace cockpit {
 
 class Transmitter;

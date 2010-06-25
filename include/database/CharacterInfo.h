@@ -1,8 +1,10 @@
 #pragma once
 #include <boost/cstdint.hpp>
 #include <util/SmallVector.h>
+
 #include <vector>
 #include <string>
+
 #include "Item.h"
 
 struct CharacterInfo

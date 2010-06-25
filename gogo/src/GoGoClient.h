@@ -1,5 +1,4 @@
 #pragma once
-
 #include <cockpit/ClientHandler.h>
 
 #include <database/AccountInfo.h>
