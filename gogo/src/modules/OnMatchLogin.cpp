@@ -37,7 +37,7 @@ void GoGoClient::OnMatchLogin(
 	}
 
 	packet::int32 result(errorCode);
-	packet::string serverName ("Lol Emu Test");
+	packet::string serverName("Lol Emu Test");	// TODO: Not this.
 	packet::int8 mode(2);
 	packet::string account(username);
 	packet::uint8 ugrade(myAccount.AccountAccess);
