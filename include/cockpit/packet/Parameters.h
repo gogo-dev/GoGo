@@ -56,6 +56,19 @@ namespace packet {
 	};
 
 	/**
+		Just zeros. However many zeros you want!
+	*/
+	class zeros : public Parameter
+	{
+	private:
+		boost::uint16_t count;
+
+	public:
+		zeros(boost::uint16_t count);
+		Buffer serialize() const;
+	};
+
+	/**
 		A signed, 32-bit integer value.
 	*/
 	class int32 : public Parameter

@@ -1,5 +1,6 @@
 #pragma once
 #include <boost/cstdint.hpp>
+#include <util/SmallVector.h>
 #include <vector>
 #include <string>
 #include "Item.h"
@@ -18,7 +19,7 @@ struct CharacterInfo
     boost::uint8_t CharacterFace;
     boost::uint32_t CharacterXP;
     boost::uint32_t CharacterBP;
-	std::vector<Item> Equipment;//12;
+	SmallVector<Item, 12> Equipment;
 	boost::uint32_t CharacterAccess;
     boost::uint32_t ClanId;
     std::vector<Item> Inventory;

@@ -17,5 +17,9 @@ GoGoFactory::GoGoFactory(Logger* _logger, GunzDB* _database)
 
 auto_ptr<ClientHandler> GoGoFactory::create_client_handler()
 {
-	return auto_ptr<ClientHandler>(new GoGoClient(logger, &santa, database));
+	return auto_ptr<ClientHandler>(
+		new GoGoClient(
+			logger, &santa, database
+		)
+	);
 }

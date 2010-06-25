@@ -21,7 +21,7 @@ GoGoClient::GoGoClient(Logger* _logger, MUIDSanta* _santa, GunzDB* _database)
 	santa = _santa;
 	myMUID = santa->get();
 
-	assert (database);
+	assert(database);
 	database = _database;
 }
 

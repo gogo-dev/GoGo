@@ -13,21 +13,22 @@ void GoGoClient::OnCharList()
 {
 	using packet::protocol::Match_ResponseAccountCharList;
 
-	vector<CharacterEntry> charList = database->GetCharacterList(myAccount.AccountId);
-	packet::blob charBlob (charList.size(), 34);
+	typedef SmallVector<CharacterEntry, 4> CharList;
+
+	CharList charList = database->GetCharacterList(myAccount.AccountId);
+	packet::blob charBlob(charList.size(), 34);
 
 	if (charList.size() == 0)
 	{
-		for (int i = 0; i < 32; ++i)
-			charBlob.add_param(packet::uint8(0));
+		charBlob.add_param(packet::zeros(32));
 	}
 	else
 	{
-		for (size_t i = 0; i < charList.size(); ++i)
+		for (CharList::iterator i = charList.begin(), e = charList.end(); i != e; ++i)
 		{
-			charBlob.add_param(packet::blob_string(charList[i].CharacterName.c_str(), 32));
-			charBlob.add_param(packet::uint8(charList[i].CharacterIndex));
-			charBlob.add_param(packet::uint8(charList[i].CharacterLevel));
+			charBlob.add_param(packet::blob_string(i->CharacterName.c_str(), 32));
+			charBlob.add_param(packet::uint8(i->CharacterIndex));
+			charBlob.add_param(packet::uint8(i->CharacterLevel));
 		}
 	}
 

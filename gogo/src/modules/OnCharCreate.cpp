@@ -10,37 +10,41 @@ using namespace std;
 using namespace boost;
 using namespace cockpit;
 
+static void reply(Transmitter* t, int32_t result, const std::string& characterName)
+{
+	t->send(packet::protocol::Match_ResponseCreateChar(
+		packet::int32(result), packet::string(characterName)
+	));
+}
+
 void GoGoClient::OnCharCreate(MUID uidPlayer, uint32_t charMarker, std::string charName, uint32_t charSex, uint32_t charHair, uint32_t charFace, uint32_t charCostume)
 {
-	using packet::protocol::Match_ResponseCreateChar;
-	PacketErrorCode errorCode = PEC_NONE;
-
 	if (uidPlayer != myMUID)
 	{
-		logger->info(format("[%1%] MUID Hacking Detected!") % transmitter->get_ip());
-		transmitter->disconnect();
-		return;
+		logger->info(format("[%1%] MUID Spoofing Detected!") % transmitter->get_ip());
+		return transmitter->disconnect();
 	}
 
 	try
 	{
-		if (charName.length() <= 3)
-			errorCode = PEC_NAME_SHORT;
+		if(charName.length() <= 3)
+			return reply(transmitter, PEC_NAME_SHORT, charName);
 
-		else if (charName.length() >= 16)
-			errorCode = PEC_NAME_LONG;
+		if(charName.length() >= 16)
+			return reply(transmitter, PEC_NAME_LONG, charName);
 
-		else if (!database->CreateCharacter(myAccount.AccountId, charName, charMarker, charSex, charHair, charFace, charCostume))
-			errorCode = PEC_INVALID_NAME;
+		database->CreateCharacter(myAccount.AccountId, charName, charMarker, charSex, charHair, charFace, charCostume);
+
+		return reply(transmitter, PEC_NONE, charName);
 	}
-	catch(NameInUse& e)
+	catch(const NameInUse& e)
 	{
 		logger->debug(e.what());
-		errorCode = PEC_NAME_IN_USE;
+		return reply(transmitter, PEC_NAME_IN_USE, charName);
 	}
-
-	packet::int32 result(errorCode);
-	packet::string name(charName);
-
-	transmitter->send(Match_ResponseCreateChar(result, name));
+	catch(const InvalidCharacterInfo& e)
+	{
+		logger->debug(e.what());
+		return reply(transmitter, PEC_INVALID_NAME, charName);
+	}
 }

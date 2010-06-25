@@ -48,6 +48,18 @@ uint8_t Parameter::get_type() const
 	return type;
 }
 
+zeros::zeros(uint16_t _count)
+	: count(_count)
+{
+}
+
+Buffer zeros::serialize() const
+{
+	Buffer ret(count);
+	memory::zero(ret.data(), count);
+	return ret;
+}
+
 int32::int32(int32_t _value)
 	: value(_value)
 {
