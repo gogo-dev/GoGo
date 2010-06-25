@@ -269,13 +269,15 @@ blob::blob(boost::uint32_t eleCount, boost::uint32_t eleSize)
 	type = 0xA;
 }
 
-void blob::add_param(const Parameter &param)
+blob& blob::add_param(const Parameter &param)
 {
 	Buffer serialParam = param.serialize();
 	elementData.reserve(elementData.size() + serialParam.length());
 
 	for(size_t i = 0; i < serialParam.length(); ++i)
 		elementData.push_back(serialParam.data()[i]);
+
+	return *this;
 }
 
 Buffer blob::serialize() const

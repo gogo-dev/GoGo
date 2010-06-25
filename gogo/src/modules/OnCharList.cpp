@@ -13,15 +13,16 @@
 using namespace std;
 using namespace boost;
 using namespace cockpit;
+using namespace cockpit::packet;
 
 void GoGoClient::OnCharList()
 {
-	using packet::protocol::Match_ResponseAccountCharList;
+	using protocol::Match_ResponseAccountCharList;
 
 	typedef SmallVector<CharacterEntry, 4> CharList;
 
 	CharList charList = database->GetCharacterList(myAccount.AccountId);
-	packet::blob charBlob(charList.size(), 34);
+	blob charBlob(charList.size(), 34);
 
 	if (charList.size() == 0)
 	{
@@ -31,9 +32,11 @@ void GoGoClient::OnCharList()
 	{
 		for (CharList::iterator i = charList.begin(), e = charList.end(); i != e; ++i)
 		{
-			charBlob.add_param(packet::blob_string(i->CharacterName.c_str(), 32));
-			charBlob.add_param(packet::uint8(i->CharacterIndex));
-			charBlob.add_param(packet::uint8(i->CharacterLevel));
+			charBlob
+				.add_param(blob_string(i->CharacterName.c_str(), 32))
+				.add_param(uint8(i->CharacterIndex))
+				.add_param(uint8(i->CharacterLevel))
+			;
 		}
 	}
 

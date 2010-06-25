@@ -37,27 +37,31 @@ void GoGoClient::OnCharSelect(boost::uint64_t /* uid */, uint8_t marker)
 	int32 result(0);
 	blob info(1, 146);
 
-	info.add_param(blob_string(myCharacter.CharacterName.c_str(), 32));
-	info.add_param(blob_string(myCharacter.ClanName.c_str(), 16));
-	info.add_param(int32(myCharacter.CharacterGrade));
-	info.add_param(int16(myCharacter.ClanPoints));
-	info.add_param(uint8(myCharacter.CharacterMarker));
-	info.add_param(int16(myCharacter.CharacterLevel));
-	info.add_param(uint8(myCharacter.CharacterSex));
-	info.add_param(uint8(myCharacter.CharacterHair));
-	info.add_param(uint8(myCharacter.CharacterFace));
-	info.add_param(uint32(myCharacter.CharacterXP));
-	info.add_param(uint32(myCharacter.CharacterBP));
-	info.add_param(floating_point(0)); // fBonusRate - not used.
-	info.add_param(zeros(18));
+	info
+		.add_param(blob_string(myCharacter.CharacterName.c_str(), 32))
+		.add_param(blob_string(myCharacter.ClanName.c_str(), 16))
+		.add_param(int32(myCharacter.CharacterGrade))
+		.add_param(int16(myCharacter.ClanPoints))
+		.add_param(uint8(myCharacter.CharacterMarker))
+		.add_param(int16(myCharacter.CharacterLevel))
+		.add_param(uint8(myCharacter.CharacterSex))
+		.add_param(uint8(myCharacter.CharacterHair))
+		.add_param(uint8(myCharacter.CharacterFace))
+		.add_param(uint32(myCharacter.CharacterXP))
+		.add_param(uint32(myCharacter.CharacterBP))
+		.add_param(floating_point(0))	// fBonusRate - not used.
+		.add_param(zeros(18))
+	;
 
 	assert(myCharacter.Equipment.size() == 12);
 
 	for(int i = 0; i < 12; ++i)
 		info.add_param(int32(myCharacter.Equipment[i].ItemID));
 
-	info.add_param(int32((uint32_t)myAccount.AccountAccess));
-	info.add_param(int32(myCharacter.ClanId));
+	info
+		.add_param(int32((uint32_t)myAccount.AccountAccess))
+		.add_param(int32(myCharacter.ClanId))
+	;
 
 	blob extra(1,1);
 	extra.add_param(uint8(0x3E));

@@ -267,7 +267,10 @@ namespace packet {
 
 	public:
 		blob(boost::uint32_t elementCount, boost::uint32_t elementSize);
-		void add_param(const Parameter& param);
+
+		// Returns a reference to *this to allow call chaining LIKE A BOSS.
+		blob& add_param(const Parameter& param);
+
 		Buffer serialize() const;
 	};
 
