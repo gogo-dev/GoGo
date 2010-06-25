@@ -15,13 +15,10 @@ using namespace mysqlpp;
 
 typedef mysqlpp::StoreQueryResult::const_iterator ResultIt;
 
-MySQLGunzDB::MySQLGunzDB(Logger* log, const char* dbname, const char* host, const char* user, const char* password, unsigned int port)
-	: logger(log)
+MySQLGunzDB::MySQLGunzDB(Logger* log, const char* dbname, const char* host, const char* user, const char* password, uint16_t port)
+	: connectionPool(dbname, host, user, password, port), logger(log)
 {
-	if (!gunzconn.connect(dbname, host, user, password, port))
-		throw std::runtime_error((format("Error connecting to the database: %1%") % gunzconn.error()).str().c_str());
-
-	logger->info("Successfully connected to database.");
+	logger->debug("Successfully connected to database.");
 }
 
 MySQLGunzDB::~MySQLGunzDB()
@@ -31,8 +28,8 @@ MySQLGunzDB::~MySQLGunzDB()
 bool MySQLGunzDB::exec_query(function<Query (Connection&)> QueryMaker)
 {
 	try {
-		recursive_mutex::scoped_lock p(databaseProtection);
-		return !QueryMaker(gunzconn).exec();
+		scoped_connection c(connectionPool);
+		return !(QueryMaker(*(c.connection)).exec());
 	} catch(const Exception& ex) {
 		logger->error(boost::format("MySQL Error: %1%") % ex.what());
 		throw InternalDatabaseError();

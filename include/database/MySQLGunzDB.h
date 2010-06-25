@@ -2,21 +2,42 @@
 #include <cockpit/Logger.h>
 
 #include <database/oopsies.h>
+#include <database/MySQL/ConnectionPool.h>
 
 #include "GunzDB.h"
 #include <typeinfo>	// Fixes a bug in mysql on clang++.
 #include <mystring.h> // yet another bug in mysql + clang++.
 #include <mysql++.h>
 
-#include <boost/thread/recursive_mutex.hpp> // don't we love mutexs?
+#include <boost/thread/recursive_mutex.hpp>
 #include <boost/function.hpp>
 
 class MySQLGunzDB : public GunzDB
 {
 private:
-	mysqlpp::Connection gunzconn;
+	ConnectionPool connectionPool;
 	cockpit::Logger* logger;
-	boost::recursive_mutex databaseProtection;
+
+private:
+	struct scoped_connection
+	{
+	private:
+		ConnectionPool& pool;
+
+	public:
+		mysqlpp::Connection* connection;
+
+		scoped_connection(ConnectionPool& _pool)
+			: pool(_pool), connection(_pool.grab())
+		{
+		}
+
+		~scoped_connection()
+		{
+			pool.release(connection);
+		}
+	};
+
 private:
 <<<<<<< HEAD
 	static std::vector<Item> GetItemsFromRow(const mysqlpp::Row& row);
@@ -49,17 +70,16 @@ private:
 		boost::function<ResultType (const mysqlpp::StoreQueryResult&)> ResultHandler
 	)
 	{
-		mysqlpp::StoreQueryResult result;
-
-		try {
-			boost::recursive_mutex::scoped_lock p(databaseProtection);
-			result = QueryMaker(gunzconn).store();
-		} catch(const mysqlpp::Exception& ex) {
+		try
+		{
+			scoped_connection c(connectionPool);
+			return ResultHandler(QueryMaker(*(c.connection)).store());
+		}
+		catch(const mysqlpp::Exception& ex)
+		{
 			logger->error(boost::format("MySQL Error: %1%") % ex.what());
 			throw InternalDatabaseError();
 		}
-
-		return ResultHandler(result);
 	}
 
 	/**
@@ -68,7 +88,7 @@ private:
 	bool exec_query(boost::function<mysqlpp::Query (mysqlpp::Connection&)> QueryMaker);
 
 public:
-	MySQLGunzDB(cockpit::Logger* _logger, const char* dbname, const char* host, const char* user, const char* password, unsigned int port = 3306);
+	MySQLGunzDB(cockpit::Logger* logger, const char* dbname, const char* host, const char* user, const char* password, boost::uint16_t port = 3306);
 	~MySQLGunzDB();
 
 	//Login Process related functions
