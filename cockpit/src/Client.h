@@ -40,7 +40,9 @@ private:
 	// to send chat packets to each other, as long as any other necessary
 	// information.
 	boost::mutex sendingLock;
-	boost::uint8_t currentPacketID;
+	boost::uint8_t sending_currentPacketID;
+
+	boost::uint8_t recieving_currentPacketID;
 
 	bool connected;
 

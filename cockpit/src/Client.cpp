@@ -88,7 +88,8 @@ Client::Client(Logger* _logger, ClientHandlerFactory* factory, io_service* io)
 	assert(handler.get());
 	assert(io);
 
-	currentPacketID = 0;
+	sending_currentPacketID = 0;
+	recieving_currentPacketID = 3;	// I don't know why, it just is. Ask MAIET :(
 
 	connected = false;
 }
@@ -250,6 +251,14 @@ void Client::on_payload(uint8_t* p, uint16_t payloadSize, bool encrypted, system
 	uint16_t paramLength = payloadSize - Client::PayloadHeader::SIZE;	// LOL.
 	uint8_t* params = p + Client::PayloadHeader::SIZE;
 
+	if(payload.packetID != sending_currentPacketID++)
+	{
+		logger->info(
+			format("[%1%] Invalid packetID (%2% instead of %3%) recieved. Disconnecting.")
+				% get_ip() % static_cast<int>(payload.packetID) % static_cast<int>(sending_currentPacketID - 1)
+		);
+	}
+
 	if(encrypted)
 		decrypt_params(params, paramLength, cryptoKey.c_array());
 
@@ -293,7 +302,7 @@ void Client::send(const packet::Packet& p, bool encrypted)
 	memory::copy(raw + SendablePacket::SIZE, params.data(), params.length());
 
 	mutex::scoped_lock l(sendingLock);
-	header->payloadHeader.packetID = currentPacketID++;
+	header->payloadHeader.packetID = sending_currentPacketID++;
 
 	if(encrypted)
 	{
