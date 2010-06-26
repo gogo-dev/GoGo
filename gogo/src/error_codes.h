@@ -30,4 +30,3 @@ enum PacketErrorCode
     PEC_CHANNEL_FULL = 300021,
     PEC_CHANNEL_INVALID_LEVEL = 300022
 };
-
