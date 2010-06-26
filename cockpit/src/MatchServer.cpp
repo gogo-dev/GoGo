@@ -83,13 +83,8 @@ static void handle_accepted_client(MatchServer::Data* d,
 	assert(d);
 	asynchronously_accept_new_client(d);
 
-	if(err)
-		d->logger->info(format("[%1%] Chickened out: %2%") % client->get_ip() % err.message());
-	else
-	{
-		d->logger->debug(format("[%1%] Connected!") % client->get_ip());
+	if(!err)
 		client->start();
-	}
 }
 
 MatchServer::MatchServer(Logger* logger,

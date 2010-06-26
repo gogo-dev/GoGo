@@ -52,6 +52,9 @@ void GoGoClient::OnMatchLogin(
 	} catch (BannedUser &e) {
 		logger->info(e.what());
 		errorCode = PEC_USER_BANNED;
+
+	} catch(const InternalDatabaseError& ex) {
+		logger->warning(ex.what());
 	}
 
 	return reply(
