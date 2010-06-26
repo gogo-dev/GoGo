@@ -1,6 +1,7 @@
 #include "../GoGoClient.h"
+#include "../error_codes.h"
 
-#include "../Structures.h"
+#include <gunz/simple_types.h>
 
 #include <database/oopsies.h>
 #include <database/GunzDB.h>

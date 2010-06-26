@@ -1,5 +1,5 @@
 #include "../GoGoClient.h"
-#include "../Structures.h"
+#include <gunz/simple_types.h>
 
 #include <util/memory.h>
 #include <boost/asio/ip/tcp.hpp>

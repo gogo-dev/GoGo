@@ -1,27 +1,20 @@
 set(GOGO_HEADERS
-	Channel.h
-	ChannelList.h
 	Configuration.h
 	ConsoleLogger.h
 	GoGoClient.h
 	GoGoFactory.h
 	MUIDSanta.h
-	Player.h
-	PlayerTraits.h
-	Structures.h
+	error_codes.h
 	# Feel free to add more header files when they're added.
 )
 
 set(GOGO_SRC
-	Channel.cpp
-	ChannelList.cpp
 	Configuration.cpp
 	ConsoleLogger.cpp
 	GoGoClient.cpp
 	GoGoFactory.cpp
 	main.cpp
 	MUIDSanta.cpp
-	PlayerTraits.cpp
 	# Feel free to add more source files when they're added.
 )
 
@@ -47,6 +40,7 @@ target_link_libraries(gogo
 	util
 	database
 	cockpit
+	gunz
 	${Boost_LIBRARIES}
 )
 

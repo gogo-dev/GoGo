@@ -1,5 +1,7 @@
 set(GUNZ_SRC
-	dummy.cpp
+	Channel.cpp
+	ChannelList.cpp
+	PlayerTraits.cpp
 	# More sources here!
 )
 

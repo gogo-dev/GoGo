@@ -1,4 +1,4 @@
-#include "PlayerTraits.h"
+#include <gunz/PlayerTraits.h>
 
 using namespace std;
 using namespace boost;

@@ -1,4 +1,4 @@
-#include "ChannelList.h"
+#include <gunz/ChannelList.h>
 
 using namespace std;
 using namespace boost;

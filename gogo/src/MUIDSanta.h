@@ -1,5 +1,5 @@
 #pragma once
-#include "Structures.h"
+#include <gunz/simple_types.h>
 
 // This class controls the MUIDs of various in-game objects.
 class MUIDSanta
