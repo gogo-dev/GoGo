@@ -20,10 +20,7 @@ MySQLGunzDB::MySQLGunzDB(Logger* log, const char* dbname, const char* host, cons
 {
 	logger->debug("Testing database connection...");
 	Connection c(dbname, host, user, password, port);
-	if(c.connected())
-		logger->debug("Successfully connected to database.");
-	else
-		throw std::runtime_error("Could not connect to the database [bad name/host/user/password/port].");
+	logger->debug("Connected!");
 }
 
 MySQLGunzDB::~MySQLGunzDB()
