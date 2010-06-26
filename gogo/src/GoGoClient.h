@@ -7,6 +7,7 @@
 #include <string>
 
 #include <boost/cstdint.hpp>
+#include <boost/thread/mutex.hpp>
 
 namespace cockpit {
 	class Logger;

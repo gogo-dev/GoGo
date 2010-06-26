@@ -7,6 +7,10 @@
 */
 
 #include "Client.h"
+
+#include <cockpit/packet/Packet.h>
+#include <cockpit/Logger.h>
+
 #include "packet/crypto.h"
 
 #include <cassert>
@@ -289,6 +293,7 @@ void Client::send(const packet::Packet& p, bool encrypted)
 	header->payloadHeader.commandID = p.id();
 	memory::copy(raw + SendablePacket::SIZE, params.data(), params.length());
 
+	mutex::scoped_lock l(sendingLock);
 	header->payloadHeader.packetID = currentPacketID++;
 
 	if(encrypted)

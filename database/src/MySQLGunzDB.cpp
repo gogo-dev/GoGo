@@ -18,7 +18,12 @@ typedef mysqlpp::StoreQueryResult::const_iterator ResultIt;
 MySQLGunzDB::MySQLGunzDB(Logger* log, const char* dbname, const char* host, const char* user, const char* password, uint16_t port)
 	: connectionPool(dbname, host, user, password, port), logger(log)
 {
-	logger->debug("Successfully connected to database.");
+	logger->debug("Testing database connection...");
+	Connection c(dbname, host, user, password, port);
+	if(c.connected())
+		logger->debug("Successfully connected to database.");
+	else
+		throw std::runtime_error("Could not connect to the database [bad name/host/user/password/port].");
 }
 
 MySQLGunzDB::~MySQLGunzDB()

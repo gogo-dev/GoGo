@@ -1,11 +1,9 @@
 #pragma once
 #include "Allocator.h"
 
-#include <cockpit/Logger.h>
 #include <cockpit/ClientHandlerFactory.h>
 #include <cockpit/ClientHandler.h>
 #include <cockpit/Transmitter.h>
-#include <cockpit/packet/Packet.h>
 #include <cockpit/packet/Registry.h>
 
 #include <util/buffer.h>
@@ -23,6 +21,9 @@
 
 namespace cockpit {
 
+namespace packet { class Packet; }
+class Logger;
+
 class Client : public Transmitter, public boost::enable_shared_from_this<Client>
 {
 public:
@@ -35,6 +36,10 @@ private:
 	packet::Registry registry;
 	boost::array<boost::uint8_t, 32> cryptoKey;
 
+	// All sends are re-entrant. This allows other clients to use our interface
+	// to send chat packets to each other, as long as any other necessary
+	// information.
+	boost::mutex sendingLock;
 	boost::uint8_t currentPacketID;
 
 	bool connected;

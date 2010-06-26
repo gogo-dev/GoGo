@@ -15,7 +15,8 @@ class Transmitter
 public:
 	/**
 		Sends a raw packet across the 'net to our client. It is assumed you are
-		already connected to the client.
+		already connected to the client. This method is entirely re-entrant,
+		so feel free to allow other clients/threads to send using your socket.
 
 		@param packet    A pointer to a valid packet to send.
 		@param encrypted Shall we send this packet encrypted, or raw? If you

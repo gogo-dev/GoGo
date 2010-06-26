@@ -6,6 +6,8 @@ set(GOGO_HEADERS
 	GoGoClient.h
 	GoGoFactory.h
 	MUIDSanta.h
+	Player.h
+	PlayerTraits.h
 	Structures.h
 	# Feel free to add more header files when they're added.
 )
@@ -19,6 +21,7 @@ set(GOGO_SRC
 	GoGoFactory.cpp
 	main.cpp
 	MUIDSanta.cpp
+	PlayerTraits.cpp
 	# Feel free to add more source files when they're added.
 )
 

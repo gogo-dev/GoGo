@@ -39,7 +39,11 @@ int main()
 
 		GoGoFactory factory(logger, &database);
 
-		cockpit::MatchServer server(logger, &factory, conf.get_value<uint16_t>("server.port", 6000));
+		uint16_t port = conf.get_value<uint16_t>("server.port", 6000);
+
+		cockpit::MatchServer server(logger, &factory, port);
+
+		logger->info(format("GoGo is listening on port %1%. Let's rock!") % port);
 
 		server.start();
 		server.wait();
