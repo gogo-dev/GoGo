@@ -99,5 +99,8 @@ add_subdirectory(database/test)
 add_subdirectory(gogo/src)
 add_subdirectory(gogo/test)
 
+add_subdirectory(gunz/src)
+add_subdirectory(gunz/test)
+
 add_subdirectory(cockpit/src)
 add_subdirectory(cockpit/test)
