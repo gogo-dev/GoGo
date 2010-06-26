@@ -1,5 +1,9 @@
 #include "MUIDSanta.h"
 
+#if defined(_MSC_VER)
+	#include <windows.h>
+#endif
+
 using namespace boost;
 
 MUIDSanta::MUIDSanta()
@@ -9,8 +13,14 @@ MUIDSanta::MUIDSanta()
 
 MUID MUIDSanta::get()
 {
-	mutex::scoped_lock lock(protection);
-	return next++;
+// TODO(Clark): Move this ugly #ifdef hell out into an "atomics" library of sorts.
+#if defined(__GNUC__) || defined(__clang__)
+	return __sync_fetch_and_add(&next, 1);
+#elif defined(_MSC_VER)
+	return InterlockedIncrement(&next);
+#else
+	#error "Unsupported platform! Please write your own lock-free increment."
+#endif
 }
 
 void MUIDSanta::give_back(MUID /*id*/)
