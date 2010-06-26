@@ -32,7 +32,6 @@ CREATE TABLE `account` (
 -- ----------------------------
 -- Records of account
 -- ----------------------------
-INSERT INTO `account` VALUES ('1', 'theoretical', '7815696ecbf1c96e6894b779456d330e', '255', '0', 'jacob', 'asd@lol.com');
 
 -- ----------------------------
 -- Table structure for `account_inventory`
@@ -77,8 +76,6 @@ CREATE TABLE `character` (
 -- ----------------------------
 -- Records of character
 -- ----------------------------
-INSERT INTO `character` VALUES ('6', '1', 'Phabnz', '0', '1', '1', '0', '0', '0', '0', '0', '0');
-INSERT INTO `character` VALUES ('7', '1', 'OMGMALE', '0', '1', '0', '0', '0', '0', '0', '0', '1');
 
 -- ----------------------------
 -- Table structure for `character_equip`
@@ -105,8 +102,6 @@ CREATE TABLE `character_equip` (
 -- ----------------------------
 -- Records of character_equip
 -- ----------------------------
-INSERT INTO `character_equip` VALUES ('6', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
-INSERT INTO `character_equip` VALUES ('7', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
 
 -- ----------------------------
 -- Table structure for `character_inventory`
