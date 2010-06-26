@@ -62,7 +62,7 @@ else(MSVC)
   # ${CMAKE_CURRENT_SOURCE_DIR}/cmake/empty_program.cpp
   # COMPILE_DEFINITIONS -flto -fwhole-program
   #)
- 
+
   #list(APPEND CMAKE_C_FLAGS_DEBUG -O0 -DDEBUG)
   #list(APPEND CMAKE_CXX_FLAGS_DEBUG -O0 -DDEBUG)
 
