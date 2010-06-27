@@ -24,6 +24,9 @@ void MySQLGunzDB::DeleteCharacter(uint32_t aid, uint32_t marker)
 	if(marker > 3)
 		return;
 
+	if(aid == 0xFFFFFFFF)
+		throw InvalidAccountInfo();
+
 	exec_query(
 		bind(make_delete_character_query, _1, aid, marker)
 	);

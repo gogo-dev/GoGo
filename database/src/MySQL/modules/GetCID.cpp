@@ -25,6 +25,9 @@ uint32_t handle_get_cid(const StoreQueryResult& result)
 
 uint32_t MySQLGunzDB::GetCID(uint32_t aid, uint32_t marker)
 {
+	if(aid == 0xFFFFFFFF)
+		throw InvalidAccountInfo();
+
 	return run_query<uint32_t>(
 		bind(make_get_cid_query, _1, aid, marker),
 		handle_get_cid

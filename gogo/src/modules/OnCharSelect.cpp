@@ -19,11 +19,14 @@ void GoGoClient::OnCharSelect(boost::uint64_t /* uid */, uint8_t marker)
 {
 	using packet::protocol::Match_ResponseSelectChar;
 
-	if (marker > 3)
+	if(marker > 3)
 	{
 		logger->info(format("[%1%] Hack Detected! (Tried to get info for an out-of-bounds character)") % transmitter->get_ip());
 		return transmitter->disconnect();
 	}
+
+	if(!myAccount.isValid)
+		return transmitter->disconnect();
 
 	try
 	{

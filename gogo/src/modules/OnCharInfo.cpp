@@ -26,6 +26,9 @@ void GoGoClient::OnCharInfo(uint8_t marker)
 		return transmitter->disconnect();
 	}
 
+	if(!myAccount.isValid)
+		return transmitter->disconnect();
+
 	try {
 		myCharacter = database->GetCharacterInfo(myAccount.AccountId, marker);
 	} catch(InvalidCharacterInfo& e) {

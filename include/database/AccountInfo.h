@@ -9,12 +9,26 @@ struct AccountInfo
 	boost::uint8_t AccountAccess;
 	boost::uint8_t AccountPremium;
 
-	AccountInfo ()
+	bool isValid;
+
+	// This is very dangerous. We shouldn't be doing this, but its necessary
+	// for it to be allocated with GoGoClient.
+	AccountInfo()
+		: AccountId(0xFFFFFFFF), isValid(false)
 	{
-		AccountId = -1;
-		AccountName = "";
-		AccountAccess = 0;
-		AccountPremium = 0;
+	}
+
+	AccountInfo(
+		boost::uint32_t accountID,
+		const std::string& accountName,
+		boost::uint8_t accountAccess,
+		boost::uint8_t accountPremium)
+		: AccountId(accountID),
+		  AccountName(accountName),
+		  AccountAccess(accountAccess),
+		  AccountPremium(accountPremium),
+		  isValid(true)
+	{
 	}
 
 };

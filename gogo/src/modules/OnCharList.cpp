@@ -21,6 +21,9 @@ void GoGoClient::OnCharList()
 
 	typedef SmallVector<CharacterEntry, 4> CharList;
 
+	if(!myAccount.isValid)
+		return transmitter->disconnect();
+
 	CharList charList = database->GetCharacterList(myAccount.AccountId);
 	blob charBlob(charList.size(), 34);
 

@@ -31,13 +31,9 @@ static AccountInfo handle_account_info_query(const StoreQueryResult& result, con
 	if(rowCount == 0)
 		throw InvalidAccountInfo();
 
-	AccountInfo ret;
 	const Row& row = result[0];
 
-	ret.AccountId = row["aid"];
-	ret.AccountAccess = row["ugradeid"];
-	ret.AccountPremium = row["ugradeid"];
-	ret.AccountName = username;
+	AccountInfo ret(row["aid"], username, row["ugradeid"], row["pgradeid"]);
 
 	if ((ret.AccountAccess == 253) || (ret.AccountAccess == 105))
 		throw BannedUser(username);

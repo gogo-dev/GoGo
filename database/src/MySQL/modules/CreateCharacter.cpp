@@ -28,6 +28,9 @@ Query make_create_character_equip_query(Connection& c, uint32_t cid)
 
 void MySQLGunzDB::CreateCharacter(uint32_t aid, string name, uint32_t marker, uint32_t sex, uint32_t hair, uint32_t face, uint32_t costume)
 {
+	if(aid == 0xFFFFFFFF)
+		throw InvalidAccountInfo();
+
 	if (!NameExists(name))
 		throw NameInUse();
 
