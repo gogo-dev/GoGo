@@ -255,7 +255,7 @@ void Client::on_payload(uint8_t* p, uint16_t payloadSize, bool encrypted, system
 	{
 		logger->info(
 			format("[%1%] Invalid packetID (%2% instead of %3%) recieved. Disconnecting.")
-				% get_ip() % static_cast<int>(payload.packetID) % static_cast<int>(sending_currentPacketID - 1)
+				% get_ip() % static_cast<int>(payload.packetID) % static_cast<int>(recieving_currentPacketID - 1)
 		);
 	}
 
