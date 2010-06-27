@@ -1,10 +1,10 @@
 set(COCKPIT_SRC
+	packet/Registry.cpp
 	packet/all_packets.cpp
 	packet/crypto.cpp
 	packet/crypto.h
 	packet/lookup.cpp
 	packet/Parameters.cpp
-	packet/Registry.cpp
 	packet/security.cpp
 
  	Allocator.cpp
