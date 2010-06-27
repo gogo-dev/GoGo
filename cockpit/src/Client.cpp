@@ -270,7 +270,7 @@ void Client::on_payload(uint8_t* p, uint16_t payloadSize, bool encrypted, system
 
 void Client::on_send(system::error_code err, size_t bytesTransferred, uint8_t* p, size_t packetLength)
 {
-	PacketAllocator::auto_free f(packetPool, p);
+	delete[] p;
 
 	if(err)
 	{
@@ -287,7 +287,11 @@ void Client::send(const packet::Packet& p, bool encrypted)
 	Buffer params = p.serialize();
 	size_t packetLength = SendablePacket::SIZE + params.length();
 
-	uint8_t* raw = packetPool.allocate(packetLength);
+	// This cannot use the allocator, since send must be re-entrant and I would
+	// like to keep the allocator as fast as humanly possible. Therefore, we
+	// pay the price of this lone allocation to avoid the greater cost of
+	// wrapping the allocator in a mutex.
+	uint8_t* raw = new uint8_t[packetLength];
 
 	SendablePacket* header = reinterpret_cast<SendablePacket*>(raw);
 
