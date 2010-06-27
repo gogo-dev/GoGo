@@ -24,7 +24,7 @@ void GoGoClient::OnCharList()
 	if(!myAccount.isValid)
 		return transmitter->disconnect();
 
-	CharList charList = database->GetCharacterList(myAccount.AccountId);
+	CharList charList = database->GetCharacterList(myAccount);
 	blob charBlob(charList.size(), 34);
 
 	if (charList.size() == 0)

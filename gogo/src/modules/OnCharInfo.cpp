@@ -30,7 +30,7 @@ void GoGoClient::OnCharInfo(uint8_t marker)
 		return transmitter->disconnect();
 
 	try {
-		myCharacter = database->GetCharacterInfo(myAccount.AccountId, marker);
+		myCharacter = database->GetCharacterInfo(myAccount, marker);
 	} catch(InvalidCharacterInfo& e) {
 		logger->debug(e.what());
 		return;

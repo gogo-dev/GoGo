@@ -38,13 +38,13 @@ static SmallVector<CharacterEntry, 4> handle_get_character_list(const StoreQuery
 	return charList;
 }
 
-SmallVector<CharacterEntry, 4> MySQLGunzDB::GetCharacterList(uint32_t aid)
+SmallVector<CharacterEntry, 4> MySQLGunzDB::GetCharacterList(const AccountInfo& account)
 {
-	if(aid == 0xFFFFFFFF)
+	if(!account.isValid)
 		throw InvalidAccountInfo();
 
 	return run_query<SmallVector<CharacterEntry, 4> >(
-		bind(make_get_character_list_query, _1, aid),
+		bind(make_get_character_list_query, _1, (account.AccountId)),
 		handle_get_character_list
 	);
 }

@@ -30,7 +30,7 @@ void GoGoClient::OnCharSelect(boost::uint64_t /* uid */, uint8_t marker)
 
 	try
 	{
-		myCharacter = database->GetCharacterInfo(myAccount.AccountId, marker);
+		myCharacter = database->GetCharacterInfo(myAccount, marker);
 	} catch(InvalidCharacterInfo& e) {
 		logger->debug(e.what());
 		return transmitter->disconnect();

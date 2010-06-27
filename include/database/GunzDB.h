@@ -44,13 +44,12 @@ public:
 	/**
 		Gets the character info from an account identifier.
 
-		@param  aid The account identifier to get the character list for. This
-		            can be found inside AccountInfo.
+		@param  account The account to get the character list for.
 
 		@return Information about each and every character the account owns.
 		        This can be anywhere from 0-4 items.
 	*/
-	virtual SmallVector<CharacterEntry, 4> GetCharacterList(boost::uint32_t aid) = 0;
+	virtual SmallVector<CharacterEntry, 4> GetCharacterList(const AccountInfo& account) = 0;
 
 	/**
 		Creates a character.
@@ -81,39 +80,14 @@ public:
 	/**
 		Gets the associated info for a character represented by the ID.
 
-		@param  aid    The ID for the account we'll look for the character info in.
+		@param  acc    The account for the account we'll look for the character info in.
 		@param  marker The position (0-3) of the character in the character list.
 
 		@return The character's full info.
 
 		@throws InvalidCharacterInfo If there's no such AID, the marker is bad, etc.
 	*/
-	virtual CharacterInfo GetCharacterInfo(boost::uint32_t aid, boost::uint8_t marker) = 0;
-
-	/**
-		Gets all the equipment currently equipped on the character specified by
-		a character ID.
-
-		@param  cid  The character's unique identification number. This can be
-		             retrieved from the CharacterInfo struct.
-
-		@return All items currently equipped onto the character.
-
-		@throws InvalidCID When the CID is invalid, of course!
-	*/
-	virtual SmallVector<Item, 12> GetEquipment(boost::uint32_t cid) = 0;
-
-	/**
-		Gets the full inventory for the character represented by the ID.
-
-		@param  cid The character's unique identification number retrieved from
-		            the CharacterInfo struct.
-
-		@return The contents of the character's inventory.
-
-		@throws InvalidCID When the CID is invalid, of course!
-	*/
-	virtual std::vector<Item> GetInventory(boost::uint32_t cid) = 0;
+	virtual CharacterInfo GetCharacterInfo(const AccountInfo& acc, boost::uint8_t marker) = 0;
 
 	virtual ~GunzDB()
 	{

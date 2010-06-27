@@ -64,14 +64,14 @@ void handle_clan_info(const StoreQueryResult& result, CharacterInfo* charInfo /*
 	}
 }
 
-CharacterInfo MySQLGunzDB::GetCharacterInfo(uint32_t aid, uint8_t slot)
+CharacterInfo MySQLGunzDB::GetCharacterInfo(const AccountInfo& acc, uint8_t slot)
 {
-	if(aid == 0xFFFFFFFF)
+	if(!acc.isValid)
 		throw InvalidAccountInfo();
 
 	// Normal, clan, equip, inventory.
 	CharacterInfo ret = run_query<CharacterInfo>(
-		bind(make_get_character_info_query, _1, aid, static_cast<uint32_t>(slot)),
+		bind(make_get_character_info_query, _1, acc.AccountId, static_cast<uint32_t>(slot)),
 		bind(handle_get_character_info, _1, slot)
 	);
 

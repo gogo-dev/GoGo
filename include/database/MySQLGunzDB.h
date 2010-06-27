@@ -65,6 +65,8 @@ private:
 	{
 		try
 		{
+			// TODO: Does the ResultHandler have to have an active connection to
+			// work properly? Hell if I know. I just did this to be safe.
 			scoped_connection c(connectionPool);
 			return ResultHandler(QueryMaker(*(c.connection)).store());
 		}
@@ -90,12 +92,15 @@ public:
 	void DeleteCharacter(boost::uint32_t cid, boost::uint32_t marker);
 
 	//Character processing related functions
+private:
 	SmallVector<Item, 12> GetEquipment(boost::uint32_t cid);
 	std::vector<Item> GetInventory(boost::uint32_t cid);
-	SmallVector<CharacterEntry, 4> GetCharacterList(boost::uint32_t aid);
+
+public:
+	SmallVector<CharacterEntry, 4> GetCharacterList(const AccountInfo& account);
 	bool NameExists(std::string name);
 	void CreateCharacter(const AccountInfo& account, std::string name, boost::uint32_t marker, boost::uint32_t sex, boost::uint32_t hair, boost::uint32_t face, boost::uint32_t costume);
-	CharacterInfo GetCharacterInfo(boost::uint32_t cid, boost::uint8_t slot);
+	CharacterInfo GetCharacterInfo(const AccountInfo& acc, boost::uint8_t slot);
 
 	boost::uint32_t GetCID(uint32_t aid, uint32_t marker);
 };
