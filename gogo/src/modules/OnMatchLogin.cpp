@@ -16,7 +16,6 @@
 using namespace std;
 using namespace boost;
 using namespace cockpit;
-using namespace packet;
 
 static void reply(
 	Transmitter* transmitter,
@@ -31,7 +30,7 @@ static void reply(
 	packet::blob encryptMSG(1, 20);
 	encryptMSG.add_param(packet::zeros(20));
 
-	transmitter->send(protocol::Match_ResponseLogin(result, serverName, mode, account, ugrade, pgrade, muid, encryptMSG));
+	transmitter->send(packet::protocol::Match_ResponseLogin(result, serverName, mode, account, ugrade, pgrade, muid, encryptMSG));
 }
 
 void GoGoClient::OnMatchLogin(
