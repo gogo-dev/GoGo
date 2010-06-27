@@ -3,6 +3,10 @@
  * protocol/parse.py. Any changes should me made there, instead of here.
  */
 
+#if defined(_MSC_VER)
+	#pragma warning(disable:4355)	// We know what we're doing. Stfu, VC++.
+#endif
+
 #include <boost/array.hpp>
 #include <boost/format.hpp>
 #include <boost/bind.hpp>
@@ -78,6 +82,8 @@ template <typename T1, typename T2, typename T3, typename T4, typename T5, typen
 static void do_nothing_7(nothing_info info, T1, T2, T3, T4, T5, T6, T7) { return do_nothing_0(info); }
 template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8>
 static void do_nothing_8(nothing_info info, T1, T2, T3, T4, T5, T6, T7, T8) { return do_nothing_0(info); }
+template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9>
+static void do_nothing_9(nothing_info info, T1, T2, T3, T4, T5, T6, T7, T8, T9) { return do_nothing_0(info); }
 
 Registry::Registry()
 	:
@@ -89,8 +95,6 @@ Registry::Registry()
 	Match_Announce(bind(do_nothing_2< boost::uint32_t, const std::string& >, nothing_info(this, 402), _1, _2)),
 	Clock_Synchronize(bind(do_nothing_1< boost::uint32_t >, nothing_info(this, 361), _1)),
 	Match_Login(bind(do_nothing_4< const std::string&, const std::string&, boost::int32_t, boost::uint32_t >, nothing_info(this, 994), _1, _2, _3, _4)),
-	Match_ResponseLogin(bind(do_nothing_8< boost::int32_t, const std::string&, boost::int8_t, const std::string&, boost::uint8_t, boost::uint8_t, boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >, nothing_info(this, 1002), _1, _2, _3, _4, _5, _6, _7, _8)),
-	Match_Response_Result(bind(do_nothing_1< boost::int32_t >, nothing_info(this, 403), _1)),
 	Match_LoginNetmarble(bind(do_nothing_4< const std::string&, const std::string&, boost::int32_t, boost::uint32_t >, nothing_info(this, 1003), _1, _2, _3, _4)),
 	MC_MATCH_DISCONNMSG(bind(do_nothing_1< boost::uint32_t >, nothing_info(this, 1010), _1)),
 	MC_MATCH_LOGIN_NHNUSA(bind(do_nothing_5< const std::string&, const std::string&, boost::int32_t, boost::uint32_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >, nothing_info(this, 1011), _1, _2, _3, _4, _5)),
@@ -99,9 +103,7 @@ Registry::Registry()
 	Match_BridgePeer(bind(do_nothing_3< boost::uint64_t, boost::uint32_t, boost::uint32_t >, nothing_info(this, 1006), _1, _2, _3)),
 	Match_BridgePeerACK(bind(do_nothing_2< boost::uint64_t, boost::int32_t >, nothing_info(this, 1007), _1, _2)),
 	MatchServer_RequestRecommandedChannel(bind(do_nothing_0, nothing_info(this, 1201))),
-	MatchServer_ResponseRecommandedChannel(bind(do_nothing_1< boost::uint64_t >, nothing_info(this, 1202), _1)),
 	Channel_Join(bind(do_nothing_2< boost::uint64_t, boost::uint64_t >, nothing_info(this, 1205), _1, _2)),
-	Channel_ResponseJoin(bind(do_nothing_4< boost::uint64_t, boost::int32_t, const std::string&, bool >, nothing_info(this, 1207), _1, _2, _3, _4)),
 	Channel_RequestJoinFromName(bind(do_nothing_4< boost::uint64_t, boost::int32_t, boost::int32_t, const std::string& >, nothing_info(this, 1206), _1, _2, _3, _4)),
 	Channel_Leave(bind(do_nothing_2< boost::uint64_t, boost::uint64_t >, nothing_info(this, 1208), _1, _2)),
 	Channel_ListStart(bind(do_nothing_3< boost::uint64_t, boost::int32_t, boost::int32_t >, nothing_info(this, 1211), _1, _2, _3)),
@@ -110,9 +112,7 @@ Registry::Registry()
 	Channel_Request_Chat(bind(do_nothing_3< boost::uint64_t, boost::uint64_t, const std::string& >, nothing_info(this, 1225), _1, _2, _3)),
 	Channel_Chat(bind(do_nothing_4< boost::uint64_t, const std::string&, const std::string&, boost::int32_t >, nothing_info(this, 1226), _1, _2, _3, _4)),
 	Channel_Request_Rule(bind(do_nothing_1< boost::uint64_t >, nothing_info(this, 1230), _1)),
-	Channel_Response_Rule(bind(do_nothing_2< boost::uint64_t, const std::string& >, nothing_info(this, 1231), _1, _2)),
 	Channel_RequestAllPlayerList(bind(do_nothing_4< boost::uint64_t, boost::uint64_t, boost::uint32_t, boost::uint32_t >, nothing_info(this, 1232), _1, _2, _3, _4)),
-	Channel_ResponseAllPlayerList(bind(do_nothing_2< boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >, nothing_info(this, 1233), _1, _2)),
 	Stage_Create(bind(do_nothing_4< boost::uint64_t, const std::string&, bool, const std::string& >, nothing_info(this, 1301), _1, _2, _3, _4)),
 	Stage_RequestJoin(bind(do_nothing_2< boost::uint64_t, boost::uint64_t >, nothing_info(this, 1304), _1, _2)),
 	Stage_RequestPrivateJoin(bind(do_nothing_3< boost::uint64_t, boost::uint64_t, const std::string& >, nothing_info(this, 1305), _1, _2, _3)),
@@ -120,12 +120,8 @@ Registry::Registry()
 	Stage_Leave(bind(do_nothing_1< boost::uint64_t >, nothing_info(this, 1307), _1)),
 	Stage_Request_PlayerList(bind(do_nothing_1< boost::uint64_t >, nothing_info(this, 1308), _1)),
 	Stage_Follow(bind(do_nothing_1< const std::string& >, nothing_info(this, 1309), _1)),
-	Stage_Response_Follow(bind(do_nothing_1< boost::int32_t >, nothing_info(this, 1310), _1)),
-	Stage_ResponseJoin(bind(do_nothing_1< boost::int32_t >, nothing_info(this, 1306), _1)),
 	Stage_RequirePassword(bind(do_nothing_2< boost::uint64_t, const std::string& >, nothing_info(this, 1332), _1, _2)),
 	RequestGameInfo(bind(do_nothing_2< boost::uint64_t, boost::uint64_t >, nothing_info(this, 1451), _1, _2)),
-	ResponseGameInfo(bind(do_nothing_4< boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >, nothing_info(this, 1452), _1, _2, _3, _4)),
-	Stage_ResponseCreate(bind(do_nothing_1< boost::int32_t >, nothing_info(this, 1302), _1)),
 	Stage_Request_EnterBattle(bind(do_nothing_2< boost::uint64_t, boost::uint64_t >, nothing_info(this, 1401), _1, _2)),
 	Stage_EnterBattle(bind(do_nothing_2< boost::uint8_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >, nothing_info(this, 1402), _1, _2)),
 	Stage_LeaveBattle(bind(do_nothing_1< boost::uint64_t >, nothing_info(this, 1403), _1)),
@@ -133,7 +129,6 @@ Registry::Registry()
 	Stage_Map(bind(do_nothing_2< boost::uint64_t, const std::string& >, nothing_info(this, 1414), _1, _2)),
 	Stage_Chat(bind(do_nothing_3< boost::uint64_t, boost::uint64_t, const std::string& >, nothing_info(this, 1321), _1, _2, _3)),
 	Stage_RequestQuickJoin(bind(do_nothing_2< boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >, nothing_info(this, 1322), _1, _2)),
-	Stage_ResponseQuickJoin(bind(do_nothing_2< boost::int32_t, boost::uint64_t >, nothing_info(this, 1323), _1, _2)),
 	Stage_StageGo(bind(do_nothing_1< boost::uint32_t >, nothing_info(this, 1331), _1)),
 	Stage_State(bind(do_nothing_4< boost::uint64_t, boost::uint64_t, boost::int32_t, boost::int32_t >, nothing_info(this, 1422), _1, _2, _3, _4)),
 	Stage_Team(bind(do_nothing_3< boost::uint64_t, boost::uint64_t, boost::uint32_t >, nothing_info(this, 1423), _1, _2, _3)),
@@ -143,17 +138,13 @@ Registry::Registry()
 	Stage_List(bind(do_nothing_3< boost::int8_t, boost::int8_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >, nothing_info(this, 1314), _1, _2, _3)),
 	Stage_RequestStageList(bind(do_nothing_3< boost::uint64_t, boost::uint64_t, boost::int32_t >, nothing_info(this, 1311), _1, _2, _3)),
 	Channel_RequestPlayerList(bind(do_nothing_3< boost::uint64_t, boost::uint64_t, boost::int32_t >, nothing_info(this, 1221), _1, _2, _3)),
-	Channel_ResponsePlayerList(bind(do_nothing_3< boost::uint8_t, boost::uint8_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >, nothing_info(this, 1222), _1, _2, _3)),
 	Stage_RequestStageSetting(bind(do_nothing_1< boost::uint64_t >, nothing_info(this, 1411), _1)),
-	Stage_ResponseStageSetting(bind(do_nothing_5< boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::int32_t, boost::uint64_t >, nothing_info(this, 1412), _1, _2, _3, _4, _5)),
 	Stage_StageSetting(bind(do_nothing_3< boost::uint64_t, boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >, nothing_info(this, 1413), _1, _2, _3)),
 	Stage_Launch(bind(do_nothing_2< boost::uint64_t, const std::string& >, nothing_info(this, 1432), _1, _2)),
 	Stage_Finish(bind(do_nothing_1< boost::uint64_t >, nothing_info(this, 1442), _1)),
 	Stage_RequestPeerList(bind(do_nothing_2< boost::uint64_t, boost::uint64_t >, nothing_info(this, 1461), _1, _2)),
-	Stage_ResponsePeerList(bind(do_nothing_2< boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >, nothing_info(this, 1462), _1, _2)),
 	Loading_Complete(bind(do_nothing_2< boost::uint64_t, boost::int32_t >, nothing_info(this, 1441), _1, _2)),
 	Match_RequestPeerRelay(bind(do_nothing_2< boost::uint64_t, boost::uint64_t >, nothing_info(this, 1471), _1, _2)),
-	Match_ResponsePeerRelay(bind(do_nothing_1< boost::uint64_t >, nothing_info(this, 1472), _1)),
 	Stage_RoundState(bind(do_nothing_4< boost::uint64_t, boost::int32_t, boost::int32_t, boost::int32_t >, nothing_info(this, 1501), _1, _2, _3, _4)),
 	Game_Kill(bind(do_nothing_1< boost::uint64_t >, nothing_info(this, 1511), _1)),
 	Game_Requst_Spawn(bind(do_nothing_3< boost::uint64_t, const boost::array<float, 3>&, const boost::array<float, 3>& >, nothing_info(this, 1515), _1, _2, _3)),
@@ -162,10 +153,8 @@ Registry::Registry()
 	Game_Dead(bind(do_nothing_4< boost::uint64_t, boost::uint32_t, boost::uint64_t, boost::uint32_t >, nothing_info(this, 1512), _1, _2, _3, _4)),
 	Game_TeamBonus(bind(do_nothing_2< boost::uint64_t, boost::uint32_t >, nothing_info(this, 1517), _1, _2)),
 	Game_RequestTimeSync(bind(do_nothing_1< boost::uint32_t >, nothing_info(this, 1521), _1)),
-	Game_ResponseTimeSync(bind(do_nothing_2< boost::uint32_t, boost::uint32_t >, nothing_info(this, 1522), _1, _2)),
 	Game_ReportTimeSync(bind(do_nothing_2< boost::uint32_t, boost::uint32_t >, nothing_info(this, 1523), _1, _2)),
 	Stage_RequestForcedEntry(bind(do_nothing_2< boost::uint64_t, boost::uint64_t >, nothing_info(this, 1415), _1, _2)),
-	Stage_ResponseForcedEntry(bind(do_nothing_1< boost::int32_t >, nothing_info(this, 1416), _1)),
 	Stage_RoundFinishInfo(bind(do_nothing_4< boost::uint64_t, boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >, nothing_info(this, 1502), _1, _2, _3, _4)),
 	Match_Notify(bind(do_nothing_1< boost::uint32_t >, nothing_info(this, 401), _1)),
 	Match_Whisper(bind(do_nothing_3< const std::string&, const std::string&, const std::string& >, nothing_info(this, 1601), _1, _2, _3)),
@@ -178,42 +167,25 @@ Registry::Registry()
 	ChatRoom_Invite(bind(do_nothing_3< const std::string&, const std::string&, const std::string& >, nothing_info(this, 1661), _1, _2, _3)),
 	ChatRoom_Chat(bind(do_nothing_3< const std::string&, const std::string&, const std::string& >, nothing_info(this, 1662), _1, _2, _3)),
 	Match_RequestAccountCharList(bind(do_nothing_1< boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >, nothing_info(this, 1701), _1)),
-	Match_ResponseAccountCharList(bind(do_nothing_1< boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >, nothing_info(this, 1702), _1)),
 	Match_RequestAccountCharInfo(bind(do_nothing_1< boost::int8_t >, nothing_info(this, 1719), _1)),
-	Match_ResponseAccountCharInfo(bind(do_nothing_2< boost::int8_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >, nothing_info(this, 1720), _1, _2)),
 	Match_RequestSelectChar(bind(do_nothing_2< boost::uint64_t, boost::uint32_t >, nothing_info(this, 1703), _1, _2)),
-	Match_ResponseSelectChar(bind(do_nothing_3< boost::int32_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >, nothing_info(this, 1704), _1, _2, _3)),
 	Match_RequestCharInfo(bind(do_nothing_2< boost::uint64_t, boost::uint32_t >, nothing_info(this, 1705), _1, _2)),
-	Match_ResponseCharInfo(bind(do_nothing_2< boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >, nothing_info(this, 1706), _1, _2)),
 	Match_RequestDeleteChar(bind(do_nothing_3< boost::uint64_t, boost::uint32_t, const std::string& >, nothing_info(this, 1713), _1, _2, _3)),
-	Match_ResponseDeleteChar(bind(do_nothing_1< boost::int32_t >, nothing_info(this, 1714), _1)),
 	Match_RequestCreateChar(bind(do_nothing_7< boost::uint64_t, boost::uint32_t, const std::string&, boost::uint32_t, boost::uint32_t, boost::uint32_t, boost::uint32_t >, nothing_info(this, 1711), _1, _2, _3, _4, _5, _6, _7)),
-	Match_ResponseCreateChar(bind(do_nothing_2< boost::int32_t, const std::string& >, nothing_info(this, 1712), _1, _2)),
 	Match_RequestBuyItem(bind(do_nothing_2< boost::uint64_t, boost::uint32_t >, nothing_info(this, 1811), _1, _2)),
-	Match_ResponseBuyItem(bind(do_nothing_1< boost::int32_t >, nothing_info(this, 1812), _1)),
 	Match_RequestSellItem(bind(do_nothing_2< boost::uint64_t, boost::uint64_t >, nothing_info(this, 1813), _1, _2)),
-	Match_ResponseSellItem(bind(do_nothing_1< boost::int32_t >, nothing_info(this, 1814), _1)),
 	Match_RequestShopItemList(bind(do_nothing_3< boost::uint64_t, boost::int32_t, boost::int32_t >, nothing_info(this, 1815), _1, _2, _3)),
-	Match_ResponseShopItemList(bind(do_nothing_2< boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >, nothing_info(this, 1816), _1, _2)),
 	Match_RequestCharacterItemList(bind(do_nothing_1< boost::uint64_t >, nothing_info(this, 1821), _1)),
 	Match_RequestCharacterItemListForce(bind(do_nothing_1< boost::uint64_t >, nothing_info(this, 1829), _1)),
-	Match_ResponseCharacterItemList(bind(do_nothing_4< boost::int32_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >, nothing_info(this, 1822), _1, _2, _3, _4)),
 	MatchRequestEquipItem(bind(do_nothing_3< boost::uint64_t, boost::uint64_t, boost::uint32_t >, nothing_info(this, 1823), _1, _2, _3)),
-	MatchResponseEquipItem(bind(do_nothing_1< boost::int32_t >, nothing_info(this, 1824), _1)),
 	MatchRequestTakeoffItem(bind(do_nothing_2< boost::uint64_t, boost::uint32_t >, nothing_info(this, 1825), _1, _2)),
-	MatchResponseTakeoffItem(bind(do_nothing_1< boost::int32_t >, nothing_info(this, 1826), _1)),
 	Match_RequestAccountItemList(bind(do_nothing_1< boost::uint64_t >, nothing_info(this, 1831), _1)),
-	Match_ResponseAccountItemList(bind(do_nothing_1< boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >, nothing_info(this, 1832), _1)),
 	Match_RequestBringAccountItem(bind(do_nothing_2< boost::uint64_t, boost::int32_t >, nothing_info(this, 1833), _1, _2)),
-	Match_ResponseBringAccountItem(bind(do_nothing_1< boost::int32_t >, nothing_info(this, 1834), _1)),
 	Match_RequestBringBackAccountItem(bind(do_nothing_2< boost::uint64_t, boost::uint64_t >, nothing_info(this, 1835), _1, _2)),
-	Match_ResponseBringBackAccountItem(bind(do_nothing_1< boost::int32_t >, nothing_info(this, 1836), _1)),
 	Match_ExpiredRentItem(bind(do_nothing_1< boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >, nothing_info(this, 1837), _1)),
 	Match_ItemGamble(bind(do_nothing_1< boost::uint64_t >, nothing_info(this, 1841), _1)),
 	Match_GambleResultItem(bind(do_nothing_2< boost::uint32_t, boost::uint32_t >, nothing_info(this, 1842), _1, _2)),
 	Match_Request_Suicide(bind(do_nothing_1< boost::uint64_t >, nothing_info(this, 1531), _1)),
-	Match_Response_Suicide(bind(do_nothing_2< boost::int32_t, boost::uint64_t >, nothing_info(this, 1532), _1, _2)),
-	Match_Response_SuicideReserve(bind(do_nothing_0, nothing_info(this, 1533))),
 	Match_Request_Obtain_WorldItem(bind(do_nothing_2< boost::uint64_t, boost::int32_t >, nothing_info(this, 1541), _1, _2)),
 	Match_WorldItem_Obtain(bind(do_nothing_2< boost::uint64_t, boost::int32_t >, nothing_info(this, 1542), _1, _2)),
 	Match_WorldItem_Spawn(bind(do_nothing_1< boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >, nothing_info(this, 1543), _1)),
@@ -223,52 +195,38 @@ Registry::Registry()
 	Match_Assign_Commander(bind(do_nothing_2< boost::uint64_t, boost::uint64_t >, nothing_info(this, 1551), _1, _2)),
 	Match_Set_Observer(bind(do_nothing_1< boost::uint64_t >, nothing_info(this, 1553), _1)),
 	Match_Ladder_Request_Challenge(bind(do_nothing_3< boost::int32_t, boost::uint32_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >, nothing_info(this, 1571), _1, _2, _3)),
-	Match_Ladder_Response_Challenge(bind(do_nothing_1< boost::int32_t >, nothing_info(this, 1572), _1)),
 	Match_Ladder_SearchRival(bind(do_nothing_0, nothing_info(this, 1574))),
 	Match_Ladder_Request_CancelChallenge(bind(do_nothing_0, nothing_info(this, 1575))),
 	Match_Ladder_CancelChallenge(bind(do_nothing_1< const std::string& >, nothing_info(this, 1576), _1)),
 	Ladder_Prepare(bind(do_nothing_2< boost::uint64_t, boost::int32_t >, nothing_info(this, 1578), _1, _2)),
 	Ladder_Launch(bind(do_nothing_2< boost::uint64_t, const std::string& >, nothing_info(this, 1579), _1, _2)),
 	Match_RequestProposal(bind(do_nothing_5< boost::uint64_t, boost::int32_t, boost::int32_t, boost::int32_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >, nothing_info(this, 1561), _1, _2, _3, _4, _5)),
-	Match_ResponseProposal(bind(do_nothing_3< boost::int32_t, boost::int32_t, boost::int32_t >, nothing_info(this, 1562), _1, _2, _3)),
 	Match_AskAgreement(bind(do_nothing_4< boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::int32_t, boost::int32_t >, nothing_info(this, 1563), _1, _2, _3, _4)),
 	Match_ReplyAgreement(bind(do_nothing_6< boost::uint64_t, boost::uint64_t, const std::string&, boost::int32_t, boost::int32_t, bool >, nothing_info(this, 1564), _1, _2, _3, _4, _5, _6)),
 	Match_Friend_Add(bind(do_nothing_1< const std::string& >, nothing_info(this, 1901), _1)),
 	Match_Friend_Remove(bind(do_nothing_1< const std::string& >, nothing_info(this, 1902), _1)),
 	Match_Friend_List(bind(do_nothing_0, nothing_info(this, 1903))),
-	Match_Response_FriendList(bind(do_nothing_1< boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >, nothing_info(this, 1904), _1)),
 	Match_Friend_Msg(bind(do_nothing_1< const std::string& >, nothing_info(this, 1905), _1)),
 	Match_Clan_RequestCreateClan(bind(do_nothing_7< boost::uint64_t, boost::int32_t, const std::string&, const std::string&, const std::string&, const std::string&, const std::string& >, nothing_info(this, 2000), _1, _2, _3, _4, _5, _6, _7)),
-	Match_Clan_ResponseCreateClan(bind(do_nothing_2< boost::int32_t, boost::int32_t >, nothing_info(this, 2001), _1, _2)),
 	Match_Clan_AskSponsorAgreement(bind(do_nothing_4< boost::int32_t, const std::string&, boost::uint64_t, const std::string& >, nothing_info(this, 2002), _1, _2, _3, _4)),
 	Match_Clan_AnswerSponsorAgreement(bind(do_nothing_4< boost::int32_t, boost::uint64_t, const std::string&, bool >, nothing_info(this, 2003), _1, _2, _3, _4)),
 	Match_Clan_RequestAgreedCreateClan(bind(do_nothing_6< boost::uint64_t, const std::string&, const std::string&, const std::string&, const std::string&, const std::string& >, nothing_info(this, 2004), _1, _2, _3, _4, _5, _6)),
-	Match_Clan_AgreedResponseCreateClan(bind(do_nothing_1< boost::int32_t >, nothing_info(this, 2005), _1)),
 	Match_Clan_RequestCloseClan(bind(do_nothing_2< boost::uint64_t, const std::string& >, nothing_info(this, 2006), _1, _2)),
-	Match_Clan_ResponseCloseClan(bind(do_nothing_1< boost::int32_t >, nothing_info(this, 2007), _1)),
 	Match_Clan_RequestJoinClan(bind(do_nothing_3< boost::uint64_t, const std::string&, const std::string& >, nothing_info(this, 2008), _1, _2, _3)),
-	Match_Clan_ResponseJoinClan(bind(do_nothing_1< boost::int32_t >, nothing_info(this, 2009), _1)),
 	Match_Clan_AskJoinAgreement(bind(do_nothing_3< const std::string&, boost::uint64_t, const std::string& >, nothing_info(this, 2010), _1, _2, _3)),
 	Match_Clan_AnswerJoinAgreement(bind(do_nothing_3< boost::uint64_t, const std::string&, bool >, nothing_info(this, 2011), _1, _2, _3)),
 	Match_Clan_RequestAgreedJoinClan(bind(do_nothing_3< boost::uint64_t, const std::string&, const std::string& >, nothing_info(this, 2012), _1, _2, _3)),
-	Match_Clan_ResponseAgreedJoinClan(bind(do_nothing_1< boost::int32_t >, nothing_info(this, 2013), _1)),
 	Match_Clan_RequestLeaveClan(bind(do_nothing_1< boost::uint64_t >, nothing_info(this, 2014), _1)),
-	Match_Clan_ResponseLeaveClan(bind(do_nothing_1< boost::int32_t >, nothing_info(this, 2015), _1)),
 	Match_Clan_UpdateCharClanInfo(bind(do_nothing_1< boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >, nothing_info(this, 2016), _1)),
 	Match_Clan_Master_RequestChangeGrade(bind(do_nothing_4< boost::uint64_t, const std::string&, boost::int32_t, boost::int32_t >, nothing_info(this, 2017), _1, _2, _3, _4)),
-	Match_Clan_Master_ResponseChangeGrade(bind(do_nothing_1< boost::int32_t >, nothing_info(this, 2018), _1)),
 	Match_Clan_Admin_RequestExpelMember(bind(do_nothing_2< boost::uint64_t, const std::string& >, nothing_info(this, 2019), _1, _2)),
-	Match_Clan_Admin_ResponseLeaveMember(bind(do_nothing_1< boost::int32_t >, nothing_info(this, 2020), _1)),
 	Match_Clan_Request_Msg(bind(do_nothing_2< boost::uint64_t, const std::string& >, nothing_info(this, 2021), _1, _2)),
 	Match_Clan_Msg(bind(do_nothing_2< const std::string&, const std::string& >, nothing_info(this, 2022), _1, _2)),
 	Match_Clan_Request_ClanMemberList(bind(do_nothing_1< boost::uint64_t >, nothing_info(this, 2023), _1)),
-	Match_Clan_Response_ClanMemberList(bind(do_nothing_1< boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >, nothing_info(this, 2024), _1)),
 	Match_Clan_Request_Clan_Info(bind(do_nothing_2< boost::uint64_t, const std::string& >, nothing_info(this, 2025), _1, _2)),
-	Match_Clan_Response_Clan_Info(bind(do_nothing_1< boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >, nothing_info(this, 2026), _1)),
 	Match_Clan_Standby_ClanList(bind(do_nothing_3< boost::int32_t, boost::int32_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >, nothing_info(this, 2027), _1, _2, _3)),
 	Match_Clan_Member_Connected(bind(do_nothing_1< const std::string& >, nothing_info(this, 2028), _1)),
 	Match_Clan_Request_EmblemURL(bind(do_nothing_1< boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >, nothing_info(this, 2051), _1)),
-	Match_Clan_Response_EmblemURL(bind(do_nothing_3< boost::int32_t, boost::int32_t, const std::string& >, nothing_info(this, 2052), _1, _2, _3)),
 	Match_Clan_Local_EmblemReady(bind(do_nothing_2< boost::int32_t, const std::string& >, nothing_info(this, 2055), _1, _2)),
 	MC_MATCH_CLAN_ACCOUNCE_DELETE(bind(do_nothing_1< const std::string& >, nothing_info(this, 2056), _1)),
 	Match_Callvote(bind(do_nothing_2< const std::string&, const std::string& >, nothing_info(this, 2100), _1, _2)),
@@ -326,7 +284,6 @@ Registry::Registry()
 	Quest_Test_Finish(bind(do_nothing_0, nothing_info(this, 6904))),
 	Admin_Announce(bind(do_nothing_3< boost::uint64_t, const std::string&, boost::uint32_t >, nothing_info(this, 501), _1, _2, _3)),
 	Admin_RequestBanPlayer(bind(do_nothing_2< boost::uint64_t, const std::string& >, nothing_info(this, 515), _1, _2)),
-	Admin_ResponseBanPlayer(bind(do_nothing_1< boost::int32_t >, nothing_info(this, 516), _1)),
 	Admin_Hide(bind(do_nothing_0, nothing_info(this, 531))),
 	MC_ADMIN_RESET_ALL_HACKING_BLOCK(bind(do_nothing_0, nothing_info(this, 533))),
 	MC_ADMIN_RELOAD_GAMBLEITEM(bind(do_nothing_0, nothing_info(this, 534))),
@@ -336,7 +293,6 @@ Registry::Registry()
 	Match_RegisterAgent(bind(do_nothing_3< const std::string&, boost::int32_t, boost::int32_t >, nothing_info(this, 5001), _1, _2, _3)),
 	Match_UnRegisterAgent(bind(do_nothing_0, nothing_info(this, 5002))),
 	Match_Agent_RequestLiveCheck(bind(do_nothing_3< boost::uint32_t, boost::uint32_t, boost::uint32_t >, nothing_info(this, 5011), _1, _2, _3)),
-	Match_Agent_ResponseLiveCheck(bind(do_nothing_1< boost::uint32_t >, nothing_info(this, 5012), _1)),
 	Agent_StageReserve(bind(do_nothing_1< boost::uint64_t >, nothing_info(this, 5051), _1)),
 	Agent_StageRelease(bind(do_nothing_1< boost::uint64_t >, nothing_info(this, 5052), _1)),
 	Agent_StageReady(bind(do_nothing_1< boost::uint64_t >, nothing_info(this, 5053), _1)),
@@ -349,20 +305,17 @@ Registry::Registry()
 	Quest_item_responsesell(bind(do_nothing_2< boost::int32_t, boost::int32_t >, nothing_info(this, 21005), _1, _2)),
 	Quest_Reward(bind(do_nothing_4< boost::int32_t, boost::int32_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >, nothing_info(this, 21006), _1, _2, _3, _4)),
 	Quest_Request_Sacrifice(bind(do_nothing_3< boost::uint64_t, boost::int32_t, boost::int32_t >, nothing_info(this, 21007), _1, _2, _3)),
-	Quest_Response_Sacrifice(bind(do_nothing_4< boost::int32_t, boost::uint64_t, boost::int32_t, boost::int32_t >, nothing_info(this, 21008), _1, _2, _3, _4)),
 	Quest_Callback_Sacrifice(bind(do_nothing_3< boost::uint64_t, boost::int32_t, boost::int32_t >, nothing_info(this, 21009), _1, _2, _3)),
 	Quest_Callback_Result(bind(do_nothing_4< boost::int32_t, boost::uint64_t, boost::int32_t, boost::int32_t >, nothing_info(this, 21010), _1, _2, _3, _4)),
 	Quest_Request_SlotInfo(bind(do_nothing_1< boost::uint64_t >, nothing_info(this, 21011), _1)),
 	Quest_Resonse_SlotInfo(bind(do_nothing_4< boost::uint64_t, boost::int32_t, boost::uint64_t, boost::int32_t >, nothing_info(this, 21012), _1, _2, _3, _4)),
 	Quest_RequestLevel(bind(do_nothing_1< boost::uint64_t >, nothing_info(this, 6101), _1)),
-	Quest_ResponseLevel(bind(do_nothing_1< boost::int32_t >, nothing_info(this, 6102), _1)),
 	Quest_Survival_Result(bind(do_nothing_2< boost::int32_t, boost::int32_t >, nothing_info(this, 6103), _1, _2)),
 	Quest_Survival_Ranking(bind(do_nothing_1< boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >, nothing_info(this, 6104), _1)),
 	Quest_Survuval_PrivateRanking(bind(do_nothing_2< boost::uint32_t, boost::uint32_t >, nothing_info(this, 6105), _1, _2)),
 	Quest_Start_Fail(bind(do_nothing_2< boost::int32_t, boost::uint64_t >, nothing_info(this, 6060), _1, _2)),
 	monsterinfo(bind(do_nothing_1< boost::int8_t >, nothing_info(this, 21013), _1)),
 	Quest_Bible_Request(bind(do_nothing_1< boost::uint64_t >, nothing_info(this, 21014), _1)),
-	Quest_Bible_Response(bind(do_nothing_2< boost::uint64_t, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >, nothing_info(this, 21015), _1, _2)),
 	MC_REQUEST_GIVE_ONESELF_UP(bind(do_nothing_0, nothing_info(this, 9101))),
 	MC_RESPONSE_GAMBLEITEMLIST(bind(do_nothing_1< boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> >, nothing_info(this, 1827), _1)),
 	MC_MATCH_ROUTE_UPDATE_STAGE_EQUIP_LOOK(bind(do_nothing_3< boost::uint64_t, boost::int32_t, boost::int32_t >, nothing_info(this, 1828), _1, _2, _3)),
@@ -419,31 +372,6 @@ static void do_Match_Login(Registry* self, const uint8_t* parameters, uint16_t l
 	uint32_t p3 = extract_uint32(parameters, &paramPtr, length);
 
 	self->Match_Login(p0, p1, p2, p3);
-}
-
-static void do_Match_ResponseLogin(Registry* self, const uint8_t* parameters, uint16_t length)
-{
-	const uint8_t* paramPtr = parameters;
-
-	int32_t p0 = extract_int32(parameters, &paramPtr, length);
-	std::string p1 = extract_string(parameters, &paramPtr, length);
-	int8_t p2 = extract_int8(parameters, &paramPtr, length);
-	std::string p3 = extract_string(parameters, &paramPtr, length);
-	uint8_t p4 = extract_uint8(parameters, &paramPtr, length);
-	uint8_t p5 = extract_uint8(parameters, &paramPtr, length);
-	uint64_t p6 = extract_MUID(parameters, &paramPtr, length);
-	tuple<Buffer, size_t, size_t> p7 = extract_blob(parameters, &paramPtr, length);
-
-	self->Match_ResponseLogin(p0, p1, p2, p3, p4, p5, p6, p7);
-}
-
-static void do_Match_Response_Result(Registry* self, const uint8_t* parameters, uint16_t length)
-{
-	const uint8_t* paramPtr = parameters;
-
-	int32_t p0 = extract_int32(parameters, &paramPtr, length);
-
-	self->Match_Response_Result(p0);
 }
 
 static void do_Match_LoginNetmarble(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -529,15 +457,6 @@ static void do_MatchServer_RequestRecommandedChannel(Registry* self, const uint8
 	self->MatchServer_RequestRecommandedChannel();
 }
 
-static void do_MatchServer_ResponseRecommandedChannel(Registry* self, const uint8_t* parameters, uint16_t length)
-{
-	const uint8_t* paramPtr = parameters;
-
-	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-
-	self->MatchServer_ResponseRecommandedChannel(p0);
-}
-
 static void do_Channel_Join(Registry* self, const uint8_t* parameters, uint16_t length)
 {
 	const uint8_t* paramPtr = parameters;
@@ -546,18 +465,6 @@ static void do_Channel_Join(Registry* self, const uint8_t* parameters, uint16_t 
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 
 	self->Channel_Join(p0, p1);
-}
-
-static void do_Channel_ResponseJoin(Registry* self, const uint8_t* parameters, uint16_t length)
-{
-	const uint8_t* paramPtr = parameters;
-
-	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-	int32_t p1 = extract_int32(parameters, &paramPtr, length);
-	std::string p2 = extract_string(parameters, &paramPtr, length);
-	bool p3 = extract_bool(parameters, &paramPtr, length);
-
-	self->Channel_ResponseJoin(p0, p1, p2, p3);
 }
 
 static void do_Channel_RequestJoinFromName(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -643,16 +550,6 @@ static void do_Channel_Request_Rule(Registry* self, const uint8_t* parameters, u
 	self->Channel_Request_Rule(p0);
 }
 
-static void do_Channel_Response_Rule(Registry* self, const uint8_t* parameters, uint16_t length)
-{
-	const uint8_t* paramPtr = parameters;
-
-	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-	std::string p1 = extract_string(parameters, &paramPtr, length);
-
-	self->Channel_Response_Rule(p0, p1);
-}
-
 static void do_Channel_RequestAllPlayerList(Registry* self, const uint8_t* parameters, uint16_t length)
 {
 	const uint8_t* paramPtr = parameters;
@@ -663,16 +560,6 @@ static void do_Channel_RequestAllPlayerList(Registry* self, const uint8_t* param
 	uint32_t p3 = extract_uint32(parameters, &paramPtr, length);
 
 	self->Channel_RequestAllPlayerList(p0, p1, p2, p3);
-}
-
-static void do_Channel_ResponseAllPlayerList(Registry* self, const uint8_t* parameters, uint16_t length)
-{
-	const uint8_t* paramPtr = parameters;
-
-	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-	tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
-
-	self->Channel_ResponseAllPlayerList(p0, p1);
 }
 
 static void do_Stage_Create(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -747,24 +634,6 @@ static void do_Stage_Follow(Registry* self, const uint8_t* parameters, uint16_t 
 	self->Stage_Follow(p0);
 }
 
-static void do_Stage_Response_Follow(Registry* self, const uint8_t* parameters, uint16_t length)
-{
-	const uint8_t* paramPtr = parameters;
-
-	int32_t p0 = extract_int32(parameters, &paramPtr, length);
-
-	self->Stage_Response_Follow(p0);
-}
-
-static void do_Stage_ResponseJoin(Registry* self, const uint8_t* parameters, uint16_t length)
-{
-	const uint8_t* paramPtr = parameters;
-
-	int32_t p0 = extract_int32(parameters, &paramPtr, length);
-
-	self->Stage_ResponseJoin(p0);
-}
-
 static void do_Stage_RequirePassword(Registry* self, const uint8_t* parameters, uint16_t length)
 {
 	const uint8_t* paramPtr = parameters;
@@ -783,27 +652,6 @@ static void do_RequestGameInfo(Registry* self, const uint8_t* parameters, uint16
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 
 	self->RequestGameInfo(p0, p1);
-}
-
-static void do_ResponseGameInfo(Registry* self, const uint8_t* parameters, uint16_t length)
-{
-	const uint8_t* paramPtr = parameters;
-
-	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-	tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
-	tuple<Buffer, size_t, size_t> p2 = extract_blob(parameters, &paramPtr, length);
-	tuple<Buffer, size_t, size_t> p3 = extract_blob(parameters, &paramPtr, length);
-
-	self->ResponseGameInfo(p0, p1, p2, p3);
-}
-
-static void do_Stage_ResponseCreate(Registry* self, const uint8_t* parameters, uint16_t length)
-{
-	const uint8_t* paramPtr = parameters;
-
-	int32_t p0 = extract_int32(parameters, &paramPtr, length);
-
-	self->Stage_ResponseCreate(p0);
 }
 
 static void do_Stage_Request_EnterBattle(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -875,16 +723,6 @@ static void do_Stage_RequestQuickJoin(Registry* self, const uint8_t* parameters,
 	tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
 
 	self->Stage_RequestQuickJoin(p0, p1);
-}
-
-static void do_Stage_ResponseQuickJoin(Registry* self, const uint8_t* parameters, uint16_t length)
-{
-	const uint8_t* paramPtr = parameters;
-
-	int32_t p0 = extract_int32(parameters, &paramPtr, length);
-	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
-
-	self->Stage_ResponseQuickJoin(p0, p1);
 }
 
 static void do_Stage_StageGo(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -972,17 +810,6 @@ static void do_Channel_RequestPlayerList(Registry* self, const uint8_t* paramete
 	self->Channel_RequestPlayerList(p0, p1, p2);
 }
 
-static void do_Channel_ResponsePlayerList(Registry* self, const uint8_t* parameters, uint16_t length)
-{
-	const uint8_t* paramPtr = parameters;
-
-	uint8_t p0 = extract_uint8(parameters, &paramPtr, length);
-	uint8_t p1 = extract_uint8(parameters, &paramPtr, length);
-	tuple<Buffer, size_t, size_t> p2 = extract_blob(parameters, &paramPtr, length);
-
-	self->Channel_ResponsePlayerList(p0, p1, p2);
-}
-
 static void do_Stage_RequestStageSetting(Registry* self, const uint8_t* parameters, uint16_t length)
 {
 	const uint8_t* paramPtr = parameters;
@@ -990,19 +817,6 @@ static void do_Stage_RequestStageSetting(Registry* self, const uint8_t* paramete
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
 	self->Stage_RequestStageSetting(p0);
-}
-
-static void do_Stage_ResponseStageSetting(Registry* self, const uint8_t* parameters, uint16_t length)
-{
-	const uint8_t* paramPtr = parameters;
-
-	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-	tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
-	tuple<Buffer, size_t, size_t> p2 = extract_blob(parameters, &paramPtr, length);
-	int32_t p3 = extract_int32(parameters, &paramPtr, length);
-	uint64_t p4 = extract_MUID(parameters, &paramPtr, length);
-
-	self->Stage_ResponseStageSetting(p0, p1, p2, p3, p4);
 }
 
 static void do_Stage_StageSetting(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1045,16 +859,6 @@ static void do_Stage_RequestPeerList(Registry* self, const uint8_t* parameters, 
 	self->Stage_RequestPeerList(p0, p1);
 }
 
-static void do_Stage_ResponsePeerList(Registry* self, const uint8_t* parameters, uint16_t length)
-{
-	const uint8_t* paramPtr = parameters;
-
-	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-	tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
-
-	self->Stage_ResponsePeerList(p0, p1);
-}
-
 static void do_Loading_Complete(Registry* self, const uint8_t* parameters, uint16_t length)
 {
 	const uint8_t* paramPtr = parameters;
@@ -1073,15 +877,6 @@ static void do_Match_RequestPeerRelay(Registry* self, const uint8_t* parameters,
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 
 	self->Match_RequestPeerRelay(p0, p1);
-}
-
-static void do_Match_ResponsePeerRelay(Registry* self, const uint8_t* parameters, uint16_t length)
-{
-	const uint8_t* paramPtr = parameters;
-
-	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-
-	self->Match_ResponsePeerRelay(p0);
 }
 
 static void do_Stage_RoundState(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1167,16 +962,6 @@ static void do_Game_RequestTimeSync(Registry* self, const uint8_t* parameters, u
 	self->Game_RequestTimeSync(p0);
 }
 
-static void do_Game_ResponseTimeSync(Registry* self, const uint8_t* parameters, uint16_t length)
-{
-	const uint8_t* paramPtr = parameters;
-
-	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
-	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
-
-	self->Game_ResponseTimeSync(p0, p1);
-}
-
 static void do_Game_ReportTimeSync(Registry* self, const uint8_t* parameters, uint16_t length)
 {
 	const uint8_t* paramPtr = parameters;
@@ -1195,15 +980,6 @@ static void do_Stage_RequestForcedEntry(Registry* self, const uint8_t* parameter
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 
 	self->Stage_RequestForcedEntry(p0, p1);
-}
-
-static void do_Stage_ResponseForcedEntry(Registry* self, const uint8_t* parameters, uint16_t length)
-{
-	const uint8_t* paramPtr = parameters;
-
-	int32_t p0 = extract_int32(parameters, &paramPtr, length);
-
-	self->Stage_ResponseForcedEntry(p0);
 }
 
 static void do_Stage_RoundFinishInfo(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1326,15 +1102,6 @@ static void do_Match_RequestAccountCharList(Registry* self, const uint8_t* param
 	self->Match_RequestAccountCharList(p0);
 }
 
-static void do_Match_ResponseAccountCharList(Registry* self, const uint8_t* parameters, uint16_t length)
-{
-	const uint8_t* paramPtr = parameters;
-
-	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
-
-	self->Match_ResponseAccountCharList(p0);
-}
-
 static void do_Match_RequestAccountCharInfo(Registry* self, const uint8_t* parameters, uint16_t length)
 {
 	const uint8_t* paramPtr = parameters;
@@ -1342,16 +1109,6 @@ static void do_Match_RequestAccountCharInfo(Registry* self, const uint8_t* param
 	int8_t p0 = extract_int8(parameters, &paramPtr, length);
 
 	self->Match_RequestAccountCharInfo(p0);
-}
-
-static void do_Match_ResponseAccountCharInfo(Registry* self, const uint8_t* parameters, uint16_t length)
-{
-	const uint8_t* paramPtr = parameters;
-
-	int8_t p0 = extract_int8(parameters, &paramPtr, length);
-	tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
-
-	self->Match_ResponseAccountCharInfo(p0, p1);
 }
 
 static void do_Match_RequestSelectChar(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1364,17 +1121,6 @@ static void do_Match_RequestSelectChar(Registry* self, const uint8_t* parameters
 	self->Match_RequestSelectChar(p0, p1);
 }
 
-static void do_Match_ResponseSelectChar(Registry* self, const uint8_t* parameters, uint16_t length)
-{
-	const uint8_t* paramPtr = parameters;
-
-	int32_t p0 = extract_int32(parameters, &paramPtr, length);
-	tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
-	tuple<Buffer, size_t, size_t> p2 = extract_blob(parameters, &paramPtr, length);
-
-	self->Match_ResponseSelectChar(p0, p1, p2);
-}
-
 static void do_Match_RequestCharInfo(Registry* self, const uint8_t* parameters, uint16_t length)
 {
 	const uint8_t* paramPtr = parameters;
@@ -1383,16 +1129,6 @@ static void do_Match_RequestCharInfo(Registry* self, const uint8_t* parameters, 
 	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
 
 	self->Match_RequestCharInfo(p0, p1);
-}
-
-static void do_Match_ResponseCharInfo(Registry* self, const uint8_t* parameters, uint16_t length)
-{
-	const uint8_t* paramPtr = parameters;
-
-	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-	tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
-
-	self->Match_ResponseCharInfo(p0, p1);
 }
 
 static void do_Match_RequestDeleteChar(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1404,15 +1140,6 @@ static void do_Match_RequestDeleteChar(Registry* self, const uint8_t* parameters
 	std::string p2 = extract_string(parameters, &paramPtr, length);
 
 	self->Match_RequestDeleteChar(p0, p1, p2);
-}
-
-static void do_Match_ResponseDeleteChar(Registry* self, const uint8_t* parameters, uint16_t length)
-{
-	const uint8_t* paramPtr = parameters;
-
-	int32_t p0 = extract_int32(parameters, &paramPtr, length);
-
-	self->Match_ResponseDeleteChar(p0);
 }
 
 static void do_Match_RequestCreateChar(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1430,16 +1157,6 @@ static void do_Match_RequestCreateChar(Registry* self, const uint8_t* parameters
 	self->Match_RequestCreateChar(p0, p1, p2, p3, p4, p5, p6);
 }
 
-static void do_Match_ResponseCreateChar(Registry* self, const uint8_t* parameters, uint16_t length)
-{
-	const uint8_t* paramPtr = parameters;
-
-	int32_t p0 = extract_int32(parameters, &paramPtr, length);
-	std::string p1 = extract_string(parameters, &paramPtr, length);
-
-	self->Match_ResponseCreateChar(p0, p1);
-}
-
 static void do_Match_RequestBuyItem(Registry* self, const uint8_t* parameters, uint16_t length)
 {
 	const uint8_t* paramPtr = parameters;
@@ -1448,15 +1165,6 @@ static void do_Match_RequestBuyItem(Registry* self, const uint8_t* parameters, u
 	uint32_t p1 = extract_uint32(parameters, &paramPtr, length);
 
 	self->Match_RequestBuyItem(p0, p1);
-}
-
-static void do_Match_ResponseBuyItem(Registry* self, const uint8_t* parameters, uint16_t length)
-{
-	const uint8_t* paramPtr = parameters;
-
-	int32_t p0 = extract_int32(parameters, &paramPtr, length);
-
-	self->Match_ResponseBuyItem(p0);
 }
 
 static void do_Match_RequestSellItem(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1469,15 +1177,6 @@ static void do_Match_RequestSellItem(Registry* self, const uint8_t* parameters, 
 	self->Match_RequestSellItem(p0, p1);
 }
 
-static void do_Match_ResponseSellItem(Registry* self, const uint8_t* parameters, uint16_t length)
-{
-	const uint8_t* paramPtr = parameters;
-
-	int32_t p0 = extract_int32(parameters, &paramPtr, length);
-
-	self->Match_ResponseSellItem(p0);
-}
-
 static void do_Match_RequestShopItemList(Registry* self, const uint8_t* parameters, uint16_t length)
 {
 	const uint8_t* paramPtr = parameters;
@@ -1487,16 +1186,6 @@ static void do_Match_RequestShopItemList(Registry* self, const uint8_t* paramete
 	int32_t p2 = extract_int32(parameters, &paramPtr, length);
 
 	self->Match_RequestShopItemList(p0, p1, p2);
-}
-
-static void do_Match_ResponseShopItemList(Registry* self, const uint8_t* parameters, uint16_t length)
-{
-	const uint8_t* paramPtr = parameters;
-
-	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
-	tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
-
-	self->Match_ResponseShopItemList(p0, p1);
 }
 
 static void do_Match_RequestCharacterItemList(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1517,18 +1206,6 @@ static void do_Match_RequestCharacterItemListForce(Registry* self, const uint8_t
 	self->Match_RequestCharacterItemListForce(p0);
 }
 
-static void do_Match_ResponseCharacterItemList(Registry* self, const uint8_t* parameters, uint16_t length)
-{
-	const uint8_t* paramPtr = parameters;
-
-	int32_t p0 = extract_int32(parameters, &paramPtr, length);
-	tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
-	tuple<Buffer, size_t, size_t> p2 = extract_blob(parameters, &paramPtr, length);
-	tuple<Buffer, size_t, size_t> p3 = extract_blob(parameters, &paramPtr, length);
-
-	self->Match_ResponseCharacterItemList(p0, p1, p2, p3);
-}
-
 static void do_MatchRequestEquipItem(Registry* self, const uint8_t* parameters, uint16_t length)
 {
 	const uint8_t* paramPtr = parameters;
@@ -1538,15 +1215,6 @@ static void do_MatchRequestEquipItem(Registry* self, const uint8_t* parameters, 
 	uint32_t p2 = extract_uint32(parameters, &paramPtr, length);
 
 	self->MatchRequestEquipItem(p0, p1, p2);
-}
-
-static void do_MatchResponseEquipItem(Registry* self, const uint8_t* parameters, uint16_t length)
-{
-	const uint8_t* paramPtr = parameters;
-
-	int32_t p0 = extract_int32(parameters, &paramPtr, length);
-
-	self->MatchResponseEquipItem(p0);
 }
 
 static void do_MatchRequestTakeoffItem(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1559,15 +1227,6 @@ static void do_MatchRequestTakeoffItem(Registry* self, const uint8_t* parameters
 	self->MatchRequestTakeoffItem(p0, p1);
 }
 
-static void do_MatchResponseTakeoffItem(Registry* self, const uint8_t* parameters, uint16_t length)
-{
-	const uint8_t* paramPtr = parameters;
-
-	int32_t p0 = extract_int32(parameters, &paramPtr, length);
-
-	self->MatchResponseTakeoffItem(p0);
-}
-
 static void do_Match_RequestAccountItemList(Registry* self, const uint8_t* parameters, uint16_t length)
 {
 	const uint8_t* paramPtr = parameters;
@@ -1575,15 +1234,6 @@ static void do_Match_RequestAccountItemList(Registry* self, const uint8_t* param
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
 	self->Match_RequestAccountItemList(p0);
-}
-
-static void do_Match_ResponseAccountItemList(Registry* self, const uint8_t* parameters, uint16_t length)
-{
-	const uint8_t* paramPtr = parameters;
-
-	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
-
-	self->Match_ResponseAccountItemList(p0);
 }
 
 static void do_Match_RequestBringAccountItem(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1596,15 +1246,6 @@ static void do_Match_RequestBringAccountItem(Registry* self, const uint8_t* para
 	self->Match_RequestBringAccountItem(p0, p1);
 }
 
-static void do_Match_ResponseBringAccountItem(Registry* self, const uint8_t* parameters, uint16_t length)
-{
-	const uint8_t* paramPtr = parameters;
-
-	int32_t p0 = extract_int32(parameters, &paramPtr, length);
-
-	self->Match_ResponseBringAccountItem(p0);
-}
-
 static void do_Match_RequestBringBackAccountItem(Registry* self, const uint8_t* parameters, uint16_t length)
 {
 	const uint8_t* paramPtr = parameters;
@@ -1613,15 +1254,6 @@ static void do_Match_RequestBringBackAccountItem(Registry* self, const uint8_t* 
 	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
 
 	self->Match_RequestBringBackAccountItem(p0, p1);
-}
-
-static void do_Match_ResponseBringBackAccountItem(Registry* self, const uint8_t* parameters, uint16_t length)
-{
-	const uint8_t* paramPtr = parameters;
-
-	int32_t p0 = extract_int32(parameters, &paramPtr, length);
-
-	self->Match_ResponseBringBackAccountItem(p0);
 }
 
 static void do_Match_ExpiredRentItem(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1659,21 +1291,6 @@ static void do_Match_Request_Suicide(Registry* self, const uint8_t* parameters, 
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
 	self->Match_Request_Suicide(p0);
-}
-
-static void do_Match_Response_Suicide(Registry* self, const uint8_t* parameters, uint16_t length)
-{
-	const uint8_t* paramPtr = parameters;
-
-	int32_t p0 = extract_int32(parameters, &paramPtr, length);
-	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
-
-	self->Match_Response_Suicide(p0, p1);
-}
-
-static void do_Match_Response_SuicideReserve(Registry* self, const uint8_t*, uint16_t)
-{
-	self->Match_Response_SuicideReserve();
 }
 
 static void do_Match_Request_Obtain_WorldItem(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1765,15 +1382,6 @@ static void do_Match_Ladder_Request_Challenge(Registry* self, const uint8_t* par
 	self->Match_Ladder_Request_Challenge(p0, p1, p2);
 }
 
-static void do_Match_Ladder_Response_Challenge(Registry* self, const uint8_t* parameters, uint16_t length)
-{
-	const uint8_t* paramPtr = parameters;
-
-	int32_t p0 = extract_int32(parameters, &paramPtr, length);
-
-	self->Match_Ladder_Response_Challenge(p0);
-}
-
 static void do_Match_Ladder_SearchRival(Registry* self, const uint8_t*, uint16_t)
 {
 	self->Match_Ladder_SearchRival();
@@ -1826,17 +1434,6 @@ static void do_Match_RequestProposal(Registry* self, const uint8_t* parameters, 
 	self->Match_RequestProposal(p0, p1, p2, p3, p4);
 }
 
-static void do_Match_ResponseProposal(Registry* self, const uint8_t* parameters, uint16_t length)
-{
-	const uint8_t* paramPtr = parameters;
-
-	int32_t p0 = extract_int32(parameters, &paramPtr, length);
-	int32_t p1 = extract_int32(parameters, &paramPtr, length);
-	int32_t p2 = extract_int32(parameters, &paramPtr, length);
-
-	self->Match_ResponseProposal(p0, p1, p2);
-}
-
 static void do_Match_AskAgreement(Registry* self, const uint8_t* parameters, uint16_t length)
 {
 	const uint8_t* paramPtr = parameters;
@@ -1886,15 +1483,6 @@ static void do_Match_Friend_List(Registry* self, const uint8_t*, uint16_t)
 	self->Match_Friend_List();
 }
 
-static void do_Match_Response_FriendList(Registry* self, const uint8_t* parameters, uint16_t length)
-{
-	const uint8_t* paramPtr = parameters;
-
-	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
-
-	self->Match_Response_FriendList(p0);
-}
-
 static void do_Match_Friend_Msg(Registry* self, const uint8_t* parameters, uint16_t length)
 {
 	const uint8_t* paramPtr = parameters;
@@ -1917,16 +1505,6 @@ static void do_Match_Clan_RequestCreateClan(Registry* self, const uint8_t* param
 	std::string p6 = extract_string(parameters, &paramPtr, length);
 
 	self->Match_Clan_RequestCreateClan(p0, p1, p2, p3, p4, p5, p6);
-}
-
-static void do_Match_Clan_ResponseCreateClan(Registry* self, const uint8_t* parameters, uint16_t length)
-{
-	const uint8_t* paramPtr = parameters;
-
-	int32_t p0 = extract_int32(parameters, &paramPtr, length);
-	int32_t p1 = extract_int32(parameters, &paramPtr, length);
-
-	self->Match_Clan_ResponseCreateClan(p0, p1);
 }
 
 static void do_Match_Clan_AskSponsorAgreement(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -1967,15 +1545,6 @@ static void do_Match_Clan_RequestAgreedCreateClan(Registry* self, const uint8_t*
 	self->Match_Clan_RequestAgreedCreateClan(p0, p1, p2, p3, p4, p5);
 }
 
-static void do_Match_Clan_AgreedResponseCreateClan(Registry* self, const uint8_t* parameters, uint16_t length)
-{
-	const uint8_t* paramPtr = parameters;
-
-	int32_t p0 = extract_int32(parameters, &paramPtr, length);
-
-	self->Match_Clan_AgreedResponseCreateClan(p0);
-}
-
 static void do_Match_Clan_RequestCloseClan(Registry* self, const uint8_t* parameters, uint16_t length)
 {
 	const uint8_t* paramPtr = parameters;
@@ -1984,15 +1553,6 @@ static void do_Match_Clan_RequestCloseClan(Registry* self, const uint8_t* parame
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 
 	self->Match_Clan_RequestCloseClan(p0, p1);
-}
-
-static void do_Match_Clan_ResponseCloseClan(Registry* self, const uint8_t* parameters, uint16_t length)
-{
-	const uint8_t* paramPtr = parameters;
-
-	int32_t p0 = extract_int32(parameters, &paramPtr, length);
-
-	self->Match_Clan_ResponseCloseClan(p0);
 }
 
 static void do_Match_Clan_RequestJoinClan(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2004,15 +1564,6 @@ static void do_Match_Clan_RequestJoinClan(Registry* self, const uint8_t* paramet
 	std::string p2 = extract_string(parameters, &paramPtr, length);
 
 	self->Match_Clan_RequestJoinClan(p0, p1, p2);
-}
-
-static void do_Match_Clan_ResponseJoinClan(Registry* self, const uint8_t* parameters, uint16_t length)
-{
-	const uint8_t* paramPtr = parameters;
-
-	int32_t p0 = extract_int32(parameters, &paramPtr, length);
-
-	self->Match_Clan_ResponseJoinClan(p0);
 }
 
 static void do_Match_Clan_AskJoinAgreement(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2048,15 +1599,6 @@ static void do_Match_Clan_RequestAgreedJoinClan(Registry* self, const uint8_t* p
 	self->Match_Clan_RequestAgreedJoinClan(p0, p1, p2);
 }
 
-static void do_Match_Clan_ResponseAgreedJoinClan(Registry* self, const uint8_t* parameters, uint16_t length)
-{
-	const uint8_t* paramPtr = parameters;
-
-	int32_t p0 = extract_int32(parameters, &paramPtr, length);
-
-	self->Match_Clan_ResponseAgreedJoinClan(p0);
-}
-
 static void do_Match_Clan_RequestLeaveClan(Registry* self, const uint8_t* parameters, uint16_t length)
 {
 	const uint8_t* paramPtr = parameters;
@@ -2064,15 +1606,6 @@ static void do_Match_Clan_RequestLeaveClan(Registry* self, const uint8_t* parame
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
 	self->Match_Clan_RequestLeaveClan(p0);
-}
-
-static void do_Match_Clan_ResponseLeaveClan(Registry* self, const uint8_t* parameters, uint16_t length)
-{
-	const uint8_t* paramPtr = parameters;
-
-	int32_t p0 = extract_int32(parameters, &paramPtr, length);
-
-	self->Match_Clan_ResponseLeaveClan(p0);
 }
 
 static void do_Match_Clan_UpdateCharClanInfo(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2096,15 +1629,6 @@ static void do_Match_Clan_Master_RequestChangeGrade(Registry* self, const uint8_
 	self->Match_Clan_Master_RequestChangeGrade(p0, p1, p2, p3);
 }
 
-static void do_Match_Clan_Master_ResponseChangeGrade(Registry* self, const uint8_t* parameters, uint16_t length)
-{
-	const uint8_t* paramPtr = parameters;
-
-	int32_t p0 = extract_int32(parameters, &paramPtr, length);
-
-	self->Match_Clan_Master_ResponseChangeGrade(p0);
-}
-
 static void do_Match_Clan_Admin_RequestExpelMember(Registry* self, const uint8_t* parameters, uint16_t length)
 {
 	const uint8_t* paramPtr = parameters;
@@ -2113,15 +1637,6 @@ static void do_Match_Clan_Admin_RequestExpelMember(Registry* self, const uint8_t
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 
 	self->Match_Clan_Admin_RequestExpelMember(p0, p1);
-}
-
-static void do_Match_Clan_Admin_ResponseLeaveMember(Registry* self, const uint8_t* parameters, uint16_t length)
-{
-	const uint8_t* paramPtr = parameters;
-
-	int32_t p0 = extract_int32(parameters, &paramPtr, length);
-
-	self->Match_Clan_Admin_ResponseLeaveMember(p0);
 }
 
 static void do_Match_Clan_Request_Msg(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2153,15 +1668,6 @@ static void do_Match_Clan_Request_ClanMemberList(Registry* self, const uint8_t* 
 	self->Match_Clan_Request_ClanMemberList(p0);
 }
 
-static void do_Match_Clan_Response_ClanMemberList(Registry* self, const uint8_t* parameters, uint16_t length)
-{
-	const uint8_t* paramPtr = parameters;
-
-	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
-
-	self->Match_Clan_Response_ClanMemberList(p0);
-}
-
 static void do_Match_Clan_Request_Clan_Info(Registry* self, const uint8_t* parameters, uint16_t length)
 {
 	const uint8_t* paramPtr = parameters;
@@ -2170,15 +1676,6 @@ static void do_Match_Clan_Request_Clan_Info(Registry* self, const uint8_t* param
 	std::string p1 = extract_string(parameters, &paramPtr, length);
 
 	self->Match_Clan_Request_Clan_Info(p0, p1);
-}
-
-static void do_Match_Clan_Response_Clan_Info(Registry* self, const uint8_t* parameters, uint16_t length)
-{
-	const uint8_t* paramPtr = parameters;
-
-	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
-
-	self->Match_Clan_Response_Clan_Info(p0);
 }
 
 static void do_Match_Clan_Standby_ClanList(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2208,17 +1705,6 @@ static void do_Match_Clan_Request_EmblemURL(Registry* self, const uint8_t* param
 	tuple<Buffer, size_t, size_t> p0 = extract_blob(parameters, &paramPtr, length);
 
 	self->Match_Clan_Request_EmblemURL(p0);
-}
-
-static void do_Match_Clan_Response_EmblemURL(Registry* self, const uint8_t* parameters, uint16_t length)
-{
-	const uint8_t* paramPtr = parameters;
-
-	int32_t p0 = extract_int32(parameters, &paramPtr, length);
-	int32_t p1 = extract_int32(parameters, &paramPtr, length);
-	std::string p2 = extract_string(parameters, &paramPtr, length);
-
-	self->Match_Clan_Response_EmblemURL(p0, p1, p2);
 }
 
 static void do_Match_Clan_Local_EmblemReady(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2732,15 +2218,6 @@ static void do_Admin_RequestBanPlayer(Registry* self, const uint8_t* parameters,
 	self->Admin_RequestBanPlayer(p0, p1);
 }
 
-static void do_Admin_ResponseBanPlayer(Registry* self, const uint8_t* parameters, uint16_t length)
-{
-	const uint8_t* paramPtr = parameters;
-
-	int32_t p0 = extract_int32(parameters, &paramPtr, length);
-
-	self->Admin_ResponseBanPlayer(p0);
-}
-
 static void do_Admin_Hide(Registry* self, const uint8_t*, uint16_t)
 {
 	self->Admin_Hide();
@@ -2801,15 +2278,6 @@ static void do_Match_Agent_RequestLiveCheck(Registry* self, const uint8_t* param
 	uint32_t p2 = extract_uint32(parameters, &paramPtr, length);
 
 	self->Match_Agent_RequestLiveCheck(p0, p1, p2);
-}
-
-static void do_Match_Agent_ResponseLiveCheck(Registry* self, const uint8_t* parameters, uint16_t length)
-{
-	const uint8_t* paramPtr = parameters;
-
-	uint32_t p0 = extract_uint32(parameters, &paramPtr, length);
-
-	self->Match_Agent_ResponseLiveCheck(p0);
 }
 
 static void do_Agent_StageReserve(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2932,18 +2400,6 @@ static void do_Quest_Request_Sacrifice(Registry* self, const uint8_t* parameters
 	self->Quest_Request_Sacrifice(p0, p1, p2);
 }
 
-static void do_Quest_Response_Sacrifice(Registry* self, const uint8_t* parameters, uint16_t length)
-{
-	const uint8_t* paramPtr = parameters;
-
-	int32_t p0 = extract_int32(parameters, &paramPtr, length);
-	uint64_t p1 = extract_MUID(parameters, &paramPtr, length);
-	int32_t p2 = extract_int32(parameters, &paramPtr, length);
-	int32_t p3 = extract_int32(parameters, &paramPtr, length);
-
-	self->Quest_Response_Sacrifice(p0, p1, p2, p3);
-}
-
 static void do_Quest_Callback_Sacrifice(Registry* self, const uint8_t* parameters, uint16_t length)
 {
 	const uint8_t* paramPtr = parameters;
@@ -2995,15 +2451,6 @@ static void do_Quest_RequestLevel(Registry* self, const uint8_t* parameters, uin
 	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
 
 	self->Quest_RequestLevel(p0);
-}
-
-static void do_Quest_ResponseLevel(Registry* self, const uint8_t* parameters, uint16_t length)
-{
-	const uint8_t* paramPtr = parameters;
-
-	int32_t p0 = extract_int32(parameters, &paramPtr, length);
-
-	self->Quest_ResponseLevel(p0);
 }
 
 static void do_Quest_Survival_Result(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -3063,16 +2510,6 @@ static void do_Quest_Bible_Request(Registry* self, const uint8_t* parameters, ui
 	self->Quest_Bible_Request(p0);
 }
 
-static void do_Quest_Bible_Response(Registry* self, const uint8_t* parameters, uint16_t length)
-{
-	const uint8_t* paramPtr = parameters;
-
-	uint64_t p0 = extract_MUID(parameters, &paramPtr, length);
-	tuple<Buffer, size_t, size_t> p1 = extract_blob(parameters, &paramPtr, length);
-
-	self->Quest_Bible_Response(p0, p1);
-}
-
 static void do_MC_REQUEST_GIVE_ONESELF_UP(Registry* self, const uint8_t*, uint16_t)
 {
 	self->MC_REQUEST_GIVE_ONESELF_UP();
@@ -3128,8 +2565,6 @@ void Registry::dispatch(uint16_t packetID,
 			case protocol::Match_Announce::packetID: return do_Match_Announce(this, parameters, length);
 			case protocol::Clock_Synchronize::packetID: return do_Clock_Synchronize(this, parameters, length);
 			case protocol::Match_Login::packetID: return do_Match_Login(this, parameters, length);
-			case protocol::Match_ResponseLogin::packetID: return do_Match_ResponseLogin(this, parameters, length);
-			case protocol::Match_Response_Result::packetID: return do_Match_Response_Result(this, parameters, length);
 			case protocol::Match_LoginNetmarble::packetID: return do_Match_LoginNetmarble(this, parameters, length);
 			case protocol::MC_MATCH_DISCONNMSG::packetID: return do_MC_MATCH_DISCONNMSG(this, parameters, length);
 			case protocol::MC_MATCH_LOGIN_NHNUSA::packetID: return do_MC_MATCH_LOGIN_NHNUSA(this, parameters, length);
@@ -3138,9 +2573,7 @@ void Registry::dispatch(uint16_t packetID,
 			case protocol::Match_BridgePeer::packetID: return do_Match_BridgePeer(this, parameters, length);
 			case protocol::Match_BridgePeerACK::packetID: return do_Match_BridgePeerACK(this, parameters, length);
 			case protocol::MatchServer_RequestRecommandedChannel::packetID: return do_MatchServer_RequestRecommandedChannel(this, parameters, length);
-			case protocol::MatchServer_ResponseRecommandedChannel::packetID: return do_MatchServer_ResponseRecommandedChannel(this, parameters, length);
 			case protocol::Channel_Join::packetID: return do_Channel_Join(this, parameters, length);
-			case protocol::Channel_ResponseJoin::packetID: return do_Channel_ResponseJoin(this, parameters, length);
 			case protocol::Channel_RequestJoinFromName::packetID: return do_Channel_RequestJoinFromName(this, parameters, length);
 			case protocol::Channel_Leave::packetID: return do_Channel_Leave(this, parameters, length);
 			case protocol::Channel_ListStart::packetID: return do_Channel_ListStart(this, parameters, length);
@@ -3149,9 +2582,7 @@ void Registry::dispatch(uint16_t packetID,
 			case protocol::Channel_Request_Chat::packetID: return do_Channel_Request_Chat(this, parameters, length);
 			case protocol::Channel_Chat::packetID: return do_Channel_Chat(this, parameters, length);
 			case protocol::Channel_Request_Rule::packetID: return do_Channel_Request_Rule(this, parameters, length);
-			case protocol::Channel_Response_Rule::packetID: return do_Channel_Response_Rule(this, parameters, length);
 			case protocol::Channel_RequestAllPlayerList::packetID: return do_Channel_RequestAllPlayerList(this, parameters, length);
-			case protocol::Channel_ResponseAllPlayerList::packetID: return do_Channel_ResponseAllPlayerList(this, parameters, length);
 			case protocol::Stage_Create::packetID: return do_Stage_Create(this, parameters, length);
 			case protocol::Stage_RequestJoin::packetID: return do_Stage_RequestJoin(this, parameters, length);
 			case protocol::Stage_RequestPrivateJoin::packetID: return do_Stage_RequestPrivateJoin(this, parameters, length);
@@ -3159,12 +2590,8 @@ void Registry::dispatch(uint16_t packetID,
 			case protocol::Stage_Leave::packetID: return do_Stage_Leave(this, parameters, length);
 			case protocol::Stage_Request_PlayerList::packetID: return do_Stage_Request_PlayerList(this, parameters, length);
 			case protocol::Stage_Follow::packetID: return do_Stage_Follow(this, parameters, length);
-			case protocol::Stage_Response_Follow::packetID: return do_Stage_Response_Follow(this, parameters, length);
-			case protocol::Stage_ResponseJoin::packetID: return do_Stage_ResponseJoin(this, parameters, length);
 			case protocol::Stage_RequirePassword::packetID: return do_Stage_RequirePassword(this, parameters, length);
 			case protocol::RequestGameInfo::packetID: return do_RequestGameInfo(this, parameters, length);
-			case protocol::ResponseGameInfo::packetID: return do_ResponseGameInfo(this, parameters, length);
-			case protocol::Stage_ResponseCreate::packetID: return do_Stage_ResponseCreate(this, parameters, length);
 			case protocol::Stage_Request_EnterBattle::packetID: return do_Stage_Request_EnterBattle(this, parameters, length);
 			case protocol::Stage_EnterBattle::packetID: return do_Stage_EnterBattle(this, parameters, length);
 			case protocol::Stage_LeaveBattle::packetID: return do_Stage_LeaveBattle(this, parameters, length);
@@ -3172,7 +2599,6 @@ void Registry::dispatch(uint16_t packetID,
 			case protocol::Stage_Map::packetID: return do_Stage_Map(this, parameters, length);
 			case protocol::Stage_Chat::packetID: return do_Stage_Chat(this, parameters, length);
 			case protocol::Stage_RequestQuickJoin::packetID: return do_Stage_RequestQuickJoin(this, parameters, length);
-			case protocol::Stage_ResponseQuickJoin::packetID: return do_Stage_ResponseQuickJoin(this, parameters, length);
 			case protocol::Stage_StageGo::packetID: return do_Stage_StageGo(this, parameters, length);
 			case protocol::Stage_State::packetID: return do_Stage_State(this, parameters, length);
 			case protocol::Stage_Team::packetID: return do_Stage_Team(this, parameters, length);
@@ -3182,17 +2608,13 @@ void Registry::dispatch(uint16_t packetID,
 			case protocol::Stage_List::packetID: return do_Stage_List(this, parameters, length);
 			case protocol::Stage_RequestStageList::packetID: return do_Stage_RequestStageList(this, parameters, length);
 			case protocol::Channel_RequestPlayerList::packetID: return do_Channel_RequestPlayerList(this, parameters, length);
-			case protocol::Channel_ResponsePlayerList::packetID: return do_Channel_ResponsePlayerList(this, parameters, length);
 			case protocol::Stage_RequestStageSetting::packetID: return do_Stage_RequestStageSetting(this, parameters, length);
-			case protocol::Stage_ResponseStageSetting::packetID: return do_Stage_ResponseStageSetting(this, parameters, length);
 			case protocol::Stage_StageSetting::packetID: return do_Stage_StageSetting(this, parameters, length);
 			case protocol::Stage_Launch::packetID: return do_Stage_Launch(this, parameters, length);
 			case protocol::Stage_Finish::packetID: return do_Stage_Finish(this, parameters, length);
 			case protocol::Stage_RequestPeerList::packetID: return do_Stage_RequestPeerList(this, parameters, length);
-			case protocol::Stage_ResponsePeerList::packetID: return do_Stage_ResponsePeerList(this, parameters, length);
 			case protocol::Loading_Complete::packetID: return do_Loading_Complete(this, parameters, length);
 			case protocol::Match_RequestPeerRelay::packetID: return do_Match_RequestPeerRelay(this, parameters, length);
-			case protocol::Match_ResponsePeerRelay::packetID: return do_Match_ResponsePeerRelay(this, parameters, length);
 			case protocol::Stage_RoundState::packetID: return do_Stage_RoundState(this, parameters, length);
 			case protocol::Game_Kill::packetID: return do_Game_Kill(this, parameters, length);
 			case protocol::Game_Requst_Spawn::packetID: return do_Game_Requst_Spawn(this, parameters, length);
@@ -3201,10 +2623,8 @@ void Registry::dispatch(uint16_t packetID,
 			case protocol::Game_Dead::packetID: return do_Game_Dead(this, parameters, length);
 			case protocol::Game_TeamBonus::packetID: return do_Game_TeamBonus(this, parameters, length);
 			case protocol::Game_RequestTimeSync::packetID: return do_Game_RequestTimeSync(this, parameters, length);
-			case protocol::Game_ResponseTimeSync::packetID: return do_Game_ResponseTimeSync(this, parameters, length);
 			case protocol::Game_ReportTimeSync::packetID: return do_Game_ReportTimeSync(this, parameters, length);
 			case protocol::Stage_RequestForcedEntry::packetID: return do_Stage_RequestForcedEntry(this, parameters, length);
-			case protocol::Stage_ResponseForcedEntry::packetID: return do_Stage_ResponseForcedEntry(this, parameters, length);
 			case protocol::Stage_RoundFinishInfo::packetID: return do_Stage_RoundFinishInfo(this, parameters, length);
 			case protocol::Match_Notify::packetID: return do_Match_Notify(this, parameters, length);
 			case protocol::Match_Whisper::packetID: return do_Match_Whisper(this, parameters, length);
@@ -3217,42 +2637,25 @@ void Registry::dispatch(uint16_t packetID,
 			case protocol::ChatRoom_Invite::packetID: return do_ChatRoom_Invite(this, parameters, length);
 			case protocol::ChatRoom_Chat::packetID: return do_ChatRoom_Chat(this, parameters, length);
 			case protocol::Match_RequestAccountCharList::packetID: return do_Match_RequestAccountCharList(this, parameters, length);
-			case protocol::Match_ResponseAccountCharList::packetID: return do_Match_ResponseAccountCharList(this, parameters, length);
 			case protocol::Match_RequestAccountCharInfo::packetID: return do_Match_RequestAccountCharInfo(this, parameters, length);
-			case protocol::Match_ResponseAccountCharInfo::packetID: return do_Match_ResponseAccountCharInfo(this, parameters, length);
 			case protocol::Match_RequestSelectChar::packetID: return do_Match_RequestSelectChar(this, parameters, length);
-			case protocol::Match_ResponseSelectChar::packetID: return do_Match_ResponseSelectChar(this, parameters, length);
 			case protocol::Match_RequestCharInfo::packetID: return do_Match_RequestCharInfo(this, parameters, length);
-			case protocol::Match_ResponseCharInfo::packetID: return do_Match_ResponseCharInfo(this, parameters, length);
 			case protocol::Match_RequestDeleteChar::packetID: return do_Match_RequestDeleteChar(this, parameters, length);
-			case protocol::Match_ResponseDeleteChar::packetID: return do_Match_ResponseDeleteChar(this, parameters, length);
 			case protocol::Match_RequestCreateChar::packetID: return do_Match_RequestCreateChar(this, parameters, length);
-			case protocol::Match_ResponseCreateChar::packetID: return do_Match_ResponseCreateChar(this, parameters, length);
 			case protocol::Match_RequestBuyItem::packetID: return do_Match_RequestBuyItem(this, parameters, length);
-			case protocol::Match_ResponseBuyItem::packetID: return do_Match_ResponseBuyItem(this, parameters, length);
 			case protocol::Match_RequestSellItem::packetID: return do_Match_RequestSellItem(this, parameters, length);
-			case protocol::Match_ResponseSellItem::packetID: return do_Match_ResponseSellItem(this, parameters, length);
 			case protocol::Match_RequestShopItemList::packetID: return do_Match_RequestShopItemList(this, parameters, length);
-			case protocol::Match_ResponseShopItemList::packetID: return do_Match_ResponseShopItemList(this, parameters, length);
 			case protocol::Match_RequestCharacterItemList::packetID: return do_Match_RequestCharacterItemList(this, parameters, length);
 			case protocol::Match_RequestCharacterItemListForce::packetID: return do_Match_RequestCharacterItemListForce(this, parameters, length);
-			case protocol::Match_ResponseCharacterItemList::packetID: return do_Match_ResponseCharacterItemList(this, parameters, length);
 			case protocol::MatchRequestEquipItem::packetID: return do_MatchRequestEquipItem(this, parameters, length);
-			case protocol::MatchResponseEquipItem::packetID: return do_MatchResponseEquipItem(this, parameters, length);
 			case protocol::MatchRequestTakeoffItem::packetID: return do_MatchRequestTakeoffItem(this, parameters, length);
-			case protocol::MatchResponseTakeoffItem::packetID: return do_MatchResponseTakeoffItem(this, parameters, length);
 			case protocol::Match_RequestAccountItemList::packetID: return do_Match_RequestAccountItemList(this, parameters, length);
-			case protocol::Match_ResponseAccountItemList::packetID: return do_Match_ResponseAccountItemList(this, parameters, length);
 			case protocol::Match_RequestBringAccountItem::packetID: return do_Match_RequestBringAccountItem(this, parameters, length);
-			case protocol::Match_ResponseBringAccountItem::packetID: return do_Match_ResponseBringAccountItem(this, parameters, length);
 			case protocol::Match_RequestBringBackAccountItem::packetID: return do_Match_RequestBringBackAccountItem(this, parameters, length);
-			case protocol::Match_ResponseBringBackAccountItem::packetID: return do_Match_ResponseBringBackAccountItem(this, parameters, length);
 			case protocol::Match_ExpiredRentItem::packetID: return do_Match_ExpiredRentItem(this, parameters, length);
 			case protocol::Match_ItemGamble::packetID: return do_Match_ItemGamble(this, parameters, length);
 			case protocol::Match_GambleResultItem::packetID: return do_Match_GambleResultItem(this, parameters, length);
 			case protocol::Match_Request_Suicide::packetID: return do_Match_Request_Suicide(this, parameters, length);
-			case protocol::Match_Response_Suicide::packetID: return do_Match_Response_Suicide(this, parameters, length);
-			case protocol::Match_Response_SuicideReserve::packetID: return do_Match_Response_SuicideReserve(this, parameters, length);
 			case protocol::Match_Request_Obtain_WorldItem::packetID: return do_Match_Request_Obtain_WorldItem(this, parameters, length);
 			case protocol::Match_WorldItem_Obtain::packetID: return do_Match_WorldItem_Obtain(this, parameters, length);
 			case protocol::Match_WorldItem_Spawn::packetID: return do_Match_WorldItem_Spawn(this, parameters, length);
@@ -3262,52 +2665,38 @@ void Registry::dispatch(uint16_t packetID,
 			case protocol::Match_Assign_Commander::packetID: return do_Match_Assign_Commander(this, parameters, length);
 			case protocol::Match_Set_Observer::packetID: return do_Match_Set_Observer(this, parameters, length);
 			case protocol::Match_Ladder_Request_Challenge::packetID: return do_Match_Ladder_Request_Challenge(this, parameters, length);
-			case protocol::Match_Ladder_Response_Challenge::packetID: return do_Match_Ladder_Response_Challenge(this, parameters, length);
 			case protocol::Match_Ladder_SearchRival::packetID: return do_Match_Ladder_SearchRival(this, parameters, length);
 			case protocol::Match_Ladder_Request_CancelChallenge::packetID: return do_Match_Ladder_Request_CancelChallenge(this, parameters, length);
 			case protocol::Match_Ladder_CancelChallenge::packetID: return do_Match_Ladder_CancelChallenge(this, parameters, length);
 			case protocol::Ladder_Prepare::packetID: return do_Ladder_Prepare(this, parameters, length);
 			case protocol::Ladder_Launch::packetID: return do_Ladder_Launch(this, parameters, length);
 			case protocol::Match_RequestProposal::packetID: return do_Match_RequestProposal(this, parameters, length);
-			case protocol::Match_ResponseProposal::packetID: return do_Match_ResponseProposal(this, parameters, length);
 			case protocol::Match_AskAgreement::packetID: return do_Match_AskAgreement(this, parameters, length);
 			case protocol::Match_ReplyAgreement::packetID: return do_Match_ReplyAgreement(this, parameters, length);
 			case protocol::Match_Friend_Add::packetID: return do_Match_Friend_Add(this, parameters, length);
 			case protocol::Match_Friend_Remove::packetID: return do_Match_Friend_Remove(this, parameters, length);
 			case protocol::Match_Friend_List::packetID: return do_Match_Friend_List(this, parameters, length);
-			case protocol::Match_Response_FriendList::packetID: return do_Match_Response_FriendList(this, parameters, length);
 			case protocol::Match_Friend_Msg::packetID: return do_Match_Friend_Msg(this, parameters, length);
 			case protocol::Match_Clan_RequestCreateClan::packetID: return do_Match_Clan_RequestCreateClan(this, parameters, length);
-			case protocol::Match_Clan_ResponseCreateClan::packetID: return do_Match_Clan_ResponseCreateClan(this, parameters, length);
 			case protocol::Match_Clan_AskSponsorAgreement::packetID: return do_Match_Clan_AskSponsorAgreement(this, parameters, length);
 			case protocol::Match_Clan_AnswerSponsorAgreement::packetID: return do_Match_Clan_AnswerSponsorAgreement(this, parameters, length);
 			case protocol::Match_Clan_RequestAgreedCreateClan::packetID: return do_Match_Clan_RequestAgreedCreateClan(this, parameters, length);
-			case protocol::Match_Clan_AgreedResponseCreateClan::packetID: return do_Match_Clan_AgreedResponseCreateClan(this, parameters, length);
 			case protocol::Match_Clan_RequestCloseClan::packetID: return do_Match_Clan_RequestCloseClan(this, parameters, length);
-			case protocol::Match_Clan_ResponseCloseClan::packetID: return do_Match_Clan_ResponseCloseClan(this, parameters, length);
 			case protocol::Match_Clan_RequestJoinClan::packetID: return do_Match_Clan_RequestJoinClan(this, parameters, length);
-			case protocol::Match_Clan_ResponseJoinClan::packetID: return do_Match_Clan_ResponseJoinClan(this, parameters, length);
 			case protocol::Match_Clan_AskJoinAgreement::packetID: return do_Match_Clan_AskJoinAgreement(this, parameters, length);
 			case protocol::Match_Clan_AnswerJoinAgreement::packetID: return do_Match_Clan_AnswerJoinAgreement(this, parameters, length);
 			case protocol::Match_Clan_RequestAgreedJoinClan::packetID: return do_Match_Clan_RequestAgreedJoinClan(this, parameters, length);
-			case protocol::Match_Clan_ResponseAgreedJoinClan::packetID: return do_Match_Clan_ResponseAgreedJoinClan(this, parameters, length);
 			case protocol::Match_Clan_RequestLeaveClan::packetID: return do_Match_Clan_RequestLeaveClan(this, parameters, length);
-			case protocol::Match_Clan_ResponseLeaveClan::packetID: return do_Match_Clan_ResponseLeaveClan(this, parameters, length);
 			case protocol::Match_Clan_UpdateCharClanInfo::packetID: return do_Match_Clan_UpdateCharClanInfo(this, parameters, length);
 			case protocol::Match_Clan_Master_RequestChangeGrade::packetID: return do_Match_Clan_Master_RequestChangeGrade(this, parameters, length);
-			case protocol::Match_Clan_Master_ResponseChangeGrade::packetID: return do_Match_Clan_Master_ResponseChangeGrade(this, parameters, length);
 			case protocol::Match_Clan_Admin_RequestExpelMember::packetID: return do_Match_Clan_Admin_RequestExpelMember(this, parameters, length);
-			case protocol::Match_Clan_Admin_ResponseLeaveMember::packetID: return do_Match_Clan_Admin_ResponseLeaveMember(this, parameters, length);
 			case protocol::Match_Clan_Request_Msg::packetID: return do_Match_Clan_Request_Msg(this, parameters, length);
 			case protocol::Match_Clan_Msg::packetID: return do_Match_Clan_Msg(this, parameters, length);
 			case protocol::Match_Clan_Request_ClanMemberList::packetID: return do_Match_Clan_Request_ClanMemberList(this, parameters, length);
-			case protocol::Match_Clan_Response_ClanMemberList::packetID: return do_Match_Clan_Response_ClanMemberList(this, parameters, length);
 			case protocol::Match_Clan_Request_Clan_Info::packetID: return do_Match_Clan_Request_Clan_Info(this, parameters, length);
-			case protocol::Match_Clan_Response_Clan_Info::packetID: return do_Match_Clan_Response_Clan_Info(this, parameters, length);
 			case protocol::Match_Clan_Standby_ClanList::packetID: return do_Match_Clan_Standby_ClanList(this, parameters, length);
 			case protocol::Match_Clan_Member_Connected::packetID: return do_Match_Clan_Member_Connected(this, parameters, length);
 			case protocol::Match_Clan_Request_EmblemURL::packetID: return do_Match_Clan_Request_EmblemURL(this, parameters, length);
-			case protocol::Match_Clan_Response_EmblemURL::packetID: return do_Match_Clan_Response_EmblemURL(this, parameters, length);
 			case protocol::Match_Clan_Local_EmblemReady::packetID: return do_Match_Clan_Local_EmblemReady(this, parameters, length);
 			case protocol::MC_MATCH_CLAN_ACCOUNCE_DELETE::packetID: return do_MC_MATCH_CLAN_ACCOUNCE_DELETE(this, parameters, length);
 			case protocol::Match_Callvote::packetID: return do_Match_Callvote(this, parameters, length);
@@ -3365,7 +2754,6 @@ void Registry::dispatch(uint16_t packetID,
 			case protocol::Quest_Test_Finish::packetID: return do_Quest_Test_Finish(this, parameters, length);
 			case protocol::Admin_Announce::packetID: return do_Admin_Announce(this, parameters, length);
 			case protocol::Admin_RequestBanPlayer::packetID: return do_Admin_RequestBanPlayer(this, parameters, length);
-			case protocol::Admin_ResponseBanPlayer::packetID: return do_Admin_ResponseBanPlayer(this, parameters, length);
 			case protocol::Admin_Hide::packetID: return do_Admin_Hide(this, parameters, length);
 			case protocol::MC_ADMIN_RESET_ALL_HACKING_BLOCK::packetID: return do_MC_ADMIN_RESET_ALL_HACKING_BLOCK(this, parameters, length);
 			case protocol::MC_ADMIN_RELOAD_GAMBLEITEM::packetID: return do_MC_ADMIN_RELOAD_GAMBLEITEM(this, parameters, length);
@@ -3375,7 +2763,6 @@ void Registry::dispatch(uint16_t packetID,
 			case protocol::Match_RegisterAgent::packetID: return do_Match_RegisterAgent(this, parameters, length);
 			case protocol::Match_UnRegisterAgent::packetID: return do_Match_UnRegisterAgent(this, parameters, length);
 			case protocol::Match_Agent_RequestLiveCheck::packetID: return do_Match_Agent_RequestLiveCheck(this, parameters, length);
-			case protocol::Match_Agent_ResponseLiveCheck::packetID: return do_Match_Agent_ResponseLiveCheck(this, parameters, length);
 			case protocol::Agent_StageReserve::packetID: return do_Agent_StageReserve(this, parameters, length);
 			case protocol::Agent_StageRelease::packetID: return do_Agent_StageRelease(this, parameters, length);
 			case protocol::Agent_StageReady::packetID: return do_Agent_StageReady(this, parameters, length);
@@ -3388,20 +2775,17 @@ void Registry::dispatch(uint16_t packetID,
 			case protocol::Quest_item_responsesell::packetID: return do_Quest_item_responsesell(this, parameters, length);
 			case protocol::Quest_Reward::packetID: return do_Quest_Reward(this, parameters, length);
 			case protocol::Quest_Request_Sacrifice::packetID: return do_Quest_Request_Sacrifice(this, parameters, length);
-			case protocol::Quest_Response_Sacrifice::packetID: return do_Quest_Response_Sacrifice(this, parameters, length);
 			case protocol::Quest_Callback_Sacrifice::packetID: return do_Quest_Callback_Sacrifice(this, parameters, length);
 			case protocol::Quest_Callback_Result::packetID: return do_Quest_Callback_Result(this, parameters, length);
 			case protocol::Quest_Request_SlotInfo::packetID: return do_Quest_Request_SlotInfo(this, parameters, length);
 			case protocol::Quest_Resonse_SlotInfo::packetID: return do_Quest_Resonse_SlotInfo(this, parameters, length);
 			case protocol::Quest_RequestLevel::packetID: return do_Quest_RequestLevel(this, parameters, length);
-			case protocol::Quest_ResponseLevel::packetID: return do_Quest_ResponseLevel(this, parameters, length);
 			case protocol::Quest_Survival_Result::packetID: return do_Quest_Survival_Result(this, parameters, length);
 			case protocol::Quest_Survival_Ranking::packetID: return do_Quest_Survival_Ranking(this, parameters, length);
 			case protocol::Quest_Survuval_PrivateRanking::packetID: return do_Quest_Survuval_PrivateRanking(this, parameters, length);
 			case protocol::Quest_Start_Fail::packetID: return do_Quest_Start_Fail(this, parameters, length);
 			case protocol::monsterinfo::packetID: return do_monsterinfo(this, parameters, length);
 			case protocol::Quest_Bible_Request::packetID: return do_Quest_Bible_Request(this, parameters, length);
-			case protocol::Quest_Bible_Response::packetID: return do_Quest_Bible_Response(this, parameters, length);
 			case protocol::MC_REQUEST_GIVE_ONESELF_UP::packetID: return do_MC_REQUEST_GIVE_ONESELF_UP(this, parameters, length);
 			case protocol::MC_RESPONSE_GAMBLEITEMLIST::packetID: return do_MC_RESPONSE_GAMBLEITEMLIST(this, parameters, length);
 			case protocol::MC_MATCH_ROUTE_UPDATE_STAGE_EQUIP_LOOK::packetID: return do_MC_MATCH_ROUTE_UPDATE_STAGE_EQUIP_LOOK(this, parameters, length);

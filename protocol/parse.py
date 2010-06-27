@@ -163,6 +163,10 @@ def make_packet_registry_cpp_header():
  * protocol/parse.py. Any changes should me made there, instead of here.
  */
 
+#if defined(_MSC_VER)
+	#pragma warning(disable:4355)	// We know what we're doing. Stfu, VC++.
+#endif
+
 #include <boost/array.hpp>
 #include <boost/format.hpp>
 #include <boost/bind.hpp>
@@ -609,12 +613,18 @@ def build_lookup(filename, commands):
 
 commands = list()
 
+# Returns if the command has "Response" in its name.
+def contains_response(command):
+	return command.name.find("Response") != -1
+
 from sys import argv
 
 if len(argv) == 2:
 	commands = parse([x[:-1] for x in open(argv[1]).readlines()])
-	build_packet_registry_header("include/cockpit/packet/Registry.h", commands)
-	build_packet_registry_cpp("cockpit/src/packet/Registry.cpp", commands)
+	registryCommands = list(filter(lambda c: not contains_response(c), commands))
+
+	build_packet_registry_header("include/cockpit/packet/Registry.h", registryCommands)
+	build_packet_registry_cpp("cockpit/src/packet/Registry.cpp", registryCommands)
 	build_all_packet_types_header("include/cockpit/packet/protocol/all", commands)
 	for c in commands:
 		build_command_header(''.join(["include/cockpit/packet/protocol/", c.name, '.h']), c)

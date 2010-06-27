@@ -55,12 +55,6 @@ public:
 	// Login Match Server
 	boost::function<void (const std::string& /* UserID */, const std::string& /* Password */, boost::int32_t /* CommandVersion */, boost::uint32_t /* nChecksumPack */)> Match_Login;
 
-	// Response Login
-	boost::function<void (boost::int32_t /* Result */, const std::string& /* ServerName */, boost::int8_t /* ServerMode */, const std::string& /* AccountID */, boost::uint8_t /* UGradeID */, boost::uint8_t /* PGradeID */, boost::uint64_t /* uidPlayer */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* EncryptMsg */)> Match_ResponseLogin;
-
-	// Response Result
-	boost::function<void (boost::int32_t /* Result */)> Match_Response_Result;
-
 	// Login from Netmarble
 	boost::function<void (const std::string& /* CPCookie */, const std::string& /* SpareParam */, boost::int32_t /* CommandVersion */, boost::uint32_t /* nChecksumPack */)> Match_LoginNetmarble;
 
@@ -85,14 +79,8 @@ public:
 	// Request recommanded channel
 	boost::function<void ()> MatchServer_RequestRecommandedChannel;
 
-	// Response recommanded channel
-	boost::function<void (boost::uint64_t /* uid */)> MatchServer_ResponseRecommandedChannel;
-
 	// Join a Channel
 	boost::function<void (boost::uint64_t /* uidPlayer */, boost::uint64_t /* uidChannel */)> Channel_Join;
-
-	// Response Join a Channel
-	boost::function<void (boost::uint64_t /* uidChannel */, boost::int32_t /* ChannelType */, const std::string& /* ChannelName */, bool /* EnableInterface */)> Channel_ResponseJoin;
 
 	// Join a Channel From Name
 	boost::function<void (boost::uint64_t /* uidPlayer */, boost::int32_t /* nChannelType */, boost::int32_t /* zero */, const std::string& /* ChannelName */)> Channel_RequestJoinFromName;
@@ -118,14 +106,8 @@ public:
 	// Request the Channel Rule
 	boost::function<void (boost::uint64_t /* uidChannel */)> Channel_Request_Rule;
 
-	// Response the Channel Rule
-	boost::function<void (boost::uint64_t /* uidChannel */, const std::string& /* RuleName */)> Channel_Response_Rule;
-
 	// Request Channel All Player List
 	boost::function<void (boost::uint64_t /* uidPlayer */, boost::uint64_t /* uidChannel */, boost::uint32_t /* PlaceFilter */, boost::uint32_t /* Options */)> Channel_RequestAllPlayerList;
-
-	// Response Channel All Player List
-	boost::function<void (boost::uint64_t /* uidChannel */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* PlayerList */)> Channel_ResponseAllPlayerList;
 
 	// Create a Stage
 	boost::function<void (boost::uint64_t /* uidChar */, const std::string& /* StageName */, bool /* IsPrivate */, const std::string& /* Password */)> Stage_Create;
@@ -148,23 +130,11 @@ public:
 	// Follow User to Stage
 	boost::function<void (const std::string& /* strTarget */)> Stage_Follow;
 
-	// Response Follow User to Stage
-	boost::function<void (boost::int32_t /* Result */)> Stage_Response_Follow;
-
-	// Response Join a Stage
-	boost::function<void (boost::int32_t /* Result */)> Stage_ResponseJoin;
-
 	// Require password
 	boost::function<void (boost::uint64_t /* uidStage */, const std::string& /* StageName */)> Stage_RequirePassword;
 
 	// Request Game Info
 	boost::function<void (boost::uint64_t /* uidChar */, boost::uint64_t /* uidStage */)> RequestGameInfo;
-
-	// Response Game Info
-	boost::function<void (boost::uint64_t /* uidStage */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* GameInfo */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* RuleInfo */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* PlayerInfo */)> ResponseGameInfo;
-
-	// Response Create a Stage
-	boost::function<void (boost::int32_t /* Result */)> Stage_ResponseCreate;
 
 	// Request Enter Stage Battle
 	boost::function<void (boost::uint64_t /* uidPlayer */, boost::uint64_t /* uidStage */)> Stage_Request_EnterBattle;
@@ -186,9 +156,6 @@ public:
 
 	// Stage Request QuickJoin
 	boost::function<void (boost::uint64_t /* uidPlayer */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* Param */)> Stage_RequestQuickJoin;
-
-	// Stage Response QuickJoin
-	boost::function<void (boost::int32_t /* Result */, boost::uint64_t /* uidStage */)> Stage_ResponseQuickJoin;
 
 	// Stage Go
 	boost::function<void (boost::uint32_t /* RoomNo */)> Stage_StageGo;
@@ -217,14 +184,8 @@ public:
 	// Request Channel Player List
 	boost::function<void (boost::uint64_t /* uidPlayer */, boost::uint64_t /* uidChannel */, boost::int32_t /* PlayerListPage */)> Channel_RequestPlayerList;
 
-	// Response Channel Player List
-	boost::function<void (boost::uint8_t /* TotalPlayerCount */, boost::uint8_t /* PlayerListPage */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* PlayerList */)> Channel_ResponsePlayerList;
-
 	// Request stage setting
 	boost::function<void (boost::uint64_t /* uidStage */)> Stage_RequestStageSetting;
-
-	// Response stage setting
-	boost::function<void (boost::uint64_t /* uidStage */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* StageSetting */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* CharSetting */, boost::int32_t /* StageState */, boost::uint64_t /* uidMaster */)> Stage_ResponseStageSetting;
 
 	// Setting up Stage
 	boost::function<void (boost::uint64_t /* uidPlayer */, boost::uint64_t /* uidStage */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* StageSetting */)> Stage_StageSetting;
@@ -238,17 +199,11 @@ public:
 	// Request peer list
 	boost::function<void (boost::uint64_t /* uidPlayer */, boost::uint64_t /* uidStage */)> Stage_RequestPeerList;
 
-	// Response peer list
-	boost::function<void (boost::uint64_t /* uidStage */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* PeerList */)> Stage_ResponsePeerList;
-
 	// Loading Complete
 	boost::function<void (boost::uint64_t /* ChrUID */, boost::int32_t /* Percent */)> Loading_Complete;
 
 	// Request Peer Relay
 	boost::function<void (boost::uint64_t /* PlayerUID */, boost::uint64_t /* PeerCharUID */)> Match_RequestPeerRelay;
-
-	// Response Peer Relay
-	boost::function<void (boost::uint64_t /* PeerCharUID */)> Match_ResponsePeerRelay;
 
 	// Sync State of a StageRound
 	boost::function<void (boost::uint64_t /* uidStage */, boost::int32_t /* nRound */, boost::int32_t /* nState */, boost::int32_t /* nArg */)> Stage_RoundState;
@@ -274,17 +229,11 @@ public:
 	// Request TimeSync for Game
 	boost::function<void (boost::uint32_t /* LocalTimeStamp */)> Game_RequestTimeSync;
 
-	// Response TimeSync for Game
-	boost::function<void (boost::uint32_t /* LocalTimeStamp */, boost::uint32_t /* GlobalTimeStamp */)> Game_ResponseTimeSync;
-
 	// Report TimeSync for Verify SpeedHack
 	boost::function<void (boost::uint32_t /* LocalTimeStamp */, boost::uint32_t /* MemoryChecksum */)> Game_ReportTimeSync;
 
 	// Request Forced Entry
 	boost::function<void (boost::uint64_t /* uidChar */, boost::uint64_t /* uidStage */)> Stage_RequestForcedEntry;
-
-	// Response Forced Entry
-	boost::function<void (boost::int32_t /* Result */)> Stage_ResponseForcedEntry;
 
 	// Update Round Finished Info
 	boost::function<void (boost::uint64_t /* uidStage */, boost::uint64_t /* uidChar */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* PeerInfo */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* KillInfo */)> Stage_RoundFinishInfo;
@@ -322,56 +271,29 @@ public:
 	// Request Account Character List
 	boost::function<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* EMsg */)> Match_RequestAccountCharList;
 
-	// Response Account Character List
-	boost::function<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* CharList */)> Match_ResponseAccountCharList;
-
 	// Request Account Character Info
 	boost::function<void (boost::int8_t /* CharNum */)> Match_RequestAccountCharInfo;
-
-	// Response Account Character Info
-	boost::function<void (boost::int8_t /* CharNum */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* CharInfo */)> Match_ResponseAccountCharInfo;
 
 	// Request Select Character
 	boost::function<void (boost::uint64_t /* uid */, boost::uint32_t /* CharIndex */)> Match_RequestSelectChar;
 
-	// Response Select Character
-	boost::function<void (boost::int32_t /* Result */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* CharInfo */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* MyExtraCharInfo */)> Match_ResponseSelectChar;
-
 	// Request Character Info
 	boost::function<void (boost::uint64_t /* uid */, boost::uint32_t /* CharIndex */)> Match_RequestCharInfo;
-
-	// Response Character Info
-	boost::function<void (boost::uint64_t /* uid */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* CharInfo */)> Match_ResponseCharInfo;
 
 	// Request Delete Character
 	boost::function<void (boost::uint64_t /* uid */, boost::uint32_t /* CharIndex */, const std::string& /* CharName */)> Match_RequestDeleteChar;
 
-	// Response Delete Character
-	boost::function<void (boost::int32_t /* Result */)> Match_ResponseDeleteChar;
-
 	// Request Create Character
 	boost::function<void (boost::uint64_t /* uid */, boost::uint32_t /* CharIndex */, const std::string& /* Name */, boost::uint32_t /* Sex */, boost::uint32_t /* Hair */, boost::uint32_t /* Face */, boost::uint32_t /* Costume */)> Match_RequestCreateChar;
-
-	// Response Create Character
-	boost::function<void (boost::int32_t /* Result */, const std::string& /* CharName */)> Match_ResponseCreateChar;
 
 	// Request Buy Item
 	boost::function<void (boost::uint64_t /* uidChar */, boost::uint32_t /* ItemID */)> Match_RequestBuyItem;
 
-	// Response Buy Item
-	boost::function<void (boost::int32_t /* result */)> Match_ResponseBuyItem;
-
 	// Request Sell Item
 	boost::function<void (boost::uint64_t /* uidChar */, boost::uint64_t /* uidItem */)> Match_RequestSellItem;
 
-	// Response Sell Item
-	boost::function<void (boost::int32_t /* result */)> Match_ResponseSellItem;
-
 	// Request Shop Item List
 	boost::function<void (boost::uint64_t /* uid */, boost::int32_t /* FirstItemIndex */, boost::int32_t /* ItemCount */)> Match_RequestShopItemList;
-
-	// Response Shop Item List
-	boost::function<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* GambleItemList */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* ItemList */)> Match_ResponseShopItemList;
 
 	// Request Character Item List
 	boost::function<void (boost::uint64_t /* uid */)> Match_RequestCharacterItemList;
@@ -379,38 +301,20 @@ public:
 	// Request Character Item List NonPrevent Duplicate Send
 	boost::function<void (boost::uint64_t /* uid */)> Match_RequestCharacterItemListForce;
 
-	// Response Character Item List
-	boost::function<void (boost::int32_t /* Bounty */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* EquipItemList */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* ItemList */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* GambleItemList */)> Match_ResponseCharacterItemList;
-
 	// Request Equip Item
 	boost::function<void (boost::uint64_t /* uidChar */, boost::uint64_t /* uidItem */, boost::uint32_t /* EquipmentSlot */)> MatchRequestEquipItem;
-
-	// Response Equip Item
-	boost::function<void (boost::int32_t /* Result */)> MatchResponseEquipItem;
 
 	// Request Takeoff Item
 	boost::function<void (boost::uint64_t /* uid */, boost::uint32_t /* EquipmentSlot */)> MatchRequestTakeoffItem;
 
-	// Response Takeoff Item
-	boost::function<void (boost::int32_t /* Result */)> MatchResponseTakeoffItem;
-
 	// Request Account Item List
 	boost::function<void (boost::uint64_t /* uid */)> Match_RequestAccountItemList;
-
-	// Response Account Item List
-	boost::function<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* ItemList */)> Match_ResponseAccountItemList;
 
 	// Request Bring Account Item
 	boost::function<void (boost::uint64_t /* uidChar */, boost::int32_t /* AIID */)> Match_RequestBringAccountItem;
 
-	// Response Bring Account Item
-	boost::function<void (boost::int32_t /* Result */)> Match_ResponseBringAccountItem;
-
 	// Request BringBack Account Item
 	boost::function<void (boost::uint64_t /* uidChar */, boost::uint64_t /* uidItem */)> Match_RequestBringBackAccountItem;
-
-	// Response BringBack Account Item
-	boost::function<void (boost::int32_t /* Result */)> Match_ResponseBringBackAccountItem;
 
 	// Match.Expired Rent Item
 	boost::function<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* ItemIDList */)> Match_ExpiredRentItem;
@@ -423,12 +327,6 @@ public:
 
 	// Request Suicide
 	boost::function<void (boost::uint64_t /* uidChar */)> Match_Request_Suicide;
-
-	// Response Suicide
-	boost::function<void (boost::int32_t /* Result */, boost::uint64_t /* uidChar */)> Match_Response_Suicide;
-
-	// response suicide reserve
-	boost::function<void ()> Match_Response_SuicideReserve;
 
 	// Request Obtain WorldItem
 	boost::function<void (boost::uint64_t /* uidChar */, boost::int32_t /* nItemUID */)> Match_Request_Obtain_WorldItem;
@@ -457,9 +355,6 @@ public:
 	// Request Challenge a Ladder
 	boost::function<void (boost::int32_t /* MemberCount */, boost::uint32_t /* Options */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* MemberNames */)> Match_Ladder_Request_Challenge;
 
-	// Response Challenge a Ladder
-	boost::function<void (boost::int32_t /* Result */)> Match_Ladder_Response_Challenge;
-
 	// Search a Ladder Rival
 	boost::function<void ()> Match_Ladder_SearchRival;
 
@@ -478,9 +373,6 @@ public:
 	// Request Proposal
 	boost::function<void (boost::uint64_t /* uidChar */, boost::int32_t /* ProposalMode */, boost::int32_t /* RequestID */, boost::int32_t /* ReplierCount */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* ReplierCharNames */)> Match_RequestProposal;
 
-	// Response Proposal
-	boost::function<void (boost::int32_t /* Result */, boost::int32_t /* ProposalMode */, boost::int32_t /* RequestID */)> Match_ResponseProposal;
-
 	// Ask Agreement
 	boost::function<void (boost::uint64_t /* uidProposer */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* MembersCharName */, boost::int32_t /* ProposalMode */, boost::int32_t /* RequestID */)> Match_AskAgreement;
 
@@ -496,17 +388,11 @@ public:
 	// List Friend
 	boost::function<void ()> Match_Friend_List;
 
-	// Response List Friend
-	boost::function<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* FriendList */)> Match_Response_FriendList;
-
 	// Message to Friends
 	boost::function<void (const std::string& /* Msg */)> Match_Friend_Msg;
 
 	// Request Create Clan
 	boost::function<void (boost::uint64_t /* uidChar */, boost::int32_t /* RequestID */, const std::string& /* ClanName */, const std::string& /* Member1CharName */, const std::string& /* Member2CharName */, const std::string& /* Member3CharName */, const std::string& /* Member4CharName */)> Match_Clan_RequestCreateClan;
-
-	// Response Create Clan
-	boost::function<void (boost::int32_t /* Result */, boost::int32_t /* RequestID */)> Match_Clan_ResponseCreateClan;
 
 	// Ask Sponsor's Agreement
 	boost::function<void (boost::int32_t /* RequestID */, const std::string& /* ClanName */, boost::uint64_t /* uidClanMaster */, const std::string& /* szClanMaster */)> Match_Clan_AskSponsorAgreement;
@@ -517,20 +403,11 @@ public:
 	// Request Agreed Create Clan
 	boost::function<void (boost::uint64_t /* uidChar */, const std::string& /* ClanName */, const std::string& /* Member1CharName */, const std::string& /* Member2CharName */, const std::string& /* Member3CharName */, const std::string& /* Member4CharName */)> Match_Clan_RequestAgreedCreateClan;
 
-	// Response Agreed Create Clan
-	boost::function<void (boost::int32_t /* Result */)> Match_Clan_AgreedResponseCreateClan;
-
 	// Request Close Clan
 	boost::function<void (boost::uint64_t /* uidChar */, const std::string& /* ClanName */)> Match_Clan_RequestCloseClan;
 
-	// Response Close Clan
-	boost::function<void (boost::int32_t /* Result */)> Match_Clan_ResponseCloseClan;
-
 	// Request Join Clan
 	boost::function<void (boost::uint64_t /* uidChar */, const std::string& /* ClanName */, const std::string& /* szJoiner */)> Match_Clan_RequestJoinClan;
-
-	// Response Join Clan
-	boost::function<void (boost::int32_t /* Result */)> Match_Clan_ResponseJoinClan;
 
 	// Ask Join Agreement
 	boost::function<void (const std::string& /* ClanName */, boost::uint64_t /* uidClanAdmin */, const std::string& /* szClanAdmin */)> Match_Clan_AskJoinAgreement;
@@ -541,14 +418,8 @@ public:
 	// Request Agreed Join Clan
 	boost::function<void (boost::uint64_t /* uidClanAdmin */, const std::string& /* ClanName */, const std::string& /* szJoiner */)> Match_Clan_RequestAgreedJoinClan;
 
-	// Response Agreed Join Clan
-	boost::function<void (boost::int32_t /* Result */)> Match_Clan_ResponseAgreedJoinClan;
-
 	// Request Leave Clan
 	boost::function<void (boost::uint64_t /* uidChar */)> Match_Clan_RequestLeaveClan;
-
-	// Response Leave Clan
-	boost::function<void (boost::int32_t /* Result */)> Match_Clan_ResponseLeaveClan;
 
 	// Update Char ClanInfo
 	boost::function<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* ClanInfo */)> Match_Clan_UpdateCharClanInfo;
@@ -556,14 +427,8 @@ public:
 	// Request Change ClanGrade
 	boost::function<void (boost::uint64_t /* uidClanMaster */, const std::string& /* szMember */, boost::int32_t /* Grade */, boost::int32_t /* zero */)> Match_Clan_Master_RequestChangeGrade;
 
-	// Response Change ClanGrade
-	boost::function<void (boost::int32_t /* Result */)> Match_Clan_Master_ResponseChangeGrade;
-
 	// Request Expel ClanMember
 	boost::function<void (boost::uint64_t /* uidClanAdmin */, const std::string& /* szMember */)> Match_Clan_Admin_RequestExpelMember;
-
-	// Response Expel ClanMember
-	boost::function<void (boost::int32_t /* Result */)> Match_Clan_Admin_ResponseLeaveMember;
 
 	// Request Clan Msg
 	boost::function<void (boost::uint64_t /* uidSender */, const std::string& /* Msg */)> Match_Clan_Request_Msg;
@@ -574,14 +439,8 @@ public:
 	// Request Clan Member List
 	boost::function<void (boost::uint64_t /* uidChar */)> Match_Clan_Request_ClanMemberList;
 
-	// Response Clan Member List
-	boost::function<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* ClanMemberList */)> Match_Clan_Response_ClanMemberList;
-
 	// Request Clan Info
 	boost::function<void (boost::uint64_t /* uidChar */, const std::string& /* ClanName */)> Match_Clan_Request_Clan_Info;
-
-	// Response Clan Info
-	boost::function<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* ClanInfo */)> Match_Clan_Response_Clan_Info;
 
 	// Standby Clan List
 	boost::function<void (boost::int32_t /* PrevClanListCount */, boost::int32_t /* NextClanListCount */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* ClanList */)> Match_Clan_Standby_ClanList;
@@ -591,9 +450,6 @@ public:
 
 	// Request EmblemURL
 	boost::function<void (boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* ClanURLList */)> Match_Clan_Request_EmblemURL;
-
-	// Response EmblemURL
-	boost::function<void (boost::int32_t /* ClanCLID */, boost::int32_t /* EmblemChecksum */, const std::string& /* EmblemURL */)> Match_Clan_Response_EmblemURL;
 
 	// Notify Emblem Ready
 	boost::function<void (boost::int32_t /* ClanCLID */, const std::string& /* EmblemURL */)> Match_Clan_Local_EmblemReady;
@@ -766,9 +622,6 @@ public:
 	// Request Ban Player
 	boost::function<void (boost::uint64_t /* uidAdmin */, const std::string& /* uidTargetCharName */)> Admin_RequestBanPlayer;
 
-	// Response Ban Player
-	boost::function<void (boost::int32_t /* Result */)> Admin_ResponseBanPlayer;
-
 	// Hide Admin Player
 	boost::function<void ()> Admin_Hide;
 
@@ -795,9 +648,6 @@ public:
 
 	// Request LiveCheck for Agent
 	boost::function<void (boost::uint32_t /* TimeStamp */, boost::uint32_t /* StageCount */, boost::uint32_t /* UserCount */)> Match_Agent_RequestLiveCheck;
-
-	// Response LiveCheck for Agent
-	boost::function<void (boost::uint32_t /* TimeStamp */)> Match_Agent_ResponseLiveCheck;
 
 	// Reserve stage on AgentServer
 	boost::function<void (boost::uint64_t /* StageUID */)> Agent_StageReserve;
@@ -835,9 +685,6 @@ public:
 	// Request drop sacrifice item
 	boost::function<void (boost::uint64_t /* Dropitemowner */, boost::int32_t /* Slotindex */, boost::int32_t /* ItemID */)> Quest_Request_Sacrifice;
 
-	// Response drop sacrifice item
-	boost::function<void (boost::int32_t /* Result */, boost::uint64_t /* requesterofdropsacrificeitem_ */, boost::int32_t /* Slotindex */, boost::int32_t /* ItemID */)> Quest_Response_Sacrifice;
-
 	// Request callback sacrifice item
 	boost::function<void (boost::uint64_t /* Callbackitemrequester */, boost::int32_t /* Slotindex */, boost::int32_t /* ItemID */)> Quest_Callback_Sacrifice;
 
@@ -852,9 +699,6 @@ public:
 
 	// Request stage quest level
 	boost::function<void (boost::uint64_t /* sender */)> Quest_RequestLevel;
-
-	// Response stage quest level
-	boost::function<void (boost::int32_t /* Questlevel */)> Quest_ResponseLevel;
 
 	// Send survival result
 	boost::function<void (boost::int32_t /* Reachedround */, boost::int32_t /* Point */)> Quest_Survival_Result;
@@ -873,9 +717,6 @@ public:
 
 	// request monster bible info
 	boost::function<void (boost::uint64_t /* requester */)> Quest_Bible_Request;
-
-	// response monster bible info
-	boost::function<void (boost::uint64_t /* requester */, boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */> /* Monsterbibleinfo */)> Quest_Bible_Response;
 
 	// give oneself up
 	boost::function<void ()> MC_REQUEST_GIVE_ONESELF_UP;
