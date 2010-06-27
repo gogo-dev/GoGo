@@ -1,44 +1,29 @@
 #pragma once
-#include <cstddef>
 #include <boost/cstdint.hpp>
 #include <boost/noncopyable.hpp>
-#include <boost/type_traits/is_pod.hpp>
-#include <boost/static_assert.hpp>
-#include <cassert>
 
-#ifdef BOOST_NO_NULLPTR
-	#define nullptr NULL
-#endif
+#include <cstddef>
+#include <cassert>
 
 namespace cockpit {
 
-// A very basic arena implementation. Useful for the "many small allocations"
-// that is our current packet construction/deconstruction implementation.
-template <size_t heapSize>
-class Allocator : boost::noncopyable
+// All allocator actions that don't need to be dependent on the array size can
+// be done in here. This allows the implementations to be pulled out of the
+// header, reducing compile times significantly.
+class AllocatorBase : boost::noncopyable
 {
-private:
-	boost::uint8_t heap[heapSize];
+protected:
+	boost::uint8_t* heapBegin;
 	boost::uint8_t* currentElem;
 	boost::uint8_t* heapEnd;
 
+	AllocatorBase(boost::uint8_t* heapBegin, boost::uint8_t* heapEnd);
+	~AllocatorBase();
+
 public:
-	Allocator()
-	{
-		currentElem = heap;
-		heapEnd = heap + heapSize;
-	}
-
-	boost::uint8_t* allocate(size_t amount)
-	{
-		// Our heap is full. Fall back to oldschool new/delete.
-		if(currentElem + amount > heapEnd)
-			return new uint8_t[amount];
-
-		// Heeey, we have room in the heap! Allocate, then return.
-		else
-			return (currentElem += amount) - amount;
-	}
+	boost::uint8_t* allocate(size_t amount);
+	void free(boost::uint8_t*& ptr) const;
+	void purge();
 
 	/**
 		Allocates a raw type quickly and easily, without ugly casts. Be
@@ -50,25 +35,20 @@ public:
 	{
 		return reinterpret_cast<T*>(allocate(sizeof(T)));
 	}
+};
 
-	// THIS NOT MODIFYING INTERNAL STATE IS VITAL. DO NOT REMOVE THE CONST
-	// SPECIFIER. It's necessary to keep this thing mildly thread-safe.
-	void free(boost::uint8_t*& ptr) const
+// A very basic arena implementation. Useful for the "many small allocations"
+// that is our current packet construction/deconstruction implementation.
+template <size_t heapSize>
+class Allocator : public AllocatorBase
+{
+private:
+	boost::uint8_t heap[heapSize];
+
+public:
+	Allocator()
+		: AllocatorBase(heap, heap + heapSize)
 	{
-		// If the pointer is in the heap, ignore it. Otherwise, call delete[] on it
-		// since we went oldschool when the heap is full.
-		if((ptr < heap) || (ptr >= heapEnd))
-			delete[] ptr;
-
-		ptr = nullptr;
-	}
-
-	// Resets the heap. This is hugely unsafe. Make sure you've called free()
-	// on all outstanding pointers BEFORE calling this method. This will not
-	// be checked for you.
-	void purge()
-	{
-		currentElem = heap;
 	}
 
 	~Allocator()
@@ -133,7 +113,3 @@ public:
 };
 
 }
-
-#ifdef BOOST_NO_NULLPTR
-	#undef nullptr
-#endif
