@@ -9,7 +9,7 @@
 #include <mystring.h> // yet another bug in mysql + clang++.
 #include <mysql++.h>
 
-#include <boost/thread/recursive_mutex.hpp>
+#include <boost/noncopyable.hpp>
 #include <boost/function.hpp>
 
 class MySQLGunzDB : public GunzDB
@@ -19,7 +19,7 @@ private:
 	cockpit::Logger* logger;
 
 private:
-	struct scoped_connection
+	struct scoped_connection : boost::noncopyable
 	{
 	private:
 		ConnectionPool& pool;
