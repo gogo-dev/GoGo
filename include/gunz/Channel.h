@@ -1,4 +1,5 @@
 #pragma once
+#include <gunz/simple_types.h>
 
 // TODO(Clark): Flesh this out.
 class Channel
@@ -20,6 +21,10 @@ public:
 			+ ChannelRule GetRule() const
 				- Returns the "rule" for the channel. I'm still not totally
 				  sure what this means. Talk to Jacob.
+
+			+ ChannelType GetType() const
+				- Returns whether the channel is one of CT_GENERAL, CT_PRIVATE,
+				  CT_USER, or CT_CLAN.
 
 			+ std::vector<PlayerTraits> GetPlayerList() const
 				- Returns a player list, return information on each player
