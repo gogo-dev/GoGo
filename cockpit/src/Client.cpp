@@ -251,7 +251,7 @@ void Client::on_payload(uint8_t* p, uint16_t payloadSize, bool encrypted, system
 	uint16_t paramLength = payloadSize - Client::PayloadHeader::SIZE;	// LOL.
 	uint8_t* params = p + Client::PayloadHeader::SIZE;
 
-	if(payload.packetID != sending_currentPacketID++)
+	if(payload.packetID != recieving_currentPacketID++)
 	{
 		logger->info(
 			format("[%1%] Invalid packetID (%2% instead of %3%) recieved. Disconnecting.")
