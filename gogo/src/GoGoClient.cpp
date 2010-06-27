@@ -4,7 +4,7 @@
 #include <cockpit/packet/Registry.h>
 #include <cockpit/packet/Lookup.h>
 
-#include "MUIDSanta.h"
+#include <gunz/MUIDSanta.h>
 
 #include <boost/bind.hpp>
 

@@ -3,7 +3,6 @@ set(GOGO_HEADERS
 	ConsoleLogger.h
 	GoGoClient.h
 	GoGoFactory.h
-	MUIDSanta.h
 	error_codes.h
 	# Feel free to add more header files when they're added.
 )
@@ -14,7 +13,6 @@ set(GOGO_SRC
 	GoGoClient.cpp
 	GoGoFactory.cpp
 	main.cpp
-	MUIDSanta.cpp
 	# Feel free to add more source files when they're added.
 )
 

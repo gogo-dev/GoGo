@@ -3,7 +3,7 @@
 #include <cockpit/ClientHandlerFactory.h>
 #include <cockpit/Logger.h>
 #include <database/GunzDB.h>
-#include "MUIDSanta.h"
+#include <gunz/MUIDSanta.h>
 
 class GoGoFactory : public cockpit::ClientHandlerFactory
 {
