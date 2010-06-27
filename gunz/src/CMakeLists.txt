@@ -1,6 +1,7 @@
 set(GUNZ_SRC
 	Channel.cpp
 	ChannelList.cpp
+	MUIDSanta.cpp
 	PlayerTraits.cpp
 	# More sources here!
 )
