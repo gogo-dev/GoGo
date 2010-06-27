@@ -94,7 +94,7 @@ public:
 	std::vector<Item> GetInventory(boost::uint32_t cid);
 	SmallVector<CharacterEntry, 4> GetCharacterList(boost::uint32_t aid);
 	bool NameExists(std::string name);
-	void CreateCharacter(boost::uint32_t aid, std::string name, boost::uint32_t marker, boost::uint32_t sex, boost::uint32_t hair, boost::uint32_t face, boost::uint32_t costume);
+	void CreateCharacter(const AccountInfo& account, std::string name, boost::uint32_t marker, boost::uint32_t sex, boost::uint32_t hair, boost::uint32_t face, boost::uint32_t costume);
 	CharacterInfo GetCharacterInfo(boost::uint32_t cid, boost::uint8_t slot);
 
 	boost::uint32_t GetCID(uint32_t aid, uint32_t marker);

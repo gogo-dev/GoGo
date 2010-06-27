@@ -55,8 +55,8 @@ public:
 	/**
 		Creates a character.
 
-		@param  aid      The account ID of the parent player we will create the
-		                 character for.
+		@param  accountInfo   The account info of the parent player we will create the
+		                      character for.
 		@param  name     The name of the new character.
 		@param  marker   TODO: USELESS. REMOVE THIS.
 		@param  sex      The gender of the character we will create.
@@ -69,7 +69,7 @@ public:
 		@throws InvalidCharacterName If the character name isn't valid.
 	*/
 	virtual void CreateCharacter(
-		boost::uint32_t aid,
+		const AccountInfo& accountInfo,
 		std::string name,
 		boost::uint32_t marker,
 		boost::uint32_t sex,

@@ -36,7 +36,7 @@ void GoGoClient::OnCharCreate(MUID /* uidPlayer */, uint32_t charMarker, const s
 		if(charName.length() >= 16)
 			return reply(transmitter, PEC_NAME_LONG, charName);
 
-		database->CreateCharacter(myAccount.AccountId, charName, charMarker, charSex, charHair, charFace, charCostume);
+		database->CreateCharacter(myAccount, charName, charMarker, charSex, charHair, charFace, charCostume);
 
 		return reply(transmitter, PEC_NONE, charName);
 	}
