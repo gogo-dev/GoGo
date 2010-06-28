@@ -66,8 +66,7 @@ enum ChannelType
 	CT_GENERAL,
 	CT_PRIVATE,
 	CT_USER,
-	CT_CLAN,
-	CT_NONE = 255
+	CT_CLAN
 };
 
 enum ChannelRule
