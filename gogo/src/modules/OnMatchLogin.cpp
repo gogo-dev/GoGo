@@ -25,7 +25,7 @@ static void reply(
 	const char* account,
 	uint8_t ugrade,
 	uint8_t pgrade,
-	MUID muid)
+	gunz::MUID muid)
 {
 	packet::blob encryptMSG(1, 20);
 	encryptMSG.add_param(packet::zeros(20));

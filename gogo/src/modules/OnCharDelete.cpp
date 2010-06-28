@@ -15,7 +15,7 @@ using namespace std;
 using namespace boost;
 using namespace cockpit;
 
-void GoGoClient::OnCharDelete(MUID /* uidPlayer */, uint32_t charMarker, const std::string& /* charName */)
+void GoGoClient::OnCharDelete(gunz::MUID /* uidPlayer */, uint32_t charMarker, const std::string& /* charName */)
 {
 	if(!myAccount.isValid)
 		return transmitter->disconnect();

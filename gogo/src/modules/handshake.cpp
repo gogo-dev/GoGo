@@ -12,17 +12,17 @@ namespace
 	{
 		boost::uint16_t Header;
 		boost::uint32_t Size;
-		MUID ServerId;
-		MUID PlayerId;
+		gunz::MUID ServerId;
+		gunz::MUID PlayerId;
 
 		// Never used; MAIET is retarded. We just set this to 0x0DEADCA7 to be cool.
 		boost::uint32_t Timestamp;
 
-		Handshake(MUID player);
+		Handshake(gunz::MUID player);
 	};
 }
 
-Handshake::Handshake(MUID player)
+Handshake::Handshake(gunz::MUID player)
 {
 	Header = 10;
 	Size = 26;
@@ -31,7 +31,7 @@ Handshake::Handshake(MUID player)
 	Timestamp = 0x0DEADCA7;
 }
 
-static array<uint8_t, 26> make_handshake(MUID myMUID, array<uint8_t, 32>& cryptoKey)
+static array<uint8_t, 26> make_handshake(gunz::MUID myMUID, array<uint8_t, 32>& cryptoKey)
 {
 	uint32_t tempValues[3] = { 0 };
 	uint8_t* cryptkeyPtr = cryptoKey.c_array();
@@ -76,8 +76,8 @@ static array<uint8_t, 26> make_handshake(MUID myMUID, array<uint8_t, 32>& crypto
 	//Create the packet.
 	packetPtr = memory::pcopy(packetPtr, &handshake.Header, sizeof(boost::uint16_t));
 	packetPtr = memory::pcopy(packetPtr, &handshake.Size, sizeof(boost::uint32_t));
-	packetPtr = memory::pcopy(packetPtr, &handshake.ServerId, sizeof(MUID));
-	packetPtr = memory::pcopy(packetPtr, &handshake.PlayerId, sizeof(MUID));
+	packetPtr = memory::pcopy(packetPtr, &handshake.ServerId, sizeof(gunz::MUID));
+	packetPtr = memory::pcopy(packetPtr, &handshake.PlayerId, sizeof(gunz::MUID));
 	packetPtr = memory::pcopy(packetPtr, &handshake.Timestamp, sizeof(boost::uint32_t));
 
 	return packet;

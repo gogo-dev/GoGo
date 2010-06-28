@@ -4,6 +4,8 @@
 #include <database/AccountInfo.h>
 #include <database/CharacterInfo.h>
 
+#include <gunz/simple_types.h>
+
 #include <string>
 
 #include <boost/cstdint.hpp>
@@ -14,11 +16,9 @@ namespace cockpit {
 }
 
 namespace gunz { class MUIDSanta; }
+
 class GunzDB;
 
-typedef boost::uint64_t MUID;
-
-using namespace boost;
 class GoGoClient : public cockpit::ClientHandler
 {
 private:
@@ -28,7 +28,7 @@ private:
 	GunzDB* database;
 
 	gunz::MUIDSanta* santa;
-	MUID myMUID;
+	gunz::MUID myMUID;
 	AccountInfo myAccount;
 	CharacterInfo myCharacter;
 
@@ -44,10 +44,10 @@ public:
 
 	void OnMatchLogin(const std::string& username, const std::string& password, boost::int32_t commandVersion, boost::uint32_t nChecksumPack);
 	void OnCharList();
-	void OnCharCreate(MUID uidPlayer, uint32_t charMarker, const std::string& charName, uint32_t charSex, uint32_t charHair, uint32_t charFace, uint32_t charCostume);
-	void OnCharDelete(MUID uid, uint32_t marker, const std::string& name);
+	void OnCharCreate(gunz::MUID uidPlayer, uint32_t charMarker, const std::string& charName, uint32_t charSex, uint32_t charHair, uint32_t charFace, uint32_t charCostume);
+	void OnCharDelete(gunz::MUID uid, uint32_t marker, const std::string& name);
 	void OnCharInfo(uint8_t marker);
-	void OnCharSelect(MUID uid, uint8_t marker);
+	void OnCharSelect(gunz::MUID uid, uint8_t marker);
 
 	boost::array<boost::uint8_t, 32>
 	handshake(boost::asio::ip::tcp::socket& s) const;
