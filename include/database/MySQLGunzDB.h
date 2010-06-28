@@ -63,18 +63,20 @@ private:
 		boost::function<ResultType (const mysqlpp::StoreQueryResult&)> ResultHandler
 	)
 	{
+		mysqlpp::StoreQueryResult result;
+
 		try
 		{
-			// TODO: Does the ResultHandler have to have an active connection to
-			// work properly? Hell if I know. I just did this to be safe.
 			scoped_connection c(connectionPool);
-			return ResultHandler(QueryMaker(*(c.connection)).store());
+			result = QueryMaker(*(c.connection)).store();
 		}
 		catch(const mysqlpp::Exception& ex)
 		{
 			logger->error(boost::format("MySQL Error: %1%") % ex.what());
 			throw InternalDatabaseError();
 		}
+
+		return ResultHandler(result);
 	}
 
 	/**
