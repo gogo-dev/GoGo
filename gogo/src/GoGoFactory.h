@@ -9,7 +9,7 @@ class GoGoFactory : public cockpit::ClientHandlerFactory
 {
 private:
 	cockpit::Logger* logger;
-	MUIDSanta santa;
+	gunz::MUIDSanta santa;
 	GunzDB* database;
 
 public:

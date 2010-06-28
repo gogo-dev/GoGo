@@ -14,7 +14,7 @@ using namespace std;
 using namespace boost;
 using namespace cockpit;
 
-GoGoClient::GoGoClient(Logger* _logger, MUIDSanta* _santa, GunzDB* _database)
+GoGoClient::GoGoClient(Logger* _logger, gunz::MUIDSanta* _santa, GunzDB* _database)
 {
 	assert(_logger);
 	logger = _logger;

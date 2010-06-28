@@ -3,6 +3,8 @@
 #pragma once
 #include <boost/cstdint.hpp>
 
+namespace gunz {
+
 enum UserGrade
 {
     UG_GUEST,
@@ -138,3 +140,5 @@ enum TeamColor
 };
 
 typedef boost::uint64_t MUID;
+
+}

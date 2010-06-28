@@ -13,7 +13,7 @@ namespace cockpit {
 	class Logger;
 }
 
-class MUIDSanta;
+namespace gunz { class MUIDSanta; }
 class GunzDB;
 
 typedef boost::uint64_t MUID;
@@ -27,13 +27,13 @@ private:
 	cockpit::packet::Registry* registry;
 	GunzDB* database;
 
-	MUIDSanta* santa;
+	gunz::MUIDSanta* santa;
 	MUID myMUID;
 	AccountInfo myAccount;
 	CharacterInfo myCharacter;
 
 public:
-	GoGoClient(cockpit::Logger* logger, MUIDSanta* santa, GunzDB* database);
+	GoGoClient(cockpit::Logger* logger, gunz::MUIDSanta* santa, GunzDB* database);
 	~GoGoClient();
 
 	void initialize(cockpit::Transmitter* transmitter, cockpit::packet::Registry* registry);

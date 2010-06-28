@@ -5,6 +5,8 @@
 
 #include <gunz/simple_types.h>
 
+namespace gunz {
+
 struct PlayerTraits
 {
 	enum PlayerLocation
@@ -37,3 +39,5 @@ struct PlayerTraits
 
 	~PlayerTraits();
 };
+
+}

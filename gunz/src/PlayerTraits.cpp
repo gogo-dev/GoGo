@@ -3,6 +3,8 @@
 using namespace std;
 using namespace boost;
 
+namespace gunz {
+
 PlayerTraits::PlayerTraits()
 {
 }
@@ -22,4 +24,6 @@ PlayerTraits::PlayerTraits(
 
 PlayerTraits::~PlayerTraits()
 {
+}
+
 }

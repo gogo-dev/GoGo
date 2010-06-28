@@ -4,6 +4,8 @@
 	#include <windows.h>
 #endif
 
+namespace gunz {
+
 MUIDSanta::MUIDSanta()
 	: next(1)	// Gunz doesn't like it when we give out MUIDs of 0.
 {
@@ -30,4 +32,6 @@ void MUIDSanta::give_back(MUID /*id*/)
 	// on from the very beginning. Suffice to say, there's no pressing need
 	// to make this algorithm "right", or any more complex until a bug report
 	// is filed.
+}
+
 }

@@ -1,6 +1,8 @@
 #pragma once
 #include <gunz/simple_types.h>
 
+namespace gunz {
+
 // This class controls the MUIDs of various in-game objects.
 class MUIDSanta
 {
@@ -12,3 +14,5 @@ public:
 	MUID get();
 	void give_back(MUID id);
 };
+
+}

@@ -1,6 +1,8 @@
 #pragma once
 #include <gunz/simple_types.h>
 
+namespace gunz {
+
 // TODO(Clark): Flesh this out.
 class Channel
 {
@@ -54,3 +56,5 @@ public:
 			Stage
 	*/
 };
+
+}

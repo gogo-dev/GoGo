@@ -3,6 +3,8 @@
 using namespace std;
 using namespace boost;
 
+namespace gunz {
+
 vector<const Channel*> ChannelList::get_some(function<bool (const Channel*)> predicate) const
 {
 	vector<const Channel*> ret(activeChannels.size());
@@ -24,4 +26,6 @@ const vector<Channel*>* ChannelList::get_all() const
 
 ChannelList::~ChannelList()
 {
+}
+
 }

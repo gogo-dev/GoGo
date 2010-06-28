@@ -9,6 +9,8 @@
 
 #include <util/SmallVector.h>
 
+namespace gunz {
+
 class ChannelList : boost::noncopyable
 {
 private:
@@ -55,3 +57,5 @@ public:
 
 	~ChannelList();
 };
+
+}
