@@ -20,6 +20,6 @@ void GoGoClient::OnCharDelete(gunz::MUID /* uidPlayer */, uint32_t charMarker, c
 	if(!myAccount.isValid)
 		return transmitter->disconnect();
 
-	database->DeleteCharacter(myAccount.AccountId, charMarker);
+	database->DeleteCharacter(myAccount, charMarker);
 	transmitter->send(packet::protocol::Match_ResponseDeleteChar(PEC_NONE));
 }

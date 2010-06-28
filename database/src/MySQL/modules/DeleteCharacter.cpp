@@ -19,19 +19,19 @@ static Query make_update_marker_info_query(Connection& c, uint32_t aid, uint32_t
 	return q;
 }
 
-void MySQLGunzDB::DeleteCharacter(uint32_t aid, uint32_t marker)
+void MySQLGunzDB::DeleteCharacter(const AccountInfo& acc, uint32_t marker)
 {
 	if(marker > 3)
 		return;
 
-	if(aid == 0xFFFFFFFF)
+	if(!acc.isValid)
 		throw InvalidAccountInfo();
 
 	exec_query(
-		bind(make_delete_character_query, _1, aid, marker)
+		bind(make_delete_character_query, _1, acc.AccountId, marker)
 	);
 
 	exec_query(
-		bind(make_update_marker_info_query, _1, aid, marker)
+		bind(make_update_marker_info_query, _1, acc.AccountId, marker)
 	);
 }

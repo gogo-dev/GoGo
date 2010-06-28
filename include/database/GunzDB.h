@@ -36,10 +36,10 @@ public:
 	/**
 		Deletes a character from the database. FOREVAR!
 
-		@param  aid    The account ID of the owning player.
+		@param  acc    The account info of the owning player.
 		@param  marker Where in the character list (0-3) the character to be deleted is.
 	*/
-	virtual void DeleteCharacter(boost::uint32_t aid, boost::uint32_t marker) = 0;
+	virtual void DeleteCharacter(const AccountInfo& acc, boost::uint32_t marker) = 0;
 
 	/**
 		Gets the character info from an account identifier.
