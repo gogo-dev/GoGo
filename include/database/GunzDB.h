@@ -69,7 +69,7 @@ public:
 	*/
 	virtual void CreateCharacter(
 		const AccountInfo& accountInfo,
-		std::string name,
+		const std::string& name,
 		boost::uint32_t marker,
 		boost::uint32_t sex,
 		boost::uint32_t hair,

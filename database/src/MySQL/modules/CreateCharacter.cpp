@@ -26,7 +26,7 @@ Query make_create_character_equip_query(Connection& c, uint32_t cid)
 	return q;
 }
 
-void MySQLGunzDB::CreateCharacter(const AccountInfo& accountInfo, string name, uint32_t marker, uint32_t sex, uint32_t hair, uint32_t face, uint32_t costume)
+void MySQLGunzDB::CreateCharacter(const AccountInfo& accountInfo, const string& name, uint32_t marker, uint32_t sex, uint32_t hair, uint32_t face, uint32_t costume)
 {
 	if(!accountInfo.isValid)
 		throw InvalidAccountInfo();

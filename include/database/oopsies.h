@@ -16,7 +16,7 @@ class BannedUser : public std::exception
 public:
 	std::string error;
 
-	BannedUser(std::string account)
+	BannedUser(const std::string& account)
 	{
 		error = std::string("Account is banned: ") + account + "!";
 	}
