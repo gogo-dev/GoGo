@@ -1,5 +1,5 @@
 set(TINYXML_TESTS
-	xmltest.cpp
+	xmltest
 	# More tests here!
 )
 

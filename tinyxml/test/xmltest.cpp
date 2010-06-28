@@ -6,13 +6,10 @@
 
 #include <cstdio>
 
-#ifdef TIXML_USE_STL
-	#include <iostream>
-	#include <sstream>
-	using namespace std;
-#else
-	#include <stdio.h>
-#endif
+#include <iostream>
+#include <sstream>
+
+using namespace std;
 
 #if defined( WIN32 ) && defined( TUNE )
 	#include <crtdbg.h>
@@ -25,8 +22,6 @@ bool XmlTest( const char* testString, int expected, int found, bool noEcho = fal
 
 static int gPass = 0;
 static int gFail = 0;
-
-
 
 bool XmlTest (const char* testString, const char* expected, const char* found, bool noEcho )
 {
@@ -96,7 +91,6 @@ int main()
 
 	{
 
-	#ifdef TIXML_USE_STL
 		//	What the todo list should look like after processing.
 		// In stream (no formatting) representation.
 		const char* demoEnd =
@@ -118,7 +112,6 @@ int main()
 			"<Item priority=\"2\" distance=\"here\">Do bills"
 			"</Item>"
 			"</ToDo>";
-	#endif
 
 		// The example parses from the character string (above):
 		#if defined( WIN32 ) && defined( TUNE )
@@ -158,12 +151,10 @@ int main()
 			doc.Accept( &printer );
 			fprintf( stdout, "%s", printer.CStr() );
 		}
-		#ifdef TIXML_USE_STL
 		{
 			printf( "** Printing via operator<< **\n" );
 			std::cout << doc;
 		}
-		#endif
 		TiXmlNode* node = 0;
 		TiXmlElement* todoElement = 0;
 		TiXmlElement* itemElement = 0;
@@ -249,10 +240,8 @@ int main()
 		doc.Print( stdout );
 
 
-	#ifdef TIXML_USE_STL
 		printf( "** Demo doc processed to stream: ** \n\n" );
 		cout << doc << endl << endl;
-	#endif
 
 		// --------------------------------------------------------
 		// Different tests...do we have what we expect?
@@ -263,13 +252,11 @@ int main()
 
 		//////////////////////////////////////////////////////
 
-	#ifdef TIXML_USE_STL
 		cout << "** Basic structure. **\n";
 		ostringstream outputStream( ostringstream::out );
 		outputStream << doc;
 		XmlTest( "Output stream correct.",	string( demoEnd ).c_str(),
 											outputStream.str().c_str(), true );
-	#endif
 
 		node = doc.RootElement();
 		assert( node );
@@ -350,7 +337,6 @@ int main()
 		}
 		XmlTest( "'Item' children of the 'ToDo' element, using Last/Previous.", 3, count );
 
-	#ifdef TIXML_USE_STL
 		{
 			cout << "\n** Parsing. **\n";
 			istringstream parse0( "<Element0 attribute0='foo0' attribute1= noquotes attribute2 = '&gt;' />" );
@@ -362,7 +348,6 @@ int main()
 			XmlTest ( "Reads incorrectly formatted 'attribute1=noquotes'.", "noquotes", element0.Attribute( "attribute1" ) );
 			XmlTest ( "Read attribute with entity value '>'.", ">", element0.Attribute( "attribute2" ) );
 		}
-	#endif
 
 		{
 			const char* error =	"<?xml version=\"1.0\" standalone=\"no\" ?>\n"
@@ -378,7 +363,6 @@ int main()
 
 		}
 
-	#ifdef TIXML_USE_STL
 		{
 			//////////////////////////////////////////////////////
 			cout << "\n** Streaming. **\n";
@@ -403,7 +387,6 @@ int main()
 			XmlTest( "String printing correct.", string( demoEnd ).c_str(),
 												 str.c_str(), true );
 		}
-	#endif
 	}
 
 	{
@@ -680,19 +663,15 @@ int main()
 		TiXmlDocument docAssign;
 		docAssign = docCopy;
 
-		#ifdef TIXML_USE_STL
 		std::string original, copy, assign;
 		original << doc;
 		copy << docCopy;
 		assign << docAssign;
 		XmlTest( "Copy/Assign: document copy.", original.c_str(), copy.c_str(), true );
 		XmlTest( "Copy/Assign: document assign.", original.c_str(), assign.c_str(), true );
-
-		#endif
 	}
 
 	//////////////////////////////////////////////////////
-#ifdef TIXML_USE_STL
 	printf ("\n** Parsing, no Condense Whitespace **\n");
 	TiXmlBase::SetCondenseWhiteSpace( false );
 	{
@@ -705,7 +684,6 @@ int main()
 					true );
 	}
 	TiXmlBase::SetCondenseWhiteSpace( true );
-#endif
 
 	//////////////////////////////////////////////////////
 	// GetText();
@@ -752,7 +730,6 @@ int main()
 								 "I am > the rules!\n...since I make symbolic puns",
 								 true );
 
-		#ifdef TIXML_USE_STL
 		//cout << doc << '\n';
 
 		doc.Clear();
@@ -764,7 +741,6 @@ int main()
 		XmlTest( "CDATA stream.", doc.FirstChildElement()->FirstChild()->Value(),
 								 "I am > the rules!\n...since I make symbolic puns",
 								 true );
-		#endif
 
 		TiXmlDocument doc1 = doc;
 		//doc.Print();
@@ -793,14 +769,12 @@ int main()
 
 		XmlTest( "CDATA with all bytes #1.", str.c_str(), printer.CStr(), true );
 
-		#ifdef TIXML_USE_STL
 		doc.Clear();
 		istringstream iss( printer.Str() );
 		iss >> doc;
 		std::string out;
 		out << doc;
 		XmlTest( "CDATA with all bytes #2.", out.c_str(), printer.CStr(), true );
-		#endif
 	}
 	{
 		// [ 1480107 ] Bug-fix for STL-streaming of CDATA that contains tags
@@ -819,8 +793,6 @@ int main()
 								 "<b>I am > the rules!</b>\n...since I make symbolic puns",
 								 true );
 
-		#ifdef TIXML_USE_STL
-
 		doc.Clear();
 
 		istringstream parse0( str );
@@ -829,7 +801,6 @@ int main()
 		XmlTest( "CDATA stream. [ 1480107 ]", doc.FirstChildElement()->FirstChild()->Value(),
 								 "<b>I am > the rules!</b>\n...since I make symbolic puns",
 								 true );
-		#endif
 
 		TiXmlDocument doc1 = doc;
 		//doc.Print();
@@ -896,26 +867,12 @@ int main()
 		// Missing constructor implementation. No test -- just compiles.
 		TiXmlText text( "Missing" );
 
-		#ifdef TIXML_USE_STL
 			// Missing implementation:
 			TiXmlDocument doc;
 			string name = "missing";
 			doc.LoadFile( name );
 
 			TiXmlText textSTL( name );
-		#else
-			// verifying some basic string functions:
-			TiXmlString a;
-			TiXmlString b( "Hello" );
-			TiXmlString c( "ooga" );
-
-			c = " World!";
-			a = b;
-			a += c;
-			a = a;
-
-			XmlTest( "Basic TiXmlString test. ", "Hello World!", a.c_str() );
-		#endif
  	}
 
 	// Long filenames crashing STL version
@@ -1016,12 +973,10 @@ int main()
 		TiXmlHandle docH( &doc );
 		TiXmlUnknown* unknown = docH.Child( 1 ).Unknown();
 		XmlTest( "Correct value of unknown.", "!DOCTYPE PLAY SYSTEM 'play.dtd'", unknown->Value() );
-		#ifdef TIXML_USE_STL
 		TiXmlNode* node = docH.Child( 2 ).Node();
 		std::string str;
 		str << (*node);
 		XmlTest( "Correct streaming of unknown.", "<!ELEMENT title (#PCDATA)>", str.c_str() );
-		#endif
 	}
 
 	{
@@ -1036,11 +991,9 @@ int main()
 		TiXmlComment* comment = docH.Child( 0 ).Node()->ToComment();
 
 		XmlTest( "Comment formatting.", " Somewhat<evil> ", comment->Value() );
-		#ifdef TIXML_USE_STL
 		std::string str;
 		str << (*comment);
 		XmlTest( "Comment streaming.", "<!-- Somewhat<evil> -->", str.c_str() );
-		#endif
 	}
 
 	{
@@ -1105,13 +1058,11 @@ int main()
 		doc.Parse( doctype );
 		XmlTest( "Embedded null throws error.", true, doc.Error() );
 
-		#ifdef TIXML_USE_STL
 		istringstream strm( doctype );
 		doc.Clear();
 		doc.ClearError();
 		strm >> doc;
 		XmlTest( "Embedded null throws error.", true, doc.Error() );
-		#endif
 	}
 
     {
@@ -1140,18 +1091,6 @@ int main()
 		doc.Parse( str );
 		XmlTest( "Empty document error TIXML_ERROR_DOCUMENT_EMPTY", TiXmlBase::TIXML_ERROR_DOCUMENT_EMPTY, doc.ErrorId() );
 	}
-	#ifndef TIXML_USE_STL
-	{
-		// String equality. [ 1006409 ] string operator==/!= no worky in all cases
-		TiXmlString temp;
-		XmlTest( "Empty tinyxml string compare equal", ( temp == "" ), true );
-
-		TiXmlString    foo;
-		TiXmlString    bar( "" );
-		XmlTest( "Empty tinyxml string compare equal", ( foo == bar ), true );
-	}
-
-	#endif
 	{
 		// Bug [ 1195696 ] from marlonism
 		TiXmlBase::SetCondenseWhiteSpace(false);
@@ -1180,7 +1119,6 @@ int main()
 		xml.Parse( "<foo attribute=bar\" />" );
 		XmlTest( "Throw error with bad end quotes.", xml.Error(), true );
 	}
-	#ifdef TIXML_USE_STL
 	{
 		// Bug [ 1449463 ] Consider generic query
 		TiXmlDocument xml;
@@ -1205,9 +1143,7 @@ int main()
 		XmlTest( "QueryValueAttribute", (f==3.0f), true );
 		XmlTest( "QueryValueAttribute", (str==std::string( "a string" )), true );
 	}
-	#endif
 
-	#ifdef TIXML_USE_STL
 	{
 		// [ 1505267 ] redundant malloc in TiXmlElement::Attribute
 		TiXmlDocument xml;
@@ -1226,7 +1162,6 @@ int main()
 		XmlTest( "Attribute", (d==3.0), true );
 		XmlTest( "Attribute", (i==3), true );
 	}
-	#endif
 
 	{
 		// [ 1356059 ] Allow TiXMLDocument to only be at the top level
@@ -1254,7 +1189,6 @@ int main()
 		//XmlTest( "Tag split by newline", xml.Error(), false );
 	}
 
-	#ifdef TIXML_USE_STL
 	{
 		// [ 1475201 ] TinyXML parses entities in comments
 		TiXmlDocument xml;
@@ -1270,7 +1204,6 @@ int main()
 		XmlTest( "Comments ignore entities.", " declarations for <head> & <body> ", c0->Value(), true );
 		XmlTest( "Comments ignore entities.", " far &amp; away ", c1->Value(), true );
 	}
-	#endif
 
 	{
 		// [ 1475201 ] TinyXML parses entities in comments

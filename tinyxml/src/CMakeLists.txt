@@ -1,5 +1,4 @@
 set(TINYXML_SRC
-	tinystr.cpp
 	tinyxml.cpp
 	tinyxmlerror.cpp
 	tinyxmlparser.cpp
