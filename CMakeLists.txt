@@ -104,3 +104,6 @@ add_subdirectory(gunz/test)
 
 add_subdirectory(cockpit/src)
 add_subdirectory(cockpit/test)
+
+add_subdirectory(tinyxml/src)
+add_subdirectory(tinyxml/test)
