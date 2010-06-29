@@ -1,8 +1,5 @@
 set(GUNZ_SRC
-	ChannelTraits.cpp
-	MatchMaker.cpp
 	MUIDSanta.cpp
-	PlayerTraits.cpp
 	# More sources here!
 )
 
