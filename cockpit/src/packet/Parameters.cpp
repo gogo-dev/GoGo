@@ -256,9 +256,23 @@ MUID::MUID(uint64_t full)
 	type = 0x09;
 }
 
+// MUIDs are strange. We need to swap the high and low DWORDs when we talk to the client.
+// It's because they aren't TRUE uint64_ts... they're structs with the same basic layout.
 Buffer MUID::serialize() const
 {
-	return serialize_built_in(value.quad);
+	// Notice the swap?
+	uint64_t lowBytes = value.quad & 0xFFFFFFFF00000000;
+	uint64_t highBytes = value.quad & 0x00000000FFFFFFFF;
+
+	lowBytes >>= sizeof(uint32_t) * 8;
+	lowBytes &= 0x00000000FFFFFFFF;
+
+	highBytes <<= sizeof(uint32_t) * 8;
+	highBytes &= 0xFFFFFFFF00000000;
+
+	uint64_t final = highBytes | lowBytes;
+
+	return serialize_built_in(final);
 }
 
 blob::blob(boost::uint32_t eleCount, boost::uint32_t eleSize)
