@@ -453,8 +453,8 @@ static void test_MUID_clean_extraction()
 	try {
 		const uint8_t* ptr = buffer;
 
-		check_equal(extract_MUID(buffer, &ptr, countof(buffer)), static_cast<uint64_t>(0x4433221100EFCDAB));
-		check_equal(extract_MUID(buffer, &ptr, countof(buffer)), static_cast<uint64_t>(0xCCBBAA9988776655));
+		check_equal(extract_MUID(buffer, &ptr, countof(buffer)), static_cast<uint64_t>(0x00EFCDAB44332211));
+		check_equal(extract_MUID(buffer, &ptr, countof(buffer)), static_cast<uint64_t>(0x88776655CCBBAA99));
 
 		check_equal(ptr, buffer + sizeof(buffer) - 4);
 
@@ -495,8 +495,8 @@ static void test_blob_clean_extraction()
 		0x10, 0x00, 0x00, 0x00,	// totalSize
 		0x04, 0x00, 0x00, 0x00, // elementSize
 		0x02, 0x00, 0x00, 0x00, // elementCount
-			0x11, 0x22, 0x33, 0x44,
-			0x55, 0x66, 0x77, 0x88
+		0x11, 0x22, 0x33, 0x44,
+		0x55, 0x66, 0x77, 0x88
 	};
 
 	const uint8_t* ptr = buffer;

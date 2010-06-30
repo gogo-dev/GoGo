@@ -115,7 +115,13 @@ uint32_t extract_color(const uint8_t* paramStart, const uint8_t** currentParam, 
 
 uint64_t extract_MUID(const uint8_t* paramStart, const uint8_t** currentParam, uint16_t packetLength)
 {
-	return extract_arbitrary_integer<uint64_t>(paramStart, currentParam, packetLength);
+	uint64_t highBytes = extract_arbitrary_integer<uint32_t>(paramStart, currentParam, packetLength);
+	uint64_t lowBytes = extract_arbitrary_integer<uint32_t>(paramStart, currentParam, packetLength);
+
+	highBytes <<= sizeof(uint32_t) * 8;
+	highBytes &= 0xFFFFFFFF00000000;
+
+	return highBytes | lowBytes;
 }
 
 tuple<Buffer /* data */, size_t /* count */, size_t /* size */>
