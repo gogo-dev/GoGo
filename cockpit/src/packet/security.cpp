@@ -1,7 +1,9 @@
 #include <boost/cstdint.hpp>
 #include <boost/array.hpp>
 #include <boost/tuple/tuple.hpp>
+
 #include <string>
+
 #include <util/buffer.h>
 
 using namespace std;

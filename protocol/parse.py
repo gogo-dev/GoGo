@@ -38,7 +38,7 @@ def clean(commands):
 		elif paramID == 0x09:
 			return "boost::uint64_t"
 		elif paramID == 0x0A:
-			return "boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>"
+			return "const boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>&"
 		elif paramID == 0x0B:
 			return "boost::int8_t"
 		elif paramID == 0x0C:
