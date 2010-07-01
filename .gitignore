@@ -1,0 +1,3 @@
+build/*
+!build/test.sh
+!build/test.bat
