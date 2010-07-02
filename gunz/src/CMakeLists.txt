@@ -1,4 +1,5 @@
 set(GUNZ_SRC
+	ChannelTraits.cpp
 	MUIDSanta.cpp
 	# More sources here!
 )
