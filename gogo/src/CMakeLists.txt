@@ -45,3 +45,6 @@ target_link_libraries(gogo
 # Moves gogo.conf into the appropriate directory when either "make" or "make install" is called.
 configure_file(gogo.conf gogo.conf COPYONLY)
 install(FILES gogo.conf DESTINATION ${CMAKE_INSTALL_PREFIX})
+
+configure_file(../db/gunzdb.sql gunzdb.sql COPYONLY)
+install(FILES ../db/gunzdb.sql DESTINATION ${CMAKE_INSTALL_PREFIX})
