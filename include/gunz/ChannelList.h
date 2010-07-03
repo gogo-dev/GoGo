@@ -25,10 +25,16 @@ private:
 public:
 	ChannelList();
 
+	/**
+		Adds a new, empty channel to the channel list. Interesting side-effect,
+		if no one ever joins this channel, it will stick around forever.
+	*/
 	void AddChannel(const ChannelTraits& toAdd);
 
-	// This is usually superfluous, as channels are automatically removed when
-	// they are empty (except for general channels).
+	/**
+		This function is usually unneeded, as channels are automatically
+		removed when they are empty (except for general channels).
+	*/
 	bool RemoveChannel(MUID channelID);
 
 	/**
@@ -36,9 +42,14 @@ public:
 		returns true, a copy of the channel that the predicate found is
 		returned. If the channel is not found, the resultant ChannelTraits
 		will have a UID of 0.
+
+		@see http://en.wikipedia.org/wiki/Predicate_(mathematical_logic)
 	*/
 	ChannelTraits LookupChannel(const boost::function<bool (const ChannelTraits&)>& predicate) const;
 
+	/**
+		Returns a snapshot of the current channels currently alive.
+	*/
 	std::vector<ChannelTraits> GetChannelList() const;
 
 	~ChannelList();
