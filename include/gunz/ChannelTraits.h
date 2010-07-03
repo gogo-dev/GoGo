@@ -12,6 +12,7 @@ struct ChannelTraits
 	MUID uid;
 	std::string name;
 	boost::uint32_t maxPlayers;
+	boost::uint32_t playerCount;
 	ChannelRule rule;
 	ChannelType type;
 	boost::uint8_t minLevel;
