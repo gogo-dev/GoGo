@@ -50,7 +50,15 @@ ChannelTraits::ChannelTraits(
 
 ChannelTraits& ChannelTraits::operator=(ChannelTraits other)
 {
-	std::swap(other, *this);
+	uid = other.uid;
+	name = other.name;
+	maxPlayers = other.maxPlayers;
+	playerCount = other.playerCount;
+	rule = other.rule;
+	type = other.type;
+	minLevel = other.minLevel;
+	maxLevel = other.maxLevel;
+
 	return *this;
 }
 
