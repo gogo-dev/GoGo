@@ -1,7 +1,5 @@
 #include <gunz/ChannelList.h>
 
-#include <boost/bind.hpp>
-
 using namespace std;
 using namespace boost;
 
