@@ -59,4 +59,8 @@ vector<ChannelTraits> ChannelList::GetChannelList() const
 	return vector<ChannelTraits>(channelList.begin(), channelList.end());
 }
 
+ChannelList::~ChannelList()
+{
+}
+
 }
