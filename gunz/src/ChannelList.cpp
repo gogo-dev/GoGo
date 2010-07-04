@@ -63,6 +63,13 @@ vector<ChannelTraits> ChannelList::GetChannelList() const
 	return vector<ChannelTraits>(channelList.begin(), channelList.end());
 }
 
+void ChannelList::Announce(const char* sender, const char* message) const
+{
+	// TODO(Clark): Delegate this to all the channels.
+	static_cast<void>(sender);
+	static_cast<void>(message);
+}
+
 ChannelList::~ChannelList()
 {
 }

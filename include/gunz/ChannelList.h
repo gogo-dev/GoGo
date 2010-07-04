@@ -56,6 +56,12 @@ public:
 	*/
 	std::vector<ChannelTraits> GetChannelList() const;
 
+	/**
+		Broadcasts a message to everyone in ALL channels. Any validation such
+		as "is this person an admin?" should be done elsewhere.
+	*/
+	void Announce(const char* sender, const char* message) const;
+
 	~ChannelList();
 };
 
