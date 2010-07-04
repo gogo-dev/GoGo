@@ -11,6 +11,8 @@
 
 namespace gunz {
 
+class MUIDSanta;
+
 class ChannelList : boost::noncopyable
 {
 private:
@@ -22,8 +24,10 @@ private:
 	typedef SmallVector<ChannelTraits, 32> CList;
 	CList channelList;
 
+	MUIDSanta* santa;
+
 public:
-	ChannelList();
+	ChannelList(MUIDSanta* santa);
 
 	/**
 		Adds a new, empty channel to the channel list. Interesting side-effect,

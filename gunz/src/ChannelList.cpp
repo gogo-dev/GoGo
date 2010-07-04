@@ -1,16 +1,20 @@
 #include <gunz/ChannelList.h>
+#include <gunz/MUIDSanta.h>
 
 using namespace std;
 using namespace boost;
 
 namespace gunz {
 
-ChannelList::ChannelList()
+ChannelList::ChannelList(MUIDSanta* _santa)
+	: santa(_santa)
 {
 }
 
 void ChannelList::AddChannel(const ChannelTraits& toAdd)
 {
+	toAdd.uid = santa->get();
+
 	WritingLock l(protection);
 	channelList.push_back(toAdd);
 }
@@ -26,6 +30,8 @@ bool ChannelList::RemoveChannel(MUID channelID)
 	{
 		if(i->uid == channelID)
 		{
+			santa->give_back(i->uid);
+
 			upgrade_to_unique_lock<shared_mutex> uniq(upgradable);
 			channelList.erase(i);
 
