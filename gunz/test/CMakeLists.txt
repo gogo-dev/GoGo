@@ -1,5 +1,6 @@
 set(GUNZ_TESTS
 	test_channel_list
+	test_muid_santa
 	# Add more tests here.
 )
 
