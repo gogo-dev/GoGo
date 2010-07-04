@@ -11,7 +11,7 @@ ChannelList::ChannelList(MUIDSanta* _santa)
 {
 }
 
-void ChannelList::AddChannel(const ChannelTraits& toAdd)
+void ChannelList::AddChannel(ChannelTraits toAdd)
 {
 	toAdd.uid = santa->get();
 

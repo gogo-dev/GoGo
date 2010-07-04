@@ -1,10 +1,14 @@
 #include <test.h>
 #include <gunz/ChannelList.h>
+#include <gunz/MUIDSanta.h>
 
 #include <boost/bind.hpp>
 
 using namespace boost;
 using namespace gunz;
+
+// That is, until we can get a REAL mock santa in da haus ;)
+typedef MUIDSanta MockSanta;
 
 bool has_uid_of(MUID uid, const ChannelTraits& ct)
 {
@@ -13,7 +17,8 @@ bool has_uid_of(MUID uid, const ChannelTraits& ct)
 
 static void test_addition_and_removal()
 {
-	ChannelList cl;
+	MockSanta santa;
+	ChannelList cl(&santa);
 
 	cl.AddChannel(ChannelTraits(1, "abc", 0, CR_ELITE, CT_GENERAL, 0, 0));
 	cl.AddChannel(ChannelTraits(2, "abc", 0, CR_ELITE, CT_GENERAL, 0, 0));

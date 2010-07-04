@@ -33,7 +33,7 @@ public:
 		Adds a new, empty channel to the channel list. Interesting side-effect,
 		if no one ever joins this channel, it will stick around forever.
 	*/
-	void AddChannel(const ChannelTraits& toAdd);
+	void AddChannel(ChannelTraits toAdd);
 
 	/**
 		This function is usually unneeded, as channels are automatically
