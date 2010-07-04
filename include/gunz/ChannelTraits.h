@@ -23,12 +23,12 @@ struct ChannelTraits
 
 	// Doesn't do anything fancy, it only exists for convenience.
 	ChannelTraits(MUID uid,
-				  const std::string& name,
-				  boost::uint32_t maxPlayers,
-				  ChannelRule rule,
-				  ChannelType type,
-				  boost::uint8_t minLevel,
-				  boost::uint8_t maxLevel);
+	              const std::string& name,
+	              boost::uint32_t maxPlayers,
+	              ChannelRule rule,
+	              ChannelType type,
+	              boost::uint8_t minLevel,
+	              boost::uint8_t maxLevel);
 
 	ChannelTraits& operator=(ChannelTraits other);
 
