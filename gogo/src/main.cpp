@@ -1,3 +1,5 @@
+#include <boost/asio/io_service.hpp>	// Fixes a bug on VS.
+
 #include "ConsoleLogger.h"
 #include "GoGoFactory.h"
 #include "Configuration.h"
@@ -9,7 +11,6 @@
 #include <cockpit/MatchServer.h>
 
 #include <algorithm>
-#include <boost/asio/io_service.hpp>
 #include <boost/thread.hpp>
 #include <cctype>
 #include <exception>
