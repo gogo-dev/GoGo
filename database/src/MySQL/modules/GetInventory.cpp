@@ -10,11 +10,9 @@ using namespace std;
 using namespace boost;
 using namespace mysqlpp;
 
-static auto_ptr<Query> make_get_inventory_query(Connection& c, uint32_t cid)
+static void make_get_inventory_query(Query& q, uint32_t cid)
 {
-	auto_ptr<Query> q(new Query(c.query()));
-	*q << "SELECT * FROM character_inventory where charid=" << cid;
-	return q;
+	q << "SELECT * FROM character_inventory where charid=" << cid;
 }
 
 static vector<Item> handle_get_inventory(const StoreQueryResult& result)

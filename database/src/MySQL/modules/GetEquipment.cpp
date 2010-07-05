@@ -10,11 +10,9 @@ using namespace std;
 using namespace boost;
 using namespace mysqlpp;
 
-static auto_ptr<Query> make_get_equipment_query(Connection& c, uint32_t cid)
+static void make_get_equipment_query(Query& q, uint32_t cid)
 {
-	auto_ptr<Query> q(new Query(c.query()));
-	*q << "SELECT * from character_equip where charid=" << cid;
-	return q;
+	q << "SELECT * from character_equip where charid=" << cid;
 }
 
 static SmallVector<Item, 12> handle_get_equipment(const StoreQueryResult& result)

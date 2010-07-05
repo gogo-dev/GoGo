@@ -10,24 +10,16 @@ using namespace std;
 using namespace boost;
 using namespace mysqlpp;
 
-static auto_ptr<Query> make_create_character_query(Connection& c,
+static void make_create_character_query(Query& q,
 	uint32_t aid, string name, uint32_t marker, uint32_t sex, uint32_t hair, uint32_t face, uint32_t costume)
 {
-	auto_ptr<Query> q(new Query(c.query()));
-
-	*q << "INSERT INTO `character` (accountid,name,sex,hair,face,costume,marker) values ("
-	   << aid << "," << mysqlpp::quote << name.c_str() << "," << sex << "," << hair << "," << face << "," << costume << "," << marker << ")";
-
-	return q;
+	q << "INSERT INTO `character` (accountid,name,sex,hair,face,costume,marker) values ("
+	  << aid << "," << mysqlpp::quote << name.c_str() << "," << sex << "," << hair << "," << face << "," << costume << "," << marker << ")";
 }
 
-static auto_ptr<Query> make_create_character_equip_query(Connection& c, uint32_t cid)
+static void make_create_character_equip_query(Query& q, uint32_t cid)
 {
-	auto_ptr<Query> q(new Query(c.query()));
-
-	*q << "INSERT INTO character_equip(charid) VALUES (" << cid <<")";
-
-	return q;
+	q << "INSERT INTO character_equip(charid) VALUES (" << cid <<")";
 }
 
 void MySQLGunzDB::CreateCharacter(const AccountInfo& accountInfo, const string& name, uint32_t marker, uint32_t sex, uint32_t hair, uint32_t face, uint32_t costume)

@@ -5,18 +5,14 @@ using namespace std;
 using namespace boost;
 using namespace mysqlpp;
 
-static auto_ptr<Query> make_delete_character_query(Connection& c, uint32_t aid, uint32_t marker)
+static void make_delete_character_query(Query& q, uint32_t aid, uint32_t marker)
 {
-	auto_ptr<Query> q(new Query(c.query()));
-	*q << "DELETE FROM `character` WHERE accountid=" << aid << " AND marker=" << marker;
-	return q;
+	q << "DELETE FROM `character` WHERE accountid=" << aid << " AND marker=" << marker;
 }
 
-static auto_ptr<Query> make_update_marker_info_query(Connection& c, uint32_t aid, uint32_t marker)
+static void make_update_marker_info_query(Query& q, uint32_t aid, uint32_t marker)
 {
-	auto_ptr<Query> q(new Query(c.query()));
-	*q << "UPDATE `character` set marker=marker-1 where marker > " << marker << " and accountid=" << aid;
-	return q;
+	q << "UPDATE `character` set marker=marker-1 where marker > " << marker << " and accountid=" << aid;
 }
 
 void MySQLGunzDB::DeleteCharacter(const AccountInfo& acc, uint32_t marker)

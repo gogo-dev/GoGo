@@ -10,11 +10,9 @@ using namespace std;
 using namespace boost;
 using namespace mysqlpp;
 
-static auto_ptr<Query> make_get_character_info_query(Connection& c, uint32_t aid, uint8_t marker)
+static void make_get_character_info_query(Query& q, uint32_t aid, uint8_t marker)
 {
-	auto_ptr<Query> q(new Query(c.query()));
-	*q << "SELECT * FROM `character` WHERE accountid=" << aid << " AND marker=" << static_cast<uint32_t>(marker);
-	return q;
+	q << "SELECT * FROM `character` WHERE accountid=" << aid << " AND marker=" << static_cast<uint32_t>(marker);
 }
 
 // Gets everything but the clan info, equipment, and inventory!
@@ -43,11 +41,9 @@ static CharacterInfo handle_get_character_info(const StoreQueryResult& result, u
 	return charInfo;
 }
 
-static auto_ptr<Query> make_get_clan_info_query(Connection& c, uint32_t clanId)
+static void make_get_clan_info_query(Query& q, uint32_t clanId)
 {
-	auto_ptr<Query> q(new Query(c.query()));
-	*q << "SELECT * FROM clan WHERE id=" << clanId;
-	return q;
+	q << "SELECT * FROM clan WHERE id=" << clanId;
 }
 
 static void handle_clan_info(const StoreQueryResult& result, CharacterInfo* charInfo /* [out] */)

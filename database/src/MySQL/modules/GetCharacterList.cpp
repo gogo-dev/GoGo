@@ -10,11 +10,9 @@ using namespace std;
 using namespace boost;
 using namespace mysqlpp;
 
-static auto_ptr<Query> make_get_character_list_query(Connection& c, uint32_t aid)
+static void make_get_character_list_query(Query& q, uint32_t aid)
 {
-	auto_ptr<Query> q(new Query(c.query()));
-	*q << "SELECT name,level,marker FROM `character` where accountid=" << aid << " ORDER BY marker ASC";
-	return q;
+	q << "SELECT name,level,marker FROM `character` where accountid=" << aid << " ORDER BY marker ASC";
 }
 
 static SmallVector<CharacterEntry, 4> handle_get_character_list(const StoreQueryResult& result)

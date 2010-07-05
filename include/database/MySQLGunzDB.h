@@ -11,7 +11,6 @@
 
 #include <boost/noncopyable.hpp>
 #include <boost/function.hpp>
-#include <memory>
 
 class MySQLGunzDB : public GunzDB
 {
@@ -44,12 +43,13 @@ private:
 		Runs a query, automatically protecting the database from non-serial
 		access.
 
-		@param  QueryMaker    This is a function which takes a connection, and
-		                      must generate a valid mysqlpp::Query from it. Think
-		                      of it as your "factory".
+		@param  QueryMaker    This is a function which takes a query, and must
+		                      fill it out (use operator<<). Nothing needs to be
+		                      returned.
+
 		@param  ResultHandler This function is called after the query retrieves
 		                      the result from the database. The handler will be
-		                      called with the UseQueryResult passed into it.
+		                      called with the StoreQueryResult passed into it.
 		                      Whatever value this function returns will also be
 		                      returned from run_query.
 
@@ -60,7 +60,7 @@ private:
 	*/
 	template <typename ResultType>
 	ResultType run_query(
-		boost::function<std::auto_ptr<mysqlpp::Query> (mysqlpp::Connection&)> QueryMaker,
+		boost::function<void (mysqlpp::Query&)> QueryMaker,
 		boost::function<ResultType (const mysqlpp::StoreQueryResult&)> ResultHandler
 	)
 	{
@@ -69,7 +69,9 @@ private:
 		try
 		{
 			scoped_connection c(connectionPool);
-			result = QueryMaker(*(c.connection))->store();
+			mysqlpp::Query q = c.connection->query();
+			QueryMaker(q);
+			result = q.store();
 		}
 		catch(const mysqlpp::Exception& ex)
 		{
@@ -83,7 +85,7 @@ private:
 	/**
 		Executes the query. Returns true if it succeeded, false if it failed.
 	*/
-	bool exec_query(boost::function<std::auto_ptr<mysqlpp::Query> (mysqlpp::Connection&)> QueryMaker);
+	bool exec_query(boost::function<void (mysqlpp::Query&)> QueryMaker);
 
 public:
 	MySQLGunzDB(cockpit::Logger* logger, const char* dbname, const char* host, const char* user, const char* password, boost::uint16_t port = 3306);

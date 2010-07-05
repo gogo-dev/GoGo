@@ -10,11 +10,9 @@ using namespace std;
 using namespace boost;
 using namespace mysqlpp;
 
-static auto_ptr<Query> make_name_exists_query(Connection& c, const char* name)
+static void make_name_exists_query(Query& q, const char* name)
 {
-	auto_ptr<Query> q(new Query(c.query()));
-	*q << "SELECT accountid FROM `character` where name=" << mysqlpp::quote << name;
-	return q;
+	q << "SELECT accountid FROM `character` where name=" << mysqlpp::quote << name;
 }
 
 static bool handle_name_exists(const StoreQueryResult& result)

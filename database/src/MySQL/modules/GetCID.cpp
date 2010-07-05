@@ -10,11 +10,9 @@ using namespace std;
 using namespace boost;
 using namespace mysqlpp;
 
-static auto_ptr<Query> make_get_cid_query(Connection& c, uint32_t aid, uint32_t marker)
+static void make_get_cid_query(Query& q, uint32_t aid, uint32_t marker)
 {
-	auto_ptr<Query> q(new Query(c.query()));
-	*q << "SELECT id FROM `character` where accountid=" << aid << " AND marker=" << marker;
-	return q;
+	q << "SELECT id FROM `character` where accountid=" << aid << " AND marker=" << marker;
 }
 
 static uint32_t handle_get_cid(const StoreQueryResult& result)
