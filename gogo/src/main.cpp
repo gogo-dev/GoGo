@@ -1,6 +1,7 @@
 #include "ConsoleLogger.h"
 #include "GoGoFactory.h"
 #include "Configuration.h"
+#include "ChannelLoader.h"
 
 #include <database/GunzDB.h>
 #include <database/MySQLGunzDB.h>
@@ -20,54 +21,17 @@ using namespace boost;
 
 static Configuration get_config(const char* filename)
 {
-	std::ifstream is(filename);
+	ifstream is(filename);
 	return Configuration(is);
 }
 
-static char my_tolower(char c)
+static gunz::ChannelRule get_rule(const string& stringRep)
 {
-	return static_cast<char>(tolower(c));
+	return get_channel_attrib(stringRep, get_channel_rules());
 }
-
-static gunz::ChannelRule get_rule(string stringRepr)
+static gunz::ChannelType get_type(const string& stringRep)
 {
-	typedef map<std::string, gunz::ChannelRule> RelType;
-	RelType relationships;
-
-	relationships["novice"] = gunz::CR_NOVICE;
-	relationships["newbie"] = gunz::CR_NEWBIE;
-	relationships["rookie"] = gunz::CR_ROOKIE;
-	relationships["mastery"] = gunz::CR_MASTERY;
-	relationships["elite"] = gunz::CR_ELITE;
-
-	std::for_each(stringRepr.begin(), stringRepr.end(), my_tolower);
-
-	RelType::iterator loc = relationships.find(stringRepr);
-
-	if(loc == relationships.end())
-		throw SyntaxError("Invalid Channel Rule found! Sorry, no line info.", 0);
-
-	return loc->second;
-}
-
-static gunz::ChannelType get_type(string stringRepr)
-{
-	typedef map<std::string, gunz::ChannelType> RelType;
-	RelType relationships;
-
-	relationships["general"] = gunz::CT_GENERAL;
-	relationships["private"] = gunz::CT_PRIVATE;
-	relationships["user"] = gunz::CT_USER;
-	relationships["clan"] = gunz::CT_CLAN;
-
-	std::for_each(stringRepr.begin(), stringRepr.end(), my_tolower);
-
-	RelType::iterator loc = relationships.find(stringRepr);
-
-	if(loc == relationships.end())
-		throw SyntaxError("Invalid Channel Type found! Sorry, no line info.", 0);
-
-	return loc->second;
+	return get_channel_attrib(stringRep, get_channel_types());
 }
 
 static void add_all_channels(const Configuration* conf, gunz::ChannelList* channelList)
@@ -124,9 +88,9 @@ int main()
 
 	} catch(const SyntaxError& ex) {
 		logger->warning(format("Syntax Error on line %1%: %2%") % ex.lineNumber % ex.what());
-	} catch(const std::runtime_error& ex) {
+	} catch(const runtime_error& ex) {
 		logger->warning(format("Runtime error: %1%") % ex.what());
-	} catch(const std::logic_error& ex) {
+	} catch(const logic_error& ex) {
 		logger->error(format("Logic error! Please report this: %1%") % ex.what());
 	} catch(const std::exception& ex) {
 		logger->error(format("Fatal error: %1%") % ex.what());

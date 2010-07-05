@@ -1,4 +1,5 @@
 set(GOGO_HEADERS
+	ChannelLoader.h
 	Configuration.h
 	ConsoleLogger.h
 	GoGoClient.h
@@ -8,6 +9,7 @@ set(GOGO_HEADERS
 )
 
 set(GOGO_SRC
+	ChannelLoader.cpp
 	Configuration.cpp
 	ConsoleLogger.cpp
 	GoGoClient.cpp

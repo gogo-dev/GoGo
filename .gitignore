@@ -3,3 +3,4 @@ build/*
 !build/test.bat
 *.kdev4
 .kdev4/*
+*~
