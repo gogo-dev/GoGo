@@ -55,7 +55,7 @@ else(MSVC)
   add_definitions(-Wall -Wextra -Wfatal-errors -ansi -pedantic -pipe
 	  -Wnon-virtual-dtor -Wreorder -Wchar-subscripts -Wcomment -Wformat
 	  -Wimplicit -Wparentheses -Wno-long-long -Wpointer-arith -Wcast-qual
-	  -Wdisabled-optimization)
+	  -Wdisabled-optimization /w)
 
   #  try_compile(
   #    COMPILER_SUPPORTS_LTO ${CMAKE_BINARY_DIR}
