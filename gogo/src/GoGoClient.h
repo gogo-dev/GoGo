@@ -49,10 +49,10 @@ public:
 
 	void OnMatchLogin(const std::string& username, const std::string& password, boost::int32_t commandVersion, boost::uint32_t nChecksumPack);
 	void OnCharList();
-	void OnCharCreate(gunz::MUID uidPlayer, uint32_t charMarker, const std::string& charName, uint32_t charSex, uint32_t charHair, uint32_t charFace, uint32_t charCostume);
-	void OnCharDelete(gunz::MUID uid, uint32_t marker, const std::string& name);
-	void OnCharInfo(uint8_t marker);
-	void OnCharSelect(gunz::MUID uid, uint8_t marker);
+	void OnCharCreate(gunz::MUID uidPlayer, boost::uint32_t charMarker, const std::string& charName, boost::uint32_t charSex, boost::uint32_t charHair, boost::uint32_t charFace, boost::uint32_t charCostume);
+	void OnCharDelete(gunz::MUID uid, boost::uint32_t marker, const std::string& name);
+	void OnCharInfo(boost::uint8_t marker);
+	void OnCharSelect(gunz::MUID uid, boost::uint8_t marker);
 
 	boost::array<boost::uint8_t, 32>
 	handshake(boost::asio::ip::tcp::socket& s) const;

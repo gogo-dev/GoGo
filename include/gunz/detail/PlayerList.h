@@ -1,6 +1,7 @@
 #pragma once
 #include <boost/function.hpp>
 #include <boost/thread/shared_mutex.hpp>
+#include <boost/thread/locks.hpp> // shared_lock & unique_lock for windows.
 #include <vector>
 
 namespace gunz {

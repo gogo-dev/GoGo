@@ -104,5 +104,5 @@ public:
 	void CreateCharacter(const AccountInfo& account, const std::string& name, boost::uint32_t marker, boost::uint32_t sex, boost::uint32_t hair, boost::uint32_t face, boost::uint32_t costume);
 	CharacterInfo GetCharacterInfo(const AccountInfo& acc, boost::uint8_t slot);
 
-	boost::uint32_t GetCID(uint32_t aid, uint32_t marker);
+	boost::uint32_t GetCID(boost::uint32_t aid, boost::uint32_t marker);
 };
