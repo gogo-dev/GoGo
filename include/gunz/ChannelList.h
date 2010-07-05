@@ -12,9 +12,12 @@
 namespace gunz {
 
 class MUIDSanta;
+class Player;
 
 class ChannelList : boost::noncopyable
 {
+	friend class Channel;
+
 private:
 	// This keeps the class reentrant, y'all.
 	typedef boost::shared_lock<boost::shared_mutex> ReadingLock;
@@ -25,6 +28,13 @@ private:
 	CList channelList;
 
 	MUIDSanta* santa;
+
+	// TODO(Clark): Factor out a player list in the gunz::detail namespace.
+
+	// This is just to help out Channel populate the... populations!
+private:
+	void Join(Player* player);
+	void Leave(Player* player);
 
 public:
 	ChannelList(MUIDSanta* santa);
