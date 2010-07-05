@@ -3,22 +3,96 @@
 #include "Configuration.h"
 
 #include <database/GunzDB.h>
+#include <database/MySQLGunzDB.h>
 
 #include <cockpit/MatchServer.h>
 
-#include <exception>
-#include <fstream>
+#include <algorithm>
 #include <boost/asio/io_service.hpp>
 #include <boost/thread.hpp>
-#include <database/MySQLGunzDB.h>
+#include <cctype>
+#include <exception>
+#include <fstream>
+#include <map>
 
 using namespace std;
 using namespace boost;
 
-Configuration get_config(const char* filename)
+static Configuration get_config(const char* filename)
 {
 	std::ifstream is(filename);
 	return Configuration(is);
+}
+
+static char my_tolower(char c)
+{
+	return static_cast<char>(tolower(c));
+}
+
+static gunz::ChannelRule get_rule(string stringRepr)
+{
+	typedef map<std::string, gunz::ChannelRule> RelType;
+	RelType relationships;
+
+	relationships["novice"] = gunz::CR_NOVICE;
+	relationships["newbie"] = gunz::CR_NEWBIE;
+	relationships["rookie"] = gunz::CR_ROOKIE;
+	relationships["mastery"] = gunz::CR_MASTERY;
+	relationships["elite"] = gunz::CR_ELITE;
+
+	std::for_each(stringRepr.begin(), stringRepr.end(), my_tolower);
+
+	RelType::iterator loc = relationships.find(stringRepr);
+
+	if(loc == relationships.end())
+		throw SyntaxError("Invalid Channel Rule found! Sorry, no line info.", 0);
+
+	return loc->second;
+}
+
+static gunz::ChannelType get_type(string stringRepr)
+{
+	typedef map<std::string, gunz::ChannelType> RelType;
+	RelType relationships;
+
+	relationships["general"] = gunz::CT_GENERAL;
+	relationships["private"] = gunz::CT_PRIVATE;
+	relationships["user"] = gunz::CT_USER;
+	relationships["clan"] = gunz::CT_CLAN;
+
+	std::for_each(stringRepr.begin(), stringRepr.end(), my_tolower);
+
+	RelType::iterator loc = relationships.find(stringRepr);
+
+	if(loc == relationships.end())
+		throw SyntaxError("Invalid Channel Type found! Sorry, no line info.", 0);
+
+	return loc->second;
+}
+
+static void add_all_channels(const Configuration* conf, gunz::ChannelList* channelList)
+{
+	try {
+
+		for(size_t num = 1;; ++num)
+		{
+			string channelPrefix = string("channel") + lexical_cast<string>(num) + string(".");
+
+			channelList->AddChannel(
+				gunz::ChannelTraits(
+					0,
+					conf->get_value<string>(channelPrefix + "name"),
+					conf->get_value<uint32_t>(channelPrefix + "maxPlayers"),
+					get_rule(conf->get_value<string>(channelPrefix + "rule")),
+					get_type(conf->get_value<string>(channelPrefix + "type")),
+					conf->get_value<uint8_t>(channelPrefix + "minLevel"),
+					conf->get_value<uint8_t>(channelPrefix + "maxLevel")
+				)
+			);
+		}
+
+	} catch(SyntaxError) {
+	}
 }
 
 int main()
@@ -37,7 +111,7 @@ int main()
 			conf.get_value<string>("database.password", "password").c_str()
 		);
 
-		GoGoFactory factory(logger, &database);
+		GoGoFactory factory(logger, &database, bind(add_all_channels, &conf, _1));
 
 		uint16_t port = conf.get_value<uint16_t>("server.port", 6000);
 

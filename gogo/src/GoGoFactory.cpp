@@ -4,9 +4,10 @@
 #include <cassert>
 
 using namespace std;
+using namespace boost;
 using namespace cockpit;
 
-GoGoFactory::GoGoFactory(Logger* _logger, GunzDB* _database)
+GoGoFactory::GoGoFactory(Logger* _logger, GunzDB* _database, const function<void (gunz::ChannelList*)>& initChannelList)
 	: channelList(&santa)
 {
 	assert(_logger);
@@ -14,6 +15,8 @@ GoGoFactory::GoGoFactory(Logger* _logger, GunzDB* _database)
 
 	assert(_database);
 	database = _database;
+
+	initChannelList(&channelList);
 }
 
 auto_ptr<ClientHandler> GoGoFactory::create_client_handler()
