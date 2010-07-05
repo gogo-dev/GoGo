@@ -1,6 +1,8 @@
 #pragma once
 #include <gunz/ChannelTraits.h>
 
+#include <gunz/detail/PlayerList.h>
+
 #include <util/SmallVector.h>
 
 #include <boost/function.hpp>
@@ -29,7 +31,7 @@ private:
 
 	MUIDSanta* santa;
 
-	// TODO(Clark): Factor out a player list in the gunz::detail namespace.
+	detail::PlayerList players;
 
 	// This is just to help out Channel populate the... populations!
 private:
@@ -70,7 +72,7 @@ public:
 		Broadcasts a message to everyone in ALL channels. Any validation such
 		as "is this person an admin?" should be done elsewhere.
 	*/
-	void Announce(const char* sender, const char* message) const;
+	void Announce(const char* sender, const char* message);
 
 	~ChannelList();
 };

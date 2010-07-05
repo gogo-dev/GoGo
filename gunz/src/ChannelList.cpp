@@ -1,5 +1,8 @@
 #include <gunz/ChannelList.h>
 #include <gunz/MUIDSanta.h>
+#include <gunz/Player.h>
+
+#include <boost/bind/bind.hpp>
 
 using namespace std;
 using namespace boost;
@@ -9,6 +12,16 @@ namespace gunz {
 ChannelList::ChannelList(MUIDSanta* _santa)
 	: santa(_santa)
 {
+}
+
+void ChannelList::Join(Player* player)
+{
+	players.AddPlayer(player);
+}
+
+void ChannelList::Leave(Player* player)
+{
+	players.RemovePlayer(player);
 }
 
 void ChannelList::AddChannel(ChannelTraits toAdd)
@@ -63,11 +76,9 @@ vector<ChannelTraits> ChannelList::GetChannelList() const
 	return vector<ChannelTraits>(channelList.begin(), channelList.end());
 }
 
-void ChannelList::Announce(const char* sender, const char* message) const
+void ChannelList::Announce(const char* sender, const char* message)
 {
-	// TODO(Clark): Delegate this to all the channels.
-	static_cast<void>(sender);
-	static_cast<void>(message);
+	players.map(bind(&Player::OnMessage, _1, MT_ANNOUNCE, sender, message));
 }
 
 ChannelList::~ChannelList()
