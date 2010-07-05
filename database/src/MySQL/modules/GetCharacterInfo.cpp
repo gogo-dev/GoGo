@@ -10,15 +10,15 @@ using namespace std;
 using namespace boost;
 using namespace mysqlpp;
 
-Query make_get_character_info_query(Connection& c, uint32_t aid, uint8_t marker)
+static auto_ptr<Query> make_get_character_info_query(Connection& c, uint32_t aid, uint8_t marker)
 {
-	Query q = c.query();
-	q << "SELECT * FROM `character` WHERE accountid=" << aid << " AND marker=" << static_cast<uint32_t>(marker);
+	auto_ptr<Query> q(new Query(c.query()));
+	*q << "SELECT * FROM `character` WHERE accountid=" << aid << " AND marker=" << static_cast<uint32_t>(marker);
 	return q;
 }
 
 // Gets everything but the clan info, equipment, and inventory!
-CharacterInfo handle_get_character_info(const StoreQueryResult& result, uint8_t marker)
+static CharacterInfo handle_get_character_info(const StoreQueryResult& result, uint8_t marker)
 {
 	size_t rowCount = result.num_rows();
 	assert(rowCount < 2);
@@ -43,14 +43,14 @@ CharacterInfo handle_get_character_info(const StoreQueryResult& result, uint8_t 
 	return charInfo;
 }
 
-Query make_get_clan_info_query(Connection& c, uint32_t clanId)
+static auto_ptr<Query> make_get_clan_info_query(Connection& c, uint32_t clanId)
 {
-	Query q = c.query();
-	q << "SELECT * FROM clan WHERE id=" << clanId;
+	auto_ptr<Query> q(new Query(c.query()));
+	*q << "SELECT * FROM clan WHERE id=" << clanId;
 	return q;
 }
 
-void handle_clan_info(const StoreQueryResult& result, CharacterInfo* charInfo /* [out] */)
+static void handle_clan_info(const StoreQueryResult& result, CharacterInfo* charInfo /* [out] */)
 {
 	size_t rowCount = result.num_rows();
 	assert(rowCount < 2);

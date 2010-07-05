@@ -10,10 +10,10 @@ using namespace std;
 using namespace boost;
 using namespace mysqlpp;
 
-static Query make_get_character_list_query(Connection& c, uint32_t aid)
+static auto_ptr<Query> make_get_character_list_query(Connection& c, uint32_t aid)
 {
-	Query q = c.query();
-	q << "SELECT name,level,marker FROM `character` where accountid=" << aid << " ORDER BY marker ASC";
+	auto_ptr<Query> q(new Query(c.query()));
+	*q << "SELECT name,level,marker FROM `character` where accountid=" << aid << " ORDER BY marker ASC";
 	return q;
 }
 

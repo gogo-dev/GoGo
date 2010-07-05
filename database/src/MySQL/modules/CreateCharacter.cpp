@@ -10,19 +10,23 @@ using namespace std;
 using namespace boost;
 using namespace mysqlpp;
 
-Query make_create_character_query(Connection& c,
+static auto_ptr<Query> make_create_character_query(Connection& c,
 	uint32_t aid, string name, uint32_t marker, uint32_t sex, uint32_t hair, uint32_t face, uint32_t costume)
 {
-	Query q = c.query();
-	q << "INSERT INTO `character` (accountid,name,sex,hair,face,costume,marker) values ("
-	  << aid << "," << mysqlpp::quote << name.c_str() << "," << sex << "," << hair << "," << face << "," << costume << "," << marker << ")";
+	auto_ptr<Query> q(new Query(c.query()));
+
+	*q << "INSERT INTO `character` (accountid,name,sex,hair,face,costume,marker) values ("
+	   << aid << "," << mysqlpp::quote << name.c_str() << "," << sex << "," << hair << "," << face << "," << costume << "," << marker << ")";
+
 	return q;
 }
 
-Query make_create_character_equip_query(Connection& c, uint32_t cid)
+static auto_ptr<Query> make_create_character_equip_query(Connection& c, uint32_t cid)
 {
-	Query q = c.query();
-	q << "INSERT INTO character_equip(charid) VALUES (" << cid <<")";
+	auto_ptr<Query> q(new Query(c.query()));
+
+	*q << "INSERT INTO character_equip(charid) VALUES (" << cid <<")";
+
 	return q;
 }
 

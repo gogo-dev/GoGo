@@ -10,11 +10,11 @@ using namespace std;
 using namespace boost;
 using namespace mysqlpp;
 
-static Query make_account_info_query(Connection& c, const char* username, const char* password)
+static auto_ptr<Query> make_account_info_query(Connection& c, const char* username, const char* password)
 {
-	Query q = c.query();
+	auto_ptr<Query> q(new Query(c.query()));
 
-	q << "SELECT aid, ugradeid, pgradeid FROM account"
+	*q << "SELECT aid, ugradeid, pgradeid FROM account"
 	     " WHERE username=" << mysqlpp::quote << username <<
 	     " AND password=md5(" << mysqlpp::quote << password << ")"
 	     " LIMIT 1";
