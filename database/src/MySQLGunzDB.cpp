@@ -27,11 +27,11 @@ MySQLGunzDB::~MySQLGunzDB()
 {
 }
 
-bool MySQLGunzDB::exec_query(function<Query (Connection&)> QueryMaker)
+bool MySQLGunzDB::exec_query(function<std::auto_ptr<Query> (Connection&)> QueryMaker)
 {
 	try {
 		scoped_connection c(connectionPool);
-		return !(QueryMaker(*(c.connection)).exec());
+		return !(QueryMaker(*(c.connection))->exec());
 	} catch(const Exception& ex) {
 		logger->error(boost::format("MySQL Error: %1%") % ex.what());
 		throw InternalDatabaseError();

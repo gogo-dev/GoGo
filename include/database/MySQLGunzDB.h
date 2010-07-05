@@ -11,6 +11,7 @@
 
 #include <boost/noncopyable.hpp>
 #include <boost/function.hpp>
+#include <memory>
 
 class MySQLGunzDB : public GunzDB
 {
@@ -59,7 +60,7 @@ private:
 	*/
 	template <typename ResultType>
 	ResultType run_query(
-		boost::function<mysqlpp::Query (mysqlpp::Connection&)> QueryMaker,
+		boost::function<std::auto_ptr<mysqlpp::Query> (mysqlpp::Connection&)> QueryMaker,
 		boost::function<ResultType (const mysqlpp::StoreQueryResult&)> ResultHandler
 	)
 	{
@@ -68,7 +69,7 @@ private:
 		try
 		{
 			scoped_connection c(connectionPool);
-			result = QueryMaker(*(c.connection)).store();
+			result = QueryMaker(*(c.connection))->store();
 		}
 		catch(const mysqlpp::Exception& ex)
 		{
@@ -82,7 +83,7 @@ private:
 	/**
 		Executes the query. Returns true if it succeeded, false if it failed.
 	*/
-	bool exec_query(boost::function<mysqlpp::Query (mysqlpp::Connection&)> QueryMaker);
+	bool exec_query(boost::function<std::auto_ptr<mysqlpp::Query> (mysqlpp::Connection&)> QueryMaker);
 
 public:
 	MySQLGunzDB(cockpit::Logger* logger, const char* dbname, const char* host, const char* user, const char* password, boost::uint16_t port = 3306);
