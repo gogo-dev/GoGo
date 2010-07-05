@@ -4,6 +4,7 @@
 #include <cockpit/packet/Registry.h>
 #include <cockpit/packet/Lookup.h>
 
+#include <gunz/ChannelList.h>
 #include <gunz/MUIDSanta.h>
 
 #include <boost/bind.hpp>
@@ -14,10 +15,13 @@ using namespace std;
 using namespace boost;
 using namespace cockpit;
 
-GoGoClient::GoGoClient(Logger* _logger, gunz::MUIDSanta* _santa, GunzDB* _database)
+GoGoClient::GoGoClient(Logger* _logger, gunz::ChannelList* _channelList, gunz::MUIDSanta* _santa, GunzDB* _database)
 {
 	assert(_logger);
 	logger = _logger;
+
+	assert(_channelList);
+	channelList = _channelList;
 
 	assert(_santa);
 	santa = _santa;

@@ -15,7 +15,10 @@ namespace cockpit {
 	class Logger;
 }
 
-namespace gunz { class MUIDSanta; }
+namespace gunz {
+	class MUIDSanta;
+	class ChannelList;
+}
 
 class GunzDB;
 
@@ -27,13 +30,15 @@ private:
 	cockpit::packet::Registry* registry;
 	GunzDB* database;
 
+	gunz::ChannelList* channelList;
 	gunz::MUIDSanta* santa;
+
 	gunz::MUID myMUID;
 	AccountInfo myAccount;
 	CharacterInfo myCharacter;
 
 public:
-	GoGoClient(cockpit::Logger* logger, gunz::MUIDSanta* santa, GunzDB* database);
+	GoGoClient(cockpit::Logger* logger, gunz::ChannelList* channelList, gunz::MUIDSanta* santa, GunzDB* database);
 	~GoGoClient();
 
 	void initialize(cockpit::Transmitter* transmitter, cockpit::packet::Registry* registry);

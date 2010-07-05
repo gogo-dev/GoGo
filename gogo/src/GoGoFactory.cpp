@@ -7,6 +7,7 @@ using namespace std;
 using namespace cockpit;
 
 GoGoFactory::GoGoFactory(Logger* _logger, GunzDB* _database)
+	: channelList(&santa)
 {
 	assert(_logger);
 	logger = _logger;
@@ -19,7 +20,7 @@ auto_ptr<ClientHandler> GoGoFactory::create_client_handler()
 {
 	return auto_ptr<ClientHandler>(
 		new GoGoClient(
-			logger, &santa, database
+			logger, &channelList, &santa, database
 		)
 	);
 }
