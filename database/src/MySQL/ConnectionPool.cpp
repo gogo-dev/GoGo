@@ -22,11 +22,18 @@ void ConnectionPool::destroy(mysqlpp::Connection* connection)
 	delete connection;
 }
 
-// Waits for 30 seconds of unuse before destroying a connection.
+#define SECONDS
+#define MINUTES SECONDS*60
+#define HOURS MINUTES*60
+
 unsigned int ConnectionPool::max_idle_time()
 {
-	return 30;
+	return 5 MINUTES;
 }
+
+#undef HOURS
+#undef MINUTES
+#undef SECONDS
 
 ConnectionPool::~ConnectionPool()
 {
