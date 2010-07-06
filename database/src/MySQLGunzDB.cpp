@@ -32,7 +32,7 @@ bool MySQLGunzDB::exec_query(function<void (Query&)> QueryMaker)
 	try {
 		scoped_connection c(connectionPool);
 
-		Query q = c.connection->query();
+		Query q(c.connection->query());
 		QueryMaker(q);
 		return !q.exec();
 

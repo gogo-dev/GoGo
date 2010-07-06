@@ -69,7 +69,7 @@ private:
 		try
 		{
 			scoped_connection c(connectionPool);
-			mysqlpp::Query q = c.connection->query();
+			mysqlpp::Query q(c.connection->query());
 			QueryMaker(q);
 			result = q.store();
 		}
