@@ -2,6 +2,7 @@
 #include <string>
 
 #include <boost/config.hpp>
+#include <boost/cstdint.hpp>
 #include <boost/noncopyable.hpp>
 
 #include <util/SmallVector.h>
