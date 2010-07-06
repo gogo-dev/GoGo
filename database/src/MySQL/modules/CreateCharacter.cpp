@@ -37,10 +37,8 @@ void MySQLGunzDB::CreateCharacter(const AccountInfo& accountInfo, const string& 
 	if(!succeeded)
 		throw InvalidCharacterName();
 
-	uint32_t cid = GetCID(accountInfo.AccountId, marker);
-
 	succeeded = exec_query(
-		bind(make_create_character_equip_query, _1, cid)
+		bind(make_create_character_equip_query, _1, GetCID(accountInfo.AccountId, marker))
 	);
 
 	if(!succeeded)
