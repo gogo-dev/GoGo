@@ -27,7 +27,7 @@ void MySQLGunzDB::CreateCharacter(const AccountInfo& accountInfo, const string& 
 	if(!accountInfo.isValid)
 		throw InvalidAccountInfo();
 
-	if (!NameExists(name))
+	if (NameExists(name))
 		throw NameInUse();
 
 	bool succeeded = exec_query(
