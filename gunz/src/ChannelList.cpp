@@ -16,12 +16,12 @@ ChannelList::ChannelList(MUIDSanta* _santa)
 
 void ChannelList::Join(Player* player)
 {
-	players.AddPlayer(player);
+	players.Add(player);
 }
 
 void ChannelList::Leave(Player* player)
 {
-	players.RemovePlayer(player);
+	players.Remove(player);
 }
 
 void ChannelList::AddChannel(ChannelTraits toAdd)

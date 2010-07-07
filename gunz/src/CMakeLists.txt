@@ -2,7 +2,6 @@ set(GUNZ_SRC
 	ChannelList.cpp
 	ChannelTraits.cpp
 	MUIDSanta.cpp
-	PlayerList.cpp
 	# More sources here!
 )
 
