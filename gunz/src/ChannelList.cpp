@@ -27,53 +27,54 @@ void ChannelList::Leave(Player* player)
 void ChannelList::AddChannel(ChannelTraits toAdd)
 {
 	toAdd.uid = santa->get();
-
-	WritingLock l(protection);
-	channelList.push_back(toAdd);
+	channelList.Add(toAdd);
 }
 
 bool ChannelList::RemoveChannel(MUID channelID)
 {
-	upgrade_lock<shared_mutex> upgradable(protection);
+	// Only MUIDs are compared, so we stub out the rest.
+	return channelList.Remove(ChannelTraits(channelID, "", 0, CR_NEWBIE, CT_GENERAL, 0, 0));
+}
 
-	// If you can think of same way to functionally factor out this loop,
-	// that would be great. Predicates would be nice :(
-	for(CList::iterator i = channelList.begin(), e = channelList.end();
-	    i != e; ++i)
+namespace {
+struct TerminateSearch
+{
+	ChannelTraits traits;
+
+	TerminateSearch(const ChannelTraits& _traits)
+		: traits(_traits)
 	{
-		if(i->uid == channelID)
-		{
-			santa->give_back(i->uid);
-
-			upgrade_to_unique_lock<shared_mutex> uniq(upgradable);
-			channelList.erase(i);
-
-			// The loop MUST NOT BE CONTINUED. We just invalidated the iterator.
-			return true;
-		}
 	}
+};
+}
 
-	return false;
+static void apply_predicate(const ChannelTraits& traits, const function<bool (const ChannelTraits&)>& predicate)
+{
+	if(predicate(traits))
+		throw TerminateSearch(traits);
 }
 
 ChannelTraits ChannelList::LookupChannel(const function<bool (const ChannelTraits&)>& predicate) const
 {
-	ReadingLock l(protection);
-
-	for(CList::const_iterator i = channelList.begin(), e = channelList.end();
-	    i != e; ++i)
-	{
-		if(predicate(*i))
-			return *i;
+	try {
+		channelList.cmap(bind(apply_predicate, _1, cref(predicate)));
+	} catch(const TerminateSearch& data) {
+		return data.traits;
 	}
 
-	return ChannelTraits(0, "", 0, CR_ELITE, CT_GENERAL, 0, 0);
+	return ChannelTraits(0, "", 0, CR_NEWBIE, CT_GENERAL, 0, 0);
+}
+
+static void build_vector(vector<ChannelTraits>& vec, const ChannelTraits& newElem)
+{
+	vec.push_back(newElem);
 }
 
 vector<ChannelTraits> ChannelList::GetChannelList() const
 {
-	ReadingLock l(protection);
-	return vector<ChannelTraits>(channelList.begin(), channelList.end());
+	vector<ChannelTraits> ret(channelList.length());
+	channelList.cmap(bind(build_vector, ref(ret), _1));
+	return ret;
 }
 
 void ChannelList::Announce(const char* sender, const char* message)

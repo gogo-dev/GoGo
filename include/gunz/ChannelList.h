@@ -1,14 +1,9 @@
 #pragma once
 #include <gunz/ChannelTraits.h>
-
 #include <gunz/detail/PlayerList.h>
-
-#include <util/SmallVector.h>
 
 #include <boost/function.hpp>
 #include <boost/noncopyable.hpp>
-#include <boost/thread/shared_mutex.hpp>
-
 #include <vector>
 
 namespace gunz {
@@ -21,16 +16,9 @@ class ChannelList : boost::noncopyable
 	friend class Channel;
 
 private:
-	// This keeps the class reentrant, y'all.
-	typedef boost::shared_lock<boost::shared_mutex> ReadingLock;
-	typedef boost::unique_lock<boost::shared_mutex> WritingLock;
-	mutable boost::shared_mutex protection;
-
-	typedef SmallVector<ChannelTraits, 32> CList;
-	CList channelList;
-
 	MUIDSanta* santa;
 
+	detail::Collection<ChannelTraits> channelList;
 	detail::PlayerList players;
 
 	// This is just to help out Channel populate the... populations!

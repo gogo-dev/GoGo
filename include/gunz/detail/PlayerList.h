@@ -7,7 +7,7 @@ class Player;
 
 namespace detail {
 
-typedef Collection<Player> PlayerList;
+typedef Collection<Player*> PlayerList;
 
 }
 }
