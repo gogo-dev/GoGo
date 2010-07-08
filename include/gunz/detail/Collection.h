@@ -1,6 +1,7 @@
 #pragma once
 #include <algorithm>
 #include <boost/bind.hpp>
+#include <boost/call_traits.hpp>
 #include <boost/config.hpp>
 #include <boost/function.hpp>
 #include <boost/thread/locks.hpp>
@@ -25,7 +26,7 @@ namespace detail {
 		- Assignable
 		- Reentrant (Iff you use any of the find methods)
 */
-template <typename ElemTy>
+template <typename ElemTy, typename ElemContainer = std::list<ElemTy> >
 class Collection
 {
 private:
@@ -40,10 +41,29 @@ private:
 		would invalidate ALL pointers to members. By using a list, we ensure
 		the underlying data NEVER moves, keeping ALL pointers valid.
 	*/
-	typedef typename std::list<ElemTy> ElemContainer;
 	typedef typename ElemContainer::iterator ElemIter;
+	typedef typename ElemContainer::reverse_iterator ReverseElemIter;
 	typedef typename ElemContainer::const_iterator ConstElemIter;
 	ElemContainer elems;
+
+	template <typename Iter, typename Ty>
+	static Iter rfind(Iter begin, Iter end, typename boost::call_traits<Ty>::param_type elem)
+	{
+		Iter last = end;
+		--last;
+
+		// Check all elements except for end.
+		for(; begin != last; --last)
+			if(*last == elem)
+				return last;
+
+		// Check the first element.
+		if(*last == elem)
+			return last;
+
+		// Not found.
+		return end;
+	}
 
 public:
 	Collection()
@@ -96,10 +116,10 @@ public:
 	ElemTy* Add(const ElemTy& elem)
 	{
 		WritingLock w(protection);
-		elems.push_front(elem);	// This ensures faster lookup times on
+		elems.push_back(elem);	// This ensures faster lookup times on
 		                        // short-lived objects. Think of it as ghetto
 		                        // caching.
-		return &elems.front();
+		return &elems.back();
 	}
 
 	/**
@@ -114,7 +134,7 @@ public:
 		boost::upgrade_lock<boost::shared_mutex> r(protection);
 		end = elems.end();
 
-		loc = std::find(elems.begin(), end, elem);
+		loc = rfind<ElemIter, ElemTy>(elems.begin(), end, elem);
 
 		if(loc == end)
 			return false;

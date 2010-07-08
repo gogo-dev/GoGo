@@ -15,6 +15,7 @@
 #include <algorithm>
 #include <boost/thread.hpp>
 #include <cctype>
+#include <cstdio>
 #include <exception>
 #include <fstream>
 #include <map>
@@ -64,6 +65,8 @@ static void add_all_channels(const Configuration* conf, gunz::ChannelList* chann
 
 int main()
 {
+	printf("%s", "GoGo " GOGO_VERSION " is starting...\n");
+
 	ConsoleLogger loggerImpl;
 	cockpit::Logger* logger = &loggerImpl;
 
@@ -84,7 +87,6 @@ int main()
 
 		cockpit::MatchServer server(logger, &factory, port);
 
-		logger->info("GoGo " GOGO_VERSION);
 		logger->info(format("Now listening on port %1%. Let's rock!") % port);
 
 		server.start();
