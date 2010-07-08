@@ -33,6 +33,13 @@ private:
 	typedef boost::unique_lock<boost::shared_mutex> WritingLock;
 	typedef boost::shared_lock<boost::shared_mutex> ReadingLock;
 
+	/*
+		I know I say to NEVER use an std::list, but in this case, we've finally
+		hit one of those rare occasions where the semantics are necessary. If
+		we used any other container, insertions and removals of other elements
+		would invalidate ALL pointers to members. By using a list, we ensure
+		the underlying data NEVER moves, keeping ALL pointers valid.
+	*/
 	typedef typename std::list<ElemTy> ElemContainer;
 	typedef typename ElemContainer::iterator ElemIter;
 	typedef typename ElemContainer::const_iterator ConstElemIter;
@@ -83,11 +90,16 @@ public:
 
 	/**
 		Adds an element to the collection. Runs in amortized O(1).
+
+		@return A pointer to the newly added element.
 	*/
-	void Add(const ElemTy& elem)
+	ElemTy* Add(const ElemTy& elem)
 	{
 		WritingLock w(protection);
-		elems.push_back(elem);
+		elems.push_front(elem);	// This ensures faster lookup times on
+		                        // short-lived objects. Think of it as ghetto
+		                        // caching.
+		return &elems.front();
 	}
 
 	/**
@@ -97,18 +109,46 @@ public:
 	*/
 	bool Remove(const ElemTy& elem)
 	{
-		ElemIter loc;
+		ElemIter loc, end;
 
 		boost::upgrade_lock<boost::shared_mutex> r(protection);
-		loc = std::find(elems.begin(), elems.end(), elem);
+		end = elems.end();
 
-		if(loc == elems.end())
+		loc = std::find(elems.begin(), end, elem);
+
+		if(loc == end)
 			return false;
 
 		boost::upgrade_to_unique_lock<boost::shared_mutex> w(r);
 		elems.erase(loc);
 
 		return true;
+	}
+
+	/**
+		Removes an element from the collection by pointer (possibly retrieved
+		from the find method. Instead of doing a "deep-comparison" with
+		operator==, only the pointer's value will be compared.
+	*/
+	bool Remove(const ElemTy* elem)
+	{
+		ElemIter loc, end;
+
+		boost::upgrade_lock<boost::shared_mutex> r(protection);
+		loc = elems.begin();
+		end = elems.end();
+
+		for(; loc != end; ++loc)
+		{
+			if(&*loc == elem)
+			{
+				boost::upgrade_to_unique_lock<boost::shared_mutex> w(r);
+				elems.erase(loc);
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	/**
