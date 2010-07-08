@@ -36,33 +36,14 @@ bool ChannelList::RemoveChannel(MUID channelID)
 	return channelList.Remove(ChannelTraits(channelID, "", 0, CR_NEWBIE, CT_GENERAL, 0, 0));
 }
 
-namespace {
-struct TerminateSearch
-{
-	ChannelTraits traits;
-
-	TerminateSearch(const ChannelTraits& _traits)
-		: traits(_traits)
-	{
-	}
-};
-}
-
-static void apply_predicate(const ChannelTraits& traits, const function<bool (const ChannelTraits&)>& predicate)
-{
-	if(predicate(traits))
-		throw TerminateSearch(traits);
-}
-
 ChannelTraits ChannelList::LookupChannel(const function<bool (const ChannelTraits&)>& predicate) const
 {
-	try {
-		channelList.cmap(bind(apply_predicate, _1, cref(predicate)));
-	} catch(const TerminateSearch& data) {
-		return data.traits;
-	}
+	const ChannelTraits* result = channelList.find(predicate);
 
-	return ChannelTraits(0, "", 0, CR_NEWBIE, CT_GENERAL, 0, 0);
+	if(result)
+		return *result;
+	else
+		return ChannelTraits(0, "", 0, CR_NEWBIE, CT_GENERAL, 0, 0);
 }
 
 static void build_vector(vector<ChannelTraits>& vec, const ChannelTraits& newElem)
@@ -72,7 +53,8 @@ static void build_vector(vector<ChannelTraits>& vec, const ChannelTraits& newEle
 
 vector<ChannelTraits> ChannelList::GetChannelList() const
 {
-	vector<ChannelTraits> ret(channelList.length());
+	vector<ChannelTraits> ret;
+	ret.reserve(channelList.length());
 	channelList.cmap(bind(build_vector, ref(ret), _1));
 	return ret;
 }

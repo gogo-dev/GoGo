@@ -1,12 +1,15 @@
 #pragma once
 #include <algorithm>
+#include <boost/bind.hpp>
 #include <boost/config.hpp>
 #include <boost/function.hpp>
 #include <boost/thread/locks.hpp>
 #include <boost/thread/shared_mutex.hpp>
 #include <cassert>
 #include <cstddef>
-#include <vector>
+#include <functional>
+#include <list>
+#include <utility>
 
 namespace gunz {
 namespace detail {
@@ -29,8 +32,9 @@ private:
 	typedef boost::unique_lock<boost::shared_mutex> WritingLock;
 	typedef boost::shared_lock<boost::shared_mutex> ReadingLock;
 
-	typedef typename std::vector<ElemTy> ElemContainer;
+	typedef typename std::list<ElemTy> ElemContainer;
 	typedef typename ElemContainer::iterator ElemIter;
+	typedef typename ElemContainer::const_iterator ConstElemIter;
 	ElemContainer elems;
 
 public:
@@ -86,22 +90,22 @@ public:
 	}
 
 	/**
-		Removes an element from the collection. Runs in O(1).
+		Removes an element from the collection. Runs in O(n).
 
 		@return Whether or not the element could be removed.
 	*/
 	bool Remove(const ElemTy& elem)
 	{
-		boost::upgrade_lock<boost::shared_mutex> r(protection);
-		ElemIter end = elems.end();
-		ElemIter loc = std::find(elems.begin(), end, elem);
+		ElemIter loc;
 
-		if(loc == end)
+		boost::upgrade_lock<boost::shared_mutex> r(protection);
+		loc = std::find(elems.begin(), elems.end(), elem);
+
+		if(loc == elems.end())
 			return false;
 
 		boost::upgrade_to_unique_lock<boost::shared_mutex> w(r);
-		std::swap(*loc, *(end - 1));
-		elems.pop_back();
+		elems.erase(loc);
 
 		return true;
 	}
@@ -121,7 +125,7 @@ public:
 	*/
 	void map(const boost::function<void (ElemTy& p)>& func)
 	{
-		WritingLock r(protection);
+		WritingLock w(protection);
 		std::for_each(elems.begin(), elems.end(), func);
 	}
 
@@ -140,8 +144,57 @@ public:
 	*/
 	void cmap(const boost::function<void (const ElemTy& p)>& func) const
 	{
-		ReadingLock w(protection);
+		ReadingLock r(protection);
 		std::for_each(elems.begin(), elems.end(), func);
+	}
+
+	/**
+		Use this function to search for an element in the collection. If you
+		just want to use operator==, use the other overload instead. A custom
+		predicate, however, is MUCH more versatile.
+
+		@param  predicate A function that returns whether or not the current
+		                  element is "the one" (that we're searching for).
+
+		@return A valid pointer to the found element. If the element was not
+		        found, it will be NULL.
+	*/
+	ElemTy* find(const boost::function<bool (const ElemTy& p)>& predicate)
+	{
+		ReadingLock r(protection);
+		ElemIter current = elems.begin(), end = elems.end();
+
+		for(; current != end; ++current)
+			if(predicate(*current))
+				return &*current;
+
+		return NULL;
+	}
+
+	const ElemTy* find(const boost::function<bool (const ElemTy& p)>& predicate) const
+	{
+		ReadingLock r(protection);
+		ConstElemIter current = elems.begin(), end = elems.end();
+
+		for(; current != end; ++current)
+			if(predicate(*current))
+				return &*current;
+
+		return NULL;
+	}
+
+	/**
+		Just a convenient little wrapper around the predicated version of find
+		if you're just searching for a specific element.
+	*/
+	std::pair<bool, ElemTy*> find(const ElemTy& toFind)
+	{
+		return find(boost::bind(std::equal_to<ElemTy>(), boost::cref(toFind), _1));
+	}
+
+	std::pair<bool, const ElemTy*> find(const ElemTy& toFind) const
+	{
+		return find(boost::bind(std::equal_to<ElemTy>(), boost::cref(toFind), _1));
 	}
 
 	/**

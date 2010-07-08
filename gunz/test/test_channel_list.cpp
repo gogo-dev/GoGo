@@ -15,13 +15,15 @@ bool has_uid_of(MUID uid, const ChannelTraits& ct)
 	return uid == ct.uid;
 }
 
+#include <cstdio>
+
 static void test_addition_and_removal()
 {
 	MockSanta santa;
 	ChannelList cl(&santa);
 
 	cl.AddChannel(ChannelTraits(1, "abc", 0, CR_ELITE, CT_GENERAL, 0, 0));
-	cl.AddChannel(ChannelTraits(2, "abc", 0, CR_ELITE, CT_GENERAL, 0, 0));
+	cl.AddChannel(ChannelTraits(2, "def", 0, CR_ELITE, CT_GENERAL, 0, 0));
 
 	std::vector<ChannelTraits> lst(cl.GetChannelList());
 
