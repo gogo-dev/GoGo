@@ -1,0 +1,1 @@
+#cmakedefine GOGO_VERSION "@GOGO_VERSION@"

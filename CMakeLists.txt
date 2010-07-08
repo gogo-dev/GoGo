@@ -85,6 +85,13 @@ endif()
 #message("CXX FLAGS (Debug): " ${CMAKE_C_FLAGS_DEBUG})
 #message("CXX FLAGS (Release): " ${CMAKE_CXX_FLAGS_RELEASE})
 
+# Build version.h
+execute_process(COMMAND git describe --tags --dirty
+	OUTPUT_VARIABLE GOGO_VERSION
+)
+
+configure_file(cmake/version.h ${CMAKE_SOURCE_DIR}/include/version.h)
+
 # Add Source groups for lazy windows users.
 source_group("Header Files" REGULAR_EXPRESSION .*\\.h)
 source_group("Source Files" REGULAR_EXPRESSION .*\\.cxx|.*\\.cpp)
