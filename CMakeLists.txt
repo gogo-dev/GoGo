@@ -88,6 +88,7 @@ endif()
 # Build version.h
 execute_process(COMMAND git describe --tags --dirty
 	OUTPUT_VARIABLE GOGO_VERSION
+	OUTPUT_STRIP_TRAILING_WHITESPACE
 )
 
 configure_file(cmake/version.h ${CMAKE_SOURCE_DIR}/include/version.h)
