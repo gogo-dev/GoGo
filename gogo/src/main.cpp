@@ -10,6 +10,8 @@
 
 #include <cockpit/MatchServer.h>
 
+#include <version.h>
+
 #include <algorithm>
 #include <boost/thread.hpp>
 #include <cctype>
@@ -82,7 +84,8 @@ int main()
 
 		cockpit::MatchServer server(logger, &factory, port);
 
-		logger->info(format("GoGo is listening on port %1%. Let's rock!") % port);
+		logger->info("GoGo " GOGO_VERSION);
+		logger->info(format("Now listening on port %1%. Let's rock!") % port);
 
 		server.start();
 		server.wait();
