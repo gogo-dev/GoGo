@@ -18,7 +18,10 @@ namespace detail {
 /**
 	This class is used as a generic, fast, reentrant container for arbitrary
 	types. The class is nowhere near as full-featured as std::vector, but it
-	works quite nicely for our needs.
+	works quite nicely for our needs. Just like the STL, this class DOES NOT
+	represent an abstraction. You MUST understand how it works inside before
+	using it. More specifically, you must understand the iterator invalidation
+	details that come with your chosen container.
 
 	ElemTy must satisfy the following concepts:
 		- CopyConstructable
@@ -26,7 +29,7 @@ namespace detail {
 		- Assignable
 		- Reentrant (Iff you use any of the find methods)
 */
-template <typename ElemTy, typename ElemContainer = std::list<ElemTy> >
+template <typename ElemTy, typename ElemContainer>
 class Collection
 {
 private:
@@ -67,16 +70,6 @@ private:
 
 public:
 	Collection()
-	{
-	}
-
-	/**
-		Constructs the collection with a starting size. As long as the number
-		of elements never exceeds that size, the collection will not need to
-		reallocate all of its elements.
-	*/
-	Collection(size_t defaultSize)
-		: elems(defaultSize)
 	{
 	}
 

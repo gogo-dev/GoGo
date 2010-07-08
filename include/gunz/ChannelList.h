@@ -18,7 +18,7 @@ class ChannelList : boost::noncopyable
 private:
 	MUIDSanta* santa;
 
-	detail::Collection<ChannelTraits> channelList;
+	detail::Collection<ChannelTraits, std::list<ChannelTraits> > channelList;
 	detail::PlayerList players;
 
 	// This is just to help out Channel populate the... populations!
