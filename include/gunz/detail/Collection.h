@@ -23,6 +23,7 @@ namespace detail {
 		- CopyConstructable
 		- MoveConstrucable if you're using C++0x (optional, but recommended)
 		- Assignable
+		- Reentrant (Iff you use any of the find methods)
 */
 template <typename ElemTy>
 class Collection
