@@ -15,7 +15,7 @@
 
 	<CHANNEL name="STR:CHANNEL_MASTERY_NAME_1" maxplayers="200" rule="mastery" levelmin='21'/>
 	<CHANNEL name="STR:CHANNEL_MASTERY_NAME_2" maxplayers="200" rule="mastery" levelmin='21'/>
-	
+
 	<CHANNEL name="STR:CHANNEL_ELITE_NAME_1" maxplayers="200" rule="elite" levelmin='35'/>
 	<CHANNEL name="STR:CHANNEL_ELITE_NAME_2" maxplayers="200" rule="elite" levelmin='35'/>
 </XML>
