@@ -19,7 +19,7 @@ string ConsoleLogger::right_now()
 	return to_simple_string(second_clock::local_time());
 }
 
-void ConsoleLogger::print_line(const char* toOutput, color c)
+void ConsoleLogger::print_line(const char* toOutput, color c, FILE* target)
 {
 	mutex::scoped_lock lock(consoleLock);
 
@@ -31,17 +31,17 @@ void ConsoleLogger::print_line(const char* toOutput, color c)
 	else if(c == YELLOW) SetConsoleTextAttribute(console, 14);
 	else if(c == WHITE)  SetConsoleTextAttribute(console, 15);
 
-	printf("%s\n", toOutput);
+	fprintf(target, "%s\n", toOutput);
 
 	SetConsoleTextAttribute(console, 15);
 
 #elif __GNUC__  // POSIX
-	if     (c == RED)    printf("\033[1;31m%s\033[0m\n", toOutput);
-	else if(c == YELLOW) printf("\033[1;33m%s\033[0m\n", toOutput);
-	else if(c == WHITE)  printf("\033[0;37m%s\033[0m\n", toOutput);
+	if     (c == RED)    fprintf(target, "\033[1;31m%s\033[0m\n", toOutput);
+	else if(c == YELLOW) fprintf(target, "\033[1;33m%s\033[0m\n", toOutput);
+	else if(c == WHITE)  fprintf(target, "\033[0;37m%s\033[0m\n", toOutput);
 #else
-	#error "You may want to add your operating system to this list so that you get color output. Alternatively, you can remove this error with a comment."
-	printf("%s\n", toOutput);
+	#warning "You may want to add your operating system to this list so that you get color output. Alternatively, you can remove this error with a comment."
+	fprintf(target, "%s\n", toOutput);
 #endif
 }
 
@@ -52,15 +52,15 @@ string ConsoleLogger::format_message(const char* text)
 
 void ConsoleLogger::info(const char* text)
 {
-	print_line(format_message(text).c_str(), WHITE);
+	print_line(format_message(text).c_str(), WHITE, stdout);
 }
 
 void ConsoleLogger::warning(const char* text)
 {
-	print_line(format_message(text).c_str(), YELLOW);
+	print_line(format_message(text).c_str(), YELLOW, stdout);
 }
 
 void ConsoleLogger::error(const char* text)
 {
-	print_line(format_message(text).c_str(), RED);
+	print_line(format_message(text).c_str(), RED, stderr);
 }
