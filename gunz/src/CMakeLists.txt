@@ -1,7 +1,8 @@
 set(GUNZ_SRC
+	Channel.cpp
 	ChannelList.cpp
-	ChannelTraits.cpp
 	MUIDSanta.cpp
+	Stage.cpp
 	# More sources here!
 )
 

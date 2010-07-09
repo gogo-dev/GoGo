@@ -8,7 +8,6 @@ using namespace boost;
 using namespace cockpit;
 
 GoGoFactory::GoGoFactory(Logger* _logger, GunzDB* _database, const function<void (gunz::ChannelList*)>& initChannelList)
-	: channelList(&santa)
 {
 	assert(_logger);
 	logger = _logger;

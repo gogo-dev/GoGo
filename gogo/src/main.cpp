@@ -3,12 +3,11 @@
 #include "ConsoleLogger.h"
 #include "GoGoFactory.h"
 #include "Configuration.h"
-#include "ChannelLoader.h"
-
-#include <database/GunzDB.h>
-#include <database/MySQLGunzDB.h>
 
 #include <cockpit/MatchServer.h>
+#include <database/GunzDB.h>
+#include <database/MySQLGunzDB.h>
+#include <gunz/Channel.h>
 
 #include <version.h>
 
@@ -29,38 +28,20 @@ static Configuration get_config(const char* filename)
 	return Configuration(is);
 }
 
-static gunz::ChannelRule get_rule(const string& stringRep)
+static void add_all_channels(gunz::ChannelList* channelList)
 {
-	return get_channel_attrib(stringRep, get_channel_rules());
-}
-static gunz::ChannelType get_type(const string& stringRep)
-{
-	return get_channel_attrib(stringRep, get_channel_types());
-}
-
-static void add_all_channels(const Configuration* conf, gunz::ChannelList* channelList)
-{
-	try {
-
-		for(size_t num = 1;; ++num)
-		{
-			string channelPrefix = string("channel") + lexical_cast<string>(num) + string(".");
-
-			channelList->AddChannel(
-				gunz::ChannelTraits(
-					0,
-					conf->get_value<string>(channelPrefix + "name"),
-					conf->get_value<uint32_t>(channelPrefix + "maxPlayers"),
-					get_rule(conf->get_value<string>(channelPrefix + "rule")),
-					get_type(conf->get_value<string>(channelPrefix + "type")),
-					conf->get_value<uint8_t>(channelPrefix + "minLevel"),
-					conf->get_value<uint8_t>(channelPrefix + "maxLevel")
-				)
-			);
-		}
-
-	} catch(SyntaxError) {
-	}
+	channelList->Add(
+		gunz::Channel::Traits()
+		//gunz::ChannelTraits(
+		//	0,
+		//	conf->get_value<string>(channelPrefix + "name"),
+		//	conf->get_value<uint32_t>(channelPrefix + "maxPlayers"),
+		//	get_rule(conf->get_value<string>(channelPrefix + "rule")),
+		//	get_type(conf->get_value<string>(channelPrefix + "type")),
+		//	conf->get_value<uint8_t>(channelPrefix + "minLevel"),
+		//	conf->get_value<uint8_t>(channelPrefix + "maxLevel")
+		//)
+	);
 }
 
 int main()
@@ -81,7 +62,7 @@ int main()
 			conf.get_value<string>("database.password", "password").c_str()
 		);
 
-		GoGoFactory factory(logger, &database, bind(add_all_channels, &conf, _1));
+		GoGoFactory factory(logger, &database, add_all_channels);
 
 		uint16_t port = conf.get_value<uint16_t>("server.port", 6000);
 

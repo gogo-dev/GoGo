@@ -1,11 +1,8 @@
-#include <gunz/ChannelTraits.h>
-
-using namespace std;
-using namespace boost;
+#include <gunz/Channel.h>
 
 namespace gunz {
 
-ChannelTraits::ChannelTraits()
+Channel::Traits::Traits()
 	: uid(0),
 	  name("<<unnamed>>"),
 	  maxPlayers(0),
@@ -17,7 +14,7 @@ ChannelTraits::ChannelTraits()
 {
 }
 
-ChannelTraits::ChannelTraits(const ChannelTraits& other)
+Channel::Traits::Traits(const Channel::Traits& other)
 	: uid(other.uid),
 	  name(other.name),
 	  maxPlayers(other.maxPlayers),
@@ -29,12 +26,12 @@ ChannelTraits::ChannelTraits(const ChannelTraits& other)
 {
 }
 
-ChannelTraits::ChannelTraits(
+Channel::Traits::Traits(
 	MUID _uid,
 	const std::string& _name,
 	boost::uint32_t _maxPlayers,
-	ChannelRule _rule,
-	ChannelType _type,
+	Channel::Rule _rule,
+	Channel::Type _type,
 	boost::uint8_t _minLevel,
 	boost::uint8_t _maxLevel)
 	  : uid(_uid),
@@ -48,7 +45,7 @@ ChannelTraits::ChannelTraits(
 {
 }
 
-ChannelTraits& ChannelTraits::operator=(ChannelTraits other)
+Channel::Traits& Channel::Traits::operator=(const Channel::Traits& other)
 {
 	uid = other.uid;
 	name = other.name;
@@ -62,18 +59,37 @@ ChannelTraits& ChannelTraits::operator=(ChannelTraits other)
 	return *this;
 }
 
-// The following two functions depend on the uniquity of uids.
-bool ChannelTraits::operator<(const ChannelTraits& other) const
-{
-	return uid < other.uid;
-}
-
-bool ChannelTraits::operator==(const ChannelTraits& other) const
+// We take a little shortcut here. Instead of doing a whole wack of unnecessary
+// comparisons, we just compare UIDs. This is totally cheating, but I don't care.
+bool Channel::Traits::operator==(const Channel::Traits& other) const
 {
 	return uid == other.uid;
 }
 
-ChannelTraits::~ChannelTraits()
+Channel::Traits::~Traits()
+{
+}
+
+Channel::Channel()
+{
+}
+
+Channel::Channel(const Traits& _traits)
+	: traits(_traits)
+{
+}
+
+Channel::Traits Channel::GetTraits() const
+{
+	return traits;
+}
+
+bool Channel::operator==(const Channel& other) const
+{
+	return traits == other.traits;
+}
+
+Channel::~Channel()
 {
 }
 
