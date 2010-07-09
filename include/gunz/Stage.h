@@ -11,8 +11,10 @@ public:
 	};
 
 private:
-	detail::PlayerList players;
 	Traits traits;
+
+public:
+	detail::PlayerList players;
 
 public:
 	// TODO: Is a default constructor necessary?

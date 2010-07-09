@@ -62,6 +62,8 @@ public:
 
 private:
 	Traits traits;
+
+public:
 	detail::PlayerList players;
 
 public:

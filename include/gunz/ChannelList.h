@@ -11,7 +11,7 @@ namespace gunz {
 
 class ChannelList : boost::noncopyable, public detail::Collection<Channel, std::list<Channel> >
 {
-private:
+public:
 	detail::PlayerList players;
 
 public:
