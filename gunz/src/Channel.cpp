@@ -70,10 +70,6 @@ Channel::Traits::~Traits()
 {
 }
 
-Channel::Channel()
-{
-}
-
 Channel::Channel(const Traits& _traits)
 	: traits(_traits)
 {

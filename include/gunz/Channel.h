@@ -67,7 +67,6 @@ public:
 	detail::PlayerList players;
 
 public:
-	Channel();
 	Channel(const Traits& traits);
 
 	Traits GetTraits() const;

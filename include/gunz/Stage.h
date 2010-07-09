@@ -17,8 +17,6 @@ public:
 	detail::PlayerList players;
 
 public:
-	// TODO: Is a default constructor necessary?
-	Stage();
 	Stage(const Traits& traits);
 	Traits GetTraits() const;
 

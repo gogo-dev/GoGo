@@ -2,10 +2,6 @@
 
 namespace gunz {
 
-Stage::Stage()
-{
-}
-
 Stage::Stage(const Traits& _traits)
 	: traits(_traits)
 {
