@@ -4,5 +4,5 @@
 	<channel name="Newbie Channel" maxplayers="500" rule="newbie" levelmin='1' levelmax='10' />
 	<channel name="Rookie Channel" maxplayers="500" rule="rookie" levelmin='11' levelmax='20' />
 	<channel name="Veteran Channel" maxplayers="500" rule="mastery" levelmin='21' />
-	<channel name="Elite Channel" maxplayers="200" rule="elite" levelmin='35' />
+	<channel name="Elite Channel" maxplayers="500" rule="elite" levelmin='35' />
 </xml>
