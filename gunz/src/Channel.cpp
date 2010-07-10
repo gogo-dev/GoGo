@@ -29,7 +29,7 @@ Channel::Traits::Traits(const Channel::Traits& other)
 Channel::Traits::Traits(
 	MUID _uid,
 	const std::string& _name,
-	boost::uint32_t _maxPlayers,
+	boost::uint8_t _maxPlayers,
 	Channel::Rule _rule,
 	Channel::Type _type,
 	boost::uint8_t _minLevel,

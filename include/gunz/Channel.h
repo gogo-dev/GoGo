@@ -34,8 +34,8 @@ public:
 	{
 		MUID uid;
 		std::string name;
-		boost::uint32_t maxPlayers;
-		boost::uint32_t playerCount;
+		boost::uint8_t maxPlayers;
+		boost::uint8_t playerCount;
 		Rule rule;
 		Type type;
 		boost::uint8_t minLevel;
@@ -47,7 +47,7 @@ public:
 		// Doesn't do anything fancy, it only exists for convenience.
 		Traits(MUID uid,
 		       const std::string& name,
-		       boost::uint32_t maxPlayers,
+		       boost::uint8_t maxPlayers,
 		       Rule rule,
 		       Type type,
 		       boost::uint8_t minLevel,
