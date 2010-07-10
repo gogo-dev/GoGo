@@ -47,7 +47,7 @@ public:
 	void OnInvalidPacketType(boost::uint16_t commandID);
 	void OnUnimplementedPacket(boost::uint16_t commandID);
 
-	void mCBOnUserMatchLoginFromIJJIClient(const std::string& username, const std::string& password, boost::int32_t commandVersion, boost::uint32_t nChecksumPack);
+	void OnMatchLogin(const std::string& username, const std::string& password, boost::int32_t commandVersion, boost::uint32_t nChecksumPack);
 	void OnCharList();
 	void OnCharCreate(gunz::MUID uidPlayer, boost::uint32_t charMarker, const std::string& charName, boost::uint32_t charSex, boost::uint32_t charHair, boost::uint32_t charFace, boost::uint32_t charCostume);
 	void OnCharDelete(gunz::MUID uid, boost::uint32_t marker, const std::string& name);
