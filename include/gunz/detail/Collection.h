@@ -109,7 +109,7 @@ public:
 
 		@return A pointer to the newly added element.
 	*/
-	ElemTy* Add(const ElemTy& elem)
+	ElemTy* Add(typename boost::call_traits<ElemTy>::param_type elem)
 	{
 		WritingLock w(protection);
 		elems.push_back(elem);	// This ensures faster lookup times on
@@ -123,7 +123,7 @@ public:
 
 		@return Whether or not the element could be removed.
 	*/
-	bool Remove(const ElemTy& elem)
+	bool Remove(typename boost::call_traits<ElemTy>::param_type elem)
 	{
 		ElemIter loc, end;
 
@@ -244,12 +244,12 @@ public:
 		Just a convenient little wrapper around the predicated version of find
 		if you're just searching for a specific element.
 	*/
-	std::pair<bool, ElemTy*> Find(const ElemTy& toFind)
+	std::pair<bool, ElemTy*> Find(typename boost::call_traits<ElemTy>::param_type toFind)
 	{
 		return Find(boost::bind(std::equal_to<ElemTy>(), boost::cref(toFind), _1));
 	}
 
-	std::pair<bool, const ElemTy*> Find(const ElemTy& toFind) const
+	std::pair<bool, const ElemTy*> Find(typename boost::call_traits<ElemTy>::param_type toFind) const
 	{
 		return Find(boost::bind(std::equal_to<ElemTy>(), boost::cref(toFind), _1));
 	}
