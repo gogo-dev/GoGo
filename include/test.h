@@ -56,9 +56,9 @@ inline std::string stringify(const T& data)
 #define check_equal(a, b) \
 	do_check_equal((a), (b), __FILE__, __LINE__, BOOST_CURRENT_FUNCTION)
 
-template <typename T>
+template <typename T1, typename T2>
 inline void do_check_equal(
-	const T a, const T b,
+	const T1 a, const T2 b,
 	const char* file, int line, const char* function)
 {
 	if(a != b)
