@@ -131,14 +131,23 @@ vector<gunz::Channel::Traits> parse_channel_list(const string& rawXML, gunz::MUI
 			                    // that EVER changes, this line must be updated.
 
 		try {
+			uint8_t minimumLevel = parse_level(minLevel, "minlevel");
+			uint8_t maximumLevel = parse_level(maxLevel, "maxlevel");
+
+			if(minimumLevel > maximumLevel)
+			{
+				on_error("Minimum level is higher than maximum level. Skipping...");
+				continue;
+			}
+
 			ret.push_back(gunz::Channel::Traits(
 				santa->get(),
 				name,
 				parse_maxPlayers(maxPlayers),
 				parse_rule(rule),
 				gunz::Channel::CT_GENERAL,
-				parse_level(minLevel, "minlevel"),
-				parse_level(maxLevel, "maxlevel")
+				minimumLevel,
+				maximumLevel
 			));
 		} catch(ParseFailed) {
 			continue;
