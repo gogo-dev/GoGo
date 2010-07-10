@@ -3,7 +3,9 @@
 
 #include <tinyxml/tinyxml.h>
 
+#include <boost/format.hpp>
 #include <boost/lexical_cast.hpp>
+#include <climits>
 #include <cstddef>
 #include <cstdio>
 #include <cstring>
@@ -48,23 +50,40 @@ static gunz::Channel::Rule parse_rule(const char* text)
 	}
 }
 
+// Converts a string to a byte. Throws ParseFailed on failure.
+static uint8_t byte_cast(const char* str)
+{
+	uint16_t result;
+
+	try {
+		result = lexical_cast<uint16_t>(str);
+	} catch(const bad_lexical_cast&) {
+		throw ParseFailed();
+	}
+
+	if(result > UCHAR_MAX)
+		throw ParseFailed();
+
+	return static_cast<uint8_t>(result);
+}
+
 static uint8_t parse_maxPlayers(const char* text)
 {
 	try {
-		return lexical_cast<uint8_t>(text);
-	} catch(bad_lexical_cast) {
+		return byte_cast(text);
+	} catch(ParseFailed) {
 		on_error("Attribute \"maxplayers\" must be in the range of 0-255. Skipping...");
-		throw ParseFailed();
+		throw;
 	}
 }
 
-static uint8_t parse_level(const char* text)
+static uint8_t parse_level(const char* text, const char* level)
 {
 	try {
-		return lexical_cast<uint8_t>(text);
-	} catch(bad_lexical_cast) {
-		on_error("Invalid level specified. Levels must be in the range of 0-255. Skipping...");
-		throw ParseFailed();
+		return byte_cast(text);
+	} catch(ParseFailed) {
+		on_error((format("Attribute \"%1%\" must be in the range of 0-255. Skipping...") % level).str().c_str());
+		throw;
 	}
 }
 
@@ -108,7 +127,7 @@ vector<gunz::Channel::Traits> parse_channel_list(const string& rawXML, gunz::MUI
 		if(minLevel == NULL)
 			minLevel = "0";
 		if(maxLevel == NULL)
-			maxLevel = "256";	// HACK: This assumes the max level is 255. If
+			maxLevel = "255";	// HACK: This assumes the max level is 255. If
 			                    // that EVER changes, this line must be updated.
 
 		try {
@@ -118,8 +137,8 @@ vector<gunz::Channel::Traits> parse_channel_list(const string& rawXML, gunz::MUI
 				parse_maxPlayers(maxPlayers),
 				parse_rule(rule),
 				gunz::Channel::CT_GENERAL,
-				parse_level(minLevel),
-				parse_level(maxLevel)
+				parse_level(minLevel, "minlevel"),
+				parse_level(maxLevel, "maxlevel")
 			));
 		} catch(ParseFailed) {
 			continue;
