@@ -7,7 +7,7 @@ using namespace std;
 using namespace boost;
 using namespace cockpit;
 
-GoGoFactory::GoGoFactory(Logger* _logger, GunzDB* _database, const function<void (gunz::ChannelList*)>& initChannelList)
+GoGoFactory::GoGoFactory(Logger* _logger, GunzDB* _database, const function<void (gunz::ChannelList*, gunz::MUIDSanta*)>& initChannelList)
 {
 	assert(_logger);
 	logger = _logger;
@@ -15,7 +15,7 @@ GoGoFactory::GoGoFactory(Logger* _logger, GunzDB* _database, const function<void
 	assert(_database);
 	database = _database;
 
-	initChannelList(&channelList);
+	initChannelList(&channelList, &santa);
 }
 
 auto_ptr<ClientHandler> GoGoFactory::create_client_handler()

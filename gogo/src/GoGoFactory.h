@@ -28,7 +28,7 @@ public:
 		When the channel list is initialized, it has no channels! To set up
 		the initial general channels, pass in a functor to do your dirty work!
 	*/
-	GoGoFactory(cockpit::Logger* logger, GunzDB* database, const boost::function<void (gunz::ChannelList*)>& initChannelList);
+	GoGoFactory(cockpit::Logger* logger, GunzDB* database, const boost::function<void (gunz::ChannelList*, gunz::MUIDSanta*)>& initChannelList);
 
 	std::auto_ptr<cockpit::ClientHandler> create_client_handler();
 };

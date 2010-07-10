@@ -1,8 +1,9 @@
 #include <boost/asio/io_service.hpp>	// Fixes a bug on VS.
 
+#include "ChannelLoader.h"
+#include "Configuration.h"
 #include "ConsoleLogger.h"
 #include "GoGoFactory.h"
-#include "Configuration.h"
 
 #include <cockpit/MatchServer.h>
 #include <database/GunzDB.h>
@@ -28,20 +29,26 @@ static Configuration get_config(const char* filename)
 	return Configuration(is);
 }
 
-static void add_all_channels(gunz::ChannelList* channelList)
+static string load_file(const char* filename)
 {
-	channelList->Add(
-		gunz::Channel::Traits()
-		//gunz::ChannelTraits(
-		//	0,
-		//	conf->get_value<string>(channelPrefix + "name"),
-		//	conf->get_value<uint32_t>(channelPrefix + "maxPlayers"),
-		//	get_rule(conf->get_value<string>(channelPrefix + "rule")),
-		//	get_type(conf->get_value<string>(channelPrefix + "type")),
-		//	conf->get_value<uint8_t>(channelPrefix + "minLevel"),
-		//	conf->get_value<uint8_t>(channelPrefix + "maxLevel")
-		//)
-	);
+	ifstream f(filename);
+
+	string out;
+	string line;
+
+	while(getline(f, line))
+		out += line;
+
+	return out;
+}
+
+static void add_all_channels(gunz::ChannelList* channelList, gunz::MUIDSanta* santa)
+{
+	typedef vector<gunz::Channel::Traits> TraitList;
+	TraitList traits = parse_channel_list(load_file("channel.xml"), santa);
+
+	for(TraitList::iterator current = traits.begin(), end = traits.end(); current != end; ++current)
+		channelList->Add(*current);
 }
 
 int main()
