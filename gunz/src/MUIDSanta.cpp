@@ -17,7 +17,7 @@ MUID MUIDSanta::get()
 #if defined(__GNUC__) || defined(__clang__)
 	return __sync_fetch_and_add(&next, 1);
 #elif defined(_MSC_VER)
-	return InterlockedIncrement64(&next);
+	return InterlockedIncrement((LONG*)&next);
 #else
 	#error "Unsupported platform! Please write your own lock-free increment."
 #endif

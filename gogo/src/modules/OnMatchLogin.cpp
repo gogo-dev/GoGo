@@ -33,7 +33,7 @@ static void reply(
 	transmitter->send(packet::protocol::Match_ResponseLogin(result, serverName, mode, account, ugrade, pgrade, muid, encryptMSG));
 }
 
-void GoGoClient::OnMatchLogin(
+void GoGoClient::mCBOnUserMatchLoginFromIJJIClient(
     const std::string& username,
 	const std::string& password,
 	int32_t /* commandVersion */,
