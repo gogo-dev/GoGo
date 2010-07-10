@@ -9,8 +9,8 @@
 #include <cassert>
 #include <cstddef>
 #include <functional>
-#include <list>
 #include <utility>
+#include <vector>
 
 namespace gunz {
 namespace detail {
@@ -27,7 +27,10 @@ namespace detail {
 		- CopyConstructable
 		- MoveConstrucable if you're using C++0x (optional, but recommended)
 		- Assignable
-		- Reentrant (Iff you use any of the find methods)
+
+	If you use any of the find methods, ElemTy must ALSO satisfy these concepts:
+		- Reentrant
+		- Comparable
 */
 template <typename ElemTy, typename ElemContainer>
 class Collection
@@ -106,7 +109,7 @@ public:
 
 		@return A pointer to the newly added element.
 	*/
-	ElemTy* Add(const ElemTy& elem)
+	ElemTy* Add(typename boost::call_traits<ElemTy>::param_type elem)
 	{
 		WritingLock w(protection);
 		elems.push_back(elem);	// This ensures faster lookup times on
@@ -120,7 +123,7 @@ public:
 
 		@return Whether or not the element could be removed.
 	*/
-	bool Remove(const ElemTy& elem)
+	bool Remove(typename boost::call_traits<ElemTy>::param_type elem)
 	{
 		ElemIter loc, end;
 
@@ -177,7 +180,7 @@ public:
 
 		@see Collection::cmap
 	*/
-	void map(const boost::function<void (ElemTy& p)>& func)
+	void Map(const boost::function<void (ElemTy& p)>& func)
 	{
 		WritingLock w(protection);
 		std::for_each(elems.begin(), elems.end(), func);
@@ -196,7 +199,7 @@ public:
 
 		@see Collection::map
 	*/
-	void cmap(const boost::function<void (const ElemTy& p)>& func) const
+	void CMap(const boost::function<void (const ElemTy& p)>& func) const
 	{
 		ReadingLock r(protection);
 		std::for_each(elems.begin(), elems.end(), func);
@@ -213,7 +216,7 @@ public:
 		@return A valid pointer to the found element. If the element was not
 		        found, it will be NULL.
 	*/
-	ElemTy* find(const boost::function<bool (const ElemTy& p)>& predicate)
+	ElemTy* Find(const boost::function<bool (const ElemTy& p)>& predicate)
 	{
 		ReadingLock r(protection);
 		ElemIter current = elems.begin(), end = elems.end();
@@ -225,7 +228,7 @@ public:
 		return NULL;
 	}
 
-	const ElemTy* find(const boost::function<bool (const ElemTy& p)>& predicate) const
+	const ElemTy* Find(const boost::function<bool (const ElemTy& p)>& predicate) const
 	{
 		ReadingLock r(protection);
 		ConstElemIter current = elems.begin(), end = elems.end();
@@ -241,24 +244,42 @@ public:
 		Just a convenient little wrapper around the predicated version of find
 		if you're just searching for a specific element.
 	*/
-	std::pair<bool, ElemTy*> find(const ElemTy& toFind)
+	std::pair<bool, ElemTy*> Find(typename boost::call_traits<ElemTy>::param_type toFind)
 	{
-		return find(boost::bind(std::equal_to<ElemTy>(), boost::cref(toFind), _1));
+		return Find(boost::bind(std::equal_to<ElemTy>(), boost::cref(toFind), _1));
 	}
 
-	std::pair<bool, const ElemTy*> find(const ElemTy& toFind) const
+	std::pair<bool, const ElemTy*> Find(typename boost::call_traits<ElemTy>::param_type toFind) const
 	{
-		return find(boost::bind(std::equal_to<ElemTy>(), boost::cref(toFind), _1));
+		return Find(boost::bind(std::equal_to<ElemTy>(), boost::cref(toFind), _1));
 	}
 
 	/**
 		Returns the count of how many elements are in the collection. Runs in
 		O(1).
 	*/
-	size_t length() const
+	size_t Length() const
 	{
 		ReadingLock r(protection);
 		return elems.size();
+	}
+
+	/**
+		Returns a snapshot of the collection at this exact moment in time. The
+		elements are declared const to remind you that no change will populate
+		back to the the parent collection.
+	*/
+	const std::vector<ElemTy> Clone() const
+	{
+		std::vector<ElemTy> ret;
+
+		ReadingLock r(protection);
+		ret.reserve(elems.size());
+
+		for(ConstElemIter current = elems.begin(), end = elems.end(); current != end; ++current)
+			ret.push_back(*current);
+
+		return ret;
 	}
 
 	~Collection()

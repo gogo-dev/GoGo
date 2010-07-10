@@ -1,6 +1,8 @@
 #pragma once
 #include <cockpit/Logger.h>
+
 #include <boost/thread/mutex.hpp>
+#include <cstdio>
 
 class ConsoleLogger : public cockpit::Logger
 {
@@ -16,7 +18,7 @@ class ConsoleLogger : public cockpit::Logger
 
 	private:
 		static std::string right_now();
-		void print_line(const char* toOutput, color c);
+		void print_line(const char* toOutput, color c, FILE* target);
 		static std::string format_message(const char* text);
 
 	public:

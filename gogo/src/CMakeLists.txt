@@ -1,5 +1,4 @@
 set(GOGO_HEADERS
-	ChannelLoader.h
 	Configuration.h
 	ConsoleLogger.h
 	GoGoClient.h
@@ -9,7 +8,6 @@ set(GOGO_HEADERS
 )
 
 set(GOGO_SRC
-	ChannelLoader.cpp
 	Configuration.cpp
 	ConsoleLogger.cpp
 	GoGoClient.cpp
@@ -44,9 +42,17 @@ target_link_libraries(gogo
 	${Boost_LIBRARIES}
 )
 
-# Moves gogo.conf into the appropriate directory when either "make" or "make install" is called.
-configure_file(gogo.conf gogo.conf COPYONLY)
-install(FILES gogo.conf DESTINATION ${CMAKE_INSTALL_PREFIX})
+# Moves the config files into the appropriate directory when either "make" or
+# "make install" is called.
 
-configure_file(../db/gunzdb.sql gunzdb.sql COPYONLY)
-install(FILES ../db/gunzdb.sql DESTINATION ${CMAKE_INSTALL_PREFIX})
+configure_file(../config/channel.xml channel.xml COPYONLY)
+install(FILES ../config/channel.xml DESTINATION ${CMAKE_INSTALL_PREFIX})
+
+configure_file(../config/gogo.conf gogo.conf COPYONLY)
+install(FILES ../config/gogo.conf DESTINATION ${CMAKE_INSTALL_PREFIX})
+
+configure_file(../config/my.sql my.sql COPYONLY)
+install(FILES ../config/my.sql DESTINATION ${CMAKE_INSTALL_PREFIX})
+
+configure_file(../config/postgre.sql postgre.sql COPYONLY)
+install(FILES ../config/postgre.sql DESTINATION ${CMAKE_INSTALL_PREFIX})

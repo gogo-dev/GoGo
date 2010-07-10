@@ -61,23 +61,6 @@ enum ItemType
 	IT_NONE
 };
 
-enum ChannelType
-{
-	CT_GENERAL,
-	CT_PRIVATE,
-	CT_USER,
-	CT_CLAN
-};
-
-enum ChannelRule
-{
-	CR_NOVICE,
-	CR_NEWBIE,
-	CR_ROOKIE,
-	CR_MASTERY,
-	CR_ELITE
-};
-
 enum MatchPlace
 {
 	MP_CHARACTER,
