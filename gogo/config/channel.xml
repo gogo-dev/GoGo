@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <xml id="channel">
-	<channel name="Free Channel" maxplayers="255" rule="novice" />
-	<channel name="Newbie Channel" maxplayers="255" rule="newbie" minlevel='1' maxlevel='10' />
+	<channel name="Free Channel 1" maxplayers="255" rule="novice" />
+	<channel name="Free Channel 2" maxplayers="255" rule="novice" />
+	<channel name="Newbie Channel" maxplayers="255" rule="newbie" maxlevel='10' />
 	<channel name="Rookie Channel" maxplayers="255" rule="rookie" minlevel='11' maxlevel='20' />
 	<channel name="Veteran Channel" maxplayers="255" rule="mastery" minlevel='21' />
 	<channel name="Elite Channel" maxplayers="255" rule="elite" minlevel='35' />

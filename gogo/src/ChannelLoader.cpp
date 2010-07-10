@@ -125,7 +125,7 @@ vector<gunz::Channel::Traits> parse_channel_list(const string& rawXML, gunz::MUI
 			rule = "novice";
 
 		if(minLevel == NULL)
-			minLevel = "0";
+			minLevel = "1";
 		if(maxLevel == NULL)
 			maxLevel = "255";	// HACK: This assumes the max level is 255. If
 			                    // that EVER changes, this line must be updated.
