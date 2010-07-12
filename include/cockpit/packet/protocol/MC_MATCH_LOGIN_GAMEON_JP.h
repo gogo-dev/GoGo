@@ -24,7 +24,7 @@ private:
 public:
 	enum { packetID = 1012 };
 
-	MC_MATCH_LOGIN_GAMEON_JP(packet::string szString, packet::string szStatIndex, packet::int32 CommandVersion, packet::uint32 nChecksumPack, packet::blob EncryptMD5Value);
+	MC_MATCH_LOGIN_GAMEON_JP(const packet::string& szString, const packet::string& szStatIndex, const packet::int32& CommandVersion, const packet::uint32& nChecksumPack, const packet::blob& EncryptMD5Value);
 
 	const char* name() const;
 	const char* doc() const;

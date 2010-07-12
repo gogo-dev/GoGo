@@ -22,7 +22,7 @@ private:
 public:
 	enum { packetID = 6061 };
 
-	Quest_Stage_GameInfo(packet::int8 Questlevel, packet::int8 MapsetID, packet::uint32 QuestScenarioID);
+	Quest_Stage_GameInfo(const packet::int8& Questlevel, const packet::int8& MapsetID, const packet::uint32& QuestScenarioID);
 
 	const char* name() const;
 	const char* doc() const;

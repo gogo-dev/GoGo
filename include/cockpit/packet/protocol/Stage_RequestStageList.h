@@ -22,7 +22,7 @@ private:
 public:
 	enum { packetID = 1311 };
 
-	Stage_RequestStageList(packet::MUID uidPlayer, packet::MUID uidChannel, packet::int32 StageCursor);
+	Stage_RequestStageList(const packet::MUID& uidPlayer, const packet::MUID& uidChannel, const packet::int32& StageCursor);
 
 	const char* name() const;
 	const char* doc() const;

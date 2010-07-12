@@ -22,7 +22,7 @@ private:
 public:
 	enum { packetID = 1713 };
 
-	Match_RequestDeleteChar(packet::MUID uid, packet::uint32 CharIndex, packet::string CharName);
+	Match_RequestDeleteChar(const packet::MUID& uid, const packet::uint32& CharIndex, const packet::string& CharName);
 
 	const char* name() const;
 	const char* doc() const;

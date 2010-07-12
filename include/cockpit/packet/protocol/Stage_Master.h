@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 1421 };
 
-	Stage_Master(packet::MUID uidStage, packet::MUID uidPlayer);
+	Stage_Master(const packet::MUID& uidStage, const packet::MUID& uidPlayer);
 
 	const char* name() const;
 	const char* doc() const;

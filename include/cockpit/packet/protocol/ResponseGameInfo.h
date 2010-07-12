@@ -23,7 +23,7 @@ private:
 public:
 	enum { packetID = 1452 };
 
-	ResponseGameInfo(packet::MUID uidStage, packet::blob GameInfo, packet::blob RuleInfo, packet::blob PlayerInfo);
+	ResponseGameInfo(const packet::MUID& uidStage, const packet::blob& GameInfo, const packet::blob& RuleInfo, const packet::blob& PlayerInfo);
 
 	const char* name() const;
 	const char* doc() const;

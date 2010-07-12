@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 3001 };
 
-	Match_Assign_Berserker(packet::MUID uidPlayer);
+	Match_Assign_Berserker(const packet::MUID& uidPlayer);
 
 	const char* name() const;
 	const char* doc() const;

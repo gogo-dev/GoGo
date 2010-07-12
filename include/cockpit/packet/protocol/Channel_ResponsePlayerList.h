@@ -22,7 +22,7 @@ private:
 public:
 	enum { packetID = 1222 };
 
-	Channel_ResponsePlayerList(packet::uint8 TotalPlayerCount, packet::uint8 PlayerListPage, packet::blob PlayerList);
+	Channel_ResponsePlayerList(const packet::uint8& TotalPlayerCount, const packet::uint8& PlayerListPage, const packet::blob& PlayerList);
 
 	const char* name() const;
 	const char* doc() const;

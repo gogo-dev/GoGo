@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 1652 };
 
-	ChatRoom_Join(packet::string PlayerName, packet::string ChatRoomName);
+	ChatRoom_Join(const packet::string& PlayerName, const packet::string& ChatRoomName);
 
 	const char* name() const;
 	const char* doc() const;

@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 2051 };
 
-	Match_Clan_Request_EmblemURL(packet::blob ClanURLList);
+	Match_Clan_Request_EmblemURL(const packet::blob& ClanURLList);
 
 	const char* name() const;
 	const char* doc() const;

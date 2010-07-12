@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 6040 };
 
-	Quest_Peer_NPC_BasicInfo(packet::blob Info);
+	Quest_Peer_NPC_BasicInfo(const packet::blob& Info);
 
 	const char* name() const;
 	const char* doc() const;

@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 1208 };
 
-	Channel_Leave(packet::MUID uidPlayer, packet::MUID uidChannel);
+	Channel_Leave(const packet::MUID& uidPlayer, const packet::MUID& uidChannel);
 
 	const char* name() const;
 	const char* doc() const;

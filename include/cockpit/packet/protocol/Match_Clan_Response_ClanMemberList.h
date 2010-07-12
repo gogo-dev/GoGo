@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 2024 };
 
-	Match_Clan_Response_ClanMemberList(packet::blob ClanMemberList);
+	Match_Clan_Response_ClanMemberList(const packet::blob& ClanMemberList);
 
 	const char* name() const;
 	const char* doc() const;

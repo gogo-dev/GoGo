@@ -23,7 +23,7 @@ private:
 public:
 	enum { packetID = 1822 };
 
-	Match_ResponseCharacterItemList(packet::int32 Bounty, packet::blob EquipItemList, packet::blob ItemList, packet::blob GambleItemList);
+	Match_ResponseCharacterItemList(const packet::int32& Bounty, const packet::blob& EquipItemList, const packet::blob& ItemList, const packet::blob& GambleItemList);
 
 	const char* name() const;
 	const char* doc() const;

@@ -23,7 +23,7 @@ private:
 public:
 	enum { packetID = 21006 };
 
-	Quest_Reward(packet::int32 XP, packet::int32 Bounty, packet::blob Rewardquestitem, packet::blob RewardZItem);
+	Quest_Reward(const packet::int32& XP, const packet::int32& Bounty, const packet::blob& Rewardquestitem, const packet::blob& RewardZItem);
 
 	const char* name() const;
 	const char* doc() const;

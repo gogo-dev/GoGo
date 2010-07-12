@@ -22,7 +22,7 @@ private:
 public:
 	enum { packetID = 5001 };
 
-	Match_RegisterAgent(packet::string Address, packet::int32 Port, packet::int32 UDPPort);
+	Match_RegisterAgent(const packet::string& Address, const packet::int32& Port, const packet::int32& UDPPort);
 
 	const char* name() const;
 	const char* doc() const;

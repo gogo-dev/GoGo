@@ -22,7 +22,7 @@ private:
 public:
 	enum { packetID = 5062 };
 
-	Agent_RelayPeer(packet::MUID PlayerUID, packet::MUID PeerCharUID, packet::MUID StageUID);
+	Agent_RelayPeer(const packet::MUID& PlayerUID, const packet::MUID& PeerCharUID, const packet::MUID& StageUID);
 
 	const char* name() const;
 	const char* doc() const;

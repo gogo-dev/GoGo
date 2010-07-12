@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 1309 };
 
-	Stage_Follow(packet::string strTarget);
+	Stage_Follow(const packet::string& strTarget);
 
 	const char* name() const;
 	const char* doc() const;

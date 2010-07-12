@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 1304 };
 
-	Stage_RequestJoin(packet::MUID uidPlayer, packet::MUID uidStage);
+	Stage_RequestJoin(const packet::MUID& uidPlayer, const packet::MUID& uidStage);
 
 	const char* name() const;
 	const char* doc() const;

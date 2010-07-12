@@ -22,7 +22,7 @@ private:
 public:
 	enum { packetID = 21007 };
 
-	Quest_Request_Sacrifice(packet::MUID Dropitemowner, packet::int32 Slotindex, packet::int32 ItemID);
+	Quest_Request_Sacrifice(const packet::MUID& Dropitemowner, const packet::int32& Slotindex, const packet::int32& ItemID);
 
 	const char* name() const;
 	const char* doc() const;

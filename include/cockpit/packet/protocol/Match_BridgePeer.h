@@ -22,7 +22,7 @@ private:
 public:
 	enum { packetID = 1006 };
 
-	Match_BridgePeer(packet::MUID uidPlayer, packet::uint32 dwIP, packet::uint32 nPort);
+	Match_BridgePeer(const packet::MUID& uidPlayer, const packet::uint32& dwIP, const packet::uint32& nPort);
 
 	const char* name() const;
 	const char* doc() const;

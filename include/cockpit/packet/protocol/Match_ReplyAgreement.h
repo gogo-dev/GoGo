@@ -25,7 +25,7 @@ private:
 public:
 	enum { packetID = 1564 };
 
-	Match_ReplyAgreement(packet::MUID uidProposer, packet::MUID uidChar, packet::string Replier, packet::int32 ProposalMode, packet::int32 RequestID, packet::boolean Agreement);
+	Match_ReplyAgreement(const packet::MUID& uidProposer, const packet::MUID& uidChar, const packet::string& Replier, const packet::int32& ProposalMode, const packet::int32& RequestID, const packet::boolean& Agreement);
 
 	const char* name() const;
 	const char* doc() const;

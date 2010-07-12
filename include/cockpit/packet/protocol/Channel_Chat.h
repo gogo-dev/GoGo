@@ -23,7 +23,7 @@ private:
 public:
 	enum { packetID = 1226 };
 
-	Channel_Chat(packet::MUID uidChannel, packet::string PlayerName, packet::string Chat, packet::int32 nGrade);
+	Channel_Chat(const packet::MUID& uidChannel, const packet::string& PlayerName, const packet::string& Chat, const packet::int32& nGrade);
 
 	const char* name() const;
 	const char* doc() const;

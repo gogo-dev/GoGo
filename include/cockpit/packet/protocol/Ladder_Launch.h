@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 1579 };
 
-	Ladder_Launch(packet::MUID uidStage, packet::string MapName);
+	Ladder_Launch(const packet::MUID& uidStage, const packet::string& MapName);
 
 	const char* name() const;
 	const char* doc() const;

@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 2001 };
 
-	Match_Clan_ResponseCreateClan(packet::int32 Result, packet::int32 RequestID);
+	Match_Clan_ResponseCreateClan(const packet::int32& Result, const packet::int32& RequestID);
 
 	const char* name() const;
 	const char* doc() const;

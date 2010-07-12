@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 1901 };
 
-	Match_Friend_Add(packet::string Name);
+	Match_Friend_Add(const packet::string& Name);
 
 	const char* name() const;
 	const char* doc() const;

@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 5021 };
 
-	Agent_Connect(packet::string Address, packet::int32 Port);
+	Agent_Connect(const packet::string& Address, const packet::int32& Port);
 
 	const char* name() const;
 	const char* doc() const;

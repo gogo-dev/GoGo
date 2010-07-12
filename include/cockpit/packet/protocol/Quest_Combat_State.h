@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 6052 };
 
-	Quest_Combat_State(packet::int8 CombatState);
+	Quest_Combat_State(const packet::int8& CombatState);
 
 	const char* name() const;
 	const char* doc() const;

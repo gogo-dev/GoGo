@@ -22,7 +22,7 @@ private:
 public:
 	enum { packetID = 2011 };
 
-	Match_Clan_AnswerJoinAgreement(packet::MUID uidClanAdmin, packet::string JoinerCharName, packet::boolean Answer);
+	Match_Clan_AnswerJoinAgreement(const packet::MUID& uidClanAdmin, const packet::string& JoinerCharName, const packet::boolean& Answer);
 
 	const char* name() const;
 	const char* doc() const;

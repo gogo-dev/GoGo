@@ -32,7 +32,7 @@ namespace cockpit {
 namespace packet {
 namespace protocol {
 
-Net_Ping::Net_Ping(packet::uint32 _TimeStamp)
+Net_Ping::Net_Ping(const packet::uint32& _TimeStamp)
 	: TimeStamp(_TimeStamp)
 {
 }
@@ -61,7 +61,7 @@ Buffer Net_Ping::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Net_Pong::Net_Pong(packet::uint32 _TimeStamp)
+Net_Pong::Net_Pong(const packet::uint32& _TimeStamp)
 	: TimeStamp(_TimeStamp)
 {
 }
@@ -90,7 +90,7 @@ Buffer Net_Pong::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Announce::Match_Announce(packet::uint32 _Type, packet::string _Msg)
+Match_Announce::Match_Announce(const packet::uint32& _Type, const packet::string& _Msg)
 	: Type(_Type), Msg(_Msg)
 {
 }
@@ -120,7 +120,7 @@ Buffer Match_Announce::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Clock_Synchronize::Clock_Synchronize(packet::uint32 _GlobalClock_msec)
+Clock_Synchronize::Clock_Synchronize(const packet::uint32& _GlobalClock_msec)
 	: GlobalClock_msec(_GlobalClock_msec)
 {
 }
@@ -149,7 +149,7 @@ Buffer Clock_Synchronize::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Login::Match_Login(packet::string _UserID, packet::string _Password, packet::int32 _CommandVersion, packet::uint32 _nChecksumPack)
+Match_Login::Match_Login(const packet::string& _UserID, const packet::string& _Password, const packet::int32& _CommandVersion, const packet::uint32& _nChecksumPack)
 	: UserID(_UserID), Password(_Password), CommandVersion(_CommandVersion), nChecksumPack(_nChecksumPack)
 {
 }
@@ -181,7 +181,7 @@ Buffer Match_Login::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_ResponseLogin::Match_ResponseLogin(packet::int32 _Result, packet::string _ServerName, packet::int8 _ServerMode, packet::string _AccountID, packet::uint8 _UGradeID, packet::uint8 _PGradeID, packet::MUID _uidPlayer, packet::blob _EncryptMsg)
+Match_ResponseLogin::Match_ResponseLogin(const packet::int32& _Result, const packet::string& _ServerName, const packet::int8& _ServerMode, const packet::string& _AccountID, const packet::uint8& _UGradeID, const packet::uint8& _PGradeID, const packet::MUID& _uidPlayer, const packet::blob& _EncryptMsg)
 	: Result(_Result), ServerName(_ServerName), ServerMode(_ServerMode), AccountID(_AccountID), UGradeID(_UGradeID), PGradeID(_PGradeID), uidPlayer(_uidPlayer), EncryptMsg(_EncryptMsg)
 {
 }
@@ -217,7 +217,7 @@ Buffer Match_ResponseLogin::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Response_Result::Match_Response_Result(packet::int32 _Result)
+Match_Response_Result::Match_Response_Result(const packet::int32& _Result)
 	: Result(_Result)
 {
 }
@@ -246,7 +246,7 @@ Buffer Match_Response_Result::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_LoginNetmarble::Match_LoginNetmarble(packet::string _CPCookie, packet::string _SpareParam, packet::int32 _CommandVersion, packet::uint32 _nChecksumPack)
+Match_LoginNetmarble::Match_LoginNetmarble(const packet::string& _CPCookie, const packet::string& _SpareParam, const packet::int32& _CommandVersion, const packet::uint32& _nChecksumPack)
 	: CPCookie(_CPCookie), SpareParam(_SpareParam), CommandVersion(_CommandVersion), nChecksumPack(_nChecksumPack)
 {
 }
@@ -278,7 +278,7 @@ Buffer Match_LoginNetmarble::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-MC_MATCH_DISCONNMSG::MC_MATCH_DISCONNMSG(packet::uint32 _messageid)
+MC_MATCH_DISCONNMSG::MC_MATCH_DISCONNMSG(const packet::uint32& _messageid)
 	: messageid(_messageid)
 {
 }
@@ -307,7 +307,7 @@ Buffer MC_MATCH_DISCONNMSG::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-MC_MATCH_LOGIN_NHNUSA::MC_MATCH_LOGIN_NHNUSA(packet::string _UserID, packet::string _szAuthStr, packet::int32 _CommandVersion, packet::uint32 _nChecksumPack, packet::blob _EncryptMD5Value)
+MC_MATCH_LOGIN_NHNUSA::MC_MATCH_LOGIN_NHNUSA(const packet::string& _UserID, const packet::string& _szAuthStr, const packet::int32& _CommandVersion, const packet::uint32& _nChecksumPack, const packet::blob& _EncryptMD5Value)
 	: UserID(_UserID), szAuthStr(_szAuthStr), CommandVersion(_CommandVersion), nChecksumPack(_nChecksumPack), EncryptMD5Value(_EncryptMD5Value)
 {
 }
@@ -340,7 +340,7 @@ Buffer MC_MATCH_LOGIN_NHNUSA::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-MC_MATCH_LOGIN_GAMEON_JP::MC_MATCH_LOGIN_GAMEON_JP(packet::string _szString, packet::string _szStatIndex, packet::int32 _CommandVersion, packet::uint32 _nChecksumPack, packet::blob _EncryptMD5Value)
+MC_MATCH_LOGIN_GAMEON_JP::MC_MATCH_LOGIN_GAMEON_JP(const packet::string& _szString, const packet::string& _szStatIndex, const packet::int32& _CommandVersion, const packet::uint32& _nChecksumPack, const packet::blob& _EncryptMD5Value)
 	: szString(_szString), szStatIndex(_szStatIndex), CommandVersion(_CommandVersion), nChecksumPack(_nChecksumPack), EncryptMD5Value(_EncryptMD5Value)
 {
 }
@@ -373,7 +373,7 @@ Buffer MC_MATCH_LOGIN_GAMEON_JP::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_ObjectCache::Match_ObjectCache(packet::uint8 _Type, packet::blob _ObjectCache)
+Match_ObjectCache::Match_ObjectCache(const packet::uint8& _Type, const packet::blob& _ObjectCache)
 	: Type(_Type), ObjectCache(_ObjectCache)
 {
 }
@@ -403,7 +403,7 @@ Buffer Match_ObjectCache::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_BridgePeer::Match_BridgePeer(packet::MUID _uidPlayer, packet::uint32 _dwIP, packet::uint32 _nPort)
+Match_BridgePeer::Match_BridgePeer(const packet::MUID& _uidPlayer, const packet::uint32& _dwIP, const packet::uint32& _nPort)
 	: uidPlayer(_uidPlayer), dwIP(_dwIP), nPort(_nPort)
 {
 }
@@ -434,7 +434,7 @@ Buffer Match_BridgePeer::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_BridgePeerACK::Match_BridgePeerACK(packet::MUID _uidPlayer, packet::int32 _nCode)
+Match_BridgePeerACK::Match_BridgePeerACK(const packet::MUID& _uidPlayer, const packet::int32& _nCode)
 	: uidPlayer(_uidPlayer), nCode(_nCode)
 {
 }
@@ -488,7 +488,7 @@ Buffer MatchServer_RequestRecommandedChannel::serialize() const
 	return Buffer(0);
 }
 
-MatchServer_ResponseRecommandedChannel::MatchServer_ResponseRecommandedChannel(packet::MUID _uid)
+MatchServer_ResponseRecommandedChannel::MatchServer_ResponseRecommandedChannel(const packet::MUID& _uid)
 	: uid(_uid)
 {
 }
@@ -517,7 +517,7 @@ Buffer MatchServer_ResponseRecommandedChannel::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Channel_Join::Channel_Join(packet::MUID _uidPlayer, packet::MUID _uidChannel)
+Channel_Join::Channel_Join(const packet::MUID& _uidPlayer, const packet::MUID& _uidChannel)
 	: uidPlayer(_uidPlayer), uidChannel(_uidChannel)
 {
 }
@@ -547,7 +547,7 @@ Buffer Channel_Join::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Channel_ResponseJoin::Channel_ResponseJoin(packet::MUID _uidChannel, packet::int32 _ChannelType, packet::string _ChannelName, packet::boolean _EnableInterface)
+Channel_ResponseJoin::Channel_ResponseJoin(const packet::MUID& _uidChannel, const packet::int32& _ChannelType, const packet::string& _ChannelName, const packet::boolean& _EnableInterface)
 	: uidChannel(_uidChannel), ChannelType(_ChannelType), ChannelName(_ChannelName), EnableInterface(_EnableInterface)
 {
 }
@@ -579,7 +579,7 @@ Buffer Channel_ResponseJoin::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Channel_RequestJoinFromName::Channel_RequestJoinFromName(packet::MUID _uidPlayer, packet::int32 _nChannelType, packet::int32 _zero, packet::string _ChannelName)
+Channel_RequestJoinFromName::Channel_RequestJoinFromName(const packet::MUID& _uidPlayer, const packet::int32& _nChannelType, const packet::int32& _zero, const packet::string& _ChannelName)
 	: uidPlayer(_uidPlayer), nChannelType(_nChannelType), zero(_zero), ChannelName(_ChannelName)
 {
 }
@@ -611,7 +611,7 @@ Buffer Channel_RequestJoinFromName::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Channel_Leave::Channel_Leave(packet::MUID _uidPlayer, packet::MUID _uidChannel)
+Channel_Leave::Channel_Leave(const packet::MUID& _uidPlayer, const packet::MUID& _uidChannel)
 	: uidPlayer(_uidPlayer), uidChannel(_uidChannel)
 {
 }
@@ -641,7 +641,7 @@ Buffer Channel_Leave::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Channel_ListStart::Channel_ListStart(packet::MUID _uidPlayer, packet::int32 _nChannelType, packet::int32 _zero)
+Channel_ListStart::Channel_ListStart(const packet::MUID& _uidPlayer, const packet::int32& _nChannelType, const packet::int32& _zero)
 	: uidPlayer(_uidPlayer), nChannelType(_nChannelType), zero(_zero)
 {
 }
@@ -672,7 +672,7 @@ Buffer Channel_ListStart::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Channel_ListStop::Channel_ListStop(packet::MUID _uidPlayer)
+Channel_ListStop::Channel_ListStop(const packet::MUID& _uidPlayer)
 	: uidPlayer(_uidPlayer)
 {
 }
@@ -701,7 +701,7 @@ Buffer Channel_ListStop::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Channel_List::Channel_List(packet::blob _ChannelList)
+Channel_List::Channel_List(const packet::blob& _ChannelList)
 	: ChannelList(_ChannelList)
 {
 }
@@ -730,7 +730,7 @@ Buffer Channel_List::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Channel_Request_Chat::Channel_Request_Chat(packet::MUID _uidPlayer, packet::MUID _uidChannel, packet::string _Chat)
+Channel_Request_Chat::Channel_Request_Chat(const packet::MUID& _uidPlayer, const packet::MUID& _uidChannel, const packet::string& _Chat)
 	: uidPlayer(_uidPlayer), uidChannel(_uidChannel), Chat(_Chat)
 {
 }
@@ -761,7 +761,7 @@ Buffer Channel_Request_Chat::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Channel_Chat::Channel_Chat(packet::MUID _uidChannel, packet::string _PlayerName, packet::string _Chat, packet::int32 _nGrade)
+Channel_Chat::Channel_Chat(const packet::MUID& _uidChannel, const packet::string& _PlayerName, const packet::string& _Chat, const packet::int32& _nGrade)
 	: uidChannel(_uidChannel), PlayerName(_PlayerName), Chat(_Chat), nGrade(_nGrade)
 {
 }
@@ -793,7 +793,7 @@ Buffer Channel_Chat::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Channel_Request_Rule::Channel_Request_Rule(packet::MUID _uidChannel)
+Channel_Request_Rule::Channel_Request_Rule(const packet::MUID& _uidChannel)
 	: uidChannel(_uidChannel)
 {
 }
@@ -822,7 +822,7 @@ Buffer Channel_Request_Rule::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Channel_Response_Rule::Channel_Response_Rule(packet::MUID _uidChannel, packet::string _RuleName)
+Channel_Response_Rule::Channel_Response_Rule(const packet::MUID& _uidChannel, const packet::string& _RuleName)
 	: uidChannel(_uidChannel), RuleName(_RuleName)
 {
 }
@@ -852,7 +852,7 @@ Buffer Channel_Response_Rule::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Channel_RequestAllPlayerList::Channel_RequestAllPlayerList(packet::MUID _uidPlayer, packet::MUID _uidChannel, packet::uint32 _PlaceFilter, packet::uint32 _Options)
+Channel_RequestAllPlayerList::Channel_RequestAllPlayerList(const packet::MUID& _uidPlayer, const packet::MUID& _uidChannel, const packet::uint32& _PlaceFilter, const packet::uint32& _Options)
 	: uidPlayer(_uidPlayer), uidChannel(_uidChannel), PlaceFilter(_PlaceFilter), Options(_Options)
 {
 }
@@ -884,7 +884,7 @@ Buffer Channel_RequestAllPlayerList::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Channel_ResponseAllPlayerList::Channel_ResponseAllPlayerList(packet::MUID _uidChannel, packet::blob _PlayerList)
+Channel_ResponseAllPlayerList::Channel_ResponseAllPlayerList(const packet::MUID& _uidChannel, const packet::blob& _PlayerList)
 	: uidChannel(_uidChannel), PlayerList(_PlayerList)
 {
 }
@@ -914,7 +914,7 @@ Buffer Channel_ResponseAllPlayerList::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Stage_Create::Stage_Create(packet::MUID _uidChar, packet::string _StageName, packet::boolean _IsPrivate, packet::string _Password)
+Stage_Create::Stage_Create(const packet::MUID& _uidChar, const packet::string& _StageName, const packet::boolean& _IsPrivate, const packet::string& _Password)
 	: uidChar(_uidChar), StageName(_StageName), IsPrivate(_IsPrivate), Password(_Password)
 {
 }
@@ -946,7 +946,7 @@ Buffer Stage_Create::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Stage_RequestJoin::Stage_RequestJoin(packet::MUID _uidPlayer, packet::MUID _uidStage)
+Stage_RequestJoin::Stage_RequestJoin(const packet::MUID& _uidPlayer, const packet::MUID& _uidStage)
 	: uidPlayer(_uidPlayer), uidStage(_uidStage)
 {
 }
@@ -976,7 +976,7 @@ Buffer Stage_RequestJoin::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Stage_RequestPrivateJoin::Stage_RequestPrivateJoin(packet::MUID _uidPlayer, packet::MUID _uidStage, packet::string _Password)
+Stage_RequestPrivateJoin::Stage_RequestPrivateJoin(const packet::MUID& _uidPlayer, const packet::MUID& _uidStage, const packet::string& _Password)
 	: uidPlayer(_uidPlayer), uidStage(_uidStage), Password(_Password)
 {
 }
@@ -1007,7 +1007,7 @@ Buffer Stage_RequestPrivateJoin::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Stage_Join::Stage_Join(packet::MUID _uidPlayer, packet::MUID _uidStage, packet::uint32 _nRoomNo, packet::string _StageName)
+Stage_Join::Stage_Join(const packet::MUID& _uidPlayer, const packet::MUID& _uidStage, const packet::uint32& _nRoomNo, const packet::string& _StageName)
 	: uidPlayer(_uidPlayer), uidStage(_uidStage), nRoomNo(_nRoomNo), StageName(_StageName)
 {
 }
@@ -1039,7 +1039,7 @@ Buffer Stage_Join::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Stage_Leave::Stage_Leave(packet::MUID _uidPlayer)
+Stage_Leave::Stage_Leave(const packet::MUID& _uidPlayer)
 	: uidPlayer(_uidPlayer)
 {
 }
@@ -1068,7 +1068,7 @@ Buffer Stage_Leave::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Stage_Request_PlayerList::Stage_Request_PlayerList(packet::MUID _uidStage)
+Stage_Request_PlayerList::Stage_Request_PlayerList(const packet::MUID& _uidStage)
 	: uidStage(_uidStage)
 {
 }
@@ -1097,7 +1097,7 @@ Buffer Stage_Request_PlayerList::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Stage_Follow::Stage_Follow(packet::string _strTarget)
+Stage_Follow::Stage_Follow(const packet::string& _strTarget)
 	: strTarget(_strTarget)
 {
 }
@@ -1126,7 +1126,7 @@ Buffer Stage_Follow::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Stage_Response_Follow::Stage_Response_Follow(packet::int32 _Result)
+Stage_Response_Follow::Stage_Response_Follow(const packet::int32& _Result)
 	: Result(_Result)
 {
 }
@@ -1155,7 +1155,7 @@ Buffer Stage_Response_Follow::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Stage_ResponseJoin::Stage_ResponseJoin(packet::int32 _Result)
+Stage_ResponseJoin::Stage_ResponseJoin(const packet::int32& _Result)
 	: Result(_Result)
 {
 }
@@ -1184,7 +1184,7 @@ Buffer Stage_ResponseJoin::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Stage_RequirePassword::Stage_RequirePassword(packet::MUID _uidStage, packet::string _StageName)
+Stage_RequirePassword::Stage_RequirePassword(const packet::MUID& _uidStage, const packet::string& _StageName)
 	: uidStage(_uidStage), StageName(_StageName)
 {
 }
@@ -1214,7 +1214,7 @@ Buffer Stage_RequirePassword::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-RequestGameInfo::RequestGameInfo(packet::MUID _uidChar, packet::MUID _uidStage)
+RequestGameInfo::RequestGameInfo(const packet::MUID& _uidChar, const packet::MUID& _uidStage)
 	: uidChar(_uidChar), uidStage(_uidStage)
 {
 }
@@ -1244,7 +1244,7 @@ Buffer RequestGameInfo::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-ResponseGameInfo::ResponseGameInfo(packet::MUID _uidStage, packet::blob _GameInfo, packet::blob _RuleInfo, packet::blob _PlayerInfo)
+ResponseGameInfo::ResponseGameInfo(const packet::MUID& _uidStage, const packet::blob& _GameInfo, const packet::blob& _RuleInfo, const packet::blob& _PlayerInfo)
 	: uidStage(_uidStage), GameInfo(_GameInfo), RuleInfo(_RuleInfo), PlayerInfo(_PlayerInfo)
 {
 }
@@ -1276,7 +1276,7 @@ Buffer ResponseGameInfo::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Stage_ResponseCreate::Stage_ResponseCreate(packet::int32 _Result)
+Stage_ResponseCreate::Stage_ResponseCreate(const packet::int32& _Result)
 	: Result(_Result)
 {
 }
@@ -1305,7 +1305,7 @@ Buffer Stage_ResponseCreate::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Stage_Request_EnterBattle::Stage_Request_EnterBattle(packet::MUID _uidPlayer, packet::MUID _uidStage)
+Stage_Request_EnterBattle::Stage_Request_EnterBattle(const packet::MUID& _uidPlayer, const packet::MUID& _uidStage)
 	: uidPlayer(_uidPlayer), uidStage(_uidStage)
 {
 }
@@ -1335,7 +1335,7 @@ Buffer Stage_Request_EnterBattle::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Stage_EnterBattle::Stage_EnterBattle(packet::uint8 _Param, packet::blob _CharData)
+Stage_EnterBattle::Stage_EnterBattle(const packet::uint8& _Param, const packet::blob& _CharData)
 	: Param(_Param), CharData(_CharData)
 {
 }
@@ -1365,7 +1365,7 @@ Buffer Stage_EnterBattle::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Stage_LeaveBattle::Stage_LeaveBattle(packet::MUID _uidPlayer)
+Stage_LeaveBattle::Stage_LeaveBattle(const packet::MUID& _uidPlayer)
 	: uidPlayer(_uidPlayer)
 {
 }
@@ -1394,7 +1394,7 @@ Buffer Stage_LeaveBattle::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Stage_Start::Stage_Start(packet::MUID _uidPlayer, packet::MUID _uidStage, packet::int32 _nCountdown)
+Stage_Start::Stage_Start(const packet::MUID& _uidPlayer, const packet::MUID& _uidStage, const packet::int32& _nCountdown)
 	: uidPlayer(_uidPlayer), uidStage(_uidStage), nCountdown(_nCountdown)
 {
 }
@@ -1425,7 +1425,7 @@ Buffer Stage_Start::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Stage_Map::Stage_Map(packet::MUID _uidStage, packet::string _MapName)
+Stage_Map::Stage_Map(const packet::MUID& _uidStage, const packet::string& _MapName)
 	: uidStage(_uidStage), MapName(_MapName)
 {
 }
@@ -1455,7 +1455,7 @@ Buffer Stage_Map::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Stage_Chat::Stage_Chat(packet::MUID _uidPlayer, packet::MUID _uidStage, packet::string _Chat)
+Stage_Chat::Stage_Chat(const packet::MUID& _uidPlayer, const packet::MUID& _uidStage, const packet::string& _Chat)
 	: uidPlayer(_uidPlayer), uidStage(_uidStage), Chat(_Chat)
 {
 }
@@ -1486,7 +1486,7 @@ Buffer Stage_Chat::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Stage_RequestQuickJoin::Stage_RequestQuickJoin(packet::MUID _uidPlayer, packet::blob _Param)
+Stage_RequestQuickJoin::Stage_RequestQuickJoin(const packet::MUID& _uidPlayer, const packet::blob& _Param)
 	: uidPlayer(_uidPlayer), Param(_Param)
 {
 }
@@ -1516,7 +1516,7 @@ Buffer Stage_RequestQuickJoin::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Stage_ResponseQuickJoin::Stage_ResponseQuickJoin(packet::int32 _Result, packet::MUID _uidStage)
+Stage_ResponseQuickJoin::Stage_ResponseQuickJoin(const packet::int32& _Result, const packet::MUID& _uidStage)
 	: Result(_Result), uidStage(_uidStage)
 {
 }
@@ -1546,7 +1546,7 @@ Buffer Stage_ResponseQuickJoin::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Stage_StageGo::Stage_StageGo(packet::uint32 _RoomNo)
+Stage_StageGo::Stage_StageGo(const packet::uint32& _RoomNo)
 	: RoomNo(_RoomNo)
 {
 }
@@ -1575,7 +1575,7 @@ Buffer Stage_StageGo::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Stage_State::Stage_State(packet::MUID _uidPlayer, packet::MUID _uidStage, packet::int32 _nState, packet::int32 _zero)
+Stage_State::Stage_State(const packet::MUID& _uidPlayer, const packet::MUID& _uidStage, const packet::int32& _nState, const packet::int32& _zero)
 	: uidPlayer(_uidPlayer), uidStage(_uidStage), nState(_nState), zero(_zero)
 {
 }
@@ -1607,7 +1607,7 @@ Buffer Stage_State::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Stage_Team::Stage_Team(packet::MUID _uidPlayer, packet::MUID _uidStage, packet::uint32 _nTeam)
+Stage_Team::Stage_Team(const packet::MUID& _uidPlayer, const packet::MUID& _uidStage, const packet::uint32& _nTeam)
 	: uidPlayer(_uidPlayer), uidStage(_uidStage), nTeam(_nTeam)
 {
 }
@@ -1638,7 +1638,7 @@ Buffer Stage_Team::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Stage_Master::Stage_Master(packet::MUID _uidStage, packet::MUID _uidPlayer)
+Stage_Master::Stage_Master(const packet::MUID& _uidStage, const packet::MUID& _uidPlayer)
 	: uidStage(_uidStage), uidPlayer(_uidPlayer)
 {
 }
@@ -1716,7 +1716,7 @@ Buffer Stage_ListStop::serialize() const
 	return Buffer(0);
 }
 
-Stage_List::Stage_List(packet::int8 _PrevStageListCount, packet::int8 _NextStageListCount, packet::blob _StageList)
+Stage_List::Stage_List(const packet::int8& _PrevStageListCount, const packet::int8& _NextStageListCount, const packet::blob& _StageList)
 	: PrevStageListCount(_PrevStageListCount), NextStageListCount(_NextStageListCount), StageList(_StageList)
 {
 }
@@ -1747,7 +1747,7 @@ Buffer Stage_List::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Stage_RequestStageList::Stage_RequestStageList(packet::MUID _uidPlayer, packet::MUID _uidChannel, packet::int32 _StageCursor)
+Stage_RequestStageList::Stage_RequestStageList(const packet::MUID& _uidPlayer, const packet::MUID& _uidChannel, const packet::int32& _StageCursor)
 	: uidPlayer(_uidPlayer), uidChannel(_uidChannel), StageCursor(_StageCursor)
 {
 }
@@ -1778,7 +1778,7 @@ Buffer Stage_RequestStageList::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Channel_RequestPlayerList::Channel_RequestPlayerList(packet::MUID _uidPlayer, packet::MUID _uidChannel, packet::int32 _PlayerListPage)
+Channel_RequestPlayerList::Channel_RequestPlayerList(const packet::MUID& _uidPlayer, const packet::MUID& _uidChannel, const packet::int32& _PlayerListPage)
 	: uidPlayer(_uidPlayer), uidChannel(_uidChannel), PlayerListPage(_PlayerListPage)
 {
 }
@@ -1809,7 +1809,7 @@ Buffer Channel_RequestPlayerList::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Channel_ResponsePlayerList::Channel_ResponsePlayerList(packet::uint8 _TotalPlayerCount, packet::uint8 _PlayerListPage, packet::blob _PlayerList)
+Channel_ResponsePlayerList::Channel_ResponsePlayerList(const packet::uint8& _TotalPlayerCount, const packet::uint8& _PlayerListPage, const packet::blob& _PlayerList)
 	: TotalPlayerCount(_TotalPlayerCount), PlayerListPage(_PlayerListPage), PlayerList(_PlayerList)
 {
 }
@@ -1840,7 +1840,7 @@ Buffer Channel_ResponsePlayerList::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Stage_RequestStageSetting::Stage_RequestStageSetting(packet::MUID _uidStage)
+Stage_RequestStageSetting::Stage_RequestStageSetting(const packet::MUID& _uidStage)
 	: uidStage(_uidStage)
 {
 }
@@ -1869,7 +1869,7 @@ Buffer Stage_RequestStageSetting::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Stage_ResponseStageSetting::Stage_ResponseStageSetting(packet::MUID _uidStage, packet::blob _StageSetting, packet::blob _CharSetting, packet::int32 _StageState, packet::MUID _uidMaster)
+Stage_ResponseStageSetting::Stage_ResponseStageSetting(const packet::MUID& _uidStage, const packet::blob& _StageSetting, const packet::blob& _CharSetting, const packet::int32& _StageState, const packet::MUID& _uidMaster)
 	: uidStage(_uidStage), StageSetting(_StageSetting), CharSetting(_CharSetting), StageState(_StageState), uidMaster(_uidMaster)
 {
 }
@@ -1902,7 +1902,7 @@ Buffer Stage_ResponseStageSetting::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Stage_StageSetting::Stage_StageSetting(packet::MUID _uidPlayer, packet::MUID _uidStage, packet::blob _StageSetting)
+Stage_StageSetting::Stage_StageSetting(const packet::MUID& _uidPlayer, const packet::MUID& _uidStage, const packet::blob& _StageSetting)
 	: uidPlayer(_uidPlayer), uidStage(_uidStage), StageSetting(_StageSetting)
 {
 }
@@ -1933,7 +1933,7 @@ Buffer Stage_StageSetting::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Stage_Launch::Stage_Launch(packet::MUID _uidStage, packet::string _MapName)
+Stage_Launch::Stage_Launch(const packet::MUID& _uidStage, const packet::string& _MapName)
 	: uidStage(_uidStage), MapName(_MapName)
 {
 }
@@ -1963,7 +1963,7 @@ Buffer Stage_Launch::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Stage_Finish::Stage_Finish(packet::MUID _uidStage)
+Stage_Finish::Stage_Finish(const packet::MUID& _uidStage)
 	: uidStage(_uidStage)
 {
 }
@@ -1992,7 +1992,7 @@ Buffer Stage_Finish::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Stage_RequestPeerList::Stage_RequestPeerList(packet::MUID _uidPlayer, packet::MUID _uidStage)
+Stage_RequestPeerList::Stage_RequestPeerList(const packet::MUID& _uidPlayer, const packet::MUID& _uidStage)
 	: uidPlayer(_uidPlayer), uidStage(_uidStage)
 {
 }
@@ -2022,7 +2022,7 @@ Buffer Stage_RequestPeerList::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Stage_ResponsePeerList::Stage_ResponsePeerList(packet::MUID _uidStage, packet::blob _PeerList)
+Stage_ResponsePeerList::Stage_ResponsePeerList(const packet::MUID& _uidStage, const packet::blob& _PeerList)
 	: uidStage(_uidStage), PeerList(_PeerList)
 {
 }
@@ -2052,7 +2052,7 @@ Buffer Stage_ResponsePeerList::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Loading_Complete::Loading_Complete(packet::MUID _ChrUID, packet::int32 _Percent)
+Loading_Complete::Loading_Complete(const packet::MUID& _ChrUID, const packet::int32& _Percent)
 	: ChrUID(_ChrUID), Percent(_Percent)
 {
 }
@@ -2082,7 +2082,7 @@ Buffer Loading_Complete::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_RequestPeerRelay::Match_RequestPeerRelay(packet::MUID _PlayerUID, packet::MUID _PeerCharUID)
+Match_RequestPeerRelay::Match_RequestPeerRelay(const packet::MUID& _PlayerUID, const packet::MUID& _PeerCharUID)
 	: PlayerUID(_PlayerUID), PeerCharUID(_PeerCharUID)
 {
 }
@@ -2112,7 +2112,7 @@ Buffer Match_RequestPeerRelay::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_ResponsePeerRelay::Match_ResponsePeerRelay(packet::MUID _PeerCharUID)
+Match_ResponsePeerRelay::Match_ResponsePeerRelay(const packet::MUID& _PeerCharUID)
 	: PeerCharUID(_PeerCharUID)
 {
 }
@@ -2141,7 +2141,7 @@ Buffer Match_ResponsePeerRelay::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Stage_RoundState::Stage_RoundState(packet::MUID _uidStage, packet::int32 _nRound, packet::int32 _nState, packet::int32 _nArg)
+Stage_RoundState::Stage_RoundState(const packet::MUID& _uidStage, const packet::int32& _nRound, const packet::int32& _nState, const packet::int32& _nArg)
 	: uidStage(_uidStage), nRound(_nRound), nState(_nState), nArg(_nArg)
 {
 }
@@ -2173,7 +2173,7 @@ Buffer Stage_RoundState::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Game_Kill::Game_Kill(packet::MUID _Attacker)
+Game_Kill::Game_Kill(const packet::MUID& _Attacker)
 	: Attacker(_Attacker)
 {
 }
@@ -2202,7 +2202,7 @@ Buffer Game_Kill::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Game_Requst_Spawn::Game_Requst_Spawn(packet::MUID _CharUID, packet::position _Position, packet::direction _Direction)
+Game_Requst_Spawn::Game_Requst_Spawn(const packet::MUID& _CharUID, const packet::position& _Position, const packet::direction& _Direction)
 	: CharUID(_CharUID), Position(_Position), Direction(_Direction)
 {
 }
@@ -2233,7 +2233,7 @@ Buffer Game_Requst_Spawn::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Game_LevelUp::Game_LevelUp(packet::MUID _Player, packet::int32 _Level)
+Game_LevelUp::Game_LevelUp(const packet::MUID& _Player, const packet::int32& _Level)
 	: Player(_Player), Level(_Level)
 {
 }
@@ -2263,7 +2263,7 @@ Buffer Game_LevelUp::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Game_LevelDown::Game_LevelDown(packet::MUID _Player, packet::int32 _Level)
+Game_LevelDown::Game_LevelDown(const packet::MUID& _Player, const packet::int32& _Level)
 	: Player(_Player), Level(_Level)
 {
 }
@@ -2293,7 +2293,7 @@ Buffer Game_LevelDown::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Game_Dead::Game_Dead(packet::MUID _Attacker, packet::uint32 _AttackerArg, packet::MUID _Victim, packet::uint32 _VictimArg)
+Game_Dead::Game_Dead(const packet::MUID& _Attacker, const packet::uint32& _AttackerArg, const packet::MUID& _Victim, const packet::uint32& _VictimArg)
 	: Attacker(_Attacker), AttackerArg(_AttackerArg), Victim(_Victim), VictimArg(_VictimArg)
 {
 }
@@ -2325,7 +2325,7 @@ Buffer Game_Dead::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Game_TeamBonus::Game_TeamBonus(packet::MUID _CharUID, packet::uint32 _ExpArg)
+Game_TeamBonus::Game_TeamBonus(const packet::MUID& _CharUID, const packet::uint32& _ExpArg)
 	: CharUID(_CharUID), ExpArg(_ExpArg)
 {
 }
@@ -2355,7 +2355,7 @@ Buffer Game_TeamBonus::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Game_RequestTimeSync::Game_RequestTimeSync(packet::uint32 _LocalTimeStamp)
+Game_RequestTimeSync::Game_RequestTimeSync(const packet::uint32& _LocalTimeStamp)
 	: LocalTimeStamp(_LocalTimeStamp)
 {
 }
@@ -2384,7 +2384,7 @@ Buffer Game_RequestTimeSync::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Game_ResponseTimeSync::Game_ResponseTimeSync(packet::uint32 _LocalTimeStamp, packet::uint32 _GlobalTimeStamp)
+Game_ResponseTimeSync::Game_ResponseTimeSync(const packet::uint32& _LocalTimeStamp, const packet::uint32& _GlobalTimeStamp)
 	: LocalTimeStamp(_LocalTimeStamp), GlobalTimeStamp(_GlobalTimeStamp)
 {
 }
@@ -2414,7 +2414,7 @@ Buffer Game_ResponseTimeSync::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Game_ReportTimeSync::Game_ReportTimeSync(packet::uint32 _LocalTimeStamp, packet::uint32 _MemoryChecksum)
+Game_ReportTimeSync::Game_ReportTimeSync(const packet::uint32& _LocalTimeStamp, const packet::uint32& _MemoryChecksum)
 	: LocalTimeStamp(_LocalTimeStamp), MemoryChecksum(_MemoryChecksum)
 {
 }
@@ -2444,7 +2444,7 @@ Buffer Game_ReportTimeSync::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Stage_RequestForcedEntry::Stage_RequestForcedEntry(packet::MUID _uidChar, packet::MUID _uidStage)
+Stage_RequestForcedEntry::Stage_RequestForcedEntry(const packet::MUID& _uidChar, const packet::MUID& _uidStage)
 	: uidChar(_uidChar), uidStage(_uidStage)
 {
 }
@@ -2474,7 +2474,7 @@ Buffer Stage_RequestForcedEntry::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Stage_ResponseForcedEntry::Stage_ResponseForcedEntry(packet::int32 _Result)
+Stage_ResponseForcedEntry::Stage_ResponseForcedEntry(const packet::int32& _Result)
 	: Result(_Result)
 {
 }
@@ -2503,7 +2503,7 @@ Buffer Stage_ResponseForcedEntry::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Stage_RoundFinishInfo::Stage_RoundFinishInfo(packet::MUID _uidStage, packet::MUID _uidChar, packet::blob _PeerInfo, packet::blob _KillInfo)
+Stage_RoundFinishInfo::Stage_RoundFinishInfo(const packet::MUID& _uidStage, const packet::MUID& _uidChar, const packet::blob& _PeerInfo, const packet::blob& _KillInfo)
 	: uidStage(_uidStage), uidChar(_uidChar), PeerInfo(_PeerInfo), KillInfo(_KillInfo)
 {
 }
@@ -2535,7 +2535,7 @@ Buffer Stage_RoundFinishInfo::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Notify::Match_Notify(packet::uint32 _nMsgID)
+Match_Notify::Match_Notify(const packet::uint32& _nMsgID)
 	: nMsgID(_nMsgID)
 {
 }
@@ -2564,7 +2564,7 @@ Buffer Match_Notify::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Whisper::Match_Whisper(packet::string _SenderName, packet::string _TargetName, packet::string _Message)
+Match_Whisper::Match_Whisper(const packet::string& _SenderName, const packet::string& _TargetName, const packet::string& _Message)
 	: SenderName(_SenderName), TargetName(_TargetName), Message(_Message)
 {
 }
@@ -2595,7 +2595,7 @@ Buffer Match_Whisper::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Where::Match_Where(packet::string _TargetName)
+Match_Where::Match_Where(const packet::string& _TargetName)
 	: TargetName(_TargetName)
 {
 }
@@ -2624,7 +2624,7 @@ Buffer Match_Where::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_UserOption::Match_UserOption(packet::uint32 _OptionFlags)
+Match_UserOption::Match_UserOption(const packet::uint32& _OptionFlags)
 	: OptionFlags(_OptionFlags)
 {
 }
@@ -2653,7 +2653,7 @@ Buffer Match_UserOption::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-ChatRoom_Create::ChatRoom_Create(packet::MUID _uidPlayer, packet::string _ChatRoomName)
+ChatRoom_Create::ChatRoom_Create(const packet::MUID& _uidPlayer, const packet::string& _ChatRoomName)
 	: uidPlayer(_uidPlayer), ChatRoomName(_ChatRoomName)
 {
 }
@@ -2683,7 +2683,7 @@ Buffer ChatRoom_Create::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-ChatRoom_Join::ChatRoom_Join(packet::string _PlayerName, packet::string _ChatRoomName)
+ChatRoom_Join::ChatRoom_Join(const packet::string& _PlayerName, const packet::string& _ChatRoomName)
 	: PlayerName(_PlayerName), ChatRoomName(_ChatRoomName)
 {
 }
@@ -2713,7 +2713,7 @@ Buffer ChatRoom_Join::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-ChatRoom_Leave::ChatRoom_Leave(packet::string _PlayerName, packet::string _ChatRoomName)
+ChatRoom_Leave::ChatRoom_Leave(const packet::string& _PlayerName, const packet::string& _ChatRoomName)
 	: PlayerName(_PlayerName), ChatRoomName(_ChatRoomName)
 {
 }
@@ -2743,7 +2743,7 @@ Buffer ChatRoom_Leave::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-ChatRoom_SelectWrite::ChatRoom_SelectWrite(packet::string _ChatRoomName)
+ChatRoom_SelectWrite::ChatRoom_SelectWrite(const packet::string& _ChatRoomName)
 	: ChatRoomName(_ChatRoomName)
 {
 }
@@ -2772,7 +2772,7 @@ Buffer ChatRoom_SelectWrite::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-ChatRoom_Invite::ChatRoom_Invite(packet::string _SenderName, packet::string _TargetName, packet::string _ChatRoomName)
+ChatRoom_Invite::ChatRoom_Invite(const packet::string& _SenderName, const packet::string& _TargetName, const packet::string& _ChatRoomName)
 	: SenderName(_SenderName), TargetName(_TargetName), ChatRoomName(_ChatRoomName)
 {
 }
@@ -2803,7 +2803,7 @@ Buffer ChatRoom_Invite::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-ChatRoom_Chat::ChatRoom_Chat(packet::string _ChatRoomName, packet::string _SenderName, packet::string _Message)
+ChatRoom_Chat::ChatRoom_Chat(const packet::string& _ChatRoomName, const packet::string& _SenderName, const packet::string& _Message)
 	: ChatRoomName(_ChatRoomName), SenderName(_SenderName), Message(_Message)
 {
 }
@@ -2834,7 +2834,7 @@ Buffer ChatRoom_Chat::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_RequestAccountCharList::Match_RequestAccountCharList(packet::blob _EMsg)
+Match_RequestAccountCharList::Match_RequestAccountCharList(const packet::blob& _EMsg)
 	: EMsg(_EMsg)
 {
 }
@@ -2863,7 +2863,7 @@ Buffer Match_RequestAccountCharList::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_ResponseAccountCharList::Match_ResponseAccountCharList(packet::blob _CharList)
+Match_ResponseAccountCharList::Match_ResponseAccountCharList(const packet::blob& _CharList)
 	: CharList(_CharList)
 {
 }
@@ -2892,7 +2892,7 @@ Buffer Match_ResponseAccountCharList::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_RequestAccountCharInfo::Match_RequestAccountCharInfo(packet::int8 _CharNum)
+Match_RequestAccountCharInfo::Match_RequestAccountCharInfo(const packet::int8& _CharNum)
 	: CharNum(_CharNum)
 {
 }
@@ -2921,7 +2921,7 @@ Buffer Match_RequestAccountCharInfo::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_ResponseAccountCharInfo::Match_ResponseAccountCharInfo(packet::int8 _CharNum, packet::blob _CharInfo)
+Match_ResponseAccountCharInfo::Match_ResponseAccountCharInfo(const packet::int8& _CharNum, const packet::blob& _CharInfo)
 	: CharNum(_CharNum), CharInfo(_CharInfo)
 {
 }
@@ -2951,7 +2951,7 @@ Buffer Match_ResponseAccountCharInfo::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_RequestSelectChar::Match_RequestSelectChar(packet::MUID _uid, packet::uint32 _CharIndex)
+Match_RequestSelectChar::Match_RequestSelectChar(const packet::MUID& _uid, const packet::uint32& _CharIndex)
 	: uid(_uid), CharIndex(_CharIndex)
 {
 }
@@ -2981,7 +2981,7 @@ Buffer Match_RequestSelectChar::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_ResponseSelectChar::Match_ResponseSelectChar(packet::int32 _Result, packet::blob _CharInfo, packet::blob _MyExtraCharInfo)
+Match_ResponseSelectChar::Match_ResponseSelectChar(const packet::int32& _Result, const packet::blob& _CharInfo, const packet::blob& _MyExtraCharInfo)
 	: Result(_Result), CharInfo(_CharInfo), MyExtraCharInfo(_MyExtraCharInfo)
 {
 }
@@ -3012,7 +3012,7 @@ Buffer Match_ResponseSelectChar::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_RequestCharInfo::Match_RequestCharInfo(packet::MUID _uid, packet::uint32 _CharIndex)
+Match_RequestCharInfo::Match_RequestCharInfo(const packet::MUID& _uid, const packet::uint32& _CharIndex)
 	: uid(_uid), CharIndex(_CharIndex)
 {
 }
@@ -3042,7 +3042,7 @@ Buffer Match_RequestCharInfo::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_ResponseCharInfo::Match_ResponseCharInfo(packet::MUID _uid, packet::blob _CharInfo)
+Match_ResponseCharInfo::Match_ResponseCharInfo(const packet::MUID& _uid, const packet::blob& _CharInfo)
 	: uid(_uid), CharInfo(_CharInfo)
 {
 }
@@ -3072,7 +3072,7 @@ Buffer Match_ResponseCharInfo::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_RequestDeleteChar::Match_RequestDeleteChar(packet::MUID _uid, packet::uint32 _CharIndex, packet::string _CharName)
+Match_RequestDeleteChar::Match_RequestDeleteChar(const packet::MUID& _uid, const packet::uint32& _CharIndex, const packet::string& _CharName)
 	: uid(_uid), CharIndex(_CharIndex), CharName(_CharName)
 {
 }
@@ -3103,7 +3103,7 @@ Buffer Match_RequestDeleteChar::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_ResponseDeleteChar::Match_ResponseDeleteChar(packet::int32 _Result)
+Match_ResponseDeleteChar::Match_ResponseDeleteChar(const packet::int32& _Result)
 	: Result(_Result)
 {
 }
@@ -3132,7 +3132,7 @@ Buffer Match_ResponseDeleteChar::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_RequestCreateChar::Match_RequestCreateChar(packet::MUID _uid, packet::uint32 _CharIndex, packet::string _Name, packet::uint32 _Sex, packet::uint32 _Hair, packet::uint32 _Face, packet::uint32 _Costume)
+Match_RequestCreateChar::Match_RequestCreateChar(const packet::MUID& _uid, const packet::uint32& _CharIndex, const packet::string& _Name, const packet::uint32& _Sex, const packet::uint32& _Hair, const packet::uint32& _Face, const packet::uint32& _Costume)
 	: uid(_uid), CharIndex(_CharIndex), Name(_Name), Sex(_Sex), Hair(_Hair), Face(_Face), Costume(_Costume)
 {
 }
@@ -3167,7 +3167,7 @@ Buffer Match_RequestCreateChar::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_ResponseCreateChar::Match_ResponseCreateChar(packet::int32 _Result, packet::string _CharName)
+Match_ResponseCreateChar::Match_ResponseCreateChar(const packet::int32& _Result, const packet::string& _CharName)
 	: Result(_Result), CharName(_CharName)
 {
 }
@@ -3197,7 +3197,7 @@ Buffer Match_ResponseCreateChar::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_RequestBuyItem::Match_RequestBuyItem(packet::MUID _uidChar, packet::uint32 _ItemID)
+Match_RequestBuyItem::Match_RequestBuyItem(const packet::MUID& _uidChar, const packet::uint32& _ItemID)
 	: uidChar(_uidChar), ItemID(_ItemID)
 {
 }
@@ -3227,7 +3227,7 @@ Buffer Match_RequestBuyItem::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_ResponseBuyItem::Match_ResponseBuyItem(packet::int32 _result)
+Match_ResponseBuyItem::Match_ResponseBuyItem(const packet::int32& _result)
 	: result(_result)
 {
 }
@@ -3256,7 +3256,7 @@ Buffer Match_ResponseBuyItem::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_RequestSellItem::Match_RequestSellItem(packet::MUID _uidChar, packet::MUID _uidItem)
+Match_RequestSellItem::Match_RequestSellItem(const packet::MUID& _uidChar, const packet::MUID& _uidItem)
 	: uidChar(_uidChar), uidItem(_uidItem)
 {
 }
@@ -3286,7 +3286,7 @@ Buffer Match_RequestSellItem::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_ResponseSellItem::Match_ResponseSellItem(packet::int32 _result)
+Match_ResponseSellItem::Match_ResponseSellItem(const packet::int32& _result)
 	: result(_result)
 {
 }
@@ -3315,7 +3315,7 @@ Buffer Match_ResponseSellItem::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_RequestShopItemList::Match_RequestShopItemList(packet::MUID _uid, packet::int32 _FirstItemIndex, packet::int32 _ItemCount)
+Match_RequestShopItemList::Match_RequestShopItemList(const packet::MUID& _uid, const packet::int32& _FirstItemIndex, const packet::int32& _ItemCount)
 	: uid(_uid), FirstItemIndex(_FirstItemIndex), ItemCount(_ItemCount)
 {
 }
@@ -3346,7 +3346,7 @@ Buffer Match_RequestShopItemList::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_ResponseShopItemList::Match_ResponseShopItemList(packet::blob _GambleItemList, packet::blob _ItemList)
+Match_ResponseShopItemList::Match_ResponseShopItemList(const packet::blob& _GambleItemList, const packet::blob& _ItemList)
 	: GambleItemList(_GambleItemList), ItemList(_ItemList)
 {
 }
@@ -3376,7 +3376,7 @@ Buffer Match_ResponseShopItemList::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_RequestCharacterItemList::Match_RequestCharacterItemList(packet::MUID _uid)
+Match_RequestCharacterItemList::Match_RequestCharacterItemList(const packet::MUID& _uid)
 	: uid(_uid)
 {
 }
@@ -3405,7 +3405,7 @@ Buffer Match_RequestCharacterItemList::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_RequestCharacterItemListForce::Match_RequestCharacterItemListForce(packet::MUID _uid)
+Match_RequestCharacterItemListForce::Match_RequestCharacterItemListForce(const packet::MUID& _uid)
 	: uid(_uid)
 {
 }
@@ -3434,7 +3434,7 @@ Buffer Match_RequestCharacterItemListForce::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_ResponseCharacterItemList::Match_ResponseCharacterItemList(packet::int32 _Bounty, packet::blob _EquipItemList, packet::blob _ItemList, packet::blob _GambleItemList)
+Match_ResponseCharacterItemList::Match_ResponseCharacterItemList(const packet::int32& _Bounty, const packet::blob& _EquipItemList, const packet::blob& _ItemList, const packet::blob& _GambleItemList)
 	: Bounty(_Bounty), EquipItemList(_EquipItemList), ItemList(_ItemList), GambleItemList(_GambleItemList)
 {
 }
@@ -3466,7 +3466,7 @@ Buffer Match_ResponseCharacterItemList::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-MatchRequestEquipItem::MatchRequestEquipItem(packet::MUID _uidChar, packet::MUID _uidItem, packet::uint32 _EquipmentSlot)
+MatchRequestEquipItem::MatchRequestEquipItem(const packet::MUID& _uidChar, const packet::MUID& _uidItem, const packet::uint32& _EquipmentSlot)
 	: uidChar(_uidChar), uidItem(_uidItem), EquipmentSlot(_EquipmentSlot)
 {
 }
@@ -3497,7 +3497,7 @@ Buffer MatchRequestEquipItem::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-MatchResponseEquipItem::MatchResponseEquipItem(packet::int32 _Result)
+MatchResponseEquipItem::MatchResponseEquipItem(const packet::int32& _Result)
 	: Result(_Result)
 {
 }
@@ -3526,7 +3526,7 @@ Buffer MatchResponseEquipItem::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-MatchRequestTakeoffItem::MatchRequestTakeoffItem(packet::MUID _uid, packet::uint32 _EquipmentSlot)
+MatchRequestTakeoffItem::MatchRequestTakeoffItem(const packet::MUID& _uid, const packet::uint32& _EquipmentSlot)
 	: uid(_uid), EquipmentSlot(_EquipmentSlot)
 {
 }
@@ -3556,7 +3556,7 @@ Buffer MatchRequestTakeoffItem::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-MatchResponseTakeoffItem::MatchResponseTakeoffItem(packet::int32 _Result)
+MatchResponseTakeoffItem::MatchResponseTakeoffItem(const packet::int32& _Result)
 	: Result(_Result)
 {
 }
@@ -3585,7 +3585,7 @@ Buffer MatchResponseTakeoffItem::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_RequestAccountItemList::Match_RequestAccountItemList(packet::MUID _uid)
+Match_RequestAccountItemList::Match_RequestAccountItemList(const packet::MUID& _uid)
 	: uid(_uid)
 {
 }
@@ -3614,7 +3614,7 @@ Buffer Match_RequestAccountItemList::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_ResponseAccountItemList::Match_ResponseAccountItemList(packet::blob _ItemList)
+Match_ResponseAccountItemList::Match_ResponseAccountItemList(const packet::blob& _ItemList)
 	: ItemList(_ItemList)
 {
 }
@@ -3643,7 +3643,7 @@ Buffer Match_ResponseAccountItemList::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_RequestBringAccountItem::Match_RequestBringAccountItem(packet::MUID _uidChar, packet::int32 _AIID)
+Match_RequestBringAccountItem::Match_RequestBringAccountItem(const packet::MUID& _uidChar, const packet::int32& _AIID)
 	: uidChar(_uidChar), AIID(_AIID)
 {
 }
@@ -3673,7 +3673,7 @@ Buffer Match_RequestBringAccountItem::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_ResponseBringAccountItem::Match_ResponseBringAccountItem(packet::int32 _Result)
+Match_ResponseBringAccountItem::Match_ResponseBringAccountItem(const packet::int32& _Result)
 	: Result(_Result)
 {
 }
@@ -3702,7 +3702,7 @@ Buffer Match_ResponseBringAccountItem::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_RequestBringBackAccountItem::Match_RequestBringBackAccountItem(packet::MUID _uidChar, packet::MUID _uidItem)
+Match_RequestBringBackAccountItem::Match_RequestBringBackAccountItem(const packet::MUID& _uidChar, const packet::MUID& _uidItem)
 	: uidChar(_uidChar), uidItem(_uidItem)
 {
 }
@@ -3732,7 +3732,7 @@ Buffer Match_RequestBringBackAccountItem::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_ResponseBringBackAccountItem::Match_ResponseBringBackAccountItem(packet::int32 _Result)
+Match_ResponseBringBackAccountItem::Match_ResponseBringBackAccountItem(const packet::int32& _Result)
 	: Result(_Result)
 {
 }
@@ -3761,7 +3761,7 @@ Buffer Match_ResponseBringBackAccountItem::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_ExpiredRentItem::Match_ExpiredRentItem(packet::blob _ItemIDList)
+Match_ExpiredRentItem::Match_ExpiredRentItem(const packet::blob& _ItemIDList)
 	: ItemIDList(_ItemIDList)
 {
 }
@@ -3790,7 +3790,7 @@ Buffer Match_ExpiredRentItem::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_ItemGamble::Match_ItemGamble(packet::MUID _uidItem)
+Match_ItemGamble::Match_ItemGamble(const packet::MUID& _uidItem)
 	: uidItem(_uidItem)
 {
 }
@@ -3819,7 +3819,7 @@ Buffer Match_ItemGamble::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_GambleResultItem::Match_GambleResultItem(packet::uint32 _ItemID, packet::uint32 _RentHourPeriodTimes60)
+Match_GambleResultItem::Match_GambleResultItem(const packet::uint32& _ItemID, const packet::uint32& _RentHourPeriodTimes60)
 	: ItemID(_ItemID), RentHourPeriodTimes60(_RentHourPeriodTimes60)
 {
 }
@@ -3849,7 +3849,7 @@ Buffer Match_GambleResultItem::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Request_Suicide::Match_Request_Suicide(packet::MUID _uidChar)
+Match_Request_Suicide::Match_Request_Suicide(const packet::MUID& _uidChar)
 	: uidChar(_uidChar)
 {
 }
@@ -3878,7 +3878,7 @@ Buffer Match_Request_Suicide::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Response_Suicide::Match_Response_Suicide(packet::int32 _Result, packet::MUID _uidChar)
+Match_Response_Suicide::Match_Response_Suicide(const packet::int32& _Result, const packet::MUID& _uidChar)
 	: Result(_Result), uidChar(_uidChar)
 {
 }
@@ -3932,7 +3932,7 @@ Buffer Match_Response_SuicideReserve::serialize() const
 	return Buffer(0);
 }
 
-Match_Request_Obtain_WorldItem::Match_Request_Obtain_WorldItem(packet::MUID _uidChar, packet::int32 _nItemUID)
+Match_Request_Obtain_WorldItem::Match_Request_Obtain_WorldItem(const packet::MUID& _uidChar, const packet::int32& _nItemUID)
 	: uidChar(_uidChar), nItemUID(_nItemUID)
 {
 }
@@ -3962,7 +3962,7 @@ Buffer Match_Request_Obtain_WorldItem::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_WorldItem_Obtain::Match_WorldItem_Obtain(packet::MUID _uidChar, packet::int32 _nItemUID)
+Match_WorldItem_Obtain::Match_WorldItem_Obtain(const packet::MUID& _uidChar, const packet::int32& _nItemUID)
 	: uidChar(_uidChar), nItemUID(_nItemUID)
 {
 }
@@ -3992,7 +3992,7 @@ Buffer Match_WorldItem_Obtain::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_WorldItem_Spawn::Match_WorldItem_Spawn(packet::blob _SpawnInfo)
+Match_WorldItem_Spawn::Match_WorldItem_Spawn(const packet::blob& _SpawnInfo)
 	: SpawnInfo(_SpawnInfo)
 {
 }
@@ -4021,7 +4021,7 @@ Buffer Match_WorldItem_Spawn::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Request_Spawn_WorldItem::Match_Request_Spawn_WorldItem(packet::MUID _uidChar, packet::int32 _ItemID, packet::position _ItemPos, packet::floating_point _ItemDropDelayTime)
+Match_Request_Spawn_WorldItem::Match_Request_Spawn_WorldItem(const packet::MUID& _uidChar, const packet::int32& _ItemID, const packet::position& _ItemPos, const packet::floating_point& _ItemDropDelayTime)
 	: uidChar(_uidChar), ItemID(_ItemID), ItemPos(_ItemPos), ItemDropDelayTime(_ItemDropDelayTime)
 {
 }
@@ -4053,7 +4053,7 @@ Buffer Match_Request_Spawn_WorldItem::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Request_Spawn_WorldItem_UID::Match_Request_Spawn_WorldItem_UID(packet::int32 _nWorldItemUID)
+Match_Request_Spawn_WorldItem_UID::Match_Request_Spawn_WorldItem_UID(const packet::int32& _nWorldItemUID)
 	: nWorldItemUID(_nWorldItemUID)
 {
 }
@@ -4082,7 +4082,7 @@ Buffer Match_Request_Spawn_WorldItem_UID::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Reset_TeamMembers::Match_Reset_TeamMembers(packet::blob _TeamMemberData)
+Match_Reset_TeamMembers::Match_Reset_TeamMembers(const packet::blob& _TeamMemberData)
 	: TeamMemberData(_TeamMemberData)
 {
 }
@@ -4111,7 +4111,7 @@ Buffer Match_Reset_TeamMembers::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Assign_Commander::Match_Assign_Commander(packet::MUID _uidRedCommander, packet::MUID _uidBlueCommander)
+Match_Assign_Commander::Match_Assign_Commander(const packet::MUID& _uidRedCommander, const packet::MUID& _uidBlueCommander)
 	: uidRedCommander(_uidRedCommander), uidBlueCommander(_uidBlueCommander)
 {
 }
@@ -4141,7 +4141,7 @@ Buffer Match_Assign_Commander::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Set_Observer::Match_Set_Observer(packet::MUID _uidChar)
+Match_Set_Observer::Match_Set_Observer(const packet::MUID& _uidChar)
 	: uidChar(_uidChar)
 {
 }
@@ -4170,7 +4170,7 @@ Buffer Match_Set_Observer::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Ladder_Request_Challenge::Match_Ladder_Request_Challenge(packet::int32 _MemberCount, packet::uint32 _Options, packet::blob _MemberNames)
+Match_Ladder_Request_Challenge::Match_Ladder_Request_Challenge(const packet::int32& _MemberCount, const packet::uint32& _Options, const packet::blob& _MemberNames)
 	: MemberCount(_MemberCount), Options(_Options), MemberNames(_MemberNames)
 {
 }
@@ -4201,7 +4201,7 @@ Buffer Match_Ladder_Request_Challenge::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Ladder_Response_Challenge::Match_Ladder_Response_Challenge(packet::int32 _Result)
+Match_Ladder_Response_Challenge::Match_Ladder_Response_Challenge(const packet::int32& _Result)
 	: Result(_Result)
 {
 }
@@ -4278,7 +4278,7 @@ Buffer Match_Ladder_Request_CancelChallenge::serialize() const
 	return Buffer(0);
 }
 
-Match_Ladder_CancelChallenge::Match_Ladder_CancelChallenge(packet::string _CharName)
+Match_Ladder_CancelChallenge::Match_Ladder_CancelChallenge(const packet::string& _CharName)
 	: CharName(_CharName)
 {
 }
@@ -4307,7 +4307,7 @@ Buffer Match_Ladder_CancelChallenge::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Ladder_Prepare::Ladder_Prepare(packet::MUID _uidStage, packet::int32 _nTeam)
+Ladder_Prepare::Ladder_Prepare(const packet::MUID& _uidStage, const packet::int32& _nTeam)
 	: uidStage(_uidStage), nTeam(_nTeam)
 {
 }
@@ -4337,7 +4337,7 @@ Buffer Ladder_Prepare::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Ladder_Launch::Ladder_Launch(packet::MUID _uidStage, packet::string _MapName)
+Ladder_Launch::Ladder_Launch(const packet::MUID& _uidStage, const packet::string& _MapName)
 	: uidStage(_uidStage), MapName(_MapName)
 {
 }
@@ -4367,7 +4367,7 @@ Buffer Ladder_Launch::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_RequestProposal::Match_RequestProposal(packet::MUID _uidChar, packet::int32 _ProposalMode, packet::int32 _RequestID, packet::int32 _ReplierCount, packet::blob _ReplierCharNames)
+Match_RequestProposal::Match_RequestProposal(const packet::MUID& _uidChar, const packet::int32& _ProposalMode, const packet::int32& _RequestID, const packet::int32& _ReplierCount, const packet::blob& _ReplierCharNames)
 	: uidChar(_uidChar), ProposalMode(_ProposalMode), RequestID(_RequestID), ReplierCount(_ReplierCount), ReplierCharNames(_ReplierCharNames)
 {
 }
@@ -4400,7 +4400,7 @@ Buffer Match_RequestProposal::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_ResponseProposal::Match_ResponseProposal(packet::int32 _Result, packet::int32 _ProposalMode, packet::int32 _RequestID)
+Match_ResponseProposal::Match_ResponseProposal(const packet::int32& _Result, const packet::int32& _ProposalMode, const packet::int32& _RequestID)
 	: Result(_Result), ProposalMode(_ProposalMode), RequestID(_RequestID)
 {
 }
@@ -4431,7 +4431,7 @@ Buffer Match_ResponseProposal::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_AskAgreement::Match_AskAgreement(packet::MUID _uidProposer, packet::blob _MembersCharName, packet::int32 _ProposalMode, packet::int32 _RequestID)
+Match_AskAgreement::Match_AskAgreement(const packet::MUID& _uidProposer, const packet::blob& _MembersCharName, const packet::int32& _ProposalMode, const packet::int32& _RequestID)
 	: uidProposer(_uidProposer), MembersCharName(_MembersCharName), ProposalMode(_ProposalMode), RequestID(_RequestID)
 {
 }
@@ -4463,7 +4463,7 @@ Buffer Match_AskAgreement::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_ReplyAgreement::Match_ReplyAgreement(packet::MUID _uidProposer, packet::MUID _uidChar, packet::string _Replier, packet::int32 _ProposalMode, packet::int32 _RequestID, packet::boolean _Agreement)
+Match_ReplyAgreement::Match_ReplyAgreement(const packet::MUID& _uidProposer, const packet::MUID& _uidChar, const packet::string& _Replier, const packet::int32& _ProposalMode, const packet::int32& _RequestID, const packet::boolean& _Agreement)
 	: uidProposer(_uidProposer), uidChar(_uidChar), Replier(_Replier), ProposalMode(_ProposalMode), RequestID(_RequestID), Agreement(_Agreement)
 {
 }
@@ -4497,7 +4497,7 @@ Buffer Match_ReplyAgreement::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Friend_Add::Match_Friend_Add(packet::string _Name)
+Match_Friend_Add::Match_Friend_Add(const packet::string& _Name)
 	: Name(_Name)
 {
 }
@@ -4526,7 +4526,7 @@ Buffer Match_Friend_Add::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Friend_Remove::Match_Friend_Remove(packet::string _Name)
+Match_Friend_Remove::Match_Friend_Remove(const packet::string& _Name)
 	: Name(_Name)
 {
 }
@@ -4579,7 +4579,7 @@ Buffer Match_Friend_List::serialize() const
 	return Buffer(0);
 }
 
-Match_Response_FriendList::Match_Response_FriendList(packet::blob _FriendList)
+Match_Response_FriendList::Match_Response_FriendList(const packet::blob& _FriendList)
 	: FriendList(_FriendList)
 {
 }
@@ -4608,7 +4608,7 @@ Buffer Match_Response_FriendList::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Friend_Msg::Match_Friend_Msg(packet::string _Msg)
+Match_Friend_Msg::Match_Friend_Msg(const packet::string& _Msg)
 	: Msg(_Msg)
 {
 }
@@ -4637,7 +4637,7 @@ Buffer Match_Friend_Msg::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Clan_RequestCreateClan::Match_Clan_RequestCreateClan(packet::MUID _uidChar, packet::int32 _RequestID, packet::string _ClanName, packet::string _Member1CharName, packet::string _Member2CharName, packet::string _Member3CharName, packet::string _Member4CharName)
+Match_Clan_RequestCreateClan::Match_Clan_RequestCreateClan(const packet::MUID& _uidChar, const packet::int32& _RequestID, const packet::string& _ClanName, const packet::string& _Member1CharName, const packet::string& _Member2CharName, const packet::string& _Member3CharName, const packet::string& _Member4CharName)
 	: uidChar(_uidChar), RequestID(_RequestID), ClanName(_ClanName), Member1CharName(_Member1CharName), Member2CharName(_Member2CharName), Member3CharName(_Member3CharName), Member4CharName(_Member4CharName)
 {
 }
@@ -4672,7 +4672,7 @@ Buffer Match_Clan_RequestCreateClan::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Clan_ResponseCreateClan::Match_Clan_ResponseCreateClan(packet::int32 _Result, packet::int32 _RequestID)
+Match_Clan_ResponseCreateClan::Match_Clan_ResponseCreateClan(const packet::int32& _Result, const packet::int32& _RequestID)
 	: Result(_Result), RequestID(_RequestID)
 {
 }
@@ -4702,7 +4702,7 @@ Buffer Match_Clan_ResponseCreateClan::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Clan_AskSponsorAgreement::Match_Clan_AskSponsorAgreement(packet::int32 _RequestID, packet::string _ClanName, packet::MUID _uidClanMaster, packet::string _szClanMaster)
+Match_Clan_AskSponsorAgreement::Match_Clan_AskSponsorAgreement(const packet::int32& _RequestID, const packet::string& _ClanName, const packet::MUID& _uidClanMaster, const packet::string& _szClanMaster)
 	: RequestID(_RequestID), ClanName(_ClanName), uidClanMaster(_uidClanMaster), szClanMaster(_szClanMaster)
 {
 }
@@ -4734,7 +4734,7 @@ Buffer Match_Clan_AskSponsorAgreement::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Clan_AnswerSponsorAgreement::Match_Clan_AnswerSponsorAgreement(packet::int32 _RequestID, packet::MUID _uidClanMaster, packet::string _SponsorCharName, packet::boolean _Answer)
+Match_Clan_AnswerSponsorAgreement::Match_Clan_AnswerSponsorAgreement(const packet::int32& _RequestID, const packet::MUID& _uidClanMaster, const packet::string& _SponsorCharName, const packet::boolean& _Answer)
 	: RequestID(_RequestID), uidClanMaster(_uidClanMaster), SponsorCharName(_SponsorCharName), Answer(_Answer)
 {
 }
@@ -4766,7 +4766,7 @@ Buffer Match_Clan_AnswerSponsorAgreement::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Clan_RequestAgreedCreateClan::Match_Clan_RequestAgreedCreateClan(packet::MUID _uidChar, packet::string _ClanName, packet::string _Member1CharName, packet::string _Member2CharName, packet::string _Member3CharName, packet::string _Member4CharName)
+Match_Clan_RequestAgreedCreateClan::Match_Clan_RequestAgreedCreateClan(const packet::MUID& _uidChar, const packet::string& _ClanName, const packet::string& _Member1CharName, const packet::string& _Member2CharName, const packet::string& _Member3CharName, const packet::string& _Member4CharName)
 	: uidChar(_uidChar), ClanName(_ClanName), Member1CharName(_Member1CharName), Member2CharName(_Member2CharName), Member3CharName(_Member3CharName), Member4CharName(_Member4CharName)
 {
 }
@@ -4800,7 +4800,7 @@ Buffer Match_Clan_RequestAgreedCreateClan::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Clan_AgreedResponseCreateClan::Match_Clan_AgreedResponseCreateClan(packet::int32 _Result)
+Match_Clan_AgreedResponseCreateClan::Match_Clan_AgreedResponseCreateClan(const packet::int32& _Result)
 	: Result(_Result)
 {
 }
@@ -4829,7 +4829,7 @@ Buffer Match_Clan_AgreedResponseCreateClan::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Clan_RequestCloseClan::Match_Clan_RequestCloseClan(packet::MUID _uidChar, packet::string _ClanName)
+Match_Clan_RequestCloseClan::Match_Clan_RequestCloseClan(const packet::MUID& _uidChar, const packet::string& _ClanName)
 	: uidChar(_uidChar), ClanName(_ClanName)
 {
 }
@@ -4859,7 +4859,7 @@ Buffer Match_Clan_RequestCloseClan::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Clan_ResponseCloseClan::Match_Clan_ResponseCloseClan(packet::int32 _Result)
+Match_Clan_ResponseCloseClan::Match_Clan_ResponseCloseClan(const packet::int32& _Result)
 	: Result(_Result)
 {
 }
@@ -4888,7 +4888,7 @@ Buffer Match_Clan_ResponseCloseClan::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Clan_RequestJoinClan::Match_Clan_RequestJoinClan(packet::MUID _uidChar, packet::string _ClanName, packet::string _szJoiner)
+Match_Clan_RequestJoinClan::Match_Clan_RequestJoinClan(const packet::MUID& _uidChar, const packet::string& _ClanName, const packet::string& _szJoiner)
 	: uidChar(_uidChar), ClanName(_ClanName), szJoiner(_szJoiner)
 {
 }
@@ -4919,7 +4919,7 @@ Buffer Match_Clan_RequestJoinClan::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Clan_ResponseJoinClan::Match_Clan_ResponseJoinClan(packet::int32 _Result)
+Match_Clan_ResponseJoinClan::Match_Clan_ResponseJoinClan(const packet::int32& _Result)
 	: Result(_Result)
 {
 }
@@ -4948,7 +4948,7 @@ Buffer Match_Clan_ResponseJoinClan::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Clan_AskJoinAgreement::Match_Clan_AskJoinAgreement(packet::string _ClanName, packet::MUID _uidClanAdmin, packet::string _szClanAdmin)
+Match_Clan_AskJoinAgreement::Match_Clan_AskJoinAgreement(const packet::string& _ClanName, const packet::MUID& _uidClanAdmin, const packet::string& _szClanAdmin)
 	: ClanName(_ClanName), uidClanAdmin(_uidClanAdmin), szClanAdmin(_szClanAdmin)
 {
 }
@@ -4979,7 +4979,7 @@ Buffer Match_Clan_AskJoinAgreement::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Clan_AnswerJoinAgreement::Match_Clan_AnswerJoinAgreement(packet::MUID _uidClanAdmin, packet::string _JoinerCharName, packet::boolean _Answer)
+Match_Clan_AnswerJoinAgreement::Match_Clan_AnswerJoinAgreement(const packet::MUID& _uidClanAdmin, const packet::string& _JoinerCharName, const packet::boolean& _Answer)
 	: uidClanAdmin(_uidClanAdmin), JoinerCharName(_JoinerCharName), Answer(_Answer)
 {
 }
@@ -5010,7 +5010,7 @@ Buffer Match_Clan_AnswerJoinAgreement::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Clan_RequestAgreedJoinClan::Match_Clan_RequestAgreedJoinClan(packet::MUID _uidClanAdmin, packet::string _ClanName, packet::string _szJoiner)
+Match_Clan_RequestAgreedJoinClan::Match_Clan_RequestAgreedJoinClan(const packet::MUID& _uidClanAdmin, const packet::string& _ClanName, const packet::string& _szJoiner)
 	: uidClanAdmin(_uidClanAdmin), ClanName(_ClanName), szJoiner(_szJoiner)
 {
 }
@@ -5041,7 +5041,7 @@ Buffer Match_Clan_RequestAgreedJoinClan::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Clan_ResponseAgreedJoinClan::Match_Clan_ResponseAgreedJoinClan(packet::int32 _Result)
+Match_Clan_ResponseAgreedJoinClan::Match_Clan_ResponseAgreedJoinClan(const packet::int32& _Result)
 	: Result(_Result)
 {
 }
@@ -5070,7 +5070,7 @@ Buffer Match_Clan_ResponseAgreedJoinClan::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Clan_RequestLeaveClan::Match_Clan_RequestLeaveClan(packet::MUID _uidChar)
+Match_Clan_RequestLeaveClan::Match_Clan_RequestLeaveClan(const packet::MUID& _uidChar)
 	: uidChar(_uidChar)
 {
 }
@@ -5099,7 +5099,7 @@ Buffer Match_Clan_RequestLeaveClan::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Clan_ResponseLeaveClan::Match_Clan_ResponseLeaveClan(packet::int32 _Result)
+Match_Clan_ResponseLeaveClan::Match_Clan_ResponseLeaveClan(const packet::int32& _Result)
 	: Result(_Result)
 {
 }
@@ -5128,7 +5128,7 @@ Buffer Match_Clan_ResponseLeaveClan::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Clan_UpdateCharClanInfo::Match_Clan_UpdateCharClanInfo(packet::blob _ClanInfo)
+Match_Clan_UpdateCharClanInfo::Match_Clan_UpdateCharClanInfo(const packet::blob& _ClanInfo)
 	: ClanInfo(_ClanInfo)
 {
 }
@@ -5157,7 +5157,7 @@ Buffer Match_Clan_UpdateCharClanInfo::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Clan_Master_RequestChangeGrade::Match_Clan_Master_RequestChangeGrade(packet::MUID _uidClanMaster, packet::string _szMember, packet::int32 _Grade, packet::int32 _zero)
+Match_Clan_Master_RequestChangeGrade::Match_Clan_Master_RequestChangeGrade(const packet::MUID& _uidClanMaster, const packet::string& _szMember, const packet::int32& _Grade, const packet::int32& _zero)
 	: uidClanMaster(_uidClanMaster), szMember(_szMember), Grade(_Grade), zero(_zero)
 {
 }
@@ -5189,7 +5189,7 @@ Buffer Match_Clan_Master_RequestChangeGrade::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Clan_Master_ResponseChangeGrade::Match_Clan_Master_ResponseChangeGrade(packet::int32 _Result)
+Match_Clan_Master_ResponseChangeGrade::Match_Clan_Master_ResponseChangeGrade(const packet::int32& _Result)
 	: Result(_Result)
 {
 }
@@ -5218,7 +5218,7 @@ Buffer Match_Clan_Master_ResponseChangeGrade::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Clan_Admin_RequestExpelMember::Match_Clan_Admin_RequestExpelMember(packet::MUID _uidClanAdmin, packet::string _szMember)
+Match_Clan_Admin_RequestExpelMember::Match_Clan_Admin_RequestExpelMember(const packet::MUID& _uidClanAdmin, const packet::string& _szMember)
 	: uidClanAdmin(_uidClanAdmin), szMember(_szMember)
 {
 }
@@ -5248,7 +5248,7 @@ Buffer Match_Clan_Admin_RequestExpelMember::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Clan_Admin_ResponseLeaveMember::Match_Clan_Admin_ResponseLeaveMember(packet::int32 _Result)
+Match_Clan_Admin_ResponseLeaveMember::Match_Clan_Admin_ResponseLeaveMember(const packet::int32& _Result)
 	: Result(_Result)
 {
 }
@@ -5277,7 +5277,7 @@ Buffer Match_Clan_Admin_ResponseLeaveMember::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Clan_Request_Msg::Match_Clan_Request_Msg(packet::MUID _uidSender, packet::string _Msg)
+Match_Clan_Request_Msg::Match_Clan_Request_Msg(const packet::MUID& _uidSender, const packet::string& _Msg)
 	: uidSender(_uidSender), Msg(_Msg)
 {
 }
@@ -5307,7 +5307,7 @@ Buffer Match_Clan_Request_Msg::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Clan_Msg::Match_Clan_Msg(packet::string _SenderName, packet::string _Msg)
+Match_Clan_Msg::Match_Clan_Msg(const packet::string& _SenderName, const packet::string& _Msg)
 	: SenderName(_SenderName), Msg(_Msg)
 {
 }
@@ -5337,7 +5337,7 @@ Buffer Match_Clan_Msg::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Clan_Request_ClanMemberList::Match_Clan_Request_ClanMemberList(packet::MUID _uidChar)
+Match_Clan_Request_ClanMemberList::Match_Clan_Request_ClanMemberList(const packet::MUID& _uidChar)
 	: uidChar(_uidChar)
 {
 }
@@ -5366,7 +5366,7 @@ Buffer Match_Clan_Request_ClanMemberList::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Clan_Response_ClanMemberList::Match_Clan_Response_ClanMemberList(packet::blob _ClanMemberList)
+Match_Clan_Response_ClanMemberList::Match_Clan_Response_ClanMemberList(const packet::blob& _ClanMemberList)
 	: ClanMemberList(_ClanMemberList)
 {
 }
@@ -5395,7 +5395,7 @@ Buffer Match_Clan_Response_ClanMemberList::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Clan_Request_Clan_Info::Match_Clan_Request_Clan_Info(packet::MUID _uidChar, packet::string _ClanName)
+Match_Clan_Request_Clan_Info::Match_Clan_Request_Clan_Info(const packet::MUID& _uidChar, const packet::string& _ClanName)
 	: uidChar(_uidChar), ClanName(_ClanName)
 {
 }
@@ -5425,7 +5425,7 @@ Buffer Match_Clan_Request_Clan_Info::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Clan_Response_Clan_Info::Match_Clan_Response_Clan_Info(packet::blob _ClanInfo)
+Match_Clan_Response_Clan_Info::Match_Clan_Response_Clan_Info(const packet::blob& _ClanInfo)
 	: ClanInfo(_ClanInfo)
 {
 }
@@ -5454,7 +5454,7 @@ Buffer Match_Clan_Response_Clan_Info::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Clan_Standby_ClanList::Match_Clan_Standby_ClanList(packet::int32 _PrevClanListCount, packet::int32 _NextClanListCount, packet::blob _ClanList)
+Match_Clan_Standby_ClanList::Match_Clan_Standby_ClanList(const packet::int32& _PrevClanListCount, const packet::int32& _NextClanListCount, const packet::blob& _ClanList)
 	: PrevClanListCount(_PrevClanListCount), NextClanListCount(_NextClanListCount), ClanList(_ClanList)
 {
 }
@@ -5485,7 +5485,7 @@ Buffer Match_Clan_Standby_ClanList::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Clan_Member_Connected::Match_Clan_Member_Connected(packet::string _szMember)
+Match_Clan_Member_Connected::Match_Clan_Member_Connected(const packet::string& _szMember)
 	: szMember(_szMember)
 {
 }
@@ -5514,7 +5514,7 @@ Buffer Match_Clan_Member_Connected::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Clan_Request_EmblemURL::Match_Clan_Request_EmblemURL(packet::blob _ClanURLList)
+Match_Clan_Request_EmblemURL::Match_Clan_Request_EmblemURL(const packet::blob& _ClanURLList)
 	: ClanURLList(_ClanURLList)
 {
 }
@@ -5543,7 +5543,7 @@ Buffer Match_Clan_Request_EmblemURL::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Clan_Response_EmblemURL::Match_Clan_Response_EmblemURL(packet::int32 _ClanCLID, packet::int32 _EmblemChecksum, packet::string _EmblemURL)
+Match_Clan_Response_EmblemURL::Match_Clan_Response_EmblemURL(const packet::int32& _ClanCLID, const packet::int32& _EmblemChecksum, const packet::string& _EmblemURL)
 	: ClanCLID(_ClanCLID), EmblemChecksum(_EmblemChecksum), EmblemURL(_EmblemURL)
 {
 }
@@ -5574,7 +5574,7 @@ Buffer Match_Clan_Response_EmblemURL::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Clan_Local_EmblemReady::Match_Clan_Local_EmblemReady(packet::int32 _ClanCLID, packet::string _EmblemURL)
+Match_Clan_Local_EmblemReady::Match_Clan_Local_EmblemReady(const packet::int32& _ClanCLID, const packet::string& _EmblemURL)
 	: ClanCLID(_ClanCLID), EmblemURL(_EmblemURL)
 {
 }
@@ -5604,7 +5604,7 @@ Buffer Match_Clan_Local_EmblemReady::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-MC_MATCH_CLAN_ACCOUNCE_DELETE::MC_MATCH_CLAN_ACCOUNCE_DELETE(packet::string _deleteinfo)
+MC_MATCH_CLAN_ACCOUNCE_DELETE::MC_MATCH_CLAN_ACCOUNCE_DELETE(const packet::string& _deleteinfo)
 	: deleteinfo(_deleteinfo)
 {
 }
@@ -5633,7 +5633,7 @@ Buffer MC_MATCH_CLAN_ACCOUNCE_DELETE::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Callvote::Match_Callvote(packet::string _strDiscuss, packet::string _strArg)
+Match_Callvote::Match_Callvote(const packet::string& _strDiscuss, const packet::string& _strArg)
 	: strDiscuss(_strDiscuss), strArg(_strArg)
 {
 }
@@ -5663,7 +5663,7 @@ Buffer Match_Callvote::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_NotifyCallvote::Match_NotifyCallvote(packet::string _strDiscuss, packet::string _strArg)
+Match_NotifyCallvote::Match_NotifyCallvote(const packet::string& _strDiscuss, const packet::string& _strArg)
 	: strDiscuss(_strDiscuss), strArg(_strArg)
 {
 }
@@ -5693,7 +5693,7 @@ Buffer Match_NotifyCallvote::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_NotifyVoteResult::Match_NotifyVoteResult(packet::string _strDiscuss, packet::int32 _nResult)
+Match_NotifyVoteResult::Match_NotifyVoteResult(const packet::string& _strDiscuss, const packet::int32& _nResult)
 	: strDiscuss(_strDiscuss), nResult(_nResult)
 {
 }
@@ -5795,7 +5795,7 @@ Buffer Votestop::serialize() const
 	return Buffer(0);
 }
 
-Match_Broadcast_ClanRenewVictories::Match_Broadcast_ClanRenewVictories(packet::string _strWinnerClanName, packet::string _strLoserClanName, packet::int32 _nVictories)
+Match_Broadcast_ClanRenewVictories::Match_Broadcast_ClanRenewVictories(const packet::string& _strWinnerClanName, const packet::string& _strLoserClanName, const packet::int32& _nVictories)
 	: strWinnerClanName(_strWinnerClanName), strLoserClanName(_strLoserClanName), nVictories(_nVictories)
 {
 }
@@ -5826,7 +5826,7 @@ Buffer Match_Broadcast_ClanRenewVictories::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Broadcast_ClanInterruptVictories::Match_Broadcast_ClanInterruptVictories(packet::string _strWinnerClanName, packet::string _strLoserClanName, packet::int32 _nVictories)
+Match_Broadcast_ClanInterruptVictories::Match_Broadcast_ClanInterruptVictories(const packet::string& _strWinnerClanName, const packet::string& _strLoserClanName, const packet::int32& _nVictories)
 	: strWinnerClanName(_strWinnerClanName), strLoserClanName(_strLoserClanName), nVictories(_nVictories)
 {
 }
@@ -5857,7 +5857,7 @@ Buffer Match_Broadcast_ClanInterruptVictories::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Broadcast_DuelRenewVictories::Match_Broadcast_DuelRenewVictories(packet::string _strChampionName, packet::string _strChannelName, packet::int32 _nRoomNumber, packet::int32 _nVictories)
+Match_Broadcast_DuelRenewVictories::Match_Broadcast_DuelRenewVictories(const packet::string& _strChampionName, const packet::string& _strChannelName, const packet::int32& _nRoomNumber, const packet::int32& _nVictories)
 	: strChampionName(_strChampionName), strChannelName(_strChannelName), nRoomNumber(_nRoomNumber), nVictories(_nVictories)
 {
 }
@@ -5889,7 +5889,7 @@ Buffer Match_Broadcast_DuelRenewVictories::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Broadcast_DuelInterruptVictories::Match_Broadcast_DuelInterruptVictories(packet::string _strChampionName, packet::string _strInterrupterName, packet::int32 _nVictories)
+Match_Broadcast_DuelInterruptVictories::Match_Broadcast_DuelInterruptVictories(const packet::string& _strChampionName, const packet::string& _strInterrupterName, const packet::int32& _nVictories)
 	: strChampionName(_strChampionName), strInterrupterName(_strInterrupterName), nVictories(_nVictories)
 {
 }
@@ -5920,7 +5920,7 @@ Buffer Match_Broadcast_DuelInterruptVictories::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Assign_Berserker::Match_Assign_Berserker(packet::MUID _uidPlayer)
+Match_Assign_Berserker::Match_Assign_Berserker(const packet::MUID& _uidPlayer)
 	: uidPlayer(_uidPlayer)
 {
 }
@@ -5949,7 +5949,7 @@ Buffer Match_Assign_Berserker::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Duel_QueueInfo::Match_Duel_QueueInfo(packet::blob _QueueInfo)
+Match_Duel_QueueInfo::Match_Duel_QueueInfo(const packet::blob& _QueueInfo)
 	: QueueInfo(_QueueInfo)
 {
 }
@@ -5978,7 +5978,7 @@ Buffer Match_Duel_QueueInfo::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Quest_Ping::Match_Quest_Ping(packet::uint32 _nTimeStamp)
+Match_Quest_Ping::Match_Quest_Ping(const packet::uint32& _nTimeStamp)
 	: nTimeStamp(_nTimeStamp)
 {
 }
@@ -6007,7 +6007,7 @@ Buffer Match_Quest_Ping::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Quest_Pong::Match_Quest_Pong(packet::uint32 _nTimeStamp)
+Match_Quest_Pong::Match_Quest_Pong(const packet::uint32& _nTimeStamp)
 	: nTimeStamp(_nTimeStamp)
 {
 }
@@ -6036,7 +6036,7 @@ Buffer Match_Quest_Pong::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-MC_QUEST_NPCLIST::MC_QUEST_NPCLIST(packet::blob _NPCinfolist, packet::int32 _eGameType)
+MC_QUEST_NPCLIST::MC_QUEST_NPCLIST(const packet::blob& _NPCinfolist, const packet::int32& _eGameType)
 	: NPCinfolist(_NPCinfolist), eGameType(_eGameType)
 {
 }
@@ -6090,7 +6090,7 @@ Buffer Event_ChangeMaster::serialize() const
 	return Buffer(0);
 }
 
-Event_ChangePassword::Event_ChangePassword(packet::string _strPassword)
+Event_ChangePassword::Event_ChangePassword(const packet::string& _strPassword)
 	: strPassword(_strPassword)
 {
 }
@@ -6119,7 +6119,7 @@ Buffer Event_ChangePassword::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Event_RequestJJang::Event_RequestJJang(packet::string _strTargetName)
+Event_RequestJJang::Event_RequestJJang(const packet::string& _strTargetName)
 	: strTargetName(_strTargetName)
 {
 }
@@ -6148,7 +6148,7 @@ Buffer Event_RequestJJang::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Event_RemoveJJang::Event_RemoveJJang(packet::string _strTargetName)
+Event_RemoveJJang::Event_RemoveJJang(const packet::string& _strTargetName)
 	: strTargetName(_strTargetName)
 {
 }
@@ -6177,7 +6177,7 @@ Buffer Event_RemoveJJang::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Event_UpdateJJang::Event_UpdateJJang(packet::MUID _uidPlayer, packet::boolean _bJjang)
+Event_UpdateJJang::Event_UpdateJJang(const packet::MUID& _uidPlayer, const packet::boolean& _bJjang)
 	: uidPlayer(_uidPlayer), bJjang(_bJjang)
 {
 }
@@ -6207,7 +6207,7 @@ Buffer Event_UpdateJJang::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Quest_NPCSpawn::Quest_NPCSpawn(packet::MUID _uidChar, packet::MUID _nNpcUID, packet::uint8 _nNpcType, packet::uint8 _PositionIndex)
+Quest_NPCSpawn::Quest_NPCSpawn(const packet::MUID& _uidChar, const packet::MUID& _nNpcUID, const packet::uint8& _nNpcType, const packet::uint8& _PositionIndex)
 	: uidChar(_uidChar), nNpcUID(_nNpcUID), nNpcType(_nNpcType), PositionIndex(_PositionIndex)
 {
 }
@@ -6239,7 +6239,7 @@ Buffer Quest_NPCSpawn::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Quest_Entrust_NPC_Control::Quest_Entrust_NPC_Control(packet::MUID _uidChar, packet::MUID _nNpcUID)
+Quest_Entrust_NPC_Control::Quest_Entrust_NPC_Control(const packet::MUID& _uidChar, const packet::MUID& _nNpcUID)
 	: uidChar(_uidChar), nNpcUID(_nNpcUID)
 {
 }
@@ -6269,7 +6269,7 @@ Buffer Quest_Entrust_NPC_Control::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Quest_Checksum_NPCInfo::Quest_Checksum_NPCInfo(packet::MUID _uidChar, packet::uint32 _checksum)
+Quest_Checksum_NPCInfo::Quest_Checksum_NPCInfo(const packet::MUID& _uidChar, const packet::uint32& _checksum)
 	: uidChar(_uidChar), checksum(_checksum)
 {
 }
@@ -6299,7 +6299,7 @@ Buffer Quest_Checksum_NPCInfo::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Quest_NPCDead::Quest_NPCDead(packet::MUID _uidKillerPlayer, packet::MUID _uidNPC)
+Quest_NPCDead::Quest_NPCDead(const packet::MUID& _uidKillerPlayer, const packet::MUID& _uidNPC)
 	: uidKillerPlayer(_uidKillerPlayer), uidNPC(_uidNPC)
 {
 }
@@ -6377,7 +6377,7 @@ Buffer Quest_NPC_AllClear::serialize() const
 	return Buffer(0);
 }
 
-Quest_Round_Start::Quest_Round_Start(packet::uint8 _round)
+Quest_Round_Start::Quest_Round_Start(const packet::uint8& _round)
 	: round(_round)
 {
 }
@@ -6430,7 +6430,7 @@ Buffer Quest_RequestDead::serialize() const
 	return Buffer(0);
 }
 
-Quest_PlayerDead::Quest_PlayerDead(packet::MUID _Victim)
+Quest_PlayerDead::Quest_PlayerDead(const packet::MUID& _Victim)
 	: Victim(_Victim)
 {
 }
@@ -6459,7 +6459,7 @@ Buffer Quest_PlayerDead::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Quest_ObtainQuestItem::Quest_ObtainQuestItem(packet::uint32 _QuestItemID)
+Quest_ObtainQuestItem::Quest_ObtainQuestItem(const packet::uint32& _QuestItemID)
 	: QuestItemID(_QuestItemID)
 {
 }
@@ -6488,7 +6488,7 @@ Buffer Quest_ObtainQuestItem::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Quest_ObtainZItem::Quest_ObtainZItem(packet::uint32 _ItemID)
+Quest_ObtainZItem::Quest_ObtainZItem(const packet::uint32& _ItemID)
 	: ItemID(_ItemID)
 {
 }
@@ -6517,7 +6517,7 @@ Buffer Quest_ObtainZItem::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Quest_State_Mapset::Quest_State_Mapset(packet::MUID _uidStage, packet::int8 _QuestMapset)
+Quest_State_Mapset::Quest_State_Mapset(const packet::MUID& _uidStage, const packet::int8& _QuestMapset)
 	: uidStage(_uidStage), QuestMapset(_QuestMapset)
 {
 }
@@ -6547,7 +6547,7 @@ Buffer Quest_State_Mapset::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Quest_Stage_GameInfo::Quest_Stage_GameInfo(packet::int8 _Questlevel, packet::int8 _MapsetID, packet::uint32 _QuestScenarioID)
+Quest_Stage_GameInfo::Quest_Stage_GameInfo(const packet::int8& _Questlevel, const packet::int8& _MapsetID, const packet::uint32& _QuestScenarioID)
 	: Questlevel(_Questlevel), MapsetID(_MapsetID), QuestScenarioID(_QuestScenarioID)
 {
 }
@@ -6578,7 +6578,7 @@ Buffer Quest_Stage_GameInfo::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Quest_SectorBonus::Quest_SectorBonus(packet::MUID _uidPlayer, packet::uint32 _XPBonus, packet::uint32 _BPBonus)
+Quest_SectorBonus::Quest_SectorBonus(const packet::MUID& _uidPlayer, const packet::uint32& _XPBonus, const packet::uint32& _BPBonus)
 	: uidPlayer(_uidPlayer), XPBonus(_XPBonus), BPBonus(_BPBonus)
 {
 }
@@ -6609,7 +6609,7 @@ Buffer Quest_SectorBonus::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Quest_GameInfo::Quest_GameInfo(packet::blob _Info)
+Quest_GameInfo::Quest_GameInfo(const packet::blob& _Info)
 	: Info(_Info)
 {
 }
@@ -6638,7 +6638,7 @@ Buffer Quest_GameInfo::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Quest_Combat_State::Quest_Combat_State(packet::int8 _CombatState)
+Quest_Combat_State::Quest_Combat_State(const packet::int8& _CombatState)
 	: CombatState(_CombatState)
 {
 }
@@ -6667,7 +6667,7 @@ Buffer Quest_Combat_State::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Quest_Sector_Start::Quest_Sector_Start(packet::int8 _SectorIndex, packet::uint8 _RepeatIndex)
+Quest_Sector_Start::Quest_Sector_Start(const packet::int8& _SectorIndex, const packet::uint8& _RepeatIndex)
 	: SectorIndex(_SectorIndex), RepeatIndex(_RepeatIndex)
 {
 }
@@ -6697,7 +6697,7 @@ Buffer Quest_Sector_Start::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Quest_Complete::Quest_Complete(packet::blob _RewardInfo)
+Quest_Complete::Quest_Complete(const packet::blob& _RewardInfo)
 	: RewardInfo(_RewardInfo)
 {
 }
@@ -6750,7 +6750,7 @@ Buffer Quest_Failed::serialize() const
 	return Buffer(0);
 }
 
-Quest_Request_Moveto_Portal::Quest_Request_Moveto_Portal(packet::int8 _CurrSectorIndex)
+Quest_Request_Moveto_Portal::Quest_Request_Moveto_Portal(const packet::int8& _CurrSectorIndex)
 	: CurrSectorIndex(_CurrSectorIndex)
 {
 }
@@ -6779,7 +6779,7 @@ Buffer Quest_Request_Moveto_Portal::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Quest_Moveto_Portal::Quest_Moveto_Portal(packet::int8 _SectorIndex, packet::uint8 _RepeatIndex, packet::MUID _uidPlayer)
+Quest_Moveto_Portal::Quest_Moveto_Portal(const packet::int8& _SectorIndex, const packet::uint8& _RepeatIndex, const packet::MUID& _uidPlayer)
 	: SectorIndex(_SectorIndex), RepeatIndex(_RepeatIndex), uidPlayer(_uidPlayer)
 {
 }
@@ -6810,7 +6810,7 @@ Buffer Quest_Moveto_Portal::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Quest_Readyto_NewSector::Quest_Readyto_NewSector(packet::MUID _uidPlayer)
+Quest_Readyto_NewSector::Quest_Readyto_NewSector(const packet::MUID& _uidPlayer)
 	: uidPlayer(_uidPlayer)
 {
 }
@@ -6839,7 +6839,7 @@ Buffer Quest_Readyto_NewSector::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Quest_Peer_NPC_BasicInfo::Quest_Peer_NPC_BasicInfo(packet::blob _Info)
+Quest_Peer_NPC_BasicInfo::Quest_Peer_NPC_BasicInfo(const packet::blob& _Info)
 	: Info(_Info)
 {
 }
@@ -6868,7 +6868,7 @@ Buffer Quest_Peer_NPC_BasicInfo::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Quest_Peer_NPC_HPInfo::Quest_Peer_NPC_HPInfo(packet::int32 _nNPCCount, packet::blob _HPTable)
+Quest_Peer_NPC_HPInfo::Quest_Peer_NPC_HPInfo(const packet::int32& _nNPCCount, const packet::blob& _HPTable)
 	: nNPCCount(_nNPCCount), HPTable(_HPTable)
 {
 }
@@ -6898,7 +6898,7 @@ Buffer Quest_Peer_NPC_HPInfo::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Quest_Peer_NPC_Attack_Melee::Quest_Peer_NPC_Attack_Melee(packet::MUID _uidOwner)
+Quest_Peer_NPC_Attack_Melee::Quest_Peer_NPC_Attack_Melee(const packet::MUID& _uidOwner)
 	: uidOwner(_uidOwner)
 {
 }
@@ -6927,7 +6927,7 @@ Buffer Quest_Peer_NPC_Attack_Melee::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Quest_Peer_NPC_Attack_Range::Quest_Peer_NPC_Attack_Range(packet::MUID _uidOwner, packet::blob _Info)
+Quest_Peer_NPC_Attack_Range::Quest_Peer_NPC_Attack_Range(const packet::MUID& _uidOwner, const packet::blob& _Info)
 	: uidOwner(_uidOwner), Info(_Info)
 {
 }
@@ -6957,7 +6957,7 @@ Buffer Quest_Peer_NPC_Attack_Range::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Quest_Peer_NPC_Skill_Start::Quest_Peer_NPC_Skill_Start(packet::MUID _uidOwner, packet::int32 _nSkill, packet::MUID _uidTarget, packet::position _targetPos)
+Quest_Peer_NPC_Skill_Start::Quest_Peer_NPC_Skill_Start(const packet::MUID& _uidOwner, const packet::int32& _nSkill, const packet::MUID& _uidTarget, const packet::position& _targetPos)
 	: uidOwner(_uidOwner), nSkill(_nSkill), uidTarget(_uidTarget), targetPos(_targetPos)
 {
 }
@@ -6989,7 +6989,7 @@ Buffer Quest_Peer_NPC_Skill_Start::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Quest_Peer_NPC_Skill_Execute::Quest_Peer_NPC_Skill_Execute(packet::MUID _uidOwner, packet::int32 _nSkill, packet::MUID _uidTarget, packet::position _targetPos)
+Quest_Peer_NPC_Skill_Execute::Quest_Peer_NPC_Skill_Execute(const packet::MUID& _uidOwner, const packet::int32& _nSkill, const packet::MUID& _uidTarget, const packet::position& _targetPos)
 	: uidOwner(_uidOwner), nSkill(_nSkill), uidTarget(_uidTarget), targetPos(_targetPos)
 {
 }
@@ -7021,7 +7021,7 @@ Buffer Quest_Peer_NPC_Skill_Execute::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Quest_Peer_NPC_Dead::Quest_Peer_NPC_Dead(packet::MUID _uidKillerPlayer, packet::MUID _uidNPC)
+Quest_Peer_NPC_Dead::Quest_Peer_NPC_Dead(const packet::MUID& _uidKillerPlayer, const packet::MUID& _uidNPC)
 	: uidKillerPlayer(_uidKillerPlayer), uidNPC(_uidNPC)
 {
 }
@@ -7051,7 +7051,7 @@ Buffer Quest_Peer_NPC_Dead::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Quest_Test_RequestNPCSpawn::Quest_Test_RequestNPCSpawn(packet::int32 _NPCType, packet::int32 _NPCCount)
+Quest_Test_RequestNPCSpawn::Quest_Test_RequestNPCSpawn(const packet::int32& _NPCType, const packet::int32& _NPCCount)
 	: NPCType(_NPCType), NPCCount(_NPCCount)
 {
 }
@@ -7153,7 +7153,7 @@ Buffer Quest_Test_Finish::serialize() const
 	return Buffer(0);
 }
 
-Admin_Announce::Admin_Announce(packet::MUID _uidAdmin, packet::string _Msg, packet::uint32 _MsgType)
+Admin_Announce::Admin_Announce(const packet::MUID& _uidAdmin, const packet::string& _Msg, const packet::uint32& _MsgType)
 	: uidAdmin(_uidAdmin), Msg(_Msg), MsgType(_MsgType)
 {
 }
@@ -7184,7 +7184,7 @@ Buffer Admin_Announce::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Admin_RequestBanPlayer::Admin_RequestBanPlayer(packet::MUID _uidAdmin, packet::string _uidTargetCharName)
+Admin_RequestBanPlayer::Admin_RequestBanPlayer(const packet::MUID& _uidAdmin, const packet::string& _uidTargetCharName)
 	: uidAdmin(_uidAdmin), uidTargetCharName(_uidTargetCharName)
 {
 }
@@ -7214,7 +7214,7 @@ Buffer Admin_RequestBanPlayer::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Admin_ResponseBanPlayer::Admin_ResponseBanPlayer(packet::int32 _Result)
+Admin_ResponseBanPlayer::Admin_ResponseBanPlayer(const packet::int32& _Result)
 	: Result(_Result)
 {
 }
@@ -7339,7 +7339,7 @@ Buffer MC_ADMIN_ASSASIN::serialize() const
 	return Buffer(0);
 }
 
-Agent_Connect::Agent_Connect(packet::string _Address, packet::int32 _Port)
+Agent_Connect::Agent_Connect(const packet::string& _Address, const packet::int32& _Port)
 	: Address(_Address), Port(_Port)
 {
 }
@@ -7393,7 +7393,7 @@ Buffer Agent_Disconnect::serialize() const
 	return Buffer(0);
 }
 
-Match_RegisterAgent::Match_RegisterAgent(packet::string _Address, packet::int32 _Port, packet::int32 _UDPPort)
+Match_RegisterAgent::Match_RegisterAgent(const packet::string& _Address, const packet::int32& _Port, const packet::int32& _UDPPort)
 	: Address(_Address), Port(_Port), UDPPort(_UDPPort)
 {
 }
@@ -7448,7 +7448,7 @@ Buffer Match_UnRegisterAgent::serialize() const
 	return Buffer(0);
 }
 
-Match_Agent_RequestLiveCheck::Match_Agent_RequestLiveCheck(packet::uint32 _TimeStamp, packet::uint32 _StageCount, packet::uint32 _UserCount)
+Match_Agent_RequestLiveCheck::Match_Agent_RequestLiveCheck(const packet::uint32& _TimeStamp, const packet::uint32& _StageCount, const packet::uint32& _UserCount)
 	: TimeStamp(_TimeStamp), StageCount(_StageCount), UserCount(_UserCount)
 {
 }
@@ -7479,7 +7479,7 @@ Buffer Match_Agent_RequestLiveCheck::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Match_Agent_ResponseLiveCheck::Match_Agent_ResponseLiveCheck(packet::uint32 _TimeStamp)
+Match_Agent_ResponseLiveCheck::Match_Agent_ResponseLiveCheck(const packet::uint32& _TimeStamp)
 	: TimeStamp(_TimeStamp)
 {
 }
@@ -7508,7 +7508,7 @@ Buffer Match_Agent_ResponseLiveCheck::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Agent_StageReserve::Agent_StageReserve(packet::MUID _StageUID)
+Agent_StageReserve::Agent_StageReserve(const packet::MUID& _StageUID)
 	: StageUID(_StageUID)
 {
 }
@@ -7537,7 +7537,7 @@ Buffer Agent_StageReserve::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Agent_StageRelease::Agent_StageRelease(packet::MUID _StageUID)
+Agent_StageRelease::Agent_StageRelease(const packet::MUID& _StageUID)
 	: StageUID(_StageUID)
 {
 }
@@ -7566,7 +7566,7 @@ Buffer Agent_StageRelease::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Agent_StageReady::Agent_StageReady(packet::MUID _StageUID)
+Agent_StageReady::Agent_StageReady(const packet::MUID& _StageUID)
 	: StageUID(_StageUID)
 {
 }
@@ -7595,7 +7595,7 @@ Buffer Agent_StageReady::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Agent_RelayPeer::Agent_RelayPeer(packet::MUID _PlayerUID, packet::MUID _PeerCharUID, packet::MUID _StageUID)
+Agent_RelayPeer::Agent_RelayPeer(const packet::MUID& _PlayerUID, const packet::MUID& _PeerCharUID, const packet::MUID& _StageUID)
 	: PlayerUID(_PlayerUID), PeerCharUID(_PeerCharUID), StageUID(_StageUID)
 {
 }
@@ -7626,7 +7626,7 @@ Buffer Agent_RelayPeer::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Questitem::Questitem(packet::MUID _uid)
+Questitem::Questitem(const packet::MUID& _uid)
 	: uid(_uid)
 {
 }
@@ -7655,7 +7655,7 @@ Buffer Questitem::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Quest_item_response::Quest_item_response(packet::blob _Myquestitemlist)
+Quest_item_response::Quest_item_response(const packet::blob& _Myquestitemlist)
 	: Myquestitemlist(_Myquestitemlist)
 {
 }
@@ -7684,7 +7684,7 @@ Buffer Quest_item_response::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Quest_item_buy::Quest_item_buy(packet::MUID _uidChar, packet::int32 _QuestItemID)
+Quest_item_buy::Quest_item_buy(const packet::MUID& _uidChar, const packet::int32& _QuestItemID)
 	: uidChar(_uidChar), QuestItemID(_QuestItemID)
 {
 }
@@ -7714,7 +7714,7 @@ Buffer Quest_item_buy::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Quest_item_responsebuy::Quest_item_responsebuy(packet::int32 _Result, packet::int32 _PlayerBounty)
+Quest_item_responsebuy::Quest_item_responsebuy(const packet::int32& _Result, const packet::int32& _PlayerBounty)
 	: Result(_Result), PlayerBounty(_PlayerBounty)
 {
 }
@@ -7744,7 +7744,7 @@ Buffer Quest_item_responsebuy::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Quest_item_sell::Quest_item_sell(packet::MUID _uidChar, packet::int32 _QuestItemID, packet::int32 _Count)
+Quest_item_sell::Quest_item_sell(const packet::MUID& _uidChar, const packet::int32& _QuestItemID, const packet::int32& _Count)
 	: uidChar(_uidChar), QuestItemID(_QuestItemID), Count(_Count)
 {
 }
@@ -7775,7 +7775,7 @@ Buffer Quest_item_sell::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Quest_item_responsesell::Quest_item_responsesell(packet::int32 _Result, packet::int32 _PlayerBounty)
+Quest_item_responsesell::Quest_item_responsesell(const packet::int32& _Result, const packet::int32& _PlayerBounty)
 	: Result(_Result), PlayerBounty(_PlayerBounty)
 {
 }
@@ -7805,7 +7805,7 @@ Buffer Quest_item_responsesell::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Quest_Reward::Quest_Reward(packet::int32 _XP, packet::int32 _Bounty, packet::blob _Rewardquestitem, packet::blob _RewardZItem)
+Quest_Reward::Quest_Reward(const packet::int32& _XP, const packet::int32& _Bounty, const packet::blob& _Rewardquestitem, const packet::blob& _RewardZItem)
 	: XP(_XP), Bounty(_Bounty), Rewardquestitem(_Rewardquestitem), RewardZItem(_RewardZItem)
 {
 }
@@ -7837,7 +7837,7 @@ Buffer Quest_Reward::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Quest_Request_Sacrifice::Quest_Request_Sacrifice(packet::MUID _Dropitemowner, packet::int32 _Slotindex, packet::int32 _ItemID)
+Quest_Request_Sacrifice::Quest_Request_Sacrifice(const packet::MUID& _Dropitemowner, const packet::int32& _Slotindex, const packet::int32& _ItemID)
 	: Dropitemowner(_Dropitemowner), Slotindex(_Slotindex), ItemID(_ItemID)
 {
 }
@@ -7868,7 +7868,7 @@ Buffer Quest_Request_Sacrifice::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Quest_Response_Sacrifice::Quest_Response_Sacrifice(packet::int32 _Result, packet::MUID _requesterofdropsacrificeitem_, packet::int32 _Slotindex, packet::int32 _ItemID)
+Quest_Response_Sacrifice::Quest_Response_Sacrifice(const packet::int32& _Result, const packet::MUID& _requesterofdropsacrificeitem_, const packet::int32& _Slotindex, const packet::int32& _ItemID)
 	: Result(_Result), requesterofdropsacrificeitem_(_requesterofdropsacrificeitem_), Slotindex(_Slotindex), ItemID(_ItemID)
 {
 }
@@ -7900,7 +7900,7 @@ Buffer Quest_Response_Sacrifice::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Quest_Callback_Sacrifice::Quest_Callback_Sacrifice(packet::MUID _Callbackitemrequester, packet::int32 _Slotindex, packet::int32 _ItemID)
+Quest_Callback_Sacrifice::Quest_Callback_Sacrifice(const packet::MUID& _Callbackitemrequester, const packet::int32& _Slotindex, const packet::int32& _ItemID)
 	: Callbackitemrequester(_Callbackitemrequester), Slotindex(_Slotindex), ItemID(_ItemID)
 {
 }
@@ -7931,7 +7931,7 @@ Buffer Quest_Callback_Sacrifice::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Quest_Callback_Result::Quest_Callback_Result(packet::int32 _Result, packet::MUID _requesterofcallbacksacrificeitem_, packet::int32 _Slotindex, packet::int32 _ItemID)
+Quest_Callback_Result::Quest_Callback_Result(const packet::int32& _Result, const packet::MUID& _requesterofcallbacksacrificeitem_, const packet::int32& _Slotindex, const packet::int32& _ItemID)
 	: Result(_Result), requesterofcallbacksacrificeitem_(_requesterofcallbacksacrificeitem_), Slotindex(_Slotindex), ItemID(_ItemID)
 {
 }
@@ -7963,7 +7963,7 @@ Buffer Quest_Callback_Result::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Quest_Request_SlotInfo::Quest_Request_SlotInfo(packet::MUID _Sender)
+Quest_Request_SlotInfo::Quest_Request_SlotInfo(const packet::MUID& _Sender)
 	: Sender(_Sender)
 {
 }
@@ -7992,7 +7992,7 @@ Buffer Quest_Request_SlotInfo::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Quest_Resonse_SlotInfo::Quest_Resonse_SlotInfo(packet::MUID _Owner1, packet::int32 _ItemID1, packet::MUID _Owner2, packet::int32 _ItemID2)
+Quest_Resonse_SlotInfo::Quest_Resonse_SlotInfo(const packet::MUID& _Owner1, const packet::int32& _ItemID1, const packet::MUID& _Owner2, const packet::int32& _ItemID2)
 	: Owner1(_Owner1), ItemID1(_ItemID1), Owner2(_Owner2), ItemID2(_ItemID2)
 {
 }
@@ -8024,7 +8024,7 @@ Buffer Quest_Resonse_SlotInfo::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Quest_RequestLevel::Quest_RequestLevel(packet::MUID _sender)
+Quest_RequestLevel::Quest_RequestLevel(const packet::MUID& _sender)
 	: sender(_sender)
 {
 }
@@ -8053,7 +8053,7 @@ Buffer Quest_RequestLevel::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Quest_ResponseLevel::Quest_ResponseLevel(packet::int32 _Questlevel)
+Quest_ResponseLevel::Quest_ResponseLevel(const packet::int32& _Questlevel)
 	: Questlevel(_Questlevel)
 {
 }
@@ -8082,7 +8082,7 @@ Buffer Quest_ResponseLevel::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Quest_Survival_Result::Quest_Survival_Result(packet::int32 _Reachedround, packet::int32 _Point)
+Quest_Survival_Result::Quest_Survival_Result(const packet::int32& _Reachedround, const packet::int32& _Point)
 	: Reachedround(_Reachedround), Point(_Point)
 {
 }
@@ -8112,7 +8112,7 @@ Buffer Quest_Survival_Result::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Quest_Survival_Ranking::Quest_Survival_Ranking(packet::blob _Rankinglist)
+Quest_Survival_Ranking::Quest_Survival_Ranking(const packet::blob& _Rankinglist)
 	: Rankinglist(_Rankinglist)
 {
 }
@@ -8141,7 +8141,7 @@ Buffer Quest_Survival_Ranking::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Quest_Survuval_PrivateRanking::Quest_Survuval_PrivateRanking(packet::uint32 _Rank, packet::uint32 _Point)
+Quest_Survuval_PrivateRanking::Quest_Survuval_PrivateRanking(const packet::uint32& _Rank, const packet::uint32& _Point)
 	: Rank(_Rank), Point(_Point)
 {
 }
@@ -8171,7 +8171,7 @@ Buffer Quest_Survuval_PrivateRanking::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Quest_Start_Fail::Quest_Start_Fail(packet::int32 _Failedtype_, packet::MUID _pairparam)
+Quest_Start_Fail::Quest_Start_Fail(const packet::int32& _Failedtype_, const packet::MUID& _pairparam)
 	: Failedtype_(_Failedtype_), pairparam(_pairparam)
 {
 }
@@ -8201,7 +8201,7 @@ Buffer Quest_Start_Fail::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-monsterinfo::monsterinfo(packet::int8 _monsterdbindex)
+monsterinfo::monsterinfo(const packet::int8& _monsterdbindex)
 	: monsterdbindex(_monsterdbindex)
 {
 }
@@ -8230,7 +8230,7 @@ Buffer monsterinfo::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Quest_Bible_Request::Quest_Bible_Request(packet::MUID _requester)
+Quest_Bible_Request::Quest_Bible_Request(const packet::MUID& _requester)
 	: requester(_requester)
 {
 }
@@ -8259,7 +8259,7 @@ Buffer Quest_Bible_Request::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-Quest_Bible_Response::Quest_Bible_Response(packet::MUID _requester, packet::blob _Monsterbibleinfo)
+Quest_Bible_Response::Quest_Bible_Response(const packet::MUID& _requester, const packet::blob& _Monsterbibleinfo)
 	: requester(_requester), Monsterbibleinfo(_Monsterbibleinfo)
 {
 }
@@ -8313,7 +8313,7 @@ Buffer MC_REQUEST_GIVE_ONESELF_UP::serialize() const
 	return Buffer(0);
 }
 
-MC_RESPONSE_GAMBLEITEMLIST::MC_RESPONSE_GAMBLEITEMLIST(packet::blob _Gambleitemlist)
+MC_RESPONSE_GAMBLEITEMLIST::MC_RESPONSE_GAMBLEITEMLIST(const packet::blob& _Gambleitemlist)
 	: Gambleitemlist(_Gambleitemlist)
 {
 }
@@ -8342,7 +8342,7 @@ Buffer MC_RESPONSE_GAMBLEITEMLIST::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-MC_MATCH_ROUTE_UPDATE_STAGE_EQUIP_LOOK::MC_MATCH_ROUTE_UPDATE_STAGE_EQUIP_LOOK(packet::MUID _useruid, packet::int32 _parts, packet::int32 _itemid)
+MC_MATCH_ROUTE_UPDATE_STAGE_EQUIP_LOOK::MC_MATCH_ROUTE_UPDATE_STAGE_EQUIP_LOOK(const packet::MUID& _useruid, const packet::int32& _parts, const packet::int32& _itemid)
 	: useruid(_useruid), parts(_parts), itemid(_itemid)
 {
 }
@@ -8373,7 +8373,7 @@ Buffer MC_MATCH_ROUTE_UPDATE_STAGE_EQUIP_LOOK::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-MC_REQUEST_RESOURCE_CRC32::MC_REQUEST_RESOURCE_CRC32(packet::uint32 _key)
+MC_REQUEST_RESOURCE_CRC32::MC_REQUEST_RESOURCE_CRC32(const packet::uint32& _key)
 	: key(_key)
 {
 }
@@ -8402,7 +8402,7 @@ Buffer MC_REQUEST_RESOURCE_CRC32::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-MC_RESPONSE_RESOURCE_CRC32::MC_RESPONSE_RESOURCE_CRC32(packet::uint32 _crc32)
+MC_RESPONSE_RESOURCE_CRC32::MC_RESPONSE_RESOURCE_CRC32(const packet::uint32& _crc32)
 	: crc32(_crc32)
 {
 }

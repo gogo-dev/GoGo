@@ -22,7 +22,7 @@ private:
 public:
 	enum { packetID = 1562 };
 
-	Match_ResponseProposal(packet::int32 Result, packet::int32 ProposalMode, packet::int32 RequestID);
+	Match_ResponseProposal(const packet::int32& Result, const packet::int32& ProposalMode, const packet::int32& RequestID);
 
 	const char* name() const;
 	const char* doc() const;

@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 1416 };
 
-	Stage_ResponseForcedEntry(packet::int32 Result);
+	Stage_ResponseForcedEntry(const packet::int32& Result);
 
 	const char* name() const;
 	const char* doc() const;

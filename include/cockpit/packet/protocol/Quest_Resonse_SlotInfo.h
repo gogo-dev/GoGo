@@ -23,7 +23,7 @@ private:
 public:
 	enum { packetID = 21012 };
 
-	Quest_Resonse_SlotInfo(packet::MUID Owner1, packet::int32 ItemID1, packet::MUID Owner2, packet::int32 ItemID2);
+	Quest_Resonse_SlotInfo(const packet::MUID& Owner1, const packet::int32& ItemID1, const packet::MUID& Owner2, const packet::int32& ItemID2);
 
 	const char* name() const;
 	const char* doc() const;

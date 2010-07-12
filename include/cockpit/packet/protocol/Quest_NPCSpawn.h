@@ -23,7 +23,7 @@ private:
 public:
 	enum { packetID = 6000 };
 
-	Quest_NPCSpawn(packet::MUID uidChar, packet::MUID nNpcUID, packet::uint8 nNpcType, packet::uint8 PositionIndex);
+	Quest_NPCSpawn(const packet::MUID& uidChar, const packet::MUID& nNpcUID, const packet::uint8& nNpcType, const packet::uint8& PositionIndex);
 
 	const char* name() const;
 	const char* doc() const;

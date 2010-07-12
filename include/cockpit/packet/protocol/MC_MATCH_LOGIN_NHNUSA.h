@@ -24,7 +24,7 @@ private:
 public:
 	enum { packetID = 1011 };
 
-	MC_MATCH_LOGIN_NHNUSA(packet::string UserID, packet::string szAuthStr, packet::int32 CommandVersion, packet::uint32 nChecksumPack, packet::blob EncryptMD5Value);
+	MC_MATCH_LOGIN_NHNUSA(const packet::string& UserID, const packet::string& szAuthStr, const packet::int32& CommandVersion, const packet::uint32& nChecksumPack, const packet::blob& EncryptMD5Value);
 
 	const char* name() const;
 	const char* doc() const;

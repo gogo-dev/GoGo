@@ -22,7 +22,7 @@ private:
 public:
 	enum { packetID = 2201 };
 
-	Match_Broadcast_ClanInterruptVictories(packet::string strWinnerClanName, packet::string strLoserClanName, packet::int32 nVictories);
+	Match_Broadcast_ClanInterruptVictories(const packet::string& strWinnerClanName, const packet::string& strLoserClanName, const packet::int32& nVictories);
 
 	const char* name() const;
 	const char* doc() const;

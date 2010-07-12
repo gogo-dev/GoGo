@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 6901 };
 
-	Quest_Test_RequestNPCSpawn(packet::int32 NPCType, packet::int32 NPCCount);
+	Quest_Test_RequestNPCSpawn(const packet::int32& NPCType, const packet::int32& NPCCount);
 
 	const char* name() const;
 	const char* doc() const;

@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 1842 };
 
-	Match_GambleResultItem(packet::uint32 ItemID, packet::uint32 RentHourPeriodTimes60);
+	Match_GambleResultItem(const packet::uint32& ItemID, const packet::uint32& RentHourPeriodTimes60);
 
 	const char* name() const;
 	const char* doc() const;

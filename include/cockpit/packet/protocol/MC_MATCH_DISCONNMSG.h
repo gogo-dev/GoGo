@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 1010 };
 
-	MC_MATCH_DISCONNMSG(packet::uint32 messageid);
+	MC_MATCH_DISCONNMSG(const packet::uint32& messageid);
 
 	const char* name() const;
 	const char* doc() const;

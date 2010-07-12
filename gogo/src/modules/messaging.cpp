@@ -1,6 +1,9 @@
 #include "../GoGoClient.h"
 
 #include <cockpit/Transmitter.h>
+#include <cockpit/packet/protocol/all>
+
+using namespace cockpit::packet::protocol;
 
 static void on_announce(cockpit::Transmitter* transmitter, const char* sender, const char* message)
 {

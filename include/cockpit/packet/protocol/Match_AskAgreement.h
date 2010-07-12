@@ -23,7 +23,7 @@ private:
 public:
 	enum { packetID = 1563 };
 
-	Match_AskAgreement(packet::MUID uidProposer, packet::blob MembersCharName, packet::int32 ProposalMode, packet::int32 RequestID);
+	Match_AskAgreement(const packet::MUID& uidProposer, const packet::blob& MembersCharName, const packet::int32& ProposalMode, const packet::int32& RequestID);
 
 	const char* name() const;
 	const char* doc() const;

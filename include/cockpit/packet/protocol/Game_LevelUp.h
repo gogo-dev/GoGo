@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 1513 };
 
-	Game_LevelUp(packet::MUID Player, packet::int32 Level);
+	Game_LevelUp(const packet::MUID& Player, const packet::int32& Level);
 
 	const char* name() const;
 	const char* doc() const;

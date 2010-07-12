@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 1323 };
 
-	Stage_ResponseQuickJoin(packet::int32 Result, packet::MUID uidStage);
+	Stage_ResponseQuickJoin(const packet::int32& Result, const packet::MUID& uidStage);
 
 	const char* name() const;
 	const char* doc() const;

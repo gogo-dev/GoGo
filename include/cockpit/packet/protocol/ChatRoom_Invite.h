@@ -22,7 +22,7 @@ private:
 public:
 	enum { packetID = 1661 };
 
-	ChatRoom_Invite(packet::string SenderName, packet::string TargetName, packet::string ChatRoomName);
+	ChatRoom_Invite(const packet::string& SenderName, const packet::string& TargetName, const packet::string& ChatRoomName);
 
 	const char* name() const;
 	const char* doc() const;

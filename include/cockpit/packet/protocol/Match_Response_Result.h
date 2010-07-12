@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 403 };
 
-	Match_Response_Result(packet::int32 Result);
+	Match_Response_Result(const packet::int32& Result);
 
 	const char* name() const;
 	const char* doc() const;

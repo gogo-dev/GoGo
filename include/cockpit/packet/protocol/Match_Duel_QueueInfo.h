@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 3100 };
 
-	Match_Duel_QueueInfo(packet::blob QueueInfo);
+	Match_Duel_QueueInfo(const packet::blob& QueueInfo);
 
 	const char* name() const;
 	const char* doc() const;

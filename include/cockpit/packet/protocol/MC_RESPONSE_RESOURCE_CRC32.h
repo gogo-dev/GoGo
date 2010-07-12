@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 12002 };
 
-	MC_RESPONSE_RESOURCE_CRC32(packet::uint32 crc32);
+	MC_RESPONSE_RESOURCE_CRC32(const packet::uint32& crc32);
 
 	const char* name() const;
 	const char* doc() const;

@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 2021 };
 
-	Match_Clan_Request_Msg(packet::MUID uidSender, packet::string Msg);
+	Match_Clan_Request_Msg(const packet::MUID& uidSender, const packet::string& Msg);
 
 	const char* name() const;
 	const char* doc() const;

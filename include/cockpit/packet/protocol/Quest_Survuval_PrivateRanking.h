@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 6105 };
 
-	Quest_Survuval_PrivateRanking(packet::uint32 Rank, packet::uint32 Point);
+	Quest_Survuval_PrivateRanking(const packet::uint32& Rank, const packet::uint32& Point);
 
 	const char* name() const;
 	const char* doc() const;

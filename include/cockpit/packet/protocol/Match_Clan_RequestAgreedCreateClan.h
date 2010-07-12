@@ -25,7 +25,7 @@ private:
 public:
 	enum { packetID = 2004 };
 
-	Match_Clan_RequestAgreedCreateClan(packet::MUID uidChar, packet::string ClanName, packet::string Member1CharName, packet::string Member2CharName, packet::string Member3CharName, packet::string Member4CharName);
+	Match_Clan_RequestAgreedCreateClan(const packet::MUID& uidChar, const packet::string& ClanName, const packet::string& Member1CharName, const packet::string& Member2CharName, const packet::string& Member3CharName, const packet::string& Member4CharName);
 
 	const char* name() const;
 	const char* doc() const;

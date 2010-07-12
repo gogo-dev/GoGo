@@ -23,7 +23,7 @@ private:
 public:
 	enum { packetID = 1502 };
 
-	Stage_RoundFinishInfo(packet::MUID uidStage, packet::MUID uidChar, packet::blob PeerInfo, packet::blob KillInfo);
+	Stage_RoundFinishInfo(const packet::MUID& uidStage, const packet::MUID& uidChar, const packet::blob& PeerInfo, const packet::blob& KillInfo);
 
 	const char* name() const;
 	const char* doc() const;

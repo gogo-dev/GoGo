@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 1532 };
 
-	Match_Response_Suicide(packet::int32 Result, packet::MUID uidChar);
+	Match_Response_Suicide(const packet::int32& Result, const packet::MUID& uidChar);
 
 	const char* name() const;
 	const char* doc() const;

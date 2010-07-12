@@ -22,7 +22,7 @@ private:
 public:
 	enum { packetID = 21009 };
 
-	Quest_Callback_Sacrifice(packet::MUID Callbackitemrequester, packet::int32 Slotindex, packet::int32 ItemID);
+	Quest_Callback_Sacrifice(const packet::MUID& Callbackitemrequester, const packet::int32& Slotindex, const packet::int32& ItemID);
 
 	const char* name() const;
 	const char* doc() const;

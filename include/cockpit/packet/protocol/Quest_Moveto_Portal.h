@@ -22,7 +22,7 @@ private:
 public:
 	enum { packetID = 6058 };
 
-	Quest_Moveto_Portal(packet::int8 SectorIndex, packet::uint8 RepeatIndex, packet::MUID uidPlayer);
+	Quest_Moveto_Portal(const packet::int8& SectorIndex, const packet::uint8& RepeatIndex, const packet::MUID& uidPlayer);
 
 	const char* name() const;
 	const char* doc() const;

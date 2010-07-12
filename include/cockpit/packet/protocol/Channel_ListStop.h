@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 1212 };
 
-	Channel_ListStop(packet::MUID uidPlayer);
+	Channel_ListStop(const packet::MUID& uidPlayer);
 
 	const char* name() const;
 	const char* doc() const;

@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 1202 };
 
-	MatchServer_ResponseRecommandedChannel(packet::MUID uid);
+	MatchServer_ResponseRecommandedChannel(const packet::MUID& uid);
 
 	const char* name() const;
 	const char* doc() const;

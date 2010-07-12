@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 1401 };
 
-	Stage_Request_EnterBattle(packet::MUID uidPlayer, packet::MUID uidStage);
+	Stage_Request_EnterBattle(const packet::MUID& uidPlayer, const packet::MUID& uidStage);
 
 	const char* name() const;
 	const char* doc() const;

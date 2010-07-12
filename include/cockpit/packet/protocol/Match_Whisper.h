@@ -22,7 +22,7 @@ private:
 public:
 	enum { packetID = 1601 };
 
-	Match_Whisper(packet::string SenderName, packet::string TargetName, packet::string Message);
+	Match_Whisper(const packet::string& SenderName, const packet::string& TargetName, const packet::string& Message);
 
 	const char* name() const;
 	const char* doc() const;

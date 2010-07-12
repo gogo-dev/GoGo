@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 21005 };
 
-	Quest_item_responsesell(packet::int32 Result, packet::int32 PlayerBounty);
+	Quest_item_responsesell(const packet::int32& Result, const packet::int32& PlayerBounty);
 
 	const char* name() const;
 	const char* doc() const;

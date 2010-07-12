@@ -415,7 +415,7 @@ def make_constructor(command):
 		sep = ', '
 		if p == command.parameters[0]:
 			sep = ''
-		retVal = ''.join([retVal, sep, typeMap[p.id], ' ', p.name])
+		retVal = ''.join([retVal, sep, "const ", typeMap[p.id], '& ', p.name])
 
 	retVal = ''.join([retVal, ');\n'])
 
@@ -510,7 +510,7 @@ def flesh_out_command(command):
 			sep = ', '
 			if p == command.parameters[0]:
 				sep = ''
-			ret = ''.join([ret, sep, typeMap[p.id], ' _', p.name])
+			ret = ''.join([ret, sep, "const ", typeMap[p.id], '& _', p.name])
 
 		ret = ''.join([ret, ')\n\t: '])
 

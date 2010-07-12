@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 6053 };
 
-	Quest_Sector_Start(packet::int8 SectorIndex, packet::uint8 RepeatIndex);
+	Quest_Sector_Start(const packet::int8& SectorIndex, const packet::uint8& RepeatIndex);
 
 	const char* name() const;
 	const char* doc() const;

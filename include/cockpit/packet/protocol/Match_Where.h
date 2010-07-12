@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 1602 };
 
-	Match_Where(packet::string TargetName);
+	Match_Where(const packet::string& TargetName);
 
 	const char* name() const;
 	const char* doc() const;

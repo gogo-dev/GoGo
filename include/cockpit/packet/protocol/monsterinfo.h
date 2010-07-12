@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 21013 };
 
-	monsterinfo(packet::int8 monsterdbindex);
+	monsterinfo(const packet::int8& monsterdbindex);
 
 	const char* name() const;
 	const char* doc() const;

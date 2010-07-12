@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 323 };
 
-	Net_Pong(packet::uint32 TimeStamp);
+	Net_Pong(const packet::uint32& TimeStamp);
 
 	const char* name() const;
 	const char* doc() const;

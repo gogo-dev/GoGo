@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 21000 };
 
-	Questitem(packet::MUID uid);
+	Questitem(const packet::MUID& uid);
 
 	const char* name() const;
 	const char* doc() const;

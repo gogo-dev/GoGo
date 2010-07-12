@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 1811 };
 
-	Match_RequestBuyItem(packet::MUID uidChar, packet::uint32 ItemID);
+	Match_RequestBuyItem(const packet::MUID& uidChar, const packet::uint32& ItemID);
 
 	const char* name() const;
 	const char* doc() const;

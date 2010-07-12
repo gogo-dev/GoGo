@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 1231 };
 
-	Channel_Response_Rule(packet::MUID uidChannel, packet::string RuleName);
+	Channel_Response_Rule(const packet::MUID& uidChannel, const packet::string& RuleName);
 
 	const char* name() const;
 	const char* doc() const;

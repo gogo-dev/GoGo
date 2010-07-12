@@ -23,7 +23,7 @@ private:
 public:
 	enum { packetID = 1207 };
 
-	Channel_ResponseJoin(packet::MUID uidChannel, packet::int32 ChannelType, packet::string ChannelName, packet::boolean EnableInterface);
+	Channel_ResponseJoin(const packet::MUID& uidChannel, const packet::int32& ChannelType, const packet::string& ChannelName, const packet::boolean& EnableInterface);
 
 	const char* name() const;
 	const char* doc() const;

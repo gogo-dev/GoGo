@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 6104 };
 
-	Quest_Survival_Ranking(packet::blob Rankinglist);
+	Quest_Survival_Ranking(const packet::blob& Rankinglist);
 
 	const char* name() const;
 	const char* doc() const;

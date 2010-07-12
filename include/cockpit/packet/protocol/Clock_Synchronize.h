@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 361 };
 
-	Clock_Synchronize(packet::uint32 GlobalClock_msec);
+	Clock_Synchronize(const packet::uint32& GlobalClock_msec);
 
 	const char* name() const;
 	const char* doc() const;

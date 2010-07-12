@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 402 };
 
-	Match_Announce(packet::uint32 Type, packet::string Msg);
+	Match_Announce(const packet::uint32& Type, const packet::string& Msg);
 
 	const char* name() const;
 	const char* doc() const;

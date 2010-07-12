@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 6100 };
 
-	Quest_Round_Start(packet::uint8 round);
+	Quest_Round_Start(const packet::uint8& round);
 
 	const char* name() const;
 	const char* doc() const;

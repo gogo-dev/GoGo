@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 2016 };
 
-	Match_Clan_UpdateCharClanInfo(packet::blob ClanInfo);
+	Match_Clan_UpdateCharClanInfo(const packet::blob& ClanInfo);
 
 	const char* name() const;
 	const char* doc() const;

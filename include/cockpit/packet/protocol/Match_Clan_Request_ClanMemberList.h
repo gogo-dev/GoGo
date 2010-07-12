@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 2023 };
 
-	Match_Clan_Request_ClanMemberList(packet::MUID uidChar);
+	Match_Clan_Request_ClanMemberList(const packet::MUID& uidChar);
 
 	const char* name() const;
 	const char* doc() const;

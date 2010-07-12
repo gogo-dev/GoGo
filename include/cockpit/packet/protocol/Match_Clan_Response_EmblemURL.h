@@ -22,7 +22,7 @@ private:
 public:
 	enum { packetID = 2052 };
 
-	Match_Clan_Response_EmblemURL(packet::int32 ClanCLID, packet::int32 EmblemChecksum, packet::string EmblemURL);
+	Match_Clan_Response_EmblemURL(const packet::int32& ClanCLID, const packet::int32& EmblemChecksum, const packet::string& EmblemURL);
 
 	const char* name() const;
 	const char* doc() const;

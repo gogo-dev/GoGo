@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 1230 };
 
-	Channel_Request_Rule(packet::MUID uidChannel);
+	Channel_Request_Rule(const packet::MUID& uidChannel);
 
 	const char* name() const;
 	const char* doc() const;

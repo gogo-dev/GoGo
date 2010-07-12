@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 1402 };
 
-	Stage_EnterBattle(packet::uint8 Param, packet::blob CharData);
+	Stage_EnterBattle(const packet::uint8& Param, const packet::blob& CharData);
 
 	const char* name() const;
 	const char* doc() const;

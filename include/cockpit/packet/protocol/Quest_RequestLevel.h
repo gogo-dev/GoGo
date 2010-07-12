@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 6101 };
 
-	Quest_RequestLevel(packet::MUID sender);
+	Quest_RequestLevel(const packet::MUID& sender);
 
 	const char* name() const;
 	const char* doc() const;

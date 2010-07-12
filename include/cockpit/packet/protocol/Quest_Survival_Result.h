@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 6103 };
 
-	Quest_Survival_Result(packet::int32 Reachedround, packet::int32 Point);
+	Quest_Survival_Result(const packet::int32& Reachedround, const packet::int32& Point);
 
 	const char* name() const;
 	const char* doc() const;

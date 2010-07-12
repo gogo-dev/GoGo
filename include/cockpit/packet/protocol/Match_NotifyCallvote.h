@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 2101 };
 
-	Match_NotifyCallvote(packet::string strDiscuss, packet::string strArg);
+	Match_NotifyCallvote(const packet::string& strDiscuss, const packet::string& strArg);
 
 	const char* name() const;
 	const char* doc() const;

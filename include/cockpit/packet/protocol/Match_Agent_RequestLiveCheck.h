@@ -22,7 +22,7 @@ private:
 public:
 	enum { packetID = 5011 };
 
-	Match_Agent_RequestLiveCheck(packet::uint32 TimeStamp, packet::uint32 StageCount, packet::uint32 UserCount);
+	Match_Agent_RequestLiveCheck(const packet::uint32& TimeStamp, const packet::uint32& StageCount, const packet::uint32& UserCount);
 
 	const char* name() const;
 	const char* doc() const;

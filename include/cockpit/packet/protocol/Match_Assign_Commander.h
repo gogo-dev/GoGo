@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 1551 };
 
-	Match_Assign_Commander(packet::MUID uidRedCommander, packet::MUID uidBlueCommander);
+	Match_Assign_Commander(const packet::MUID& uidRedCommander, const packet::MUID& uidBlueCommander);
 
 	const char* name() const;
 	const char* doc() const;

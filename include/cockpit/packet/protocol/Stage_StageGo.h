@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 1331 };
 
-	Stage_StageGo(packet::uint32 RoomNo);
+	Stage_StageGo(const packet::uint32& RoomNo);
 
 	const char* name() const;
 	const char* doc() const;

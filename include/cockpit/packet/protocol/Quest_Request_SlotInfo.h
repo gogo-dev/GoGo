@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 21011 };
 
-	Quest_Request_SlotInfo(packet::MUID Sender);
+	Quest_Request_SlotInfo(const packet::MUID& Sender);
 
 	const char* name() const;
 	const char* doc() const;

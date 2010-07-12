@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 6042 };
 
-	Quest_Peer_NPC_Attack_Melee(packet::MUID uidOwner);
+	Quest_Peer_NPC_Attack_Melee(const packet::MUID& uidOwner);
 
 	const char* name() const;
 	const char* doc() const;

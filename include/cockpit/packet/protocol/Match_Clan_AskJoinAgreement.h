@@ -22,7 +22,7 @@ private:
 public:
 	enum { packetID = 2010 };
 
-	Match_Clan_AskJoinAgreement(packet::string ClanName, packet::MUID uidClanAdmin, packet::string szClanAdmin);
+	Match_Clan_AskJoinAgreement(const packet::string& ClanName, const packet::MUID& uidClanAdmin, const packet::string& szClanAdmin);
 
 	const char* name() const;
 	const char* doc() const;

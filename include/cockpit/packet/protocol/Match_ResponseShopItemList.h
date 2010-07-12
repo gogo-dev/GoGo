@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 1816 };
 
-	Match_ResponseShopItemList(packet::blob GambleItemList, packet::blob ItemList);
+	Match_ResponseShopItemList(const packet::blob& GambleItemList, const packet::blob& ItemList);
 
 	const char* name() const;
 	const char* doc() const;

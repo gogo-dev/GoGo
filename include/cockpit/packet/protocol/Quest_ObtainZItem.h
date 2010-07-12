@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 6011 };
 
-	Quest_ObtainZItem(packet::uint32 ItemID);
+	Quest_ObtainZItem(const packet::uint32& ItemID);
 
 	const char* name() const;
 	const char* doc() const;

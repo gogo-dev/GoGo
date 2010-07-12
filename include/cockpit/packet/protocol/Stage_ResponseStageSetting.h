@@ -24,7 +24,7 @@ private:
 public:
 	enum { packetID = 1412 };
 
-	Stage_ResponseStageSetting(packet::MUID uidStage, packet::blob StageSetting, packet::blob CharSetting, packet::int32 StageState, packet::MUID uidMaster);
+	Stage_ResponseStageSetting(const packet::MUID& uidStage, const packet::blob& StageSetting, const packet::blob& CharSetting, const packet::int32& StageState, const packet::MUID& uidMaster);
 
 	const char* name() const;
 	const char* doc() const;

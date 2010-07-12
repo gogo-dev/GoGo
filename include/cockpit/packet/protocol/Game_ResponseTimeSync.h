@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 1522 };
 
-	Game_ResponseTimeSync(packet::uint32 LocalTimeStamp, packet::uint32 GlobalTimeStamp);
+	Game_ResponseTimeSync(const packet::uint32& LocalTimeStamp, const packet::uint32& GlobalTimeStamp);
 
 	const char* name() const;
 	const char* doc() const;

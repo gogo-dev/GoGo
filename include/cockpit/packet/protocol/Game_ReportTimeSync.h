@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 1523 };
 
-	Game_ReportTimeSync(packet::uint32 LocalTimeStamp, packet::uint32 MemoryChecksum);
+	Game_ReportTimeSync(const packet::uint32& LocalTimeStamp, const packet::uint32& MemoryChecksum);
 
 	const char* name() const;
 	const char* doc() const;

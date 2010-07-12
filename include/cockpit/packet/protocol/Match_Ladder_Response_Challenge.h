@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 1572 };
 
-	Match_Ladder_Response_Challenge(packet::int32 Result);
+	Match_Ladder_Response_Challenge(const packet::int32& Result);
 
 	const char* name() const;
 	const char* doc() const;

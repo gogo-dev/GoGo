@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 1517 };
 
-	Game_TeamBonus(packet::MUID CharUID, packet::uint32 ExpArg);
+	Game_TeamBonus(const packet::MUID& CharUID, const packet::uint32& ExpArg);
 
 	const char* name() const;
 	const char* doc() const;

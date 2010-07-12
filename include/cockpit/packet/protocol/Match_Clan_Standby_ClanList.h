@@ -22,7 +22,7 @@ private:
 public:
 	enum { packetID = 2027 };
 
-	Match_Clan_Standby_ClanList(packet::int32 PrevClanListCount, packet::int32 NextClanListCount, packet::blob ClanList);
+	Match_Clan_Standby_ClanList(const packet::int32& PrevClanListCount, const packet::int32& NextClanListCount, const packet::blob& ClanList);
 
 	const char* name() const;
 	const char* doc() const;

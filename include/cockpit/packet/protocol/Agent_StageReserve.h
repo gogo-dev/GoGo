@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 5051 };
 
-	Agent_StageReserve(packet::MUID StageUID);
+	Agent_StageReserve(const packet::MUID& StageUID);
 
 	const char* name() const;
 	const char* doc() const;

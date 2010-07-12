@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 1542 };
 
-	Match_WorldItem_Obtain(packet::MUID uidChar, packet::int32 nItemUID);
+	Match_WorldItem_Obtain(const packet::MUID& uidChar, const packet::int32& nItemUID);
 
 	const char* name() const;
 	const char* doc() const;

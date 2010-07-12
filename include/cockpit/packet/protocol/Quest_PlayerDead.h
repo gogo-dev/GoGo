@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 6008 };
 
-	Quest_PlayerDead(packet::MUID Victim);
+	Quest_PlayerDead(const packet::MUID& Victim);
 
 	const char* name() const;
 	const char* doc() const;

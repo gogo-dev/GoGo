@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 2056 };
 
-	MC_MATCH_CLAN_ACCOUNCE_DELETE(packet::string deleteinfo);
+	MC_MATCH_CLAN_ACCOUNCE_DELETE(const packet::string& deleteinfo);
 
 	const char* name() const;
 	const char* doc() const;
