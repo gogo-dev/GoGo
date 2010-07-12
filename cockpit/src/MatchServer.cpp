@@ -92,7 +92,6 @@ MatchServer::MatchServer(Logger* logger,
                          uint16_t port)
 	: d(new Data(logger, factory, port, thread::hardware_concurrency() * 2))
 {
-	assert(d);
 }
 
 MatchServer::MatchServer(Logger* logger,
@@ -101,11 +100,11 @@ MatchServer::MatchServer(Logger* logger,
                          size_t threadCount)
 	: d(new Data(logger, factory, port, threadCount))
 {
-	assert(d);
 }
 
 static void spawn_thread(thread& t, io_service* io)
 {
+	assert(io);
 	t = thread(bind(&io_service::run, io));
 }
 
@@ -117,7 +116,7 @@ void MatchServer::start()
 	d->isServerRunning = true;
 
 	asynchronously_accept_new_client(d);
-	std::for_each(d->threadPool, d->threadPool + d->threadPoolLength, bind(spawn_thread, _1, &(d->io)));
+	std::for_each(d->threadPool, d->threadPool + d->threadPoolLength, bind(spawn_thread, _1, &d->io));
 }
 
 void MatchServer::stop()

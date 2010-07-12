@@ -198,30 +198,8 @@ void Client::recieve_payload(uint16_t fullSize, bool encrypted)
 	);
 }
 
-static Client::PayloadHeader extract_payload(uint8_t* p, bool encrypted, const uint8_t* cryptoKey)
-{
-	uint16_t counter = 0;
-	Client::PayloadHeader payload;
-
-	if(encrypted)
-		packet::decrypt(p, Client::PayloadHeader::SIZE, 0, cryptoKey);
-
-	memory::copy(&payload.dataSize, p+counter, sizeof(payload.dataSize));
-	counter += sizeof(payload.dataSize);
-
-	memory::copy(&payload.commandID, p+counter, sizeof(payload.commandID));
-	counter += sizeof(payload.commandID);
-
-	memory::copy(&payload.packetID, p+counter, sizeof(payload.packetID));
-	counter += sizeof(payload.packetID);
-
-	return payload;
-}
-
-static void decrypt_params(uint8_t* params, uint16_t paramLength, const uint8_t* cryptoKey)
-{
-	packet::decrypt(params, paramLength, Client::PayloadHeader::SIZE, cryptoKey);
-}
+static Client::PayloadHeader extract_payload(uint8_t* p, bool encrypted, const uint8_t* cryptoKey);
+static void decrypt_params(uint8_t* params, uint16_t paramLength, const uint8_t* cryptoKey);
 
 void Client::on_payload(uint8_t* p, uint16_t payloadSize, bool encrypted, system::error_code err, size_t bytesTransferred)
 {
@@ -268,18 +246,29 @@ void Client::on_payload(uint8_t* p, uint16_t payloadSize, bool encrypted, system
 	recieve_packet_header();
 }
 
-void Client::on_send(system::error_code err, size_t bytesTransferred, uint8_t* p, size_t packetLength)
+static Client::PayloadHeader extract_payload(uint8_t* packit, bool encrypted, const uint8_t* cryptoKey)
 {
-	delete[] p;
+	uint16_t counter = 0;
+	Client::PayloadHeader payload;
 
-	if(err)
-	{
-		logger->info(format("Sending to %1% failed (%2%).") % get_ip() % err.message());
-		disconnect();
-		return;
-	}
+	if(encrypted)
+		packet::decrypt(packit, Client::PayloadHeader::SIZE, 0, cryptoKey);
 
-	assert(bytesTransferred == packetLength);
+	memory::copy(&payload.dataSize, packit+counter, sizeof(payload.dataSize));
+	counter += sizeof(payload.dataSize);
+
+	memory::copy(&payload.commandID, packit+counter, sizeof(payload.commandID));
+	counter += sizeof(payload.commandID);
+
+	memory::copy(&payload.packetID, packit+counter, sizeof(payload.packetID));
+	counter += sizeof(payload.packetID);
+
+	return payload;
+}
+
+static void decrypt_params(uint8_t* params, uint16_t paramLength, const uint8_t* cryptoKey)
+{
+	packet::decrypt(params, paramLength, Client::PayloadHeader::SIZE, cryptoKey);
 }
 
 void Client::send(const packet::Packet& p, bool encrypted)
@@ -329,12 +318,26 @@ void Client::send(const packet::Packet& p, bool encrypted)
 	);
 }
 
+void Client::on_send(system::error_code err, size_t bytesTransferred, uint8_t* p, size_t packetLength)
+{
+	delete[] p;
+
+	if(err)
+	{
+		logger->info(format("Sending to %1% failed (%2%).") % get_ip() % err.message());
+		disconnect();
+		return;
+	}
+
+	assert(bytesTransferred == packetLength);
+}
+
 void Client::disconnect()
 {
 	if(!connected)
 		return;
 
-	logger->debug(format("Disconnecting %1%.") % get_ip());
+	logger->debug(format("[%1%] Disconnecting.") % get_ip());
 
 	try {
 		socket.shutdown(socket_base::shutdown_both);

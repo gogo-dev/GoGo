@@ -4,6 +4,7 @@
 #include <database/AccountInfo.h>
 #include <database/CharacterInfo.h>
 
+#include <gunz/Player.h>
 #include <gunz/simple_types.h>
 
 #include <string>
@@ -18,11 +19,13 @@ namespace cockpit {
 namespace gunz {
 	class MUIDSanta;
 	class ChannelList;
+	class Channel;
+	class Stage;
 }
 
 class GunzDB;
 
-class GoGoClient : public cockpit::ClientHandler
+class GoGoClient : public cockpit::ClientHandler, public gunz::Player
 {
 private:
 	cockpit::Logger* logger;
@@ -36,12 +39,16 @@ private:
 	gunz::MUID myMUID;
 	AccountInfo myAccount;
 	CharacterInfo myCharacter;
+	gunz::Channel* myChannel;
+	gunz::Stage* myStage;
 
 public:
 	GoGoClient(cockpit::Logger* logger, gunz::ChannelList* channelList, gunz::MUIDSanta* santa, GunzDB* database);
 	~GoGoClient();
 
 	void initialize(cockpit::Transmitter* transmitter, cockpit::packet::Registry* registry);
+
+	void OnMessage(MessageType type, const char* sender, const char* message);
 
 	void OnFailedParse(boost::uint16_t commandID, const boost::uint8_t* parameters, boost::uint16_t length);
 	void OnInvalidPacketType(boost::uint16_t commandID);

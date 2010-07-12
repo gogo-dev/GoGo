@@ -21,6 +21,7 @@ set(GOGO_SRC
 set(GOGO_MODULES
 	modules/error_handling.cpp
 	modules/handshake.cpp
+	modules/messaging.cpp
 	modules/OnMatchLogin.cpp
 	modules/OnCharList.cpp
 	modules/OnCharCreate.cpp

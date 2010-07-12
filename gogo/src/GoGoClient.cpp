@@ -5,6 +5,8 @@
 #include <cockpit/packet/Lookup.h>
 
 #include <gunz/ChannelList.h>
+#include <gunz/Channel.h>
+#include <gunz/Stage.h>
 #include <gunz/MUIDSanta.h>
 
 #include <boost/bind.hpp>
@@ -22,6 +24,7 @@ GoGoClient::GoGoClient(Logger* _logger, gunz::ChannelList* _channelList, gunz::M
 
 	assert(_channelList);
 	channelList = _channelList;
+	channelList->players.Add(this);
 
 	assert(_santa);
 	santa = _santa;
@@ -29,6 +32,9 @@ GoGoClient::GoGoClient(Logger* _logger, gunz::ChannelList* _channelList, gunz::M
 
 	assert(_database);
 	database = _database;
+
+	myChannel = NULL;
+	myStage = NULL;
 }
 
 void GoGoClient::initialize(Transmitter* _transmitter, packet::Registry* _registry)

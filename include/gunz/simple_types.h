@@ -121,14 +121,6 @@ enum TeamColor
 	TC_END
 };
 
-enum MessageType
-{
-	MT_ANNOUNCE,
-	MT_WHISPER,
-	MT_CHANNEL,
-	MT_STAGE
-};
-
 typedef boost::uint64_t MUID;
 
 }

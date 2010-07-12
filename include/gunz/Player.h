@@ -11,12 +11,25 @@ namespace gunz {
 class Player
 {
 public:
+	enum MessageType
+	{
+		MT_ANNOUNCE,
+		MT_WHISPER,
+		MT_CHANNEL,
+		MT_STAGE
+	};
+
 	/**
 		This callback is called when the player has recieved a message from any
 		other player. This function must be reentrant, as other players could
 		be chatting in potentially infinite threads.
 	*/
 	virtual void OnMessage(MessageType type, const char* sender, const char* message) = 0;
+
+protected:
+	~Player()
+	{
+	}
 };
 
 }
