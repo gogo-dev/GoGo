@@ -5,7 +5,7 @@ using namespace boost;
 
 namespace cockpit {
 
-AllocatorBase::AllocatorBase(boost::uint8_t* _heapBegin, boost::uint8_t* _heapEnd)
+AllocatorBase::AllocatorBase(uint8_t* _heapBegin, uint8_t* _heapEnd)
 	: heapBegin(_heapBegin), currentElem(_heapBegin), heapEnd(_heapEnd)
 {
 }
@@ -27,7 +27,7 @@ uint8_t* AllocatorBase::allocate(size_t amount)
 
 // THIS NOT MODIFYING INTERNAL STATE IS VITAL. DO NOT REMOVE THE CONST
 // SPECIFIER. It's necessary to keep this thing mildly thread-safe.
-void AllocatorBase::free(boost::uint8_t*& ptr) const
+void AllocatorBase::free(uint8_t*& ptr) const
 {
 	// If the pointer is in the heap, ignore it. Otherwise, call delete[] on it
 	// since we went oldschool when the heap is full.
