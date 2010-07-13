@@ -91,7 +91,10 @@ execute_process(COMMAND git describe --tags --dirty
 	OUTPUT_STRIP_TRAILING_WHITESPACE
 )
 
+try_compile(PLATFORM_SUPPORTS_INTERLOCKEDINCREMENT64 ${CMAKE_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/cmake/test_for_InterlockedIncrement64.cpp)
+
 configure_file(cmake/version.h ${CMAKE_SOURCE_DIR}/include/version.h)
+configure_file(cmake/platform.h ${CMAKE_SOURCE_DIR}/include/platform.h)
 
 # Add Source groups for lazy windows users.
 source_group("Header Files" REGULAR_EXPRESSION .*\\.h)
