@@ -34,11 +34,10 @@ void GoGoClient::OnChannelPlayerList (const gunz::MUID& playerId, const gunz::MU
 	packet::blob playerList(count, 71);
 
 	std::vector<Player*> players = myChannel->players.Clone();
-	std::vector<Player*>::iterator i;
 
-	for (i = players.begin(); i < players.end(); i++)
+	for (int i = clientStart; i < (clientStart+count); i++)
 	{
-		GoGoClient* client = (GoGoClient*)(*i);
+		GoGoClient* client = (GoGoClient*)(players.at(i));
 
 		playerList.add_param(packet::MUID(client->myMUID));
 		playerList.add_param(packet::blob_string(client->myCharacter.CharacterName.c_str(), 32));
