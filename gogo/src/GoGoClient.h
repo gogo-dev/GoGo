@@ -61,7 +61,6 @@ public:
 	void OnCharSelect(gunz::MUID uid, boost::uint8_t marker);
 	void OnRecommendedChannel();
 
-
 	boost::array<boost::uint8_t, 32>
 	handshake(boost::asio::ip::tcp::socket& s) const;
 };
