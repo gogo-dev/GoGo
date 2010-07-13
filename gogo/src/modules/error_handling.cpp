@@ -15,7 +15,7 @@ void GoGoClient::OnFailedParse(uint16_t commandID, const uint8_t* /* parameters 
 {
 	try {
 		PacketInfo info = lookup(commandID);
-		logger->info(format("[%1%] Parsing failed for %2% (doc=\"%3%\", id=%4%)") % transmitter->get_ip() % info.name % info.doc % info.commandId);
+		logger->info(format("[%1%] Processing failed for %2% (doc=\"%3%\", id=%4%)") % transmitter->get_ip() % info.name % info.doc % info.commandId);
 
 	} catch(const packet::BadCommandId&) {
 		logger->error("Cockpit tried to parse a commandID that isn't valid. It will be dropped. Please report this error.");
