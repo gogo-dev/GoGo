@@ -56,6 +56,7 @@ void GoGoClient::initialize(Transmitter* _transmitter, packet::Registry* _regist
 	registry->Match_RequestDeleteChar = bind(&GoGoClient::OnCharDelete, this, _1, _2, _3);
 	registry->Match_RequestSelectChar = bind(&GoGoClient::OnCharSelect, this, _1, _2);
 	registry->MatchServer_RequestRecommandedChannel = bind(&GoGoClient::OnRecommendedChannel, this);
+	registry->Channel_RequestPlayerList = bind(&GoGoClient::OnChannelPlayerList, this, _1, _2, _3);
 }
 
 GoGoClient::~GoGoClient()

@@ -53,7 +53,10 @@ static void add_all_channels(gunz::ChannelList* channelList, gunz::MUIDSanta* sa
 
 int main()
 {
+
+#ifdef GOGO_VERSION
 	printf("%s", "GoGo " GOGO_VERSION " is starting...\n");
+#endif
 
 	ConsoleLogger loggerImpl;
 	cockpit::Logger* logger = &loggerImpl;
