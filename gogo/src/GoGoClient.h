@@ -4,6 +4,7 @@
 #include <database/AccountInfo.h>
 #include <database/CharacterInfo.h>
 
+#include <gunz/Channel.h>
 #include <gunz/Player.h>
 #include <gunz/simple_types.h>
 
@@ -47,7 +48,6 @@ public:
 	~GoGoClient();
 
 	void initialize(cockpit::Transmitter* transmitter, cockpit::packet::Registry* registry);
-
 	void OnMessage(MessageType type, const char* sender, const char* message);
 
 	void OnFailedParse(boost::uint16_t commandID, const boost::uint8_t* parameters, boost::uint16_t length);
@@ -60,6 +60,8 @@ public:
 	void OnCharDelete(gunz::MUID uid, boost::uint32_t marker, const std::string& name);
 	void OnCharInfo(boost::uint8_t marker);
 	void OnCharSelect(gunz::MUID uid, boost::uint8_t marker);
+	void OnRecommandedChannel();
+
 
 	boost::array<boost::uint8_t, 32>
 	handshake(boost::asio::ip::tcp::socket& s) const;
