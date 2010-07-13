@@ -40,6 +40,11 @@ void GoGoClient::OnCharCreate(gunz::MUID /* uidPlayer */, uint32_t charMarker, c
 
 		return reply(transmitter, PEC_NONE, charName);
 	}
+	catch(const InvalidCharacterName& e)
+	{
+		logger->debug(e.what());
+		return reply(transmitter, PEC_INVALID_NAME, charName);
+	}
 	catch(const NameInUse& e)
 	{
 		logger->debug(e.what());

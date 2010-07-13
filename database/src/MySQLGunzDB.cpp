@@ -34,7 +34,7 @@ bool MySQLGunzDB::exec_query(function<void (Query&)> QueryMaker)
 
 		Query q(c.connection->query());
 		QueryMaker(q);
-		return !q.exec();
+		return q.exec();
 
 	} catch(const Exception& ex) {
 		logger->error(boost::format("MySQL Error: %1%") % ex.what());

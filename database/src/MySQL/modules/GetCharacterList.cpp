@@ -31,6 +31,8 @@ static SmallVector<CharacterEntry, 4> handle_get_character_list(const StoreQuery
 		character.CharacterIndex = row["marker"];
 		character.CharacterLevel = row["level"];
 		character.CharacterName = string(row["name"]);
+
+		charList.push_back(character);
 	}
 
 	return charList;

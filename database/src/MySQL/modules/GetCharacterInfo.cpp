@@ -49,6 +49,10 @@ static void make_get_clan_info_query(Query& q, uint32_t clanId)
 static void handle_clan_info(const StoreQueryResult& result, CharacterInfo* charInfo /* [out] */)
 {
 	size_t rowCount = result.num_rows();
+
+	if (rowCount == 0)
+		return;
+
 	assert(rowCount < 2);
 
 	const Row& row = result[0];

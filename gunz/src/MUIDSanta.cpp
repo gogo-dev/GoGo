@@ -16,8 +16,13 @@ MUID MUIDSanta::get()
 // TODO(Clark): Move this ugly #ifdef hell out into an "atomics" library of sorts.
 #if defined(__GNUC__) || defined(__clang__)
 	return __sync_fetch_and_add(&next, 1);
-#elif defined(_MSC_VER)
-	return InterlockedIncrement64(&next);
+#elif defined( _MSC_VER)
+	#if (_WIN32_WINNT < 0x0600)
+		boost::unique_lock<boost::mutex> l(muidMutex);
+		return next++;
+	#else defined(_MSC_VER >= 0x0600)
+		return InterlockedIncrement64(&next);
+	#endif
 #else
 	#error "Unsupported platform! Please write your own lock-free increment."
 #endif
