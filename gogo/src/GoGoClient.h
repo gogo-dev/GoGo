@@ -4,7 +4,6 @@
 #include <database/AccountInfo.h>
 #include <database/CharacterInfo.h>
 
-#include <gunz/Channel.h>
 #include <gunz/Player.h>
 #include <gunz/simple_types.h>
 
@@ -60,7 +59,7 @@ public:
 	void OnCharDelete(gunz::MUID uid, boost::uint32_t marker, const std::string& name);
 	void OnCharInfo(boost::uint8_t marker);
 	void OnCharSelect(gunz::MUID uid, boost::uint8_t marker);
-	void OnRecommandedChannel();
+	void OnRecommendedChannel();
 
 
 	boost::array<boost::uint8_t, 32>

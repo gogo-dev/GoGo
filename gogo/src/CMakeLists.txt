@@ -28,7 +28,7 @@ set(GOGO_MODULES
 	modules/OnCharDelete.cpp
 	modules/OnCharInfo.cpp
 	modules/OnCharSelect.cpp
-	modules/OnRecommandedChannel.cpp
+	modules/OnRecommendedChannel.cpp
 	# Feel free to add more source files when they're added.
 )
 

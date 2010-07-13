@@ -51,7 +51,11 @@ static void handle_clan_info(const StoreQueryResult& result, CharacterInfo* char
 	size_t rowCount = result.num_rows();
 
 	if (rowCount == 0)
+	{
+		charInfo->ClanName = "";
+		charInfo->ClanPoints = 0;
 		return;
+	}
 
 	assert(rowCount < 2);
 
