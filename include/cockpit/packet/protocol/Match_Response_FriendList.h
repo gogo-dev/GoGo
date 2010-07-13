@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 1904 };
 
-	Match_Response_FriendList(packet::blob FriendList);
+	Match_Response_FriendList(const packet::blob& FriendList);
 
 	const char* name() const;
 	const char* doc() const;

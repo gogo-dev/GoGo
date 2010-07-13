@@ -24,7 +24,7 @@ private:
 public:
 	enum { packetID = 1561 };
 
-	Match_RequestProposal(packet::MUID uidChar, packet::int32 ProposalMode, packet::int32 RequestID, packet::int32 ReplierCount, packet::blob ReplierCharNames);
+	Match_RequestProposal(const packet::MUID& uidChar, const packet::int32& ProposalMode, const packet::int32& RequestID, const packet::int32& ReplierCount, const packet::blob& ReplierCharNames);
 
 	const char* name() const;
 	const char* doc() const;

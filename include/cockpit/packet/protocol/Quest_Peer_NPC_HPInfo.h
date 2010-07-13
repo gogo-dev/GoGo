@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 6041 };
 
-	Quest_Peer_NPC_HPInfo(packet::int32 nNPCCount, packet::blob HPTable);
+	Quest_Peer_NPC_HPInfo(const packet::int32& nNPCCount, const packet::blob& HPTable);
 
 	const char* name() const;
 	const char* doc() const;

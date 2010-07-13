@@ -22,7 +22,7 @@ private:
 public:
 	enum { packetID = 1515 };
 
-	Game_Requst_Spawn(packet::MUID CharUID, packet::position Position, packet::direction Direction);
+	Game_Requst_Spawn(const packet::MUID& CharUID, const packet::position& Position, const packet::direction& Direction);
 
 	const char* name() const;
 	const char* doc() const;

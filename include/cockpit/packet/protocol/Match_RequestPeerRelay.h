@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 1471 };
 
-	Match_RequestPeerRelay(packet::MUID PlayerUID, packet::MUID PeerCharUID);
+	Match_RequestPeerRelay(const packet::MUID& PlayerUID, const packet::MUID& PeerCharUID);
 
 	const char* name() const;
 	const char* doc() const;

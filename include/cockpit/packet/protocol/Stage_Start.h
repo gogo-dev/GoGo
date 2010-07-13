@@ -22,7 +22,7 @@ private:
 public:
 	enum { packetID = 1431 };
 
-	Stage_Start(packet::MUID uidPlayer, packet::MUID uidStage, packet::int32 nCountdown);
+	Stage_Start(const packet::MUID& uidPlayer, const packet::MUID& uidStage, const packet::int32& nCountdown);
 
 	const char* name() const;
 	const char* doc() const;

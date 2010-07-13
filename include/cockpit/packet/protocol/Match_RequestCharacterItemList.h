@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 1821 };
 
-	Match_RequestCharacterItemList(packet::MUID uid);
+	Match_RequestCharacterItemList(const packet::MUID& uid);
 
 	const char* name() const;
 	const char* doc() const;

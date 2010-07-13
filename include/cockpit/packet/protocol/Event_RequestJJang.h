@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 611 };
 
-	Event_RequestJJang(packet::string strTargetName);
+	Event_RequestJJang(const packet::string& strTargetName);
 
 	const char* name() const;
 	const char* doc() const;

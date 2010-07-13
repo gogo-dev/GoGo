@@ -26,7 +26,7 @@ private:
 public:
 	enum { packetID = 1711 };
 
-	Match_RequestCreateChar(packet::MUID uid, packet::uint32 CharIndex, packet::string Name, packet::uint32 Sex, packet::uint32 Hair, packet::uint32 Face, packet::uint32 Costume);
+	Match_RequestCreateChar(const packet::MUID& uid, const packet::uint32& CharIndex, const packet::string& Name, const packet::uint32& Sex, const packet::uint32& Hair, const packet::uint32& Face, const packet::uint32& Costume);
 
 	const char* name() const;
 	const char* doc() const;

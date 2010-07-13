@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 1531 };
 
-	Match_Request_Suicide(packet::MUID uidChar);
+	Match_Request_Suicide(const packet::MUID& uidChar);
 
 	const char* name() const;
 	const char* doc() const;

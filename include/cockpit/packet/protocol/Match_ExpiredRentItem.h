@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 1837 };
 
-	Match_ExpiredRentItem(packet::blob ItemIDList);
+	Match_ExpiredRentItem(const packet::blob& ItemIDList);
 
 	const char* name() const;
 	const char* doc() const;

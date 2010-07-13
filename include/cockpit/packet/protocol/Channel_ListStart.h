@@ -22,7 +22,7 @@ private:
 public:
 	enum { packetID = 1211 };
 
-	Channel_ListStart(packet::MUID uidPlayer, packet::int32 nChannelType, packet::int32 zero);
+	Channel_ListStart(const packet::MUID& uidPlayer, const packet::int32& nChannelType, const packet::int32& zero);
 
 	const char* name() const;
 	const char* doc() const;

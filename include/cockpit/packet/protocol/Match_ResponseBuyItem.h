@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 1812 };
 
-	Match_ResponseBuyItem(packet::int32 result);
+	Match_ResponseBuyItem(const packet::int32& result);
 
 	const char* name() const;
 	const char* doc() const;

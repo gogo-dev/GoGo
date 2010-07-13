@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 6102 };
 
-	Quest_ResponseLevel(packet::int32 Questlevel);
+	Quest_ResponseLevel(const packet::int32& Questlevel);
 
 	const char* name() const;
 	const char* doc() const;

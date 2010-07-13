@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 1521 };
 
-	Game_RequestTimeSync(packet::uint32 LocalTimeStamp);
+	Game_RequestTimeSync(const packet::uint32& LocalTimeStamp);
 
 	const char* name() const;
 	const char* doc() const;

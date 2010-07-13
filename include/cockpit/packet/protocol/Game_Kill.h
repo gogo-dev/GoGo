@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 1511 };
 
-	Game_Kill(packet::MUID Attacker);
+	Game_Kill(const packet::MUID& Attacker);
 
 	const char* name() const;
 	const char* doc() const;

@@ -23,7 +23,7 @@ private:
 public:
 	enum { packetID = 1512 };
 
-	Game_Dead(packet::MUID Attacker, packet::uint32 AttackerArg, packet::MUID Victim, packet::uint32 VictimArg);
+	Game_Dead(const packet::MUID& Attacker, const packet::uint32& AttackerArg, const packet::MUID& Victim, const packet::uint32& VictimArg);
 
 	const char* name() const;
 	const char* doc() const;

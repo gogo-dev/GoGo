@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 1651 };
 
-	ChatRoom_Create(packet::MUID uidPlayer, packet::string ChatRoomName);
+	ChatRoom_Create(const packet::MUID& uidPlayer, const packet::string& ChatRoomName);
 
 	const char* name() const;
 	const char* doc() const;

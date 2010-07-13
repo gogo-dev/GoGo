@@ -22,7 +22,7 @@ private:
 public:
 	enum { packetID = 1314 };
 
-	Stage_List(packet::int8 PrevStageListCount, packet::int8 NextStageListCount, packet::blob StageList);
+	Stage_List(const packet::int8& PrevStageListCount, const packet::int8& NextStageListCount, const packet::blob& StageList);
 
 	const char* name() const;
 	const char* doc() const;

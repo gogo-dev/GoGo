@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 1462 };
 
-	Stage_ResponsePeerList(packet::MUID uidStage, packet::blob PeerList);
+	Stage_ResponsePeerList(const packet::MUID& uidStage, const packet::blob& PeerList);
 
 	const char* name() const;
 	const char* doc() const;

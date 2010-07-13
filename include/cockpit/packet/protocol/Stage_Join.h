@@ -23,7 +23,7 @@ private:
 public:
 	enum { packetID = 1303 };
 
-	Stage_Join(packet::MUID uidPlayer, packet::MUID uidStage, packet::uint32 nRoomNo, packet::string StageName);
+	Stage_Join(const packet::MUID& uidPlayer, const packet::MUID& uidStage, const packet::uint32& nRoomNo, const packet::string& StageName);
 
 	const char* name() const;
 	const char* doc() const;

@@ -22,7 +22,7 @@ private:
 public:
 	enum { packetID = 6062 };
 
-	Quest_SectorBonus(packet::MUID uidPlayer, packet::uint32 XPBonus, packet::uint32 BPBonus);
+	Quest_SectorBonus(const packet::MUID& uidPlayer, const packet::uint32& XPBonus, const packet::uint32& BPBonus);
 
 	const char* name() const;
 	const char* doc() const;

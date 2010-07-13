@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 1712 };
 
-	Match_ResponseCreateChar(packet::int32 Result, packet::string CharName);
+	Match_ResponseCreateChar(const packet::int32& Result, const packet::string& CharName);
 
 	const char* name() const;
 	const char* doc() const;

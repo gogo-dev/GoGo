@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 1543 };
 
-	Match_WorldItem_Spawn(packet::blob SpawnInfo);
+	Match_WorldItem_Spawn(const packet::blob& SpawnInfo);
 
 	const char* name() const;
 	const char* doc() const;

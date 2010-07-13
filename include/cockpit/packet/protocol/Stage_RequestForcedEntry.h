@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 1415 };
 
-	Stage_RequestForcedEntry(packet::MUID uidChar, packet::MUID uidStage);
+	Stage_RequestForcedEntry(const packet::MUID& uidChar, const packet::MUID& uidStage);
 
 	const char* name() const;
 	const char* doc() const;

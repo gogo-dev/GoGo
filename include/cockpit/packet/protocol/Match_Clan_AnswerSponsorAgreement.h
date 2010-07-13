@@ -23,7 +23,7 @@ private:
 public:
 	enum { packetID = 2003 };
 
-	Match_Clan_AnswerSponsorAgreement(packet::int32 RequestID, packet::MUID uidClanMaster, packet::string SponsorCharName, packet::boolean Answer);
+	Match_Clan_AnswerSponsorAgreement(const packet::int32& RequestID, const packet::MUID& uidClanMaster, const packet::string& SponsorCharName, const packet::boolean& Answer);
 
 	const char* name() const;
 	const char* doc() const;

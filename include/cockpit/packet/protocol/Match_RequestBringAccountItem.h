@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 1833 };
 
-	Match_RequestBringAccountItem(packet::MUID uidChar, packet::int32 AIID);
+	Match_RequestBringAccountItem(const packet::MUID& uidChar, const packet::int32& AIID);
 
 	const char* name() const;
 	const char* doc() const;

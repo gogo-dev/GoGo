@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 5012 };
 
-	Match_Agent_ResponseLiveCheck(packet::uint32 TimeStamp);
+	Match_Agent_ResponseLiveCheck(const packet::uint32& TimeStamp);
 
 	const char* name() const;
 	const char* doc() const;

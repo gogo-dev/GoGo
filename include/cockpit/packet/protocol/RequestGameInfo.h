@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 1451 };
 
-	RequestGameInfo(packet::MUID uidChar, packet::MUID uidStage);
+	RequestGameInfo(const packet::MUID& uidChar, const packet::MUID& uidStage);
 
 	const char* name() const;
 	const char* doc() const;

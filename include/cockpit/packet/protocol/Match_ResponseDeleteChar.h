@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 1714 };
 
-	Match_ResponseDeleteChar(packet::int32 Result);
+	Match_ResponseDeleteChar(const packet::int32& Result);
 
 	const char* name() const;
 	const char* doc() const;

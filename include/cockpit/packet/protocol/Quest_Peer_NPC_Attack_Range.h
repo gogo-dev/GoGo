@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 6043 };
 
-	Quest_Peer_NPC_Attack_Range(packet::MUID uidOwner, packet::blob Info);
+	Quest_Peer_NPC_Attack_Range(const packet::MUID& uidOwner, const packet::blob& Info);
 
 	const char* name() const;
 	const char* doc() const;

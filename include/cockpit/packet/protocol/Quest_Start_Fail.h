@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 6060 };
 
-	Quest_Start_Fail(packet::int32 Failedtype_, packet::MUID pairparam);
+	Quest_Start_Fail(const packet::int32& Failedtype_, const packet::MUID& pairparam);
 
 	const char* name() const;
 	const char* doc() const;

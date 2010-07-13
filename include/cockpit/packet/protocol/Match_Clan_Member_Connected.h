@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 2028 };
 
-	Match_Clan_Member_Connected(packet::string szMember);
+	Match_Clan_Member_Connected(const packet::string& szMember);
 
 	const char* name() const;
 	const char* doc() const;

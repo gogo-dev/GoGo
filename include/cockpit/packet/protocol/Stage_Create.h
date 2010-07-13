@@ -23,7 +23,7 @@ private:
 public:
 	enum { packetID = 1301 };
 
-	Stage_Create(packet::MUID uidChar, packet::string StageName, packet::boolean IsPrivate, packet::string Password);
+	Stage_Create(const packet::MUID& uidChar, const packet::string& StageName, const packet::boolean& IsPrivate, const packet::string& Password);
 
 	const char* name() const;
 	const char* doc() const;

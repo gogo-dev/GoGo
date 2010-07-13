@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 1665 };
 
-	ChatRoom_SelectWrite(packet::string ChatRoomName);
+	ChatRoom_SelectWrite(const packet::string& ChatRoomName);
 
 	const char* name() const;
 	const char* doc() const;

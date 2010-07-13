@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 1332 };
 
-	Stage_RequirePassword(packet::MUID uidStage, packet::string StageName);
+	Stage_RequirePassword(const packet::MUID& uidStage, const packet::string& StageName);
 
 	const char* name() const;
 	const char* doc() const;

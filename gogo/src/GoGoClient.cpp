@@ -59,5 +59,27 @@ void GoGoClient::initialize(Transmitter* _transmitter, packet::Registry* _regist
 
 GoGoClient::~GoGoClient()
 {
+	channelList->players.Remove(this);
+
+	if(myStage)
+	{
+		assert(myChannel && "Why are we in a stage without being in a channel?");
+		myStage->players.Remove(this);
+	}
+
+	if(myChannel)
+	{
+		assert(channelList && "Why are we in a channel without being in a channel list?");
+		myChannel->players.Remove(this);
+	}
+
+	// No race condition. Remove will just return false if the element is not found.
+	if(myStage && myStage->players.Length() == 0)
+		myChannel->Remove(myStage);
+
+	// Again, no race condition.
+	if(myChannel && myChannel->GetTraits().type != gunz::Channel::CT_GENERAL && myChannel->players.Length() == 0)
+		channelList->Remove(myChannel);
+
 	santa->give_back(myMUID);
 }

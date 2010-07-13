@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 6002 };
 
-	Quest_Checksum_NPCInfo(packet::MUID uidChar, packet::uint32 checksum);
+	Quest_Checksum_NPCInfo(const packet::MUID& uidChar, const packet::uint32& checksum);
 
 	const char* name() const;
 	const char* doc() const;

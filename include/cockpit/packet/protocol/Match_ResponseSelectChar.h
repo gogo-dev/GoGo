@@ -22,7 +22,7 @@ private:
 public:
 	enum { packetID = 1704 };
 
-	Match_ResponseSelectChar(packet::int32 Result, packet::blob CharInfo, packet::blob MyExtraCharInfo);
+	Match_ResponseSelectChar(const packet::int32& Result, const packet::blob& CharInfo, const packet::blob& MyExtraCharInfo);
 
 	const char* name() const;
 	const char* doc() const;

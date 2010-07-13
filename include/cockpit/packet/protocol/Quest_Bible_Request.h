@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 21014 };
 
-	Quest_Bible_Request(packet::MUID requester);
+	Quest_Bible_Request(const packet::MUID& requester);
 
 	const char* name() const;
 	const char* doc() const;

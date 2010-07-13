@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 515 };
 
-	Admin_RequestBanPlayer(packet::MUID uidAdmin, packet::string uidTargetCharName);
+	Admin_RequestBanPlayer(const packet::MUID& uidAdmin, const packet::string& uidTargetCharName);
 
 	const char* name() const;
 	const char* doc() const;

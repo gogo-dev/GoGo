@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 1605 };
 
-	Match_UserOption(packet::uint32 OptionFlags);
+	Match_UserOption(const packet::uint32& OptionFlags);
 
 	const char* name() const;
 	const char* doc() const;

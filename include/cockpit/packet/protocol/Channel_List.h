@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 1213 };
 
-	Channel_List(packet::blob ChannelList);
+	Channel_List(const packet::blob& ChannelList);
 
 	const char* name() const;
 	const char* doc() const;

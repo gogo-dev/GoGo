@@ -23,7 +23,7 @@ private:
 public:
 	enum { packetID = 1232 };
 
-	Channel_RequestAllPlayerList(packet::MUID uidPlayer, packet::MUID uidChannel, packet::uint32 PlaceFilter, packet::uint32 Options);
+	Channel_RequestAllPlayerList(const packet::MUID& uidPlayer, const packet::MUID& uidChannel, const packet::uint32& PlaceFilter, const packet::uint32& Options);
 
 	const char* name() const;
 	const char* doc() const;

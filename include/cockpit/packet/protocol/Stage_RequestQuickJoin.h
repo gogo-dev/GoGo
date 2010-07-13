@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 1322 };
 
-	Stage_RequestQuickJoin(packet::MUID uidPlayer, packet::blob Param);
+	Stage_RequestQuickJoin(const packet::MUID& uidPlayer, const packet::blob& Param);
 
 	const char* name() const;
 	const char* doc() const;

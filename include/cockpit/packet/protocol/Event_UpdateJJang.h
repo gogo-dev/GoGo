@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 613 };
 
-	Event_UpdateJJang(packet::MUID uidPlayer, packet::boolean bJjang);
+	Event_UpdateJJang(const packet::MUID& uidPlayer, const packet::boolean& bJjang);
 
 	const char* name() const;
 	const char* doc() const;

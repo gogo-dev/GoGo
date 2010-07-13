@@ -23,7 +23,7 @@ private:
 public:
 	enum { packetID = 994 };
 
-	Match_Login(packet::string UserID, packet::string Password, packet::int32 CommandVersion, packet::uint32 nChecksumPack);
+	Match_Login(const packet::string& UserID, const packet::string& Password, const packet::int32& CommandVersion, const packet::uint32& nChecksumPack);
 
 	const char* name() const;
 	const char* doc() const;

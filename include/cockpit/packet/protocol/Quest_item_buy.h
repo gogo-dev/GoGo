@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 21002 };
 
-	Quest_item_buy(packet::MUID uidChar, packet::int32 QuestItemID);
+	Quest_item_buy(const packet::MUID& uidChar, const packet::int32& QuestItemID);
 
 	const char* name() const;
 	const char* doc() const;

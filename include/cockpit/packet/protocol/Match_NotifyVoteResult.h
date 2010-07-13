@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 2102 };
 
-	Match_NotifyVoteResult(packet::string strDiscuss, packet::int32 nResult);
+	Match_NotifyVoteResult(const packet::string& strDiscuss, const packet::int32& nResult);
 
 	const char* name() const;
 	const char* doc() const;

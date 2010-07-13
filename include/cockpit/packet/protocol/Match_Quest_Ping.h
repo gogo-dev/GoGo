@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 6012 };
 
-	Match_Quest_Ping(packet::uint32 nTimeStamp);
+	Match_Quest_Ping(const packet::uint32& nTimeStamp);
 
 	const char* name() const;
 	const char* doc() const;

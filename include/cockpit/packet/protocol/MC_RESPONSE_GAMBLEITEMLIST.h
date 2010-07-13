@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 1827 };
 
-	MC_RESPONSE_GAMBLEITEMLIST(packet::blob Gambleitemlist);
+	MC_RESPONSE_GAMBLEITEMLIST(const packet::blob& Gambleitemlist);
 
 	const char* name() const;
 	const char* doc() const;

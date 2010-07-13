@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 6057 };
 
-	Quest_Request_Moveto_Portal(packet::int8 CurrSectorIndex);
+	Quest_Request_Moveto_Portal(const packet::int8& CurrSectorIndex);
 
 	const char* name() const;
 	const char* doc() const;

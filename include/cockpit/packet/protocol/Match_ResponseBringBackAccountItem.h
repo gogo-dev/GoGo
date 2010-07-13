@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 1836 };
 
-	Match_ResponseBringBackAccountItem(packet::int32 Result);
+	Match_ResponseBringBackAccountItem(const packet::int32& Result);
 
 	const char* name() const;
 	const char* doc() const;

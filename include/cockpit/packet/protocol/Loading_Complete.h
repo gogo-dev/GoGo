@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 1441 };
 
-	Loading_Complete(packet::MUID ChrUID, packet::int32 Percent);
+	Loading_Complete(const packet::MUID& ChrUID, const packet::int32& Percent);
 
 	const char* name() const;
 	const char* doc() const;

@@ -23,7 +23,7 @@ private:
 public:
 	enum { packetID = 1206 };
 
-	Channel_RequestJoinFromName(packet::MUID uidPlayer, packet::int32 nChannelType, packet::int32 zero, packet::string ChannelName);
+	Channel_RequestJoinFromName(const packet::MUID& uidPlayer, const packet::int32& nChannelType, const packet::int32& zero, const packet::string& ChannelName);
 
 	const char* name() const;
 	const char* doc() const;

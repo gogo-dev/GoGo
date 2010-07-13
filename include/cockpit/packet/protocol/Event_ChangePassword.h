@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 602 };
 
-	Event_ChangePassword(packet::string strPassword);
+	Event_ChangePassword(const packet::string& strPassword);
 
 	const char* name() const;
 	const char* doc() const;

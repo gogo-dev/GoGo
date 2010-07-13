@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 2055 };
 
-	Match_Clan_Local_EmblemReady(packet::int32 ClanCLID, packet::string EmblemURL);
+	Match_Clan_Local_EmblemReady(const packet::int32& ClanCLID, const packet::string& EmblemURL);
 
 	const char* name() const;
 	const char* doc() const;

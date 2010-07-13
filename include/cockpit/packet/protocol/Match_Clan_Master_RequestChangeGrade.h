@@ -23,7 +23,7 @@ private:
 public:
 	enum { packetID = 2017 };
 
-	Match_Clan_Master_RequestChangeGrade(packet::MUID uidClanMaster, packet::string szMember, packet::int32 Grade, packet::int32 zero);
+	Match_Clan_Master_RequestChangeGrade(const packet::MUID& uidClanMaster, const packet::string& szMember, const packet::int32& Grade, const packet::int32& zero);
 
 	const char* name() const;
 	const char* doc() const;

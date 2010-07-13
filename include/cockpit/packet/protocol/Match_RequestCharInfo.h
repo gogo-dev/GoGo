@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 1705 };
 
-	Match_RequestCharInfo(packet::MUID uid, packet::uint32 CharIndex);
+	Match_RequestCharInfo(const packet::MUID& uid, const packet::uint32& CharIndex);
 
 	const char* name() const;
 	const char* doc() const;

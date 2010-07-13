@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 1101 };
 
-	Match_ObjectCache(packet::uint8 Type, packet::blob ObjectCache);
+	Match_ObjectCache(const packet::uint8& Type, const packet::blob& ObjectCache);
 
 	const char* name() const;
 	const char* doc() const;

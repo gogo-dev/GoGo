@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 1825 };
 
-	MatchRequestTakeoffItem(packet::MUID uid, packet::uint32 EquipmentSlot);
+	MatchRequestTakeoffItem(const packet::MUID& uid, const packet::uint32& EquipmentSlot);
 
 	const char* name() const;
 	const char* doc() const;

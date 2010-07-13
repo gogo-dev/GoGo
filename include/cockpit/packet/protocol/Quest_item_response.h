@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 21001 };
 
-	Quest_item_response(packet::blob Myquestitemlist);
+	Quest_item_response(const packet::blob& Myquestitemlist);
 
 	const char* name() const;
 	const char* doc() const;

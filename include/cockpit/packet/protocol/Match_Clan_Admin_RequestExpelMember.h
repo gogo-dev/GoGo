@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 2019 };
 
-	Match_Clan_Admin_RequestExpelMember(packet::MUID uidClanAdmin, packet::string szMember);
+	Match_Clan_Admin_RequestExpelMember(const packet::MUID& uidClanAdmin, const packet::string& szMember);
 
 	const char* name() const;
 	const char* doc() const;

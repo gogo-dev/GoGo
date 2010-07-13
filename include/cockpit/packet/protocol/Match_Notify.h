@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 401 };
 
-	Match_Notify(packet::uint32 nMsgID);
+	Match_Notify(const packet::uint32& nMsgID);
 
 	const char* name() const;
 	const char* doc() const;

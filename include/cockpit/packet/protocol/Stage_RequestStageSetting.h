@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 1411 };
 
-	Stage_RequestStageSetting(packet::MUID uidStage);
+	Stage_RequestStageSetting(const packet::MUID& uidStage);
 
 	const char* name() const;
 	const char* doc() const;

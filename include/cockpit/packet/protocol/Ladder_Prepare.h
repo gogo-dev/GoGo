@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 1578 };
 
-	Ladder_Prepare(packet::MUID uidStage, packet::int32 nTeam);
+	Ladder_Prepare(const packet::MUID& uidStage, const packet::int32& nTeam);
 
 	const char* name() const;
 	const char* doc() const;

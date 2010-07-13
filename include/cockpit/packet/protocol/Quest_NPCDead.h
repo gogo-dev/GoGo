@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 6004 };
 
-	Quest_NPCDead(packet::MUID uidKillerPlayer, packet::MUID uidNPC);
+	Quest_NPCDead(const packet::MUID& uidKillerPlayer, const packet::MUID& uidNPC);
 
 	const char* name() const;
 	const char* doc() const;

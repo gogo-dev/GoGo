@@ -27,7 +27,7 @@ private:
 public:
 	enum { packetID = 1002 };
 
-	Match_ResponseLogin(packet::int32 Result, packet::string ServerName, packet::int8 ServerMode, packet::string AccountID, packet::uint8 UGradeID, packet::uint8 PGradeID, packet::MUID uidPlayer, packet::blob EncryptMsg);
+	Match_ResponseLogin(const packet::int32& Result, const packet::string& ServerName, const packet::int8& ServerMode, const packet::string& AccountID, const packet::uint8& UGradeID, const packet::uint8& PGradeID, const packet::MUID& uidPlayer, const packet::blob& EncryptMsg);
 
 	const char* name() const;
 	const char* doc() const;

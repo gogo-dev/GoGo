@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 2018 };
 
-	Match_Clan_Master_ResponseChangeGrade(packet::int32 Result);
+	Match_Clan_Master_ResponseChangeGrade(const packet::int32& Result);
 
 	const char* name() const;
 	const char* doc() const;

@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 2009 };
 
-	Match_Clan_ResponseJoinClan(packet::int32 Result);
+	Match_Clan_ResponseJoinClan(const packet::int32& Result);
 
 	const char* name() const;
 	const char* doc() const;

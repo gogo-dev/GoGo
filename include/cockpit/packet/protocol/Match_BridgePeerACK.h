@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 1007 };
 
-	Match_BridgePeerACK(packet::MUID uidPlayer, packet::int32 nCode);
+	Match_BridgePeerACK(const packet::MUID& uidPlayer, const packet::int32& nCode);
 
 	const char* name() const;
 	const char* doc() const;

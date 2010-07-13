@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 516 };
 
-	Admin_ResponseBanPlayer(packet::int32 Result);
+	Admin_ResponseBanPlayer(const packet::int32& Result);
 
 	const char* name() const;
 	const char* doc() const;

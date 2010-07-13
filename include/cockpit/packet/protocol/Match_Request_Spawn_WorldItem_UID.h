@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 1545 };
 
-	Match_Request_Spawn_WorldItem_UID(packet::int32 nWorldItemUID);
+	Match_Request_Spawn_WorldItem_UID(const packet::int32& nWorldItemUID);
 
 	const char* name() const;
 	const char* doc() const;

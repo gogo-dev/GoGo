@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 1576 };
 
-	Match_Ladder_CancelChallenge(packet::string CharName);
+	Match_Ladder_CancelChallenge(const packet::string& CharName);
 
 	const char* name() const;
 	const char* doc() const;

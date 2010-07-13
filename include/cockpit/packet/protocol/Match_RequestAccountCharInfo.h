@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 1719 };
 
-	Match_RequestAccountCharInfo(packet::int8 CharNum);
+	Match_RequestAccountCharInfo(const packet::int8& CharNum);
 
 	const char* name() const;
 	const char* doc() const;

@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 2025 };
 
-	Match_Clan_Request_Clan_Info(packet::MUID uidChar, packet::string ClanName);
+	Match_Clan_Request_Clan_Info(const packet::MUID& uidChar, const packet::string& ClanName);
 
 	const char* name() const;
 	const char* doc() const;

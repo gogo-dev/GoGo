@@ -22,7 +22,7 @@ private:
 public:
 	enum { packetID = 501 };
 
-	Admin_Announce(packet::MUID uidAdmin, packet::string Msg, packet::uint32 MsgType);
+	Admin_Announce(const packet::MUID& uidAdmin, const packet::string& Msg, const packet::uint32& MsgType);
 
 	const char* name() const;
 	const char* doc() const;

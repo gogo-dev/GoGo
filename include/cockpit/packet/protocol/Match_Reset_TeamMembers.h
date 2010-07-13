@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 1552 };
 
-	Match_Reset_TeamMembers(packet::blob TeamMemberData);
+	Match_Reset_TeamMembers(const packet::blob& TeamMemberData);
 
 	const char* name() const;
 	const char* doc() const;

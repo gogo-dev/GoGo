@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 6013 };
 
-	Match_Quest_Pong(packet::uint32 nTimeStamp);
+	Match_Quest_Pong(const packet::uint32& nTimeStamp);
 
 	const char* name() const;
 	const char* doc() const;

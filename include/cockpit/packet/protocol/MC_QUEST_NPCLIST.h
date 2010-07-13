@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 6014 };
 
-	MC_QUEST_NPCLIST(packet::blob NPCinfolist, packet::int32 eGameType);
+	MC_QUEST_NPCLIST(const packet::blob& NPCinfolist, const packet::int32& eGameType);
 
 	const char* name() const;
 	const char* doc() const;

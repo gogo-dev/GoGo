@@ -22,7 +22,7 @@ private:
 public:
 	enum { packetID = 1828 };
 
-	MC_MATCH_ROUTE_UPDATE_STAGE_EQUIP_LOOK(packet::MUID useruid, packet::int32 parts, packet::int32 itemid);
+	MC_MATCH_ROUTE_UPDATE_STAGE_EQUIP_LOOK(const packet::MUID& useruid, const packet::int32& parts, const packet::int32& itemid);
 
 	const char* name() const;
 	const char* doc() const;

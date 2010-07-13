@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 1553 };
 
-	Match_Set_Observer(packet::MUID uidChar);
+	Match_Set_Observer(const packet::MUID& uidChar);
 
 	const char* name() const;
 	const char* doc() const;

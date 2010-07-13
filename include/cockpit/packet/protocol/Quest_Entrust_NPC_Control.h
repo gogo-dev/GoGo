@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 6001 };
 
-	Quest_Entrust_NPC_Control(packet::MUID uidChar, packet::MUID nNpcUID);
+	Quest_Entrust_NPC_Control(const packet::MUID& uidChar, const packet::MUID& nNpcUID);
 
 	const char* name() const;
 	const char* doc() const;

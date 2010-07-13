@@ -23,7 +23,7 @@ private:
 public:
 	enum { packetID = 6045 };
 
-	Quest_Peer_NPC_Skill_Execute(packet::MUID uidOwner, packet::int32 nSkill, packet::MUID uidTarget, packet::position targetPos);
+	Quest_Peer_NPC_Skill_Execute(const packet::MUID& uidOwner, const packet::int32& nSkill, const packet::MUID& uidTarget, const packet::position& targetPos);
 
 	const char* name() const;
 	const char* doc() const;

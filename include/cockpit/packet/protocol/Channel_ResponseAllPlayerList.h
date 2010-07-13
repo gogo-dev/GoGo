@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 1233 };
 
-	Channel_ResponseAllPlayerList(packet::MUID uidChannel, packet::blob PlayerList);
+	Channel_ResponseAllPlayerList(const packet::MUID& uidChannel, const packet::blob& PlayerList);
 
 	const char* name() const;
 	const char* doc() const;

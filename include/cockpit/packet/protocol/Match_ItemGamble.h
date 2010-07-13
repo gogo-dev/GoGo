@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 1841 };
 
-	Match_ItemGamble(packet::MUID uidItem);
+	Match_ItemGamble(const packet::MUID& uidItem);
 
 	const char* name() const;
 	const char* doc() const;

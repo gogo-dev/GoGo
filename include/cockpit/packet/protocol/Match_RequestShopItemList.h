@@ -22,7 +22,7 @@ private:
 public:
 	enum { packetID = 1815 };
 
-	Match_RequestShopItemList(packet::MUID uid, packet::int32 FirstItemIndex, packet::int32 ItemCount);
+	Match_RequestShopItemList(const packet::MUID& uid, const packet::int32& FirstItemIndex, const packet::int32& ItemCount);
 
 	const char* name() const;
 	const char* doc() const;

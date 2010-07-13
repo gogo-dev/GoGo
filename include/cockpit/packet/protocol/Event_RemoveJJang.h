@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 612 };
 
-	Event_RemoveJJang(packet::string strTargetName);
+	Event_RemoveJJang(const packet::string& strTargetName);
 
 	const char* name() const;
 	const char* doc() const;

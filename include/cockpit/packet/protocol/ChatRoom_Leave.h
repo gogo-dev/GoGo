@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 1653 };
 
-	ChatRoom_Leave(packet::string PlayerName, packet::string ChatRoomName);
+	ChatRoom_Leave(const packet::string& PlayerName, const packet::string& ChatRoomName);
 
 	const char* name() const;
 	const char* doc() const;

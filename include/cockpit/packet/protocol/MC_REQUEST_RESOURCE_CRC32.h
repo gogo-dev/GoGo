@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 11001 };
 
-	MC_REQUEST_RESOURCE_CRC32(packet::uint32 key);
+	MC_REQUEST_RESOURCE_CRC32(const packet::uint32& key);
 
 	const char* name() const;
 	const char* doc() const;

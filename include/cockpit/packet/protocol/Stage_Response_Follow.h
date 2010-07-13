@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 1310 };
 
-	Stage_Response_Follow(packet::int32 Result);
+	Stage_Response_Follow(const packet::int32& Result);
 
 	const char* name() const;
 	const char* doc() const;

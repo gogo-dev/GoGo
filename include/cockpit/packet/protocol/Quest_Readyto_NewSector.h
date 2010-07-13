@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 6059 };
 
-	Quest_Readyto_NewSector(packet::MUID uidPlayer);
+	Quest_Readyto_NewSector(const packet::MUID& uidPlayer);
 
 	const char* name() const;
 	const char* doc() const;

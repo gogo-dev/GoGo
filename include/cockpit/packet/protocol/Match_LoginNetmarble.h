@@ -23,7 +23,7 @@ private:
 public:
 	enum { packetID = 1003 };
 
-	Match_LoginNetmarble(packet::string CPCookie, packet::string SpareParam, packet::int32 CommandVersion, packet::uint32 nChecksumPack);
+	Match_LoginNetmarble(const packet::string& CPCookie, const packet::string& SpareParam, const packet::int32& CommandVersion, const packet::uint32& nChecksumPack);
 
 	const char* name() const;
 	const char* doc() const;

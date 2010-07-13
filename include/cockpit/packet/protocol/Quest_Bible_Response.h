@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 21015 };
 
-	Quest_Bible_Response(packet::MUID requester, packet::blob Monsterbibleinfo);
+	Quest_Bible_Response(const packet::MUID& requester, const packet::blob& Monsterbibleinfo);
 
 	const char* name() const;
 	const char* doc() const;

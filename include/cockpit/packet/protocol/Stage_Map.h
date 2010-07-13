@@ -21,7 +21,7 @@ private:
 public:
 	enum { packetID = 1414 };
 
-	Stage_Map(packet::MUID uidStage, packet::string MapName);
+	Stage_Map(const packet::MUID& uidStage, const packet::string& MapName);
 
 	const char* name() const;
 	const char* doc() const;

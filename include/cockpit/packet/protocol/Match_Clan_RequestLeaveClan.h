@@ -20,7 +20,7 @@ private:
 public:
 	enum { packetID = 2014 };
 
-	Match_Clan_RequestLeaveClan(packet::MUID uidChar);
+	Match_Clan_RequestLeaveClan(const packet::MUID& uidChar);
 
 	const char* name() const;
 	const char* doc() const;
