@@ -18,6 +18,7 @@ using namespace boost;
 using namespace cockpit;
 
 GoGoClient::GoGoClient(Logger* _logger, gunz::ChannelList* _channelList, gunz::MUIDSanta* _santa, GunzDB* _database)
+	: Player(Player::Traits())
 {
 	assert(_logger);
 	logger = _logger;

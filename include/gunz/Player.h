@@ -1,6 +1,9 @@
 #pragma once
 #include <gunz/simple_types.h>
 
+#include <boost/function.hpp>
+#include <boost/thread/shared_mutex.hpp>
+
 namespace gunz {
 
 /**
@@ -11,6 +14,17 @@ namespace gunz {
 class Player
 {
 public:
+	struct Traits
+	{
+	};
+
+private:
+	Traits traits;
+	mutable boost::shared_mutex protection;
+
+public:
+	Player(const Traits& traits);
+
 	enum MessageType
 	{
 		MT_ANNOUNCE,
@@ -26,7 +40,14 @@ public:
 	*/
 	virtual void OnMessage(MessageType type, const char* sender, const char* message) = 0;
 
+	// Reentrant accessor.
+	Traits GetTraits() const;
+
 protected:
+	// Reentrant modifier.
+	void ModifyTraits(const boost::function<void (Traits& traits)>& modifier);
+
+	// Prevents a memory leak. DO NOT MAKE THIS PUBLIC.
 	~Player()
 	{
 	}

@@ -10,6 +10,7 @@
 #include <cockpit/packet/Parameters.h>
 #include <cockpit/packet/protocol/Channel_ResponsePlayerList.h>
 
+#include <algorithm>
 #include <cassert>
 
 using namespace std;
@@ -27,8 +28,9 @@ void GoGoClient::OnChannelPlayerList (const gunz::MUID& playerId, const gunz::MU
 		return;
 
 	//get number of players from the stage.
-	uint32_t count = min(myChannel->players.Length() - clientStart, 6);
+	size_t count = min<size_t>(myChannel->players.Length() - clientStart, 6);
 
+	// TODO: Casts. Are you fucking retarded?
 	packet::uint8 playerCount((uint8_t)myChannel->players.Length());
 	packet::uint8 pageNum((uint8_t)page);
 	packet::blob playerList(count, 71);
@@ -39,15 +41,16 @@ void GoGoClient::OnChannelPlayerList (const gunz::MUID& playerId, const gunz::MU
 	{
 		GoGoClient* client = (GoGoClient*)(players.at(i));
 
-		playerList.add_param(packet::MUID(client->myMUID));
-		playerList.add_param(packet::blob_string(client->myCharacter.CharacterName.c_str(), 32));
-		playerList.add_param(packet::blob_string(client->myCharacter.ClanName.c_str(), 16));
-		playerList.add_param(packet::uint8((uint8_t)client->myCharacter.CharacterLevel));
-		playerList.add_param(packet::int32(client->myPlace));
-		playerList.add_param(packet::uint8(client->myAccount.AccountAccess));
-		playerList.add_param(packet::uint8(2)); // usually 2.
-		playerList.add_param(packet::int32(client->myCharacter.ClanId));
-		playerList.add_param(packet::int32(0)); // emblem?
+		playerList
+			.add_param(packet::MUID(client->myMUID))
+			.add_param(packet::blob_string(client->myCharacter.CharacterName.c_str(), 32))
+			.add_param(packet::blob_string(client->myCharacter.ClanName.c_str(), 16))
+			.add_param(packet::uint8(client->myCharacter.CharacterLevel))
+			.add_param(packet::int32(client->myPlace))
+			.add_param(packet::uint8(client->myAccount.AccountAccess))
+			.add_param(packet::uint8(2)) // usually 2.
+			.add_param(packet::int32(client->myCharacter.ClanId))
+			.add_param(packet::int32(0)); // emblem?
 	}
 
 	transmitter->send(packet::protocol::Channel_ResponsePlayerList(playerCount, pageNum, playerList));
