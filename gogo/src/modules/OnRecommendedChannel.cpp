@@ -50,4 +50,6 @@ void GoGoClient::OnRecommendedChannel()
 	packet::boolean unknown(true);
 
 	transmitter->send(packet::protocol::Channel_ResponseJoin(channelId, channelType, channelName, unknown));
+
+	myPlace = gunz::MP_LOBBY;
 }

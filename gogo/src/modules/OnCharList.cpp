@@ -7,6 +7,7 @@
 #include <cockpit/Transmitter.h>
 #include <cockpit/packet/protocol/Match_ResponseAccountCharList.h>
 #include <cockpit/packet/Parameters.h>
+#include <gunz/simple_types.h>
 
 #include <vector>
 
@@ -43,5 +44,6 @@ void GoGoClient::OnCharList()
 		}
 	}
 
+	myPlace = gunz::MP_CHARACTER;
 	transmitter->send(Match_ResponseAccountCharList(charBlob));
 }

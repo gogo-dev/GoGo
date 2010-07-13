@@ -41,6 +41,7 @@ private:
 	CharacterInfo myCharacter;
 	gunz::Channel* myChannel;
 	gunz::Stage* myStage;
+	gunz::MatchPlace myPlace;
 
 public:
 	GoGoClient(cockpit::Logger* logger, gunz::ChannelList* channelList, gunz::MUIDSanta* santa, GunzDB* database);
@@ -60,6 +61,7 @@ public:
 	void OnCharInfo(boost::uint8_t marker);
 	void OnCharSelect(gunz::MUID uid, boost::uint8_t marker);
 	void OnRecommendedChannel();
+	void OnChannelPlayerList (const gunz::MUID& playerId, const gunz::MUID& channelId, const boost::uint32_t&  page);
 
 	boost::array<boost::uint8_t, 32>
 	handshake(boost::asio::ip::tcp::socket& s) const;
