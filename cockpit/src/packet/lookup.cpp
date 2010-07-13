@@ -42,8 +42,8 @@ PacketInfo lookup(uint16_t commandID)
 		case protocol::Match_ObjectCache::packetID: return PacketInfo("Match_ObjectCache", "Match Object Cache", commandID);
 		case protocol::Match_BridgePeer::packetID: return PacketInfo("Match_BridgePeer", "Match BridgePeer", commandID);
 		case protocol::Match_BridgePeerACK::packetID: return PacketInfo("Match_BridgePeerACK", "ACK for BridgePeer", commandID);
-		case protocol::MatchServer_RequestRecommandedChannel::packetID: return PacketInfo("MatchServer_RequestRecommandedChannel", "Request recommanded channel", commandID);
-		case protocol::MatchServer_ResponseRecommandedChannel::packetID: return PacketInfo("MatchServer_ResponseRecommandedChannel", "Response recommanded channel", commandID);
+		case protocol::MatchServer_RequestRecommendedChannel::packetID: return PacketInfo("MatchServer_RequestRecommendedChannel", "Request recommended channel", commandID);
+		case protocol::MatchServer_ResponseRecommendedChannel::packetID: return PacketInfo("MatchServer_ResponseRecommendedChannel", "Response recommended channel", commandID);
 		case protocol::Channel_Join::packetID: return PacketInfo("Channel_Join", "Join a Channel", commandID);
 		case protocol::Channel_ResponseJoin::packetID: return PacketInfo("Channel_ResponseJoin", "Response Join a Channel", commandID);
 		case protocol::Channel_RequestJoinFromName::packetID: return PacketInfo("Channel_RequestJoinFromName", "Join a Channel From Name", commandID);

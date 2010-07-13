@@ -464,51 +464,51 @@ Buffer Match_BridgePeerACK::serialize() const
 	return merge_parameters(serializedParameters, countof(serializedParameters));
 }
 
-MatchServer_RequestRecommandedChannel::MatchServer_RequestRecommandedChannel()
+MatchServer_RequestRecommendedChannel::MatchServer_RequestRecommendedChannel()
 {
 }
 
-const char* MatchServer_RequestRecommandedChannel::name() const
+const char* MatchServer_RequestRecommendedChannel::name() const
 {
-	return "MatchServer_RequestRecommandedChannel";
+	return "MatchServer_RequestRecommendedChannel";
 }
 
-const char* MatchServer_RequestRecommandedChannel::doc() const
+const char* MatchServer_RequestRecommendedChannel::doc() const
 {
-	return "Request recommanded channel";
+	return "Request recommended channel";
 }
 
-uint16_t MatchServer_RequestRecommandedChannel::id() const
+uint16_t MatchServer_RequestRecommendedChannel::id() const
 {
 	return packetID;
 }
 
-Buffer MatchServer_RequestRecommandedChannel::serialize() const
+Buffer MatchServer_RequestRecommendedChannel::serialize() const
 {
 	return Buffer(0);
 }
 
-MatchServer_ResponseRecommandedChannel::MatchServer_ResponseRecommandedChannel(const packet::MUID& _uid)
+MatchServer_ResponseRecommendedChannel::MatchServer_ResponseRecommendedChannel(const packet::MUID& _uid)
 	: uid(_uid)
 {
 }
 
-const char* MatchServer_ResponseRecommandedChannel::name() const
+const char* MatchServer_ResponseRecommendedChannel::name() const
 {
-	return "MatchServer_ResponseRecommandedChannel";
+	return "MatchServer_ResponseRecommendedChannel";
 }
 
-const char* MatchServer_ResponseRecommandedChannel::doc() const
+const char* MatchServer_ResponseRecommendedChannel::doc() const
 {
-	return "Response recommanded channel";
+	return "Response recommended channel";
 }
 
-uint16_t MatchServer_ResponseRecommandedChannel::id() const
+uint16_t MatchServer_ResponseRecommendedChannel::id() const
 {
 	return packetID;
 }
 
-Buffer MatchServer_ResponseRecommandedChannel::serialize() const
+Buffer MatchServer_ResponseRecommendedChannel::serialize() const
 {
 	Buffer serializedParameters[] = {
 		uid.serialize()

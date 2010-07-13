@@ -102,7 +102,7 @@ Registry::Registry()
 	Match_ObjectCache(bind(do_nothing_2< boost::uint8_t, const boost::tuple<Buffer /* data */, size_t /* count */, size_t /* size */>& >, nothing_info(this, 1101), _1, _2)),
 	Match_BridgePeer(bind(do_nothing_3< boost::uint64_t, boost::uint32_t, boost::uint32_t >, nothing_info(this, 1006), _1, _2, _3)),
 	Match_BridgePeerACK(bind(do_nothing_2< boost::uint64_t, boost::int32_t >, nothing_info(this, 1007), _1, _2)),
-	MatchServer_RequestRecommandedChannel(bind(do_nothing_0, nothing_info(this, 1201))),
+	MatchServer_RequestRecommendedChannel(bind(do_nothing_0, nothing_info(this, 1201))),
 	Channel_Join(bind(do_nothing_2< boost::uint64_t, boost::uint64_t >, nothing_info(this, 1205), _1, _2)),
 	Channel_RequestJoinFromName(bind(do_nothing_4< boost::uint64_t, boost::int32_t, boost::int32_t, const std::string& >, nothing_info(this, 1206), _1, _2, _3, _4)),
 	Channel_Leave(bind(do_nothing_2< boost::uint64_t, boost::uint64_t >, nothing_info(this, 1208), _1, _2)),
@@ -452,9 +452,9 @@ static void do_Match_BridgePeerACK(Registry* self, const uint8_t* parameters, ui
 	self->Match_BridgePeerACK(p0, p1);
 }
 
-static void do_MatchServer_RequestRecommandedChannel(Registry* self, const uint8_t*, uint16_t)
+static void do_MatchServer_RequestRecommendedChannel(Registry* self, const uint8_t*, uint16_t)
 {
-	self->MatchServer_RequestRecommandedChannel();
+	self->MatchServer_RequestRecommendedChannel();
 }
 
 static void do_Channel_Join(Registry* self, const uint8_t* parameters, uint16_t length)
@@ -2572,7 +2572,7 @@ void Registry::dispatch(uint16_t packetID,
 			case protocol::Match_ObjectCache::packetID: return do_Match_ObjectCache(this, parameters, length);
 			case protocol::Match_BridgePeer::packetID: return do_Match_BridgePeer(this, parameters, length);
 			case protocol::Match_BridgePeerACK::packetID: return do_Match_BridgePeerACK(this, parameters, length);
-			case protocol::MatchServer_RequestRecommandedChannel::packetID: return do_MatchServer_RequestRecommandedChannel(this, parameters, length);
+			case protocol::MatchServer_RequestRecommendedChannel::packetID: return do_MatchServer_RequestRecommendedChannel(this, parameters, length);
 			case protocol::Channel_Join::packetID: return do_Channel_Join(this, parameters, length);
 			case protocol::Channel_RequestJoinFromName::packetID: return do_Channel_RequestJoinFromName(this, parameters, length);
 			case protocol::Channel_Leave::packetID: return do_Channel_Leave(this, parameters, length);

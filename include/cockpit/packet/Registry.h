@@ -76,8 +76,8 @@ public:
 	// ACK for BridgePeer
 	boost::function<void (boost::uint64_t /* uidPlayer */, boost::int32_t /* nCode */)> Match_BridgePeerACK;
 
-	// Request recommanded channel
-	boost::function<void ()> MatchServer_RequestRecommandedChannel;
+	// Request recommended channel
+	boost::function<void ()> MatchServer_RequestRecommendedChannel;
 
 	// Join a Channel
 	boost::function<void (boost::uint64_t /* uidPlayer */, boost::uint64_t /* uidChannel */)> Channel_Join;

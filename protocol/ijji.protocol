@@ -176,12 +176,12 @@ Command Help = "ACK for BridgePeer"
     Parameter = "nCode"
 
 Command ID = 4B1
-Command = "MatchServer.RequestRecommandedChannel"
-Command Help = "Request recommanded channel"
+Command = "MatchServer.RequestRecommendedChannel"
+Command Help = "Request recommended channel"
 
 Command ID = 4B2
-Command = "MatchServer.ResponseRecommandedChannel"
-Command Help = "Response recommanded channel"
+Command = "MatchServer.ResponseRecommendedChannel"
+Command Help = "Response recommended channel"
 
     Parameter Type = 9
     Parameter = "uid"
