@@ -10,8 +10,8 @@
 struct CharacterInfo
 {
     boost::uint32_t CharacterId;
-	std::string CharacterName; //32 = size
-	std::string ClanName; //16 = size
+	std::string CharacterName;
+	std::string ClanName;
 	boost::uint32_t CharacterGrade;
     boost::uint16_t ClanPoints;
     boost::uint8_t CharacterMarker;
