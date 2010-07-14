@@ -1,9 +1,10 @@
 #pragma once
 #include <boost/cstdint.hpp>
+#include <string>
 
 struct CharacterEntry
 {
-	std::string CharacterName;
-	boost::uint8_t CharacterIndex;
-	boost::uint8_t CharacterLevel;
+	std::string name;
+	boost::uint8_t index;
+	boost::uint8_t level;
 };

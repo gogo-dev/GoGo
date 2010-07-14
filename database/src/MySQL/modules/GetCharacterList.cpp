@@ -28,9 +28,9 @@ static SmallVector<CharacterEntry, 4> handle_get_character_list(const StoreQuery
 		const Row& row = *i;
 
 		CharacterEntry character;
-		character.CharacterIndex = row["marker"];
-		character.CharacterLevel = row["level"];
-		character.CharacterName = string(row["name"]);
+		character.index = row["marker"];
+		character.level = row["level"];
+		character.name = string(row["name"]);
 
 		charList.push_back(character);
 	}

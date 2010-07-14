@@ -37,9 +37,9 @@ void GoGoClient::OnCharList()
 		for (CharList::iterator i = charList.begin(), e = charList.end(); i != e; ++i)
 		{
 			charBlob
-				.add_param(blob_string(i->CharacterName.c_str(), 32))
-				.add_param(uint8(i->CharacterIndex))
-				.add_param(uint8(i->CharacterLevel))
+				.add_param(blob_string(i->name.c_str(), 32))
+				.add_param(uint8(i->index))
+				.add_param(uint8(i->level))
 			;
 		}
 	}
