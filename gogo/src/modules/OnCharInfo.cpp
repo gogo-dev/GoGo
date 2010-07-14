@@ -59,7 +59,7 @@ void GoGoClient::OnCharInfo(uint8_t marker)
 		info.add_param(int32(myCharacter.equipment[i].ItemID));
 
 	info
-		.add_param(int32(myAccount.AccountAccess))
+		.add_param(int32(myAccount.access))
 		.add_param(int32(myCharacter.clanid))
 	;
 

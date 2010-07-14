@@ -31,14 +31,14 @@ void MySQLGunzDB::CreateCharacter(const AccountInfo& accountInfo, const string& 
 		throw NameInUse();
 
 	bool succeeded = exec_query(
-		bind(make_create_character_query, _1, accountInfo.AccountId, name, marker, sex, hair, face, costume)
+		bind(make_create_character_query, _1, accountInfo.aid, name, marker, sex, hair, face, costume)
 	);
 
 	if(!succeeded)
 		throw InvalidCharacterName();
 
 	succeeded = exec_query(
-		bind(make_create_character_equip_query, _1, GetCID(accountInfo.AccountId, marker))
+		bind(make_create_character_equip_query, _1, GetCID(accountInfo.aid, marker))
 	);
 
 	if(!succeeded)

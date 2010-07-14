@@ -24,10 +24,10 @@ void MySQLGunzDB::DeleteCharacter(const AccountInfo& acc, uint32_t marker)
 		throw InvalidAccountInfo();
 
 	exec_query(
-		bind(make_delete_character_query, _1, acc.AccountId, marker)
+		bind(make_delete_character_query, _1, acc.aid, marker)
 	);
 
 	exec_query(
-		bind(make_update_marker_info_query, _1, acc.AccountId, marker)
+		bind(make_update_marker_info_query, _1, acc.aid, marker)
 	);
 }

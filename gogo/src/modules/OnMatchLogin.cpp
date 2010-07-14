@@ -63,8 +63,8 @@ void GoGoClient::OnMatchLogin(
 		"GoGo MatchServer",	// TODO: Load this from the config file.
 		2,	// What? Is this supposed to mean something?
 		username.c_str(),
-		myAccount.AccountAccess,
-		myAccount.AccountPremium,
+		myAccount.access,
+		myAccount.pgradeid,
 		myMUID
 	);
 }

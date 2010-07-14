@@ -70,7 +70,7 @@ void GoGoClient::OnCharSelect(boost::uint64_t /* uid */, uint8_t marker)
 		info.add_param(int32(myCharacter.equipment[i].ItemID));
 
 	info
-		.add_param(int32((uint32_t)myAccount.AccountAccess))
+		.add_param(int32((uint32_t)myAccount.access))
 		.add_param(int32(myCharacter.clanid))
 	;
 

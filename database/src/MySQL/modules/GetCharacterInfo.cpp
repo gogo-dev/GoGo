@@ -75,7 +75,7 @@ CharacterInfo MySQLGunzDB::GetCharacterInfo(const AccountInfo& acc, uint8_t slot
 
 	// Normal, clan, equip, inventory.
 	CharacterInfo ret = run_query<CharacterInfo>(
-		bind(make_get_character_info_query, _1, acc.AccountId, static_cast<uint32_t>(slot)),
+		bind(make_get_character_info_query, _1, acc.aid, static_cast<uint32_t>(slot)),
 		bind(handle_get_character_info, _1, slot)
 	);
 

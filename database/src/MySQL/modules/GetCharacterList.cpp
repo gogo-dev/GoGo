@@ -44,7 +44,7 @@ SmallVector<CharacterEntry, 4> MySQLGunzDB::GetCharacterList(const AccountInfo& 
 		throw InvalidAccountInfo();
 
 	return run_query<SmallVector<CharacterEntry, 4> >(
-		bind(make_get_character_list_query, _1, (account.AccountId)),
+		bind(make_get_character_list_query, _1, (account.aid)),
 		handle_get_character_list
 	);
 }
