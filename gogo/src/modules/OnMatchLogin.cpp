@@ -60,7 +60,7 @@ void GoGoClient::OnMatchLogin(
 	return reply(
 		transmitter,
 		errorCode,
-		"Lol Emu Test",	// TODO(Jacob): NOT THIS!
+		"GoGo MatchServer",	// TODO: Load this from the config file.
 		2,	// What? Is this supposed to mean something?
 		username.c_str(),
 		myAccount.AccountAccess,

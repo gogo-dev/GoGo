@@ -19,7 +19,6 @@ using namespace boost;
 using namespace cockpit;
 using namespace packet;
 
-// TODO: Temp.
 static void convert_to_traits(gunz::MUID myMUID, const CharacterInfo& charInfo, gunz::Player::Traits& traits)
 {
 	traits.muid = myMUID;

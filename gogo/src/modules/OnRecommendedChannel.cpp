@@ -44,12 +44,7 @@ void GoGoClient::OnRecommendedChannel()
 	myChannel->players.Add(this);
 	gunz::Channel::Traits traits = myChannel->GetTraits();
 
-	packet::MUID channelId(traits.uid);
-	packet::int32 channelType(traits.type);
-	packet::string channelName(traits.name);
-	packet::boolean unknown(true);
-
-	transmitter->send(packet::protocol::Channel_ResponseJoin(channelId, channelType, channelName, unknown));
+	transmitter->send(packet::protocol::Channel_ResponseJoin(traits.uid, traits.type, traits.name, true));
 
 	myPlace = gunz::MP_LOBBY;
 }
