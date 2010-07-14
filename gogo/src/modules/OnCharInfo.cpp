@@ -37,31 +37,31 @@ void GoGoClient::OnCharInfo(uint8_t marker)
 	blob info(1, 146);
 
 	info
-		.add_param(blob_string(myCharacter.CharacterName.c_str(), 32))
-		.add_param(blob_string(myCharacter.ClanName.c_str(), 16))
-		.add_param(int32(myCharacter.CharacterGrade))
-		.add_param(int16(myCharacter.ClanPoints))
-		.add_param(uint8(myCharacter.CharacterMarker))
-		.add_param(int16(myCharacter.CharacterLevel))
-		.add_param(int16(myCharacter.CharacterLevel))
-		.add_param(uint8(myCharacter.CharacterSex))
-		.add_param(uint8(myCharacter.CharacterHair))
-		.add_param(uint8(myCharacter.CharacterFace))
-		.add_param(uint32(myCharacter.CharacterXP))
-		.add_param(uint32(myCharacter.CharacterBP))
+		.add_param(blob_string(myCharacter.name.c_str(), 32))
+		.add_param(blob_string(myCharacter.clanName.c_str(), 16))
+		.add_param(int32(myCharacter.grade))
+		.add_param(int16(myCharacter.clanScore))
+		.add_param(uint8(myCharacter.marker))
+		.add_param(int16(myCharacter.level))    // TODO: Wtf...
+		.add_param(int16(myCharacter.level))    //             ....?
+		.add_param(uint8(myCharacter.gender))
+		.add_param(uint8(myCharacter.hairstyle))
+		.add_param(uint8(myCharacter.facestyle))
+		.add_param(uint32(myCharacter.experience))
+		.add_param(uint32(myCharacter.bounty))
 		.add_param(floating_point(0)) // fBonusRate - not used.
 		.add_param(zeros(18))	// not used :/
 	;
 
-	assert(myCharacter.Equipment.size() == 12);
+	assert(myCharacter.equipment.size() == 12);
 
-	for(size_t i = 0; i < myCharacter.Equipment.size(); ++i)
-		info.add_param(int32(myCharacter.Equipment[i].ItemID));
+	for(size_t i = 0; i < myCharacter.equipment.size(); ++i)
+		info.add_param(int32(myCharacter.equipment[i].ItemID));
 
 	info
 		.add_param(int32(myAccount.AccountAccess))
-		.add_param(int32(myCharacter.ClanId))
+		.add_param(int32(myCharacter.clanid))
 	;
 
-	transmitter->send(Match_ResponseAccountCharInfo(myCharacter.CharacterMarker, info));
+	transmitter->send(Match_ResponseAccountCharInfo(myCharacter.marker, info));
 }

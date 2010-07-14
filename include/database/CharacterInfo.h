@@ -9,20 +9,20 @@
 
 struct CharacterInfo
 {
-    boost::uint32_t CharacterId;
-	std::string CharacterName;
-	std::string ClanName;
-	boost::uint32_t CharacterGrade;
-    boost::uint16_t ClanPoints;
-    boost::uint8_t CharacterMarker;
-    boost::uint8_t CharacterLevel;
-    boost::uint8_t CharacterSex;
-    boost::uint8_t CharacterHair;
-    boost::uint8_t CharacterFace;
-    boost::uint32_t CharacterXP;
-    boost::uint32_t CharacterBP;
-	SmallVector<Item, 12> Equipment;
-	boost::uint32_t CharacterAccess;
-    boost::uint32_t ClanId;
-    std::vector<Item> Inventory;
+    boost::uint32_t id;
+	std::string name;
+	std::string clanName;
+	boost::uint32_t grade;
+    boost::uint16_t clanScore;
+    boost::uint8_t marker;
+    boost::uint8_t level;
+    boost::uint8_t gender;
+    boost::uint8_t hairstyle;
+    boost::uint8_t facestyle;
+    boost::uint32_t experience;
+    boost::uint32_t bounty;
+	SmallVector<Item, 12> equipment;
+	boost::uint32_t access;
+    boost::uint32_t clanid;
+    std::vector<Item> inventory;
 };

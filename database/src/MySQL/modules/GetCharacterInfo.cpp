@@ -27,16 +27,16 @@ static CharacterInfo handle_get_character_info(const StoreQueryResult& result, u
 	const Row& row = result[0];
 	CharacterInfo charInfo;
 
-	charInfo.CharacterId = row["id"];
-	charInfo.CharacterMarker = marker;
-	charInfo.CharacterName = string(row["name"]);
-	charInfo.ClanId = row["clanid"];
-	charInfo.CharacterLevel = row["level"];
-	charInfo.CharacterSex = row["sex"];
-	charInfo.CharacterHair = row["hair"];
-	charInfo.CharacterFace = row["face"];
-	charInfo.CharacterXP = row["xp"];
-	charInfo.CharacterBP = row["bp"];
+	charInfo.id = row["id"];
+	charInfo.marker= marker;
+	charInfo.name = string(row["name"]);
+	charInfo.clanid = row["clanid"];
+	charInfo.level = row["level"];
+	charInfo.gender = row["sex"];
+	charInfo.hairstyle = row["hair"];
+	charInfo.facestyle = row["face"];
+	charInfo.experience = row["xp"];
+	charInfo.bounty = row["bp"];
 
 	return charInfo;
 }
@@ -52,8 +52,8 @@ static void handle_clan_info(const StoreQueryResult& result, CharacterInfo* char
 
 	if (rowCount == 0)
 	{
-		charInfo->ClanName = "";
-		charInfo->ClanPoints = 0;
+		charInfo->clanName = "";
+		charInfo->clanScore = 0;
 		return;
 	}
 
@@ -63,8 +63,8 @@ static void handle_clan_info(const StoreQueryResult& result, CharacterInfo* char
 
 	if(rowCount == 1)
 	{
-		charInfo->ClanName = string(row["name"]);
-		charInfo->ClanPoints = row["cwpoints"];
+		charInfo->clanName = string(row["name"]);
+		charInfo->clanScore = row["cwpoints"];
 	}
 }
 
@@ -80,12 +80,12 @@ CharacterInfo MySQLGunzDB::GetCharacterInfo(const AccountInfo& acc, uint8_t slot
 	);
 
 	run_query<void>(
-		bind(make_get_clan_info_query, _1, ret.ClanId),
+		bind(make_get_clan_info_query, _1, ret.clanid),
 		bind(handle_clan_info, _1, &ret)
 	);
 
-	ret.Equipment = GetEquipment(ret.CharacterId);
-	ret.Inventory = GetInventory(ret.CharacterId);
+	ret.equipment = GetEquipment(ret.id);
+	ret.inventory = GetInventory(ret.id);
 
 	return ret;
 }

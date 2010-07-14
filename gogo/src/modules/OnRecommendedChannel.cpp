@@ -20,10 +20,10 @@ static bool IsRecommandedChannel(const CharacterInfo& myCharacter, const gunz::C
 {
 	gunz::Channel::Traits traits = channel.GetTraits();
 
-	return traits.maxLevel >= myCharacter.CharacterLevel
-	    && traits.minLevel <= myCharacter.CharacterLevel
+	return traits.maxLevel >= myCharacter.level
+	    && traits.minLevel <= myCharacter.level
 	    && traits.maxPlayers < channel.players.Length()
-	    && myCharacter.ClanId == 0;
+	    && myCharacter.clanid == 0;
 }
 
 static bool IsFirstChannel(const gunz::Channel&)
