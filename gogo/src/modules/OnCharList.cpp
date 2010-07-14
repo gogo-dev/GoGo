@@ -23,7 +23,7 @@ void GoGoClient::OnCharList()
 	typedef SmallVector<CharacterEntry, 4> CharList;
 
 	if(!myAccount.isValid)
-		return transmitter->disconnect();
+		return transmitter->disconnect("Tried to get a char list without first logging in.");
 
 	CharList charList = database->GetCharacterList(myAccount);
 	blob charBlob(charList.size(), 34);
@@ -44,6 +44,7 @@ void GoGoClient::OnCharList()
 		}
 	}
 
-	myPlace = gunz::MP_CHARACTER;
 	transmitter->send(Match_ResponseAccountCharList(charBlob));
+
+	myPlace = gunz::MP_CHARACTER;
 }

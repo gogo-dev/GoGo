@@ -67,16 +67,10 @@ static void add_player_to_player_list(
 void GoGoClient::OnChannelPlayerList(const gunz::MUID&, const gunz::MUID&, const uint32_t& page)
 {
 	if(myChannel == NULL)
-	{
-		logger->info(format("[%1%] Tried to request a player list without being in a channel.") % transmitter->get_ip());
-		return transmitter->disconnect();
-	}
+		return transmitter->disconnect("Tried to request a player list without being in a channel.");
 
 	if(page > UCHAR_MAX)
-	{
-		logger->info(format("[%1%] Tried to access an out-of-bounds page (> 255).") % transmitter->get_ip());
-		return transmitter->disconnect();
-	}
+		return transmitter->disconnect("Tried to access an out-of-bounds page (> 255).");
 
 	packet::blob playerList(0, 71); // The count is set later. 0 is used as a placeholder for now.
 

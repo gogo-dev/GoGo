@@ -34,20 +34,15 @@ void GoGoClient::OnCharSelect(boost::uint64_t /* uid */, uint8_t marker)
 	using packet::protocol::Match_ResponseSelectChar;
 
 	if(marker > 3)
-	{
-		logger->info(format("[%1%] Hack Detected! (Tried to get info for an out-of-bounds character)") % transmitter->get_ip());
-		return transmitter->disconnect();
-	}
+		return transmitter->disconnect("Tried to select an out-of-bounds character.");
 
 	if(!myAccount.isValid)
-		return transmitter->disconnect();
+		return transmitter->disconnect("Tried to select a character without first logging in.");
 
-	try
-	{
+	try {
 		myCharacter = database->GetCharacterInfo(myAccount, marker);
 	} catch(InvalidCharacterInfo& e) {
-		logger->debug(e.what());
-		return transmitter->disconnect();
+		return transmitter->disconnect(e.what());
 	}
 
 	// Oh my god, good luck guys.

@@ -18,7 +18,7 @@ using namespace cockpit;
 void GoGoClient::OnCharDelete(gunz::MUID /* uidPlayer */, uint32_t charMarker, const std::string& /* charName */)
 {
 	if(!myAccount.isValid)
-		return transmitter->disconnect();
+		return transmitter->disconnect("Tried to delete a character without first logging in.");
 
 	database->DeleteCharacter(myAccount, charMarker);
 	transmitter->send(packet::protocol::Match_ResponseDeleteChar(PEC_NONE));

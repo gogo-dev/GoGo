@@ -95,7 +95,7 @@ public:
 
 	void send(const packet::Packet& packet, bool encrypted);
 
-	void disconnect();
+	void disconnect(const char* reason);
 
 	std::string get_ip() const;
 

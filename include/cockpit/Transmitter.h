@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <boost/format.hpp>
 
 namespace cockpit {
 
@@ -28,8 +29,17 @@ public:
 		Disconnects the client. No more handlers will be called, the
 		connection will be terminated, and eventually, the ClientHandler's
 		destructor will be called.
+
+		@param reason  The reason for the disconnection. If this is NULL (even
+		               though it never should be), a standard message will be
+		               output instead.
 	*/
-	virtual void disconnect() = 0;
+	virtual void disconnect(const char* reason) = 0;
+
+	void disconnect(const boost::format& fmt)
+	{
+		disconnect(fmt.str().c_str());
+	}
 
 	/**
 		Gets the target's IP address, in the form of 127.0.0.1.

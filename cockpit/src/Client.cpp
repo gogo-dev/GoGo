@@ -158,11 +158,7 @@ void Client::on_packet_header(
 	PacketAllocator::auto_free f(packetPool, reinterpret_cast<uint8_t*>(p));
 
 	if(err)
-	{
-		logger->info(format("[%1%] Failure in recv(Header).") % get_ip());
-		disconnect();
-		return;
-	}
+		return disconnect("Failure in recv(Header).");
 
 	assert(bytesTransferred == PacketHeader::SIZE);
 
@@ -206,21 +202,10 @@ void Client::on_payload(uint8_t* p, uint16_t payloadSize, bool encrypted, system
 	PacketAllocator::auto_free f(packetPool, p);
 
 	if(err)
-	{
-		logger->debug(format("[%1%] Failure in recv(Payload).") % get_ip());
-		disconnect();
-		return;
-	}
+		return disconnect("Failure in recv(Payload).");
 
 	if(payloadSize < PayloadHeader::SIZE)
-	{
-		logger->info(
-			format("[%1%] Invalid payload size of %2% bytes detected.") % get_ip() % payloadSize
-		);
-
-		disconnect();
-		return;
-	}
+		Transmitter::disconnect(format("Invalid payload size of %2% bytes detected.") % payloadSize);
 
 	// If this gets triggered, boost is fucking up and we need to read the docs some more.
 	assert(bytesTransferred == payloadSize);
@@ -315,36 +300,41 @@ void Client::on_send(system::error_code err, size_t bytesTransferred, uint8_t* p
 	delete[] p;
 
 	if(err)
-	{
-		logger->info(format("Sending to %1% failed (%2%).") % get_ip() % err.message());
-		disconnect();
-		return;
-	}
+		return Transmitter::disconnect(format("Send failed: %2%") % err.message());
 
 	assert(bytesTransferred == packetLength);
 }
 
-void Client::disconnect()
+void really_disconnect(tcp::socket& socket, Logger* logger)
+{
+	try {
+		socket.shutdown(socket_base::shutdown_both);
+		socket.close();
+	} catch(const system::system_error& e) {
+		// This might be totally okay. Depends on the error.
+		logger->warning(format("Failed to shut down the socket. This shouldn't happen! (%1%)") % e.what());
+	}
+}
+
+void Client::disconnect(const char* reason)
 {
 	if(!connected)
 		return;
 
-	logger->debug(format("[%1%] Disconnecting.") % get_ip());
+	if(reason)
+		logger->info(format("[%1%] Disconnecting - %2%") % get_ip() % reason);
+	else
+		logger->info(format("[%1%] Disconnection. Reason unknown.") % get_ip());
 
-	try {
-		socket.shutdown(socket_base::shutdown_both);
-		socket.close();
-	} catch(system::system_error& e) {
-		// This might be totally okay. Depends on the error.
-		logger->warning(format("Failed to shut down the socket. This shouldn't happen! (%1%)") % e.what());
-	}
+	really_disconnect(socket, logger);
 
 	connected = false;
 }
 
 Client::~Client()
 {
-	disconnect();
+	if(connected)
+		really_disconnect(socket, logger);
 }
 
 }

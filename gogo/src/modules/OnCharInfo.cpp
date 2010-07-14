@@ -21,13 +21,10 @@ void GoGoClient::OnCharInfo(uint8_t marker)
 	using packet::protocol::Match_ResponseAccountCharInfo;
 
 	if (marker > 3)
-	{
-		logger->info(format("[%1%] Hack Detected! (Tried to get info for an out-of-bounds character)") % transmitter->get_ip());
-		return transmitter->disconnect();
-	}
+		return transmitter->disconnect("Tried to get info for an out-of-bounds character.");
 
 	if(!myAccount.isValid)
-		return transmitter->disconnect();
+		return transmitter->disconnect("Tried to get character info without first logging in.");
 
 	try {
 		myCharacter = database->GetCharacterInfo(myAccount, marker);
