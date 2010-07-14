@@ -64,7 +64,7 @@ static void add_player_to_player_list(
 	;
 }
 
-void GoGoClient::OnChannelPlayerList(const gunz::MUID&, const gunz::MUID&, const uint32_t&  page)
+void GoGoClient::OnChannelPlayerList(const gunz::MUID&, const gunz::MUID&, const uint32_t& page)
 {
 	if(myChannel == NULL)
 	{
