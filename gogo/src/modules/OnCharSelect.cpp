@@ -1,12 +1,16 @@
 #include "../GoGoClient.h"
 
-#include <database/oopsies.h>
-#include <database/GunzDB.h>
-
 #include <cockpit/Logger.h>
 #include <cockpit/Transmitter.h>
 #include <cockpit/packet/protocol/Match_ResponseSelectChar.h>
 #include <cockpit/packet/Parameters.h>
+
+#include <database/oopsies.h>
+#include <database/GunzDB.h>
+
+#include <gunz/Player.h>
+
+#include <boost/bind/bind.hpp>
 
 #include <vector>
 
@@ -14,6 +18,16 @@ using namespace std;
 using namespace boost;
 using namespace cockpit;
 using namespace packet;
+
+// TODO: Temp.
+static void convert_to_traits(gunz::MUID myMUID, const CharacterInfo& charInfo, gunz::Player::Traits& traits)
+{
+	traits.muid = myMUID;
+	traits.characterName = charInfo.CharacterName;
+	traits.clanid = charInfo.ClanId;
+	traits.clanName = charInfo.ClanName;
+	traits.level = charInfo.CharacterLevel;
+}
 
 void GoGoClient::OnCharSelect(boost::uint64_t /* uid */, uint8_t marker)
 {
@@ -70,4 +84,6 @@ void GoGoClient::OnCharSelect(boost::uint64_t /* uid */, uint8_t marker)
 	extra.add_param(uint8(0x3E));
 
 	transmitter->send(Match_ResponseSelectChar(result, info, extra));
+
+	ModifyTraits(bind(convert_to_traits, myMUID, myCharacter, _1));
 }

@@ -1,8 +1,11 @@
 #pragma once
 #include <gunz/simple_types.h>
 
+#include <boost/cstdint.hpp>
 #include <boost/function.hpp>
 #include <boost/thread/shared_mutex.hpp>
+
+#include <string>
 
 namespace gunz {
 
@@ -16,6 +19,16 @@ class Player
 public:
 	struct Traits
 	{
+		MUID muid;
+		boost::uint32_t clanid;
+		MatchPlace place;
+		std::string characterName;
+		std::string clanName;
+		boost::uint8_t level;
+		boost::uint8_t ugradeid;
+
+		Traits(MUID muid, const std::string& characterName, const std::string& clanName, boost::uint8_t level, MatchPlace place, boost::uint8_t ugradeid, boost::uint32_t clanid);
+		~Traits();
 	};
 
 private:

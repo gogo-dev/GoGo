@@ -271,6 +271,10 @@ namespace packet {
 		// Returns a reference to *this to allow call chaining LIKE A BOSS.
 		blob& add_param(const Parameter& param);
 
+		// Used for late initialization of the various traits.
+		void set_count(boost::uint32_t newCount);
+		void set_size(boost::uint32_t newSize);
+
 		Buffer serialize() const;
 	};
 

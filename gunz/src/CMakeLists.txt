@@ -3,6 +3,7 @@ set(GUNZ_SRC
 	ChannelList.cpp
 	MUIDSanta.cpp
 	Player.cpp
+	PlayerList.cpp
 	Stage.cpp
 	# More sources here!
 )

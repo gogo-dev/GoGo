@@ -18,7 +18,7 @@ using namespace boost;
 using namespace cockpit;
 
 GoGoClient::GoGoClient(Logger* _logger, gunz::ChannelList* _channelList, gunz::MUIDSanta* _santa, GunzDB* _database)
-	: Player(Player::Traits())
+	: Player(Player::Traits(_santa->get(), "<<unknown>>", "<<unknown>>", 0, gunz::MP_CHARACTER, 0, 0))
 {
 	assert(_logger);
 	logger = _logger;
@@ -27,9 +27,9 @@ GoGoClient::GoGoClient(Logger* _logger, gunz::ChannelList* _channelList, gunz::M
 	channelList = _channelList;
 	channelList->players.Add(this);
 
-	assert(_santa);
 	santa = _santa;
-	myMUID = santa->get();
+	assert(santa);
+	myMUID = GetTraits().muid;
 
 	assert(_database);
 	database = _database;

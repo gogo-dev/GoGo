@@ -277,10 +277,20 @@ Buffer MUID::serialize() const
 
 blob::blob(boost::uint32_t eleCount, boost::uint32_t eleSize)
 {
-	elementSize = eleSize;
 	elementCount = eleCount;
+	elementSize = eleSize;
 
 	type = 0xA;
+}
+
+void blob::set_count(boost::uint32_t newCount)
+{
+	elementCount = newCount;
+}
+
+void blob::set_size(boost::uint32_t newSize)
+{
+	elementSize = newSize;
 }
 
 blob& blob::add_param(const Parameter &param)
