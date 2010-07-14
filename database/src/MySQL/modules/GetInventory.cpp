@@ -26,8 +26,8 @@ static vector<Item> handle_get_inventory(const StoreQueryResult& result)
 		const Row& row = *i;
 		Item item;
 
-		item.ItemCID = row["id"];
-		item.ItemID = row["itemid"];
+		item.cid = row["id"];
+		item.itemid = row["itemid"];
 
 		if(row["rental"])
 		{

@@ -31,15 +31,15 @@ static SmallVector<Item, 12> handle_get_equipment(const StoreQueryResult& result
 	for(size_t i = 1, size = row.size(); i < size; ++i)
 	{
 		// TODO: Populate the items with REAL information.
-		temp.ItemID = 0xFFFFFFFF;
-		temp.Level = 0xFF;
-		temp.MaxWT = 0xFFFFFFFF;
-		temp.Price = 0xFFFFFFFF;
-		temp.RentHour = 0xFFFFFFFF;
-		temp.Sex = 0xFF;
-		temp.Weight = 0xFFFFFFFF;
+		temp.itemid = 0xFFFFFFFF;
+		temp.minLevel = 0xFF;
+		temp.maxWeightChange = 0xFFFFFFFF;
+		temp.price = 0xFFFFFFFF;
+		temp.rentHour = 0xFFFFFFFF;
+		temp.gender = 0xFF;
+		temp.weight = 0xFFFFFFFF;
 
-		temp.ItemCID = row[i];
+		temp.cid = row[i];
 		ret.push_back(temp);
 	}
 

@@ -3,14 +3,14 @@
 
 struct Item
 {
-    boost::uint32_t ItemCID;
-    boost::uint32_t ItemID;
-    boost::uint32_t RentHour;
-    boost::uint32_t Price;
-    boost::uint8_t  Sex;
-    boost::uint8_t  Level;
-    boost::uint32_t Weight;
-    boost::uint32_t MaxWT;
+    boost::uint32_t cid;
+    boost::uint32_t itemid;
+    boost::uint32_t rentHour;
+    boost::uint32_t price;
+    boost::uint8_t  gender;
+    boost::uint8_t  minLevel;
+    boost::uint32_t weight;
+    boost::uint32_t maxWeightChange;	// How much item modifies the user's max weight by.
 
-	Item() { RentHour = 0x20050800; }
+	Item() { rentHour = 0x20050800; }
 };
