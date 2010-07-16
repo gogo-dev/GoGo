@@ -101,8 +101,9 @@ source_group("Header Files" REGULAR_EXPRESSION .*\\.h)
 source_group("Source Files" REGULAR_EXPRESSION .*\\.cxx|.*\\.cpp)
 
 enable_testing()
-add_subdirectory(util/src)
-add_subdirectory(util/test)
+
+add_subdirectory(cockpit/src)
+add_subdirectory(cockpit/test)
 
 add_subdirectory(database/src)
 add_subdirectory(database/test)
@@ -110,11 +111,14 @@ add_subdirectory(database/test)
 add_subdirectory(gogo/src)
 add_subdirectory(gogo/test)
 
+add_subdirectory(gtest/src)
+add_subdirectory(gtest/test)
+
 add_subdirectory(gunz/src)
 add_subdirectory(gunz/test)
 
-add_subdirectory(cockpit/src)
-add_subdirectory(cockpit/test)
-
 add_subdirectory(tinyxml/src)
 add_subdirectory(tinyxml/test)
+
+add_subdirectory(util/src)
+add_subdirectory(util/test)

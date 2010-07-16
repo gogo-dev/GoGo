@@ -1,3 +1,7 @@
+set(COCKPIT_TEST_HEADERS
+	array_check.h
+)
+
 set(COCKPIT_TESTS
 	test_crypto
 	test_param_extraction
@@ -7,9 +11,10 @@ set(COCKPIT_TESTS
 )
 
 foreach(test ${COCKPIT_TESTS})
-	add_executable(${test} ${test})
+	add_executable(${test} ${test} ${COCKPIT_TEST_HEADERS})
 	target_link_libraries(${test}
 		cockpit
+		gtest
 		${Boost_LIBRARIES}
 	)
 	add_test(${test} ${test})

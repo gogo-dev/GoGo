@@ -1,7 +1,7 @@
-#include "../src/packet/crypto.h"
+#include <gtest/gtest.h>
+#include "array_check.h"
 
-#include <test.h>
-#include <string>
+#include "../src/packet/crypto.h"
 
 using namespace std;
 using namespace boost;
@@ -15,7 +15,7 @@ static const uint8_t key[] = {
 	0x51, 0x05, 0x82, 0x09, 0x74, 0x94, 0x45, 0x92
 };
 
-static void test_encrypt_single_stage()
+TEST(encryption, single_stage)
 {
 	uint8_t toEncrypt[] = {
 		0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88
@@ -25,12 +25,12 @@ static void test_encrypt_single_stage()
 		0xF4, 0x9C, 0xBD, 0xBC, 0x30, 0x37, 0xEC, 0x93
 	};
 
-	encrypt(toEncrypt, countof(toEncrypt), 0, key);
+	encrypt(toEncrypt, sizeof(toEncrypt), 0, key);
 
-	check_array_equal(toEncrypt, expected, countof(expected));
+	check_arrays(expected, toEncrypt);
 }
 
-static void test_encrypt_multi_stage()
+TEST(encryption, multi_stage)
 {
 	uint8_t toEncrypt[] = {
 		0x11, 0x22, 0x33,   // Encrypted first
@@ -47,10 +47,10 @@ static void test_encrypt_multi_stage()
 	encrypt(toEncrypt    , 3, 0, key);
 	encrypt(toEncrypt + 5, 3, 5, key);
 
-	check_array_equal(toEncrypt, expected, countof(expected));
+	check_arrays(expected, toEncrypt);
 }
 
-static void test_long_encryption()
+TEST(encryption, long)
 {
 	// The decimal part of "e" directly in hex. (2.718281...)
 	uint8_t toEncrypt[] = {
@@ -76,12 +76,12 @@ static void test_long_encryption()
 		0xBA, 0xF0, 0x93, 0xF5, 0x4E, 0xEC, 0x3A, 0x89
 	};
 
-	encrypt(toEncrypt, countof(toEncrypt), 0, key);
+	encrypt(toEncrypt, sizeof(toEncrypt), 0, key);
 
-	check_array_equal(toEncrypt, expected, countof(expected));
+	check_arrays(expected, toEncrypt);
 }
 
-static void test_decrypt_single_stage()
+TEST(decryption, single_stage)
 {
 	uint8_t toDecrypt[] = {
 		0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88
@@ -91,12 +91,12 @@ static void test_decrypt_single_stage()
 		0x3E, 0xD7, 0x47, 0x83, 0x7E, 0xEC, 0xAB, 0x50
 	};
 
-	decrypt(toDecrypt, countof(toDecrypt), 0, key);
+	decrypt(toDecrypt, sizeof(toDecrypt), 0, key);
 
-	check_array_equal(toDecrypt, expected, countof(expected));
+	check_arrays(expected, toDecrypt);
 }
 
-static void test_decrypt_multi_stage()
+TEST(decryption, multi_stage)
 {
 	uint8_t toDecrypt[] = {
 		0x11, 0x22, 0x33,
@@ -113,10 +113,10 @@ static void test_decrypt_multi_stage()
 	decrypt(toDecrypt    , 3, 0, key);
 	decrypt(toDecrypt + 5, 3, 5, key);
 
-	check_array_equal(toDecrypt, expected, countof(expected));
+	check_arrays(expected, toDecrypt);
 }
 
-static void test_long_decryption()
+TEST(decryption, long)
 {
 	// This data set is the same that is output during test_long_encryption.
 	// Therefore, this tests not only the decryption algorithm, but that it
@@ -144,12 +144,12 @@ static void test_long_decryption()
 		0x03, 0x05, 0x99, 0x21, 0x81, 0x74, 0x13, 0x59
 	};
 
-	decrypt(toDecrypt, countof(toDecrypt), 0, key);
+	decrypt(toDecrypt, sizeof(toDecrypt), 0, key);
 
-	check_array_equal(toDecrypt, expected, countof(expected));
+	check_arrays(expected, toDecrypt);
 }
 
-static void test_checksum()
+TEST(checksum, acceptance)
 {
 	uint8_t toChecksum[] = {
 		0x71, 0x82, 0x81, 0x82, 0x84, 0x59, 0x04, 0x52,
@@ -162,22 +162,13 @@ static void test_checksum()
 		0x03, 0x05, 0x99, 0x21, 0x81, 0x74, 0x13, 0x59
 	};
 
-	uint16_t value = checksum(toChecksum, countof(toChecksum));
-	check_equal(value, static_cast<boost::uint16_t>(0x104C));
+	uint16_t value = checksum(toChecksum, sizeof(toChecksum));
+
+	EXPECT_EQ(0x104C, value);
 }
 
-int test_main(int, char**)
+int main(int argc, char** argv)
 {
-	// Don't forget to call your test functions from here!
-	test_encrypt_single_stage();
-	test_encrypt_multi_stage();
-	test_long_encryption();
-
-	test_decrypt_single_stage();
-	test_decrypt_multi_stage();
-	test_long_decryption();
-
-	test_checksum();
-
-	return 0;
+	testing::InitGoogleTest(&argc, argv);
+	return RUN_ALL_TESTS();
 }
