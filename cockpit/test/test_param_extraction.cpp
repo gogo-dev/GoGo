@@ -8,7 +8,7 @@ TEST(int32, clean_extraction)
 
 	const uint8_t buffer[] = {
 		0xAB, 0xCD, 0xEF, 0x00, 0x11, 0x22, 0x33, 0x44,
-		0x55, 0x66, 0x77, 0x08, 0x99, 0xAA, 0xBB, 0x0C,
+		0x55, 0x66, 0x77, 0x88, 0x99, 0xAA, 0xBB, 0xCC,
 		0xDD, 0xEE, 0xFF, 0x00
 	};
 
@@ -17,8 +17,8 @@ TEST(int32, clean_extraction)
 
 		EXPECT_EQ(extract_int32(buffer, &ptr, sizeof(buffer)), 0x00EFCDAB);
 		EXPECT_EQ(extract_int32(buffer, &ptr, sizeof(buffer)), 0x44332211);
-		EXPECT_EQ(extract_int32(buffer, &ptr, sizeof(buffer)), 0x08776655);
-		EXPECT_EQ(extract_int32(buffer, &ptr, sizeof(buffer)), 0x0CBBAA99);
+		EXPECT_EQ(extract_int32(buffer, &ptr, sizeof(buffer)), signed(0x88776655));
+		EXPECT_EQ(extract_int32(buffer, &ptr, sizeof(buffer)), signed(0xCCBBAA99));
 		EXPECT_EQ(extract_int32(buffer, &ptr, sizeof(buffer)), 0x00FFEEDD);
 
 		EXPECT_EQ(ptr, buffer + sizeof(buffer));
@@ -64,11 +64,11 @@ TEST(uint32, clean_extraction)
 	try {
 		const uint8_t* ptr = buffer;
 
-		EXPECT_EQ(extract_uint32(buffer, &ptr, sizeof(buffer)), 0x00EFCDAB);
-		EXPECT_EQ(extract_uint32(buffer, &ptr, sizeof(buffer)), 0x44332211);
-		EXPECT_EQ(extract_uint32(buffer, &ptr, sizeof(buffer)), 0x88776655);
-		EXPECT_EQ(extract_uint32(buffer, &ptr, sizeof(buffer)), 0xCCBBAA99);
-		EXPECT_EQ(extract_uint32(buffer, &ptr, sizeof(buffer)), 0x00FFEEDD);
+		EXPECT_EQ(extract_uint32(buffer, &ptr, sizeof(buffer)), 0x00EFCDABu);
+		EXPECT_EQ(extract_uint32(buffer, &ptr, sizeof(buffer)), 0x44332211u);
+		EXPECT_EQ(extract_uint32(buffer, &ptr, sizeof(buffer)), 0x88776655u);
+		EXPECT_EQ(extract_uint32(buffer, &ptr, sizeof(buffer)), 0xCCBBAA99u);
+		EXPECT_EQ(extract_uint32(buffer, &ptr, sizeof(buffer)), 0x00FFEEDDu);
 
 		EXPECT_EQ(ptr, buffer + sizeof(buffer));
 
@@ -406,11 +406,11 @@ TEST(color, clean_extraction)
 	try {
 		const uint8_t* ptr = buffer;
 
-		EXPECT_EQ(extract_color(buffer, &ptr, sizeof(buffer)), 0x00EFCDAB);
-		EXPECT_EQ(extract_color(buffer, &ptr, sizeof(buffer)), 0x44332211);
-		EXPECT_EQ(extract_color(buffer, &ptr, sizeof(buffer)), 0x88776655);
-		EXPECT_EQ(extract_color(buffer, &ptr, sizeof(buffer)), 0xCCBBAA99);
-		EXPECT_EQ(extract_color(buffer, &ptr, sizeof(buffer)), 0x00FFEEDD);
+		EXPECT_EQ(extract_color(buffer, &ptr, sizeof(buffer)), 0x00EFCDABu);
+		EXPECT_EQ(extract_color(buffer, &ptr, sizeof(buffer)), 0x44332211u);
+		EXPECT_EQ(extract_color(buffer, &ptr, sizeof(buffer)), 0x88776655u);
+		EXPECT_EQ(extract_color(buffer, &ptr, sizeof(buffer)), 0xCCBBAA99u);
+		EXPECT_EQ(extract_color(buffer, &ptr, sizeof(buffer)), 0x00FFEEDDu);
 
 		EXPECT_EQ(ptr, buffer + sizeof(buffer));
 
@@ -455,8 +455,8 @@ TEST(MUID, clean_extraction)
 	try {
 		const uint8_t* ptr = buffer;
 
-		EXPECT_EQ(extract_MUID(buffer, &ptr, sizeof(buffer)), 0x00EFCDAB44332211);
-		EXPECT_EQ(extract_MUID(buffer, &ptr, sizeof(buffer)), 0x88776655CCBBAA99);
+		EXPECT_EQ(extract_MUID(buffer, &ptr, sizeof(buffer)), 0x00EFCDAB44332211u);
+		EXPECT_EQ(extract_MUID(buffer, &ptr, sizeof(buffer)), 0x88776655CCBBAA99u);
 
 		EXPECT_EQ(ptr, buffer + sizeof(buffer) - 4);
 
@@ -507,9 +507,9 @@ TEST(blob, clean_extraction)
 		//    data    count    size
 		tuple<Buffer, size_t, size_t> blob(extract_blob(buffer, &ptr, sizeof(buffer)));
 
-		EXPECT_EQ(blob.get<1>(), 2);
-		EXPECT_EQ(blob.get<2>(), 4);
-		EXPECT_EQ(blob.get<0>().length(), 8);
+		EXPECT_EQ(blob.get<1>(), 2u);
+		EXPECT_EQ(blob.get<2>(), 4u);
+		EXPECT_EQ(blob.get<0>().length(), 8u);
 		EXPECT_EQ(*reinterpret_cast<const uint64_t*>(blob.get<0>().data()), 0x8877665544332211);
 
 		EXPECT_EQ(ptr, buffer + sizeof(buffer));
