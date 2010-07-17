@@ -1,11 +1,13 @@
+#include <gtest/gtest.h>
+
 #include <cockpit/packet/Parameters.h>
 
-#include <test.h>
+#include "array_check.h"
 
 using namespace boost;
 using namespace cockpit::packet;
 
-static void test_int32()
+TEST(int32, serialization)
 {
 	int32 packit(0x12345678);
 
@@ -13,11 +15,17 @@ static void test_int32()
 		0x78, 0x56, 0x34, 0x12
 	};
 
-	check_array_equal(packit.serialize().data(), expected, countof(expected));
-	BOOST_CHECK(packit.get_type() == 0x00);
+	Buffer serialized = packit.serialize();
+
+	check_arrays(expected, sizeof(expected), serialized.data(), serialized.length());
 }
 
-static void test_uint32()
+TEST(int32, packet_type)
+{
+	EXPECT_EQ(0x00, int32(0).get_type());
+}
+
+TEST(uint32, serialization)
 {
 	uint32 packit(0x12345678);
 
@@ -25,20 +33,27 @@ static void test_uint32()
 		0x78, 0x56, 0x34, 0x12
 	};
 
-	check_array_equal(packit.serialize().data(), expected, countof(expected));
-	BOOST_CHECK(packit.get_type() == 0x01);
+	Buffer serialized = packit.serialize();
+
+	check_arrays(expected, sizeof(expected), serialized.data(), serialized.length());
+
+	EXPECT_EQ(0x01, packit.get_type());
 }
 
-static void test_floating_point()
+TEST(uint32, packet_type)
 {
-	// Serialization testing skipped because floats are stupid and
-	// unrepresentable.
-	floating_point packit(0.3f);
-
-	BOOST_CHECK(packit.get_type() == 0x02);
+	EXPECT_EQ(0x01, uint32(0).get_type());
 }
 
-static void test_boolean()
+// Serialization testing skipped because floats are stupid and
+
+// unrepresentable.
+TEST(floating_point, packet_type)
+{
+	EXPECT_EQ(0x02, floating_point(0.3f).get_type());
+}
+
+TEST(boolean, serialization)
 {
 	cockpit::packet::boolean packit(true);
 
@@ -46,84 +61,132 @@ static void test_boolean()
 		0x01
 	};
 
-	check_array_equal(packit.serialize().data(), expected, countof(expected));
-	BOOST_CHECK(packit.get_type() == 0x03);
+	Buffer serialized = packit.serialize();
+
+	check_arrays(expected, sizeof(expected), serialized.data(), serialized.length());
 }
 
-static void test_blob_string()
+TEST(boolean, packet_type)
+{
+	EXPECT_EQ(0x03, cockpit::packet::boolean(false).get_type());
+}
+
+TEST(blob_string, serialization)
 {
 	blob_string packit("test", 10);
-	Buffer serialized = packit.serialize();
 
 	uint8_t expected[] = {
 		't', 'e', 's', 't', 0x00, 0x00, 0x00, 0x00,
 		0x00, 0x00
 	};
 
-	check_equal(serialized.length(), countof(expected));
-	check_array_equal(packit.serialize().data(), expected, countof(expected));
+	Buffer serialized = packit.serialize();
+
+	check_arrays(expected, sizeof(expected), serialized.data(), serialized.length());
 }
 
-static void test_string()
+TEST(string, serialization)
 {
 	cockpit::packet::string packit("test");
-	Buffer serialized = packit.serialize();
 
 	uint8_t expected[] = {
 		0x06, 0x00, 't', 'e', 's', 't', 0x00, 0x00
 	};
 
-	check_equal(serialized.length(), sizeof(expected));
+	Buffer serialized = packit.serialize();
 
-	check_array_equal(serialized.data(), expected, countof(expected));
-	BOOST_CHECK(packit.get_type() == 0x04);
+	check_arrays(expected, sizeof(expected), serialized.data(), serialized.length());
 }
 
-static void test_position()
+TEST(string, packet_type)
 {
-	// Fucking floating-points and their untestability. serialization() tests omitted.
-	BOOST_CHECK(position(1.0f, 2.0f, 3.0f).get_type() == 0x06);
+	EXPECT_EQ(0x04, cockpit::packet::string("").get_type());
 }
 
-static void test_direction()
+// Fucking floating-points and their untestability. serialization() tests
+// omitted for position and direction.
+
+TEST(position, packet_type)
 {
-	// Same story as for test_position.
-	BOOST_CHECK(direction(1.0f, 2.0f, 3.0f).get_type() == 0x07);
+	EXPECT_EQ(0x06, position(1.0f, 2.0f, 3.0f).get_type());
 }
 
-static void test_color()
+TEST(direction, packet_type)
 {
-	color packit1(0x01, 0x02, 0x03, 0x04);
-	color packit2(0x01020304);
+	EXPECT_EQ(0x07, direction(1.0f, 2.0f, 3.0f).get_type());
+}
 
-	BOOST_CHECK(packit1.get_type() == 0x08);
+TEST(color, serialization_split)
+{
+	color packit(0x01, 0x02, 0x03, 0x04);
 
 	uint8_t expected[] = {
 		0x01, 0x02, 0x03, 0x04
 	};
 
-	check_array_equal(packit1.serialize().data(), expected, countof(expected));
-	check_array_equal(packit2.serialize().data(), expected, countof(expected));
+	Buffer serialized = packit.serialize();
+
+	check_arrays(expected, sizeof(expected), serialized.data(), serialized.length());
 }
 
-static void test_MUID()
+TEST(color, serialization_condensed)
 {
-	MUID packit1(0x11223344, 0x55667788);
-	MUID packit2(0x1122334455667788);
+	color packit(0x01020304);
 
-	BOOST_CHECK(packit1.get_type() == 0x09);
+	uint8_t expected[] = {
+		0x01, 0x02, 0x03, 0x04
+	};
+
+	Buffer serialized = packit.serialize();
+
+	check_arrays(expected, sizeof(expected), serialized.data(), serialized.length());
+}
+
+TEST(color, packet_type)
+{
+	EXPECT_EQ(0x08, color(1, 2, 3, 4).get_type());
+}
+
+TEST(MUID, serialization_split)
+{
+	MUID packit(0x11223344, 0x55667788);
 
 	uint8_t expected[] = {
 		0x44, 0x33, 0x22, 0x11,
 		0x88, 0x77, 0x66, 0x55
 	};
 
-	check_array_equal(packit1.serialize().data(), expected, countof(expected));
-	check_array_equal(packit2.serialize().data(), expected, countof(expected));
+	Buffer serialized = packit.serialize();
+
+	check_arrays(expected, sizeof(expected), serialized.data(), serialized.length());
 }
 
-static void test_blob()
+TEST(MUID, serialization_condensed)
 {
+	MUID packit(0x1122334455667788);
+
+	uint8_t expected[] = {
+		0x44, 0x33, 0x22, 0x11,
+		0x88, 0x77, 0x66, 0x55
+	};
+
+	Buffer serialized = packit.serialize();
+
+	check_arrays(expected, sizeof(expected), serialized.data(), serialized.length());
+}
+
+TEST(MUID, packet_type)
+{
+	EXPECT_EQ(0x09, MUID(0x1122334455667788).get_type());
+}
+
+TEST(blob, serialization)
+{
+	blob packit(1, 20);
+
+	for(int i = 0; i < 20; ++i)
+		packit.add_param(uint8(0));
+
 	uint8_t expected[] = {
 		28, 0, 0, 0, //totalSize
 		20, 0, 0, 0, //elementSize
@@ -134,86 +197,84 @@ static void test_blob()
 		0, 0, 0, 0
 	};
 
-	blob packit(1, 20);
+	Buffer serialized = packit.serialize();
 
-	for(int i = 0; i < 20; ++i)
-		packit.add_param(uint8(0));
-
-	check_array_equal(packit.serialize().data(), expected, countof(expected));
-
+	check_arrays(expected, sizeof(expected), serialized.data(), serialized.length());
 }
 
-static void test_int8()
+TEST(blob, packet_type)
+{
+	EXPECT_EQ(0x0A, blob(0, 0).get_type());
+}
+
+TEST(int8, serialization)
 {
 	int8 packit(0x01);
-
-	BOOST_CHECK(packit.get_type() == 0x0B);
 
 	int8_t expected[] = {
 		0x01
 	};
 
-	check_array_equal(packit.serialize().data(), expected, countof(expected));
+	Buffer serialized = packit.serialize();
+
+	check_arrays(expected, sizeof(expected), serialized.data(), serialized.length());
 }
 
-static void test_uint8()
+TEST(int8, packet_type)
+{
+	EXPECT_EQ(0x0B, int8(0).get_type());
+}
+
+TEST(uint8, serialization)
 {
 	uint8 packit(0x01);
-
-	BOOST_CHECK(packit.get_type() == 0x0C);
 
 	uint8_t expected[] = {
 		0x01
 	};
 
-	check_array_equal(packit.serialize().data(), expected, countof(expected));
+	Buffer serialized = packit.serialize();
+
+	check_arrays(expected, sizeof(expected), serialized.data(), serialized.length());
 }
 
-static void test_int16()
+TEST(uint8, packet_type)
+{
+	EXPECT_EQ(0x0C, uint8(0).get_type());
+}
+
+TEST(int16, serialization)
 {
 	int16 packit(0x0123);
 
-	BOOST_CHECK(packit.get_type() == 0x0D);
-
 	uint8_t expected[] = {
 		0x23, 0x01
 	};
 
-	check_array_equal(packit.serialize().data(), expected, countof(expected));
+	Buffer serialized = packit.serialize();
+
+	check_arrays(expected, sizeof(expected), serialized.data(), serialized.length());
 }
 
-static void test_uint16()
+TEST(int16, packet_type)
+{
+	EXPECT_EQ(0x0D, int16(0).get_type());
+}
+
+TEST(uint16, serialization)
 {
 	uint16 packit(0x0123);
 
-	BOOST_CHECK(packit.get_type() == 0x0E);
-
 	uint8_t expected[] = {
 		0x23, 0x01
 	};
 
-	check_array_equal(packit.serialize().data(), expected, countof(expected));
+	Buffer serialized = packit.serialize();
+
+	check_arrays(expected, sizeof(expected), serialized.data(), serialized.length());
 }
 
-int test_main(int, char**)
+TEST(uint16, packet_type)
 {
-	// Any time a test function is added, don't forget to call it from here :)
-	test_int32();
-	test_uint32();
-	test_floating_point();
-	test_boolean();
-
-	test_blob_string();
-	test_string();
-	test_position();
-	test_direction();
-	test_color();
-	test_MUID();
-	test_blob();
-	test_int8();
-	test_uint8();
-	test_int16();
-	test_uint16();
-
-	return 0;
+	EXPECT_EQ(0x0E, uint16(0).get_type());
 }

@@ -47,8 +47,8 @@ static std::string generate_failure_message(const boost::uint8_t* arr1, size_t l
 	return std::string("Arrays not equal: ") + stringify_array(arr1, len1) + ", " + stringify_array(arr2, len2);
 }
 
-template <typename ArrType, size_t len1, size_t len2>
-static bool are_arrays_equal(const ArrType (&arr1)[len1], const ArrType (&arr2)[len2])
+template <typename Arr1Type, typename Arr2Type>
+static bool are_arrays_equal(const Arr1Type* arr1, size_t len1, const Arr2Type* arr2, size_t len2)
 {
 	if(len1 != len2)
 		return false;
@@ -60,8 +60,14 @@ static bool are_arrays_equal(const ArrType (&arr1)[len1], const ArrType (&arr2)[
 	return true;
 }
 
-template <typename ArrType, size_t len1, size_t len2>
-static void check_arrays(const ArrType (&expected)[len1], const ArrType (&actual)[len2])
+template <typename Arr1Type, typename Arr2Type>
+static void check_arrays(const Arr1Type* expected, size_t len1, const Arr2Type* actual, size_t len2)
 {
-	EXPECT_TRUE(are_arrays_equal(expected, actual)) << generate_failure_message(expected, len1, actual, len2);
+	EXPECT_TRUE(are_arrays_equal(expected, len1, actual, len2)) << generate_failure_message(reinterpret_cast<const boost::uint8_t*>(expected), len1, reinterpret_cast<const boost::uint8_t*>(actual), len2);
+}
+
+template <typename Arr1Type, typename Arr2Type, size_t len1, size_t len2>
+static void check_arrays(const Arr1Type (&expected)[len1], const Arr2Type (&actual)[len2])
+{
+	return check_arrays(expected, len1, actual, len2);
 }
