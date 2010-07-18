@@ -1,4 +1,5 @@
-#include <test.h>
+#include <gtest/gtest.h>
+
 #include <gunz/ChannelList.h>
 #include <gunz/MUIDSanta.h>
 
@@ -22,7 +23,7 @@ static Channel make_from_uid(MUID uid)
 	return Channel(traits);
 }
 
-static void test_addition_and_removal()
+TEST(channel_list, addition_and_removal)
 {
 	MockSanta santa;
 	ChannelList cl;
@@ -32,24 +33,17 @@ static void test_addition_and_removal()
 
 	const std::vector<Channel> lst(cl.Clone());
 
-	check_equal(lst.size(), static_cast<size_t>(2));
+	EXPECT_EQ(unsigned(2), lst.size());
 
-	check_equal(cl.Find(bind(has_uid_of, 1, _1))->GetTraits().uid, static_cast<MUID>(1));
-	check_equal(cl.Find(bind(has_uid_of, 2, _1))->GetTraits().uid, static_cast<MUID>(2));
+	EXPECT_EQ(MUID(1), cl.Find(bind(has_uid_of, 1, _1))->GetTraits().uid);
+	EXPECT_EQ(MUID(2), cl.Find(bind(has_uid_of, 2, _1))->GetTraits().uid);
 
-	BOOST_CHECK(cl.Remove(make_from_uid(1)));
-	check_equal(cl.Clone().size(), static_cast<size_t>(1));
+	EXPECT_TRUE(cl.Remove(make_from_uid(1)));
+	EXPECT_EQ(unsigned(1), cl.Clone().size());
 
-	BOOST_CHECK(cl.Remove(make_from_uid(2)));
-	check_equal(cl.Clone().size(), static_cast<size_t>(0));
+	EXPECT_TRUE(cl.Remove(make_from_uid(2)));
+	EXPECT_EQ(unsigned(0), cl.Clone().size());
 
 	// There is no channel 3!
-	BOOST_CHECK(!cl.Remove(make_from_uid(3)));
-}
-
-int test_main(int, char**)
-{
-	test_addition_and_removal();
-
-	return 0;
+	EXPECT_FALSE(cl.Remove(make_from_uid(3)));
 }

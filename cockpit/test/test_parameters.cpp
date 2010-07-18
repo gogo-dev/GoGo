@@ -1,8 +1,7 @@
 #include <gtest/gtest.h>
+#include <gtest/array_check.h>
 
 #include <cockpit/packet/Parameters.h>
-
-#include "array_check.h"
 
 using namespace boost;
 using namespace cockpit::packet;

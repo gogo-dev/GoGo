@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "array_check.h"
+#include <gtest/array_check.h>
 
 #include "../src/packet/crypto.h"
 

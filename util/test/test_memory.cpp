@@ -1,9 +1,13 @@
-#include <test.h>
+#include <gtest/gtest.h>
+#include <gtest/array_check.h>
+
 #include <util/memory.h>
 
 using namespace boost;
 
-void test_memcpy()
+#define countof(x)	(sizeof(x)/sizeof((x)[0]))
+
+TEST(memory, memcpy)
 {
 	int sourceArray[] = {
 		0x12345678, 0x87654321, 0x11111111, 0x22222222
@@ -11,12 +15,14 @@ void test_memcpy()
 
 	int destArray[countof(sourceArray)] = { 0 };
 
-	check_array_equal(memory::copy(destArray, sourceArray, sizeof(sourceArray)), sourceArray, sizeof(sourceArray));
+	int* result = memory::copy(destArray, sourceArray, sizeof(sourceArray));
+
+	EXPECT_EQ(destArray, result);
+
+	check_arrays(sourceArray, destArray);
 }
 
-#include <iostream>
-
-void test_mempcpy()
+TEST(memory, mempcpy)
 {
 	int sourceArray[] = {
 		0xAABBCCDD, 0x11223344, 0xFFEEDDCC, 0xDEADBEEF
@@ -25,11 +31,13 @@ void test_mempcpy()
 	int destArray[countof(sourceArray)] = { 0 };
 
 	int* result = memory::pcopy(destArray, sourceArray, sizeof(sourceArray));
-	check_array_equal(sourceArray, destArray, sizeof(sourceArray));
-	BOOST_CHECK(result == (destArray + countof(destArray)));
+
+	EXPECT_EQ(destArray + countof(destArray), result);
+
+	check_arrays(sourceArray, destArray);
 }
 
-void test_memset()
+TEST(memory, memset)
 {
 	uint8_t sourceArray[] = {
 		0x11, 0x11, 0x11, 0x11, 0x11
@@ -39,14 +47,9 @@ void test_memset()
 		0x00, 0x00, 0x00, 0x00, 0x11
 	};
 
-	check_array_equal(memory::set(sourceArray, 0x00, 4), expected, countof(sourceArray));
-}
+	uint8_t* result = memory::set(sourceArray, 0x00, 4);
 
-int test_main(int, char**)
-{
-	test_memcpy();
-	test_mempcpy();
-	test_memset();
+	EXPECT_EQ(sourceArray, result);
 
-	return 0;
+	check_arrays(sourceArray, expected);
 }

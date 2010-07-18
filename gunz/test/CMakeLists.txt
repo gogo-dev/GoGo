@@ -4,10 +4,10 @@ set(GUNZ_TESTS
 	# Add more tests here.
 )
 
-foreach(test ${GUNZ_TESTS})
-	add_executable(${test} ${test})
-	target_link_libraries(${test}
-		gunz
-		${Boost_LIBRARIES})
-	add_test(${test} ${test})
-endforeach()
+add_executable(test_gunz ${GUNZ_TESTS})
+target_link_libraries(test_gunz
+	gunz
+	gtest
+	${Boost_LIBRARIES}
+)
+add_test(gunz test_gunz)
