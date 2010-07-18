@@ -1,4 +1,5 @@
-#include <test.h>
+#include <gtest/gtest.h>
+
 #include "../src/ChannelLoader.h"
 #include "../src/ChannelLoader.cpp"
 
@@ -6,7 +7,7 @@ using namespace std;
 using namespace boost;
 
 // Handles everything but the edge cases. Lol.
-static void test_default_channel_xml()
+TEST(channel_loader, default_xml)
 {
 	gunz::MUIDSanta s;
 	vector<gunz::Channel::Traits> result = parse_channel_list(
@@ -22,59 +23,58 @@ static void test_default_channel_xml()
 		&s
 	);
 
-	if(result.size() != unsigned(6))
-		return BOOST_FAIL("Bad channel list size.");
+	ASSERT_EQ(unsigned(6), result.size());
 
-	check_equal(result[0].uid, unsigned(1));
-	check_equal(result[0].name, "Free Channel 1");
-	check_equal(result[0].maxPlayers, 255);
-	check_equal(result[0].rule, gunz::Channel::CR_NOVICE);
-	check_equal(result[0].type, gunz::Channel::CT_GENERAL);
-	check_equal(result[0].minLevel, 1);
-	check_equal(result[0].maxLevel, 255);
+	EXPECT_EQ(unsigned(1), result[0].uid);
+	EXPECT_EQ("Free Channel 1", result[0].name);
+	EXPECT_EQ(255, result[0].maxPlayers);
+	EXPECT_EQ(gunz::Channel::CR_NOVICE, result[0].rule);
+	EXPECT_EQ(gunz::Channel::CT_GENERAL, result[0].type);
+	EXPECT_EQ(1, result[0].minLevel);
+	EXPECT_EQ(255, result[0].maxLevel);
 
-	check_equal(result[1].uid, unsigned(2));
-	check_equal(result[1].name, "Free Channel 2");
-	check_equal(result[1].maxPlayers, 255);
-	check_equal(result[1].rule, gunz::Channel::CR_NOVICE);
-	check_equal(result[1].type, gunz::Channel::CT_GENERAL);
-	check_equal(result[1].minLevel, 1);
-	check_equal(result[1].maxLevel, 255);
+	EXPECT_EQ(unsigned(2), result[1].uid);
+	EXPECT_EQ("Free Channel 2", result[1].name);
+	EXPECT_EQ(255, result[1].maxPlayers);
+	EXPECT_EQ(gunz::Channel::CR_NOVICE, result[1].rule);
+	EXPECT_EQ(gunz::Channel::CT_GENERAL, result[1].type);
+	EXPECT_EQ(1, result[1].minLevel);
+	EXPECT_EQ(255, result[1].maxLevel);
 
-	check_equal(result[2].uid, unsigned(3));
-	check_equal(result[2].name, "Newbie Channel");
-	check_equal(result[2].maxPlayers, 255);
-	check_equal(result[2].rule, gunz::Channel::CR_NEWBIE);
-	check_equal(result[2].type, gunz::Channel::CT_GENERAL);
-	check_equal(result[2].minLevel, 1);
-	check_equal(result[2].maxLevel, 10);
+	EXPECT_EQ(unsigned(3), result[2].uid);
+	EXPECT_EQ("Newbie Channel", result[2].name);
+	EXPECT_EQ(255, result[2].maxPlayers);
+	EXPECT_EQ(gunz::Channel::CR_NEWBIE, result[2].rule);
+	EXPECT_EQ(gunz::Channel::CT_GENERAL, result[2].type);
+	EXPECT_EQ(1, result[2].minLevel);
+	EXPECT_EQ(10, result[2].maxLevel);
 
-	check_equal(result[3].uid, unsigned(4));
-	check_equal(result[3].name, "Rookie Channel");
-	check_equal(result[3].maxPlayers, 255);
-	check_equal(result[3].rule, gunz::Channel::CR_ROOKIE);
-	check_equal(result[3].type, gunz::Channel::CT_GENERAL);
-	check_equal(result[3].minLevel, 11);
-	check_equal(result[3].maxLevel, 20);
+	EXPECT_EQ(unsigned(4), result[3].uid);
+	EXPECT_EQ("Rookie Channel", result[3].name);
+	EXPECT_EQ(255, result[3].maxPlayers);
+	EXPECT_EQ(gunz::Channel::CR_ROOKIE, result[3].rule);
+	EXPECT_EQ(gunz::Channel::CT_GENERAL, result[3].type);
+	EXPECT_EQ(11, result[3].minLevel);
+	EXPECT_EQ(20, result[3].maxLevel);
 
-	check_equal(result[4].uid, unsigned(5));
-	check_equal(result[4].name, "Veteran Channel");
-	check_equal(result[4].maxPlayers, 255);
-	check_equal(result[4].rule, gunz::Channel::CR_MASTERY);
-	check_equal(result[4].type, gunz::Channel::CT_GENERAL);
-	check_equal(result[4].minLevel, 21);
-	check_equal(result[4].maxLevel, 255);
+	EXPECT_EQ(unsigned(5), result[4].uid);
+	EXPECT_EQ("Veteran Channel", result[4].name);
+	EXPECT_EQ(255, result[4].maxPlayers);
+	EXPECT_EQ(gunz::Channel::CR_MASTERY, result[4].rule);
+	EXPECT_EQ(gunz::Channel::CT_GENERAL, result[4].type);
+	EXPECT_EQ(21, result[4].minLevel);
+	EXPECT_EQ(255, result[4].maxLevel);
 
-	check_equal(result[5].uid, unsigned(6));
-	check_equal(result[5].name, "Elite Channel");
-	check_equal(result[5].maxPlayers, 255);
-	check_equal(result[5].rule, gunz::Channel::CR_ELITE);
-	check_equal(result[5].type, gunz::Channel::CT_GENERAL);
-	check_equal(result[5].minLevel, 35);
-	check_equal(result[5].maxLevel, 255);
+	EXPECT_EQ(unsigned(6), result[5].uid);
+	EXPECT_EQ("Elite Channel", result[5].name);
+	EXPECT_EQ(255, result[5].maxPlayers);
+	EXPECT_EQ(gunz::Channel::CR_ELITE, result[5].rule);
+	EXPECT_EQ(gunz::Channel::CT_GENERAL, result[5].type);
+	EXPECT_EQ(35, result[5].minLevel);
+	EXPECT_EQ(255, result[5].maxLevel);
 }
 
-static void test_bad_lines_get_dropped()
+TEST(channel_loader, invalid_channels)
 {
 	gunz::MUIDSanta s;
 	vector<gunz::Channel::Traits> result = parse_channel_list(
@@ -90,13 +90,5 @@ static void test_bad_lines_get_dropped()
 		&s
 	);
 
-	check_equal(result.size(), unsigned(0));
-}
-
-int test_main(int, char**)
-{
-	test_default_channel_xml();
-	test_bad_lines_get_dropped();
-
-	return 0;
+	EXPECT_EQ(unsigned(0), result.size());
 }

@@ -1,4 +1,4 @@
-#include <test.h>
+#include <gtest/gtest.h>
 
 #include "../src/Configuration.h"
 #include "../src/Configuration.cpp"
@@ -17,7 +17,7 @@ using namespace boost;
 #define MAKE_CONFIG(varName, contents) \
     MAKE_CONFIG_IMPL(varName, contents, ss__##__COUNTER__)
 
-static void test_perfectly_good_config_file_no_comments()
+TEST(config, good_config_no_comments)
 {
 	const char* configFile =
 		"a = b\n"
@@ -28,13 +28,13 @@ static void test_perfectly_good_config_file_no_comments()
 
 	MAKE_CONFIG(conf, configFile);
 
-	check_equal(string("b"), conf.get_value<string>("a"));
-	check_equal(string("d"), conf.get_value<string>("c"));
-	check_equal(string("f"), conf.get_value<string>("e"));
-	check_equal(string("h"), conf.get_value<string>("g"));
+	EXPECT_EQ(string("b"), conf.get_value<string>("a"));
+	EXPECT_EQ(string("d"), conf.get_value<string>("c"));
+	EXPECT_EQ(string("f"), conf.get_value<string>("e"));
+	EXPECT_EQ(string("h"), conf.get_value<string>("g"));
 }
 
-static void test_comments_cause_no_problems()
+TEST(config, comments_get_stripped)
 {
 	const char* configFile =
 		"# This is a comment\n"
@@ -43,35 +43,31 @@ static void test_comments_cause_no_problems()
 
 	MAKE_CONFIG(conf, configFile);
 
-	check_equal(string("b"), conf.get_value<string>("a"));
+	EXPECT_EQ(string("b"), conf.get_value<string>("a"));
 }
 
-static void test_default_value_usage()
+TEST(config, default_value_gets_used)
 {
 	const char* configFile = "key = value";
 
 	MAKE_CONFIG(conf, configFile);
 
-	check_equal(string("default"), conf.get_value<string>("nonexistant", "default"));
-	check_equal(1, conf.get_value<int>("key", 1));
+	EXPECT_EQ(string("default"), conf.get_value<string>("nonexistant", "default"));
+	EXPECT_EQ(1, conf.get_value<int>("key", 1));
 }
 
-static void test_equals_sign_in_value()
+TEST(config, equals_sign_in_value)
 {
 	const char* configFile =
 		"key = val=ue"
 	;
 
-	try {
-		MAKE_CONFIG(conf, configFile);
+	MAKE_CONFIG(conf, configFile);
 
-		check_equal(string("val=ue"), conf.get_value<string>("key"));
-	} catch(const SyntaxError&) {
-		BOOST_FAIL("Seperator token detection is not behaving correctly.");
-	}
+	EXPECT_EQ(string("val=ue"), conf.get_value<string>("key"));
 }
 
-static void acceptance_test()
+TEST(config, acceptance_test)
 {
 	const char* configFile =
 		"# Some comment header explaining what these variables are.\n"
@@ -86,36 +82,15 @@ static void acceptance_test()
 	try {
 		MAKE_CONFIG(conf, configFile);
 
-		check_equal(string("clark"), conf.get_value<string>("db.username"));
-		check_equal(string("test"), conf.get_value<string>("db.password"));
-		check_equal(string("127.0.0.1"), conf.get_value<string>("db.ip"));
-		check_equal(9, conf.get_value<int>("penis.size"));
+		EXPECT_EQ(string("clark"), conf.get_value<string>("db.username"));
+		EXPECT_EQ(string("test"), conf.get_value<string>("db.password"));
+		EXPECT_EQ(string("127.0.0.1"), conf.get_value<string>("db.ip"));
+		EXPECT_EQ(9, conf.get_value<int>("penis.size"));
 
-		try {
-			conf.get_value<int>("db.username");
-			BOOST_FAIL("Exception should be thrown!");
-		} catch(const boost::bad_lexical_cast&) {
-		}
-
-		try {
-			conf.get_value<string>("nonexistant");
-			BOOST_FAIL("Exception should be thrown.");
-		} catch(const std::runtime_error&) {
-		}
+		EXPECT_THROW(conf.get_value<int>("db.username"), boost::bad_lexical_cast);
+		EXPECT_THROW(conf.get_value<string>("nonexistant"), std::runtime_error);
 
 	} catch(const SyntaxError& e) {
-		BOOST_FAIL((format("Syntax error:%2%: %1%") % e.what() % e.lineNumber).str().c_str());
+		FAIL() << (format("Syntax error:%2%: %1%") % e.what() % e.lineNumber).str();
 	}
-}
-
-int test_main(int, char**)
-{
-	test_perfectly_good_config_file_no_comments();
-	test_comments_cause_no_problems();
-	test_default_value_usage();
-	test_equals_sign_in_value();
-
-	acceptance_test();
-
-	return 0;
 }
