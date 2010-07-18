@@ -80,6 +80,11 @@ struct SendablePacket
 
 }
 
+template <typename T>
+static inline void unused_parameter(T)
+{
+}
+
 Client::Client(Logger* _logger, ClientHandlerFactory* factory, io_service* io)
 	: logger(_logger), handler(factory->create_client_handler()), socket(*io)
 {
@@ -154,7 +159,10 @@ void Client::on_packet_header(
 	system::error_code err,
 	size_t bytesTransferred)
 {
+	unused_parameter(bytesTransferred); // Only used for debug builds.
+
 	assert(p);
+
 	PacketAllocator::auto_free f(packetPool, reinterpret_cast<uint8_t*>(p));
 
 	if(err)
@@ -199,6 +207,8 @@ static void decrypt_params(uint8_t* params, uint16_t paramLength, const uint8_t*
 
 void Client::on_payload(uint8_t* p, uint16_t payloadSize, bool encrypted, system::error_code err, size_t bytesTransferred)
 {
+	unused_parameter(bytesTransferred);
+
 	PacketAllocator::auto_free f(packetPool, p);
 
 	if(err)
@@ -297,6 +307,9 @@ void Client::send(const packet::Packet& p, bool encrypted)
 
 void Client::on_send(system::error_code err, size_t bytesTransferred, uint8_t* p, size_t packetLength)
 {
+	unused_parameter(bytesTransferred);
+	unused_parameter(packetLength);
+
 	delete[] p;
 
 	if(err)

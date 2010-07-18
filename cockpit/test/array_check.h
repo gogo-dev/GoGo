@@ -63,7 +63,7 @@ static bool are_arrays_equal(const Arr1Type* arr1, size_t len1, const Arr2Type* 
 template <typename Arr1Type, typename Arr2Type>
 static void check_arrays(const Arr1Type* expected, size_t len1, const Arr2Type* actual, size_t len2)
 {
-	EXPECT_TRUE(are_arrays_equal(expected, len1, actual, len2)) << generate_failure_message(reinterpret_cast<const boost::uint8_t*>(expected), len1, reinterpret_cast<const boost::uint8_t*>(actual), len2);
+	EXPECT_TRUE(are_arrays_equal(expected, len1, actual, len2)) << generate_failure_message(reinterpret_cast<const boost::uint8_t*>(expected), len1*sizeof(Arr1Type), reinterpret_cast<const boost::uint8_t*>(actual), len2*sizeof(Arr2Type));
 }
 
 template <typename Arr1Type, typename Arr2Type, size_t len1, size_t len2>

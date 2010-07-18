@@ -210,7 +210,7 @@ TEST(int8, serialization)
 {
 	int8 packit(0x01);
 
-	int8_t expected[] = {
+	uint8_t expected[] = {
 		0x01
 	};
 
