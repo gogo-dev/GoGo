@@ -7,7 +7,8 @@
 	#pragma warning(disable:4355)	// We know what we're doing. Stfu, VC++.
 #endif
 
-#include <boost/array.hpp>
+#include "security.h"
+
 #include <boost/format.hpp>
 #include <boost/bind.hpp>
 
@@ -17,27 +18,7 @@
 
 using namespace std;
 using namespace boost;
-
-// The following are implemented in security.cpp
-// If they throw ANY exception, the packet's parsing will be broken,
-// the packet will be dropped, and OnFailedParse will be signaled.
-// The extraction method MUST modify *currentParam to point to the
-// next element in the parameter string.
-int32_t extract_int32(const uint8_t* paramStart, const uint8_t** currentParam, uint16_t packetLength);
-uint32_t extract_uint32(const uint8_t* paramStart, const uint8_t** currentParam, uint16_t packetLength);
-float extract_float(const uint8_t* paramStart, const uint8_t** currentParam, uint16_t packetLength);
-bool extract_bool(const uint8_t* paramStart, const uint8_t** currentParam, uint16_t packetLength);
-string extract_string(const uint8_t* paramStart, const uint8_t** currentParam, uint16_t packetLength);
-array<float, 3> extract_position(const uint8_t* paramStart, const uint8_t** currentParam, uint16_t packetLength);
-array<float, 3> extract_direction(const uint8_t* paramStart, const uint8_t** currentParam, uint16_t packetLength);
-uint32_t extract_color(const uint8_t* paramStart, const uint8_t** currentParam, uint16_t packetLength);
-uint64_t extract_MUID(const uint8_t* paramStart, const uint8_t** currentParam, uint16_t packetLength);
-tuple<Buffer /* data */, size_t /* count */, size_t /* size */>
-extract_blob(const uint8_t* paramStart, const uint8_t** currentParam, uint16_t packetLength);
-boost::int8_t extract_int8(const uint8_t* paramStart, const uint8_t** currentParam, uint16_t packetLength);
-boost::uint8_t extract_uint8(const uint8_t* paramStart, const uint8_t** currentParam, uint16_t packetLength);
-int16_t extract_int16(const uint8_t* paramStart, const uint8_t** currentParam, uint16_t packetLength);
-uint16_t extract_uint16(const uint8_t* paramStart, const uint8_t**currentParam, uint16_t packetLength);
+using namespace cockpit::detail;
 
 namespace cockpit {
 namespace packet {
@@ -60,36 +41,41 @@ namespace {
 	};
 }
 
-static void do_nothing_0(nothing_info info)
+static inline void do_nothing_0(nothing_info info)
 {
-	if(info.packetID && info.self->OnUnimplementedPacket)
+	// Order is important. This ensures that the most commonly the same
+	// condition is handled first, helping out the instruction pipeline in its
+	// prediction.
+	if(info.self->OnUnimplementedPacket && info.packetID)
 		info.self->OnUnimplementedPacket(info.packetID);
 }
 
 template <typename T1>
-static void do_nothing_1(nothing_info info, T1) { return do_nothing_0(info); }
+static inline void do_nothing_1(nothing_info info, T1) { return do_nothing_0(info); }
 template <typename T1, typename T2>
-static void do_nothing_2(nothing_info info, T1, T2) { return do_nothing_0(info); }
+static inline void do_nothing_2(nothing_info info, T1, T2) { return do_nothing_0(info); }
 template <typename T1, typename T2, typename T3>
-static void do_nothing_3(nothing_info info, T1, T2, T3) { return do_nothing_0(info); }
+static inline void do_nothing_3(nothing_info info, T1, T2, T3) { return do_nothing_0(info); }
 template <typename T1, typename T2, typename T3, typename T4>
-static void do_nothing_4(nothing_info info, T1, T2, T3, T4) { return do_nothing_0(info); }
+static inline void do_nothing_4(nothing_info info, T1, T2, T3, T4) { return do_nothing_0(info); }
 template <typename T1, typename T2, typename T3, typename T4, typename T5>
-static void do_nothing_5(nothing_info info, T1, T2, T3, T4, T5) { return do_nothing_0(info); }
+static inline void do_nothing_5(nothing_info info, T1, T2, T3, T4, T5) { return do_nothing_0(info); }
 template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
-static void do_nothing_6(nothing_info info, T1, T2, T3, T4, T5, T6) { return do_nothing_0(info); }
+static inline void do_nothing_6(nothing_info info, T1, T2, T3, T4, T5, T6) { return do_nothing_0(info); }
 template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7>
-static void do_nothing_7(nothing_info info, T1, T2, T3, T4, T5, T6, T7) { return do_nothing_0(info); }
+static inline void do_nothing_7(nothing_info info, T1, T2, T3, T4, T5, T6, T7) { return do_nothing_0(info); }
 template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8>
-static void do_nothing_8(nothing_info info, T1, T2, T3, T4, T5, T6, T7, T8) { return do_nothing_0(info); }
+static inline void do_nothing_8(nothing_info info, T1, T2, T3, T4, T5, T6, T7, T8) { return do_nothing_0(info); }
 template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9>
-static void do_nothing_9(nothing_info info, T1, T2, T3, T4, T5, T6, T7, T8, T9) { return do_nothing_0(info); }
+static inline void do_nothing_9(nothing_info info, T1, T2, T3, T4, T5, T6, T7, T8, T9) { return do_nothing_0(info); }
 
 Registry::Registry()
 	:
 	OnFailedParse(bind(do_nothing_3<uint16_t, const uint8_t*, uint16_t>, nothing_info(this, 0), _1, _2, _3)),
 	OnInvalidPacketType(bind(do_nothing_1<uint16_t>, nothing_info(this, 0), _1)),
 	OnUnimplementedPacket(bind(do_nothing_1<uint16_t>, nothing_info(this, 0), _1)),
+	OnFuckUp(bind(do_nothing_3<uint16_t, const uint8_t*, uint16_t>, nothing_info(this, 0), _1, _2, _3)),
+	OnExceptionalFuckUp(bind(do_nothing_4<const char*, uint16_t, const uint8_t*, uint16_t>, nothing_info(this, 0), _1, _2, _3, _4)),
 	Net_Ping(bind(do_nothing_1< boost::uint32_t >, nothing_info(this, 322), _1)),
 	Net_Pong(bind(do_nothing_1< boost::uint32_t >, nothing_info(this, 323), _1)),
 	Match_Announce(bind(do_nothing_2< boost::uint32_t, const std::string& >, nothing_info(this, 402), _1, _2)),
@@ -2554,8 +2540,8 @@ static void do_MC_RESPONSE_RESOURCE_CRC32(Registry* self, const uint8_t* paramet
 }
 
 void Registry::dispatch(uint16_t packetID,
-                              const uint8_t* parameters,
-                              uint16_t length)
+                        const uint8_t* parameters,
+                        uint16_t length)
 {
 	try {
 		switch(packetID)
@@ -2793,8 +2779,12 @@ void Registry::dispatch(uint16_t packetID,
 			case protocol::MC_RESPONSE_RESOURCE_CRC32::packetID: return do_MC_RESPONSE_RESOURCE_CRC32(this, parameters, length);
 			default: return this->OnInvalidPacketType(packetID);
 		}
-	} catch(...) {
+	} catch(const ParseFailed&) {
 		this->OnFailedParse(packetID, parameters, length);
+	} catch(const std::exception& ex) {
+		this->OnExceptionalFuckUp(ex.what(), packetID, parameters, length);
+	} catch(...) {
+		this->OnFuckUp(packetID, parameters, length);
 	}
 }
 

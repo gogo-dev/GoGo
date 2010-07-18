@@ -53,6 +53,8 @@ public:
 	void OnFailedParse(boost::uint16_t commandID, const boost::uint8_t* parameters, boost::uint16_t length);
 	void OnInvalidPacketType(boost::uint16_t commandID);
 	void OnUnimplementedPacket(boost::uint16_t commandID);
+	void OnFuckUp(boost::uint16_t commandID, const boost::uint8_t* parameters, boost::uint16_t len);
+	void OnExceptionalFuckUp(const char* what, boost::uint16_t commandID, const boost::uint8_t* parameters, boost::uint16_t len);
 
 	void OnMatchLogin(const std::string& username, const std::string& password, boost::int32_t commandVersion, boost::uint32_t nChecksumPack);
 	void OnCharList();

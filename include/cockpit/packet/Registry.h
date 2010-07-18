@@ -40,6 +40,22 @@ public:
 	/// been hooked yet. This can be noisy while gogo is in development ;)
 	boost::function<void (boost::uint16_t /* packetID */)> OnUnimplementedPacket;
 
+	/// This function called whenever a packet handler throws an unknown
+	/// exception (aka, NOT deriving from std::exception) outside to the
+	/// parent. To prevent the thread from crashing, we swallow the exception
+	/// and pass it to this function whether or not you handle it.
+	boost::function<void (boost::uint16_t /* packetID */,
+	                      const boost::uint8_t* /* rawParameters */,
+	                      boost::uint16_t /* length */)> OnFuckUp;
+
+	/// This function is called whenever a packet handler throws an exception
+	/// outside to the parent. To prevent the thread from crashing, we swallow
+	/// it and pass it to this function whether or not you handle it.
+	boost::function<void (const char* /* exception */,
+	                      boost::uint16_t /* packetID */,
+	                      const boost::uint8_t* /* rawParameters */,
+	                      boost::uint16_t /* length */)> OnExceptionalFuckUp;
+
 	// Ping
 	boost::function<void (boost::uint32_t /* TimeStamp */)> Net_Ping;
 

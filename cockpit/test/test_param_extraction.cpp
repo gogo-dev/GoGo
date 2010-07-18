@@ -1,6 +1,11 @@
 #include <gtest/gtest.h>
 
-#include "../src/packet/security.cpp"
+#include "../src/packet/security.h"
+
+using namespace std;
+using namespace boost;
+
+using namespace cockpit::detail;
 
 TEST(int32, clean_extraction)
 {
@@ -24,7 +29,7 @@ TEST(int32, clean_extraction)
 		EXPECT_EQ(ptr, buffer + sizeof(buffer));
 
 		succeeded = true;
-	} catch(ParseFailed) {
+	} catch(cockpit::detail::ParseFailed) {
 	}
 
 	EXPECT_TRUE(succeeded);

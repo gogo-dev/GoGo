@@ -1,21 +1,22 @@
-#include <boost/cstdint.hpp>
-#include <boost/array.hpp>
-#include <boost/tuple/tuple.hpp>
-
-#include <string>
-
-#include <util/buffer.h>
+#include "security.h"
 
 using namespace std;
 using namespace boost;
 
-namespace {
+namespace cockpit {
+namespace detail {
 
-// The exception we throw if there are any shenanigans in the input.
-struct ParseFailed
+ParseFailed::ParseFailed()
 {
-};
+}
 
+const char* ParseFailed::what() throw()
+{
+	return "Packet parsing failed!";
+}
+
+ParseFailed::~ParseFailed() throw()
+{
 }
 
 // Ensures there's enough room to remove "request", starting at "currentParam",
@@ -166,4 +167,7 @@ int16_t extract_int16(const uint8_t* paramStart, const uint8_t** currentParam, u
 uint16_t extract_uint16(const uint8_t* paramStart, const uint8_t**currentParam, uint16_t packetLength)
 {
 	return extract_arbitrary_integer<uint16_t>(paramStart, currentParam, packetLength);
+}
+
+}
 }

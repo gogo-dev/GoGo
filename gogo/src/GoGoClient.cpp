@@ -49,6 +49,8 @@ void GoGoClient::initialize(Transmitter* _transmitter, packet::Registry* _regist
 	registry->OnFailedParse = bind(&GoGoClient::OnFailedParse, this, _1, _2, _3);
 	registry->OnInvalidPacketType = bind(&GoGoClient::OnInvalidPacketType, this, _1);
 	registry->OnUnimplementedPacket = bind(&GoGoClient::OnUnimplementedPacket, this, _1);
+	registry->OnFuckUp = bind(&GoGoClient::OnFuckUp, this, _1, _2, _3);
+	registry->OnExceptionalFuckUp = bind(&GoGoClient::OnExceptionalFuckUp, this, _1, _2, _3, _4);
 
 	registry->Match_Login = bind(&GoGoClient::OnMatchLogin, this, _1, _2, _3, _4);
 	registry->Match_RequestAccountCharList = bind(&GoGoClient::OnCharList, this);
