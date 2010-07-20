@@ -1,5 +1,6 @@
 set(UTIL_TESTS
 	test_memory
+	test_workqueue
 	# Add more tests here.
 )
 
