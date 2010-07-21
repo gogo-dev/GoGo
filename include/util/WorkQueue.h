@@ -6,21 +6,22 @@
 #include <boost/bind/bind.hpp>
 #include <boost/call_traits.hpp>
 #include <boost/ref.hpp>
-#include <boost/thread/condition.hpp>
+#include <boost/thread.hpp>
 #include <boost/thread/mutex.hpp>
 
 /**
-	This class aims to be the perfect queue for a single thread producing and a
+	This class aims to be the perfect queue for several threads producing and a
 	single, different thread consuming. Elements will be consumed in the order
-	they are produced. There MUST be only one producer and one consumer thread.
-	If there is not, undefined behavior results.
+	they are produced. There MUST be only one consumer thread. The behavior is
+	undefined otherwise.
 
 	INTERNALS:
 
 		WorkQueue is implemented internally as a dynamically resizing circular
 		buffer. This offers good locality of reference, as well as good
 		amortized efficiency. A minor drawback of this approach is iterator
-		invalidity, but that shouldn't be a problem given the sparse interface.
+		invalidity, but that shouldn't be a problem given the sparse interface
+		which lacks iterators :)
 */
 template <typename ElemTy>
 class WorkQueue
@@ -42,7 +43,6 @@ private:
 	ElemTy* tail;    // The pointer to the tail of the circular buffer.
 
 	boost::mutex protection;
-	boost::condition_variable cond;
 
 private:
 
@@ -92,9 +92,19 @@ private:
 		resize(capacity / 2);
 	}
 
-	inline bool queue_has_element()
+	void wait_for_elements()
 	{
-		return numElems != 0;
+		protection.lock();
+
+		while(numElems == 0)
+		{
+			protection.unlock();
+			// TODO: Experimentally determine a less arbitrary number.
+			boost::this_thread::sleep(boost::posix_time::milliseconds(5));
+			protection.lock();
+		}
+
+		protection.unlock();
 	}
 
 public:
@@ -125,21 +135,17 @@ public:
 	*/
 	void push(ParamType elem)
 	{
-		{
-			boost::unique_lock<boost::mutex> w(protection);
+		boost::unique_lock<boost::mutex> w(protection);
 
-			size_t newSize = numElems + 1;
+		size_t newSize = numElems + 1;
 
-			if(newSize > capacity)
-				grow();
+		if(newSize > capacity)
+			grow();
 
-			*tail = elem;
-			tail = increment_internal_pointer(tail);
+		*tail = elem;
+		tail = increment_internal_pointer(tail);
 
-			numElems = newSize;
-		}
-
-		cond.notify_one();
+		numElems = newSize;
 	}
 
 	/**
@@ -156,9 +162,9 @@ public:
 		using namespace std;
 		using namespace boost;
 
-		unique_lock<mutex> w(protection);
+		wait_for_elements();
 
-		cond.wait(w, bind(not_equal_to<size_t>(), cref(numElems), 0));
+		unique_lock<mutex> w(protection);
 
 		size_t newSize = numElems - 1;
 

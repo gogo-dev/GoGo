@@ -7,6 +7,9 @@
 
 using namespace boost;
 
+// The number of elements to be put in the queue for each test.
+#define STRESS_LEVEL	1000
+
 TEST(work_queue, construction)
 {
 	WorkQueue<int> q;
@@ -31,7 +34,7 @@ TEST(work_queue, snake)
 {
 	WorkQueue<int> q(2);
 
-	for(int i = 0; i < 1000; ++i)
+	for(int i = 0; i < STRESS_LEVEL; ++i)
 	{
 		q.push(i);
 		q.push(i);
@@ -47,35 +50,50 @@ TEST(work_queue, still_works_after_resize)
 	// Do it three times to test growing AND shrinking.
 	for(int z = 0; z < 3; ++z)
 	{
-		for(int i = 0; i < 1000; ++i)
+		for(int i = 0; i < STRESS_LEVEL; ++i)
 			q.push(i);
 
-		for(int i = 0; i < 1000; ++i)
+		for(int i = 0; i < STRESS_LEVEL; ++i)
 			EXPECT_EQ(i, q.pop());
 	}
 }
 
-#define ELEMENTS_IN_QUEUE	8
-
-static void producer(WorkQueue<int>& q)
+static void producer(WorkQueue<int>& q, int numToPush = STRESS_LEVEL)
 {
-	for(int i = 0; i < ELEMENTS_IN_QUEUE; ++i)
+	for(int i = 0; i < numToPush; ++i)
 		q.push(i);
 }
 
-static void consumer(WorkQueue<int>& q)
+static void consumer(WorkQueue<int>& q, int numToPop)
 {
-	for(int i = 0; i < ELEMENTS_IN_QUEUE; ++i)
-		EXPECT_EQ(i, q.pop());
+	for(int i = 0; i < numToPop; ++i)
+		q.pop();
 }
 
-TEST(work_queue, concurrent_accesses)
+TEST(work_queue, single_producer_single_consumer)
 {
 	WorkQueue<int> q;
 
-	thread p(bind(producer, ref(q)));
-	thread c(bind(consumer, ref(q)));
+	thread p1(bind(producer, ref(q), STRESS_LEVEL));
+	thread c(bind(consumer, ref(q), STRESS_LEVEL));
 
-	p.join();
+	p1.join();
+	c.join();
+}
+
+TEST(work_queue, multiple_producer_single_consumer)
+{
+	WorkQueue<int> q;
+
+	thread p1(bind(producer, ref(q), STRESS_LEVEL));
+	thread p2(bind(producer, ref(q), STRESS_LEVEL));
+	thread p3(bind(producer, ref(q), STRESS_LEVEL));
+
+	thread c(bind(consumer, ref(q), STRESS_LEVEL*3));
+
+	p1.join();
+	p2.join();
+	p3.join();
+
 	c.join();
 }
