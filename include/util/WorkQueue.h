@@ -8,6 +8,7 @@
 #include <boost/ref.hpp>
 #include <boost/thread.hpp>
 #include <boost/thread/mutex.hpp>
+#include <boost/utility.hpp>
 
 /**
 	This class aims to be the perfect queue for several threads producing and a
@@ -27,6 +28,9 @@ template <typename ElemTy>
 class WorkQueue
 {
 	typedef typename boost::call_traits<ElemTy>::param_type ParamType;
+	typedef boost::mutex Lock;
+	typedef boost::unique_lock<Lock> Locker;
+
 private:
 	size_t minSize;  // The size of the container will NEVER drop below
 	                 // this amount.
@@ -42,7 +46,13 @@ private:
 	ElemTy* head;    // The pointer to the head of the circular buffer.
 	ElemTy* tail;    // The pointer to the tail of the circular buffer.
 
-	boost::mutex protection;
+	mutable Lock protection;
+
+/*
+#ifndef NDEBUG
+	boost::thread::id consumingThread;
+#endif
+*/
 
 private:
 
@@ -72,7 +82,7 @@ private:
 		capacity = newCap;
 	}
 
-	void grow()
+	void double_length()
 	{
 		assert(
 			numElems == capacity
@@ -82,7 +92,7 @@ private:
 		resize(capacity * 2);
 	}
 
-	void shrink()
+	void halve_length()
 	{
 		assert(
 			numElems < (capacity / 2)
@@ -94,17 +104,26 @@ private:
 
 	void wait_for_elements()
 	{
-		protection.lock();
+		bool empty;
 
-		while(numElems == 0)
+		for(;;)
 		{
-			protection.unlock();
-			// TODO: Experimentally determine a less arbitrary number.
-			boost::this_thread::sleep(boost::posix_time::milliseconds(5));
-			protection.lock();
-		}
+			{
+				Locker w(protection);
+				empty = numElems == 0;
+			}
 
-		protection.unlock();
+			if(empty)
+			{
+				return;
+			}
+			else
+			{
+				// TODO: Empirically determine a less arbitrary number. 5 times
+				// a second looks good to me, but then again, I'm stupid ;)
+				boost::this_thread::sleep(boost::posix_time::milliseconds(200));
+			}
+		}
 	}
 
 public:
@@ -135,12 +154,13 @@ public:
 	*/
 	void push(ParamType elem)
 	{
-		boost::unique_lock<boost::mutex> w(protection);
+		Locker w(protection);
 
 		size_t newSize = numElems + 1;
 
+		// If we hit the bursting point of the array, double the size.
 		if(newSize > capacity)
-			grow();
+			double_length();
 
 		*tail = elem;
 		tail = increment_internal_pointer(tail);
@@ -159,19 +179,35 @@ public:
 	*/
 	ElemTy pop()
 	{
-		using namespace std;
-		using namespace boost;
+/*
+#ifndef NDEBUG
+		if(consumingThread == thread::id())
+			consumingThread = this_thread::get_id();
+
+		assert(
+			consumingThread == this_thread::get_id()
+		 && "Work queue can ONLY be used with one consumer. Please do not consume with multiple threads."
+		);
+#endif
+*/
 
 		wait_for_elements();
 
-		unique_lock<mutex> w(protection);
+		Locker w(protection);
 
 		size_t newSize = numElems - 1;
 
-		if(newSize < capacity / 4 && newSize >= (minSize * 2))
-			shrink();
+		// When the number of elements drops below 1/4 of total capacity, the
+		// buffer is resized to 1/2 it's current length. If the resize would
+		// make it so that the buffer would drop below minSize, it is ignored.
+		// These two lines ensure 3 properties:
+		//     1) The buffer's memory usage stays sane.
+		//     2) The buffer's capacity never drops below minSize.
+		//     3) The buffer's capacity is always a power of two.
+		if(newSize <= capacity / 4 && newSize >= (minSize * 2))
+			halve_length();
 
-		ElemTy& ret = *head;
+		ElemTy ret = *head;
 
 		head = increment_internal_pointer(head);
 
