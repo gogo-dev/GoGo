@@ -21,7 +21,7 @@
 	INTERNALS:
 
 		WorkQueue is implemented internally as a dynamically resizing circular
-		buffer. This offers good locality of reference, as well as good
+		buffer. This offers good locality of reference, as well as constant
 		amortized efficiency. A minor drawback of this approach is iterator
 		invalidity, but that shouldn't be a problem given the sparse interface
 		which lacks iterators :)
@@ -57,10 +57,21 @@ private:
 */
 
 private:
+
+	// Just a helper function for my invariant checking.
+	static bool is_power_of_two(size_t x)
+	{
+		return (x != 0) && ((x & (x - 1)) == 0);
+	}
+
 	// Increments a pointer, compensating for the circular nature of the buffer.
 	ElemTy* increment_internal_pointer(ElemTy* ptr)
 	{
-		// This will ONLY work if capacity is a power of two.
+		assert(
+			is_power_of_two(capacity)
+		 && "We are using optimizations that assume the capacity will always be a power of two. Obviously, this is not the case!"
+		);
+
 		return ((ptr - buffer + 1) & (capacity - 1)) + buffer;
 	}
 
@@ -105,28 +116,17 @@ private:
 		resize(newCapacity);
 	}
 
+	bool is_queue_empty() const
+	{
+		Locker w(protection);
+		return numElems == 0;
+	}
+
+	// TODO: Empirically determine a less arbitrary amount of time to sleep by.
 	void wait_for_elements()
 	{
-		bool empty;
-
-		for(;;)
-		{
-			{
-				Locker w(protection);
-				empty = numElems == 0;
-			}
-
-			if(empty)
-			{
-				// TODO: Empirically determine a less arbitrary number. 5 times
-				// a second looks good to me, but then again, I'm stupid ;)
-				boost::this_thread::sleep(boost::posix_time::milliseconds(200));
-			}
-			else
-			{
-				return;
-			}
-		}
+		while(is_queue_empty())
+			boost::this_thread::sleep(boost::posix_time::milliseconds(200));
 	}
 
 public:
@@ -134,12 +134,12 @@ public:
 		@param  defaultSize The initial number of elements to have in the queue.
 		                    The queue will initially be of size 2^defaultSize.
 	*/
-	WorkQueue(size_t defaultSize = 5)
+	WorkQueue(size_t _minSize = 5)
 	{
-		if(defaultSize < 2)
-			defaultSize = 2;
+		if(_minSize < 2)
+			_minSize = 2;
 
-		capacity = 1 << defaultSize;
+		capacity = 1 << _minSize;
 		minSize =  capacity;
 
 		numElems = 0;
@@ -210,13 +210,13 @@ public:
 		if((newSize <= (capacity / 4)) && (newSize >= (minSize * 2)))
 			halve_length();
 
-		ElemTy ret = *head;
+		ElemTy* ret = head;
 
 		head = increment_internal_pointer(head);
 
 		numElems = newSize;
 
-		return ret;
+		return *ret;
 	}
 
 	~WorkQueue()
