@@ -94,12 +94,14 @@ private:
 
 	void halve_length()
 	{
+		size_t newCapacity = capacity / 2;
+
 		assert(
-			numElems < (capacity / 2)
-		 && "If we try to shrink the array now (we are), we will corrupt memory."
+			numElems < newCapacity
+		 && "We are about to shrink the array and we will corrupt memory. Das ich bad."
 		);
 
-		resize(capacity / 2);
+		resize(newCapacity);
 	}
 
 	void wait_for_elements()
@@ -115,13 +117,13 @@ private:
 
 			if(empty)
 			{
-				return;
-			}
-			else
-			{
 				// TODO: Empirically determine a less arbitrary number. 5 times
 				// a second looks good to me, but then again, I'm stupid ;)
 				boost::this_thread::sleep(boost::posix_time::milliseconds(200));
+			}
+			else
+			{
+				return;
 			}
 		}
 	}
@@ -204,7 +206,7 @@ public:
 		//     1) The buffer's memory usage stays sane.
 		//     2) The buffer's capacity never drops below minSize.
 		//     3) The buffer's capacity is always a power of two.
-		if(newSize <= capacity / 4 && newSize >= (minSize * 2))
+		if((newSize <= (capacity / 4)) && (newSize >= (minSize * 2)))
 			halve_length();
 
 		ElemTy ret = *head;
