@@ -10,6 +10,8 @@
 #include <boost/thread/mutex.hpp>
 #include <boost/utility.hpp>
 
+#include <memory>
+
 /**
 	This class aims to be the perfect queue for several threads producing and a
 	single, different thread consuming. Elements will be consumed in the order
@@ -55,7 +57,6 @@ private:
 */
 
 private:
-
 	// Increments a pointer, compensating for the circular nature of the buffer.
 	ElemTy* increment_internal_pointer(ElemTy* ptr)
 	{
