@@ -50,12 +50,6 @@ private:
 
 	mutable Lock protection;
 
-/*
-#ifndef NDEBUG
-	boost::thread::id consumingThread;
-#endif
-*/
-
 private:
 
 	// Just a helper function for my invariant checking.
@@ -182,18 +176,6 @@ public:
 	*/
 	ElemTy pop()
 	{
-/*
-#ifndef NDEBUG
-		if(consumingThread == thread::id())
-			consumingThread = this_thread::get_id();
-
-		assert(
-			consumingThread == this_thread::get_id()
-		 && "Work queue can ONLY be used with one consumer. Please do not consume with multiple threads."
-		);
-#endif
-*/
-
 		wait_for_elements();
 
 		Locker w(protection);
