@@ -71,6 +71,11 @@ private:
 
 	void resize(size_t newCap)
 	{
+		assert(
+			newCap >= numElems
+			&& "Trying to resize to an insufficient capacity. This makes me wat, and makes your computer overwrite the bounds of an array."
+		);
+
 		ElemTy* newBuffer = new ElemTy[newCap];
 
 		for(size_t i = 0; i < numElems; ++i)
