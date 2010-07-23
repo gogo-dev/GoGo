@@ -117,7 +117,7 @@ private:
 	void wait_for_elements()
 	{
 		while(is_queue_empty())
-			boost::this_thread::sleep(boost::posix_time::milliseconds(200));
+			boost::this_thread::sleep(boost::posix_time::milliseconds(50));
 	}
 
 public:
