@@ -58,17 +58,13 @@ TEST(work_queue, still_works_after_resize)
 	}
 }
 
-// TODO: Make WorkQueue work with auto_ptr by pushing all common implementation
-// details up into a base class. This will also speed up compile times greatly.
-/*
 TEST(work_queue, can_use_auto_ptr)
 {
 	WorkQueue<std::auto_ptr<int> > q;
 
-	q.push(new int(3));
+	q.push(std::auto_ptr<int>(new int(3)));
 	EXPECT_EQ(3, *q.pop());
 }
-*/
 
 static void producer(WorkQueue<int>& q, int numToPush = STRESS_LEVEL)
 {

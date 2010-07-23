@@ -1,16 +1,9 @@
 #pragma once
 #include <cassert>
 #include <cstddef>
-#include <functional>
 
-#include <boost/bind/bind.hpp>
-#include <boost/call_traits.hpp>
-#include <boost/ref.hpp>
 #include <boost/thread.hpp>
 #include <boost/thread/mutex.hpp>
-#include <boost/utility.hpp>
-
-#include <memory>
 
 /**
 	This class aims to be the perfect queue for several threads producing and a
@@ -29,7 +22,6 @@
 template <typename ElemTy>
 class WorkQueue
 {
-	typedef typename boost::call_traits<ElemTy>::param_type ParamType;
 	typedef boost::mutex Lock;
 	typedef boost::unique_lock<Lock> Locker;
 
@@ -154,7 +146,7 @@ public:
 		copied - similar in behavior to a vector. For efficiency reasons, the
 		size will always be doubled when a resize must happen.
 	*/
-	void push(ParamType elem)
+	void push(const ElemTy& elem)
 	{
 		Locker w(protection);
 
@@ -164,7 +156,7 @@ public:
 		if(newSize > capacity)
 			double_length();
 
-		*tail = elem;
+		*tail = const_cast<ElemTy&>(elem);
 		tail = increment_internal_pointer(tail);
 
 		numElems = newSize;
