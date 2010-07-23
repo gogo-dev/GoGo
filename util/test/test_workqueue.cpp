@@ -66,7 +66,7 @@ TEST(work_queue, can_use_auto_ptr)
 	EXPECT_EQ(3, *q.pop());
 }
 
-static void producer(WorkQueue<int>& q, int numToPush = STRESS_LEVEL)
+static void producer(WorkQueue<int>& q, int numToPush)
 {
 	for(int i = 0; i < numToPush; ++i)
 		q.push(i);
