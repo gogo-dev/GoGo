@@ -66,7 +66,7 @@ private:
 		 && "We are using optimizations that assume the capacity will always be a power of two. Obviously, this is not the case!"
 		);
 
-		return ((ptr - buffer + 1) & (capacity - 1)) + buffer;
+		return buffer + ((ptr - buffer + 1) & (capacity - 1));
 	}
 
 	void resize(size_t newCap)
