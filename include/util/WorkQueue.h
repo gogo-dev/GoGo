@@ -5,6 +5,40 @@
 #include <boost/thread.hpp>
 #include <boost/thread/mutex.hpp>
 
+// By pulling as much as possible up into the base class, we try to speed up
+// compile times by removing useless instantiation of functions which do not
+// depend on type.
+class WorkQueueBase
+{
+protected:
+	typedef boost::mutex Lock;
+	typedef boost::unique_lock<Lock> Locker;
+
+	size_t minSize;
+	size_t capacity;
+	size_t numElems;
+
+	mutable Lock protection;
+
+	static bool is_power_of_two(size_t x)
+	{
+		return (x != 0) && ((x & (x - 1)) == 0);
+	}
+
+	bool is_queue_empty() const
+	{
+		Locker w(protection);
+		return numElems == 0;
+	}
+
+	// TODO: Empirically determine a less arbitrary amount of time to sleep by.
+	void wait_for_elements() const
+	{
+		while(is_queue_empty())
+			boost::this_thread::sleep(boost::posix_time::milliseconds(50));
+	}
+};
+
 /**
 	This class aims to be the perfect queue for several threads producing and a
 	single, different thread consuming. Elements will be consumed in the order
@@ -20,36 +54,15 @@
 		which lacks iterators :)
 */
 template <typename ElemTy>
-class WorkQueue
+class WorkQueue : public WorkQueueBase
 {
-	typedef boost::mutex Lock;
-	typedef boost::unique_lock<Lock> Locker;
-
 private:
-	size_t minSize;  // The size of the container will NEVER drop below
-	                 // this amount.
-
-	size_t capacity; // This number is actually log2(realCapacity). This
-	                 // allows us to replace a modulus with a shift.
-
-	size_t numElems; // Duh.
-
-	ElemTy* buffer;  // The pointer to the beginning of the internal
-	                 // buffer.
+	ElemTy* buffer;
 
 	ElemTy* head;    // The pointer to the head of the circular buffer.
 	ElemTy* tail;    // The pointer to the tail of the circular buffer.
 
-	mutable Lock protection;
-
 private:
-
-	// Just a helper function for my invariant checking.
-	static bool is_power_of_two(size_t x)
-	{
-		return (x != 0) && ((x & (x - 1)) == 0);
-	}
-
 	// Increments a pointer, compensating for the circular nature of the buffer.
 	ElemTy* increment_internal_pointer(ElemTy* ptr)
 	{
@@ -83,41 +96,6 @@ private:
 		tail = newBuffer + numElems;
 
 		capacity = newCap;
-	}
-
-	void double_length()
-	{
-		assert(
-			numElems == capacity
-		 && "We're trying to grow the buffer without it being necessary!"
-		);
-
-		resize(capacity * 2);
-	}
-
-	void halve_length()
-	{
-		size_t newCapacity = capacity / 2;
-
-		assert(
-			numElems < newCapacity
-		 && "We are about to shrink the array and we will corrupt memory. Das ich bad."
-		);
-
-		resize(newCapacity);
-	}
-
-	bool is_queue_empty() const
-	{
-		Locker w(protection);
-		return numElems == 0;
-	}
-
-	// TODO: Empirically determine a less arbitrary amount of time to sleep by.
-	void wait_for_elements()
-	{
-		while(is_queue_empty())
-			boost::this_thread::sleep(boost::posix_time::milliseconds(50));
 	}
 
 public:
@@ -154,7 +132,7 @@ public:
 
 		// If we hit the bursting point of the array, double the size.
 		if(newSize > capacity)
-			double_length();
+			resize(capacity << 1);
 
 		*tail = const_cast<ElemTy&>(elem);
 		tail = increment_internal_pointer(tail);
@@ -187,7 +165,7 @@ public:
 		//     2) The buffer's capacity never drops below minSize.
 		//     3) The buffer's capacity is always a power of two.
 		if((newSize <= (capacity / 4)) && (newSize >= (minSize * 2)))
-			halve_length();
+			resize(capacity >> 1);
 
 		ElemTy* ret = head;
 
