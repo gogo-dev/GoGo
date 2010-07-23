@@ -94,7 +94,6 @@ Client::Client(Logger* _logger, ClientHandlerFactory* factory, io_service* io)
 	assert(io);
 
 	sending_currentPacketID = 0;
-	recieving_currentPacketID = 3;	// I don't know why, it just is. Ask MAIET :(
 
 	connected = false;
 }

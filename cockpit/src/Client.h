@@ -42,8 +42,6 @@ private:
 	boost::mutex sendingLock;
 	boost::uint8_t sending_currentPacketID;
 
-	boost::uint8_t recieving_currentPacketID;
-
 	bool connected;
 
 	#define KB	*1024
