@@ -184,6 +184,7 @@ public:
 
 	~Buffer()
 	{
+		Locker w(protection);
 		delete[] buffer;
 	}
 };
