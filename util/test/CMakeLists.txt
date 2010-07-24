@@ -1,11 +1,11 @@
 set(UTIL_TESTS
 	test_memory
-	test_workqueue
 	# Add more tests here.
 )
 
 add_executable(test_util ${UTIL_TESTS})
 target_link_libraries(test_util
+	util
 	gtest
 	${Boost_LIBRARIES}
 )

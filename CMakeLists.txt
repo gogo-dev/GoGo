@@ -117,6 +117,9 @@ add_subdirectory(gtest/test)
 add_subdirectory(gunz/src)
 add_subdirectory(gunz/test)
 
+add_subdirectory(reflex/src)
+add_subdirectory(reflex/test)
+
 add_subdirectory(tinyxml/src)
 add_subdirectory(tinyxml/test)
 
