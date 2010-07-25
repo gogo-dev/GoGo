@@ -1,13 +1,13 @@
 #include <gtest/gtest.h>
 
-#include <reflex/Buffer.h>
+#include <reflex/detail/Buffer.h>
 
 #include <boost/bind/bind.hpp>
 #include <boost/thread.hpp>
 
 using namespace boost;
 
-using namespace reflex;
+using namespace reflex::detail;
 
 // The number of elements to be put in the queue for each test.
 #define STRESS_LEVEL	1000

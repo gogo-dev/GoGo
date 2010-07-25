@@ -1,5 +1,5 @@
 set(REFLEX_SRC
-	dummy.cpp
+	TaskProcessor.cpp
 	# More sources here!
 )
 

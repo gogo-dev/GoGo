@@ -6,7 +6,6 @@
 #include <boost/thread/mutex.hpp>
 
 namespace reflex {
-
 namespace detail {
 
 // By pulling as much as possible up into the base class, we try to speed up
@@ -42,8 +41,6 @@ protected:
 			boost::this_thread::sleep(boost::posix_time::milliseconds(50));
 	}
 };
-
-}
 
 /**
 	This class aims to be the perfect queue for several threads producing and a
@@ -189,4 +186,5 @@ public:
 	}
 };
 
+}
 }
