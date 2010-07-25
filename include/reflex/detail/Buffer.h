@@ -4,6 +4,7 @@
 #include <functional>
 
 #include <boost/bind/bind.hpp>
+#include <boost/noncopyable.hpp>
 #include <boost/thread.hpp>
 #include <boost/thread/condition_variable.hpp>
 #include <boost/thread/mutex.hpp>
@@ -57,7 +58,7 @@ protected:
 		which lacks iterators :)
 */
 template <typename ElemTy>
-class Buffer : public detail::BufferBase
+class Buffer : public detail::BufferBase, boost::noncopyable
 {
 private:
 	ElemTy* buffer;
