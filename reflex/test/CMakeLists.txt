@@ -1,5 +1,6 @@
 set(REFLEX_TESTS
 	test_buffer
+	test_scheduler
 	test_task_processor
 	# Add more tests here.
 )

@@ -1,4 +1,5 @@
 set(REFLEX_SRC
+	Scheduler.cpp
 	TaskProcessor.cpp
 	# More sources here!
 )

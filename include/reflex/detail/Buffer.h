@@ -1,4 +1,5 @@
 #pragma once
+
 #include <cassert>
 #include <cstddef>
 
@@ -24,6 +25,9 @@ protected:
 	size_t capacity;
 	size_t numElems;
 
+	// The total number of elements ever pushed into the queue.
+	uintmax_t traffic;
+
 	mutable Lock protection;
 	mutable Condition queueHasElements;
 
@@ -36,6 +40,13 @@ protected:
 	// Buffer instantiation.
 	BufferBase()  {}
 	~BufferBase() {}
+
+public:
+	uintmax_t get_traffic() const
+	{
+		Locker r(protection);
+		return traffic;
+	}
 };
 
 /**
@@ -115,6 +126,8 @@ public:
 		buffer = new ElemTy[capacity];
 		head = buffer;
 		tail = buffer;
+
+		traffic = 0;
 	}
 
 	/**
@@ -138,6 +151,7 @@ public:
 			tail = increment_internal_pointer(tail);
 
 			numElems = newSize;
+			++traffic;
 		}
 
 		queueHasElements.notify_one();

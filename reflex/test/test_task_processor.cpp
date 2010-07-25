@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include <reflex/detail/TaskProcessor.h>
+#include <reflex/TaskProcessor.h>
 
 #include <boost/bind/bind.hpp>
 #include <boost/cstdint.hpp>
@@ -11,7 +11,7 @@
 using namespace std;
 using namespace boost;
 
-using namespace reflex::detail;
+using namespace reflex;
 
 static void increment_counter(uint64_t& num)
 {
