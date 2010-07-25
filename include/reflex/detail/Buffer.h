@@ -1,9 +1,7 @@
 #pragma once
 #include <cassert>
 #include <cstddef>
-#include <functional>
 
-#include <boost/bind/bind.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/thread.hpp>
 #include <boost/thread/condition_variable.hpp>
@@ -41,6 +39,11 @@ protected:
 		while(numElems == 0)
 			queueHasElements.wait(r);
 	}
+
+	// Prevents user code from instantiating BufferBase unless it's through a
+	// Buffer instantiation.
+	BufferBase()  {}
+	~BufferBase() {}
 };
 
 /**
