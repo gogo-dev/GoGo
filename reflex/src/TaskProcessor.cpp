@@ -15,6 +15,8 @@ static void process_queue(Buffer<Task>& buf, bool& die)
 	{
 		buf.pop()();
 
+		// If the task just happens to be the destructor's, we kill the thread
+		// as this will be the last task to ever be recieved.
 		if(die)
 			return;
 	}
@@ -49,8 +51,7 @@ size_t TaskProcessor::UsageStatistics() const
 	return numberOfProcessedTasks;
 }
 
-// By pushing a blank task, we ensure the task handler checks the die flag
-// instead of busy-waiting indefinately.
+// By pushing a task that sets the die flag, we kill the thread.
 TaskProcessor::~TaskProcessor()
 {
 	taskQueue.push(bind(kill_thread, ref(die)));
