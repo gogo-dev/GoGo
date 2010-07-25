@@ -5,4 +5,6 @@
 TEST(scheduler, construction)
 {
 	reflex::Scheduler s(8);
+
+	EXPECT_TRUE(s.GetTaskTarget());
 }
