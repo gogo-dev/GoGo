@@ -11,15 +11,8 @@ namespace detail {
 
 static void process_queue(Buffer<Task>& buf, bool& die)
 {
-	for(;;)
-	{
+	while(!die)
 		buf.pop()();
-
-		// If the task just happens to be the destructor's, we kill the thread
-		// as this will be the last task to ever be recieved.
-		if(die)
-			return;
-	}
 }
 
 static void kill_thread(bool& dieFlag)
