@@ -32,14 +32,6 @@ protected:
 		return (x != 0) && ((x & (x - 1)) == 0);
 	}
 
-	void wait_for_elements() const
-	{
-		Locker r(protection);
-
-		while(numElems == 0)
-			queueHasElements.wait(r);
-	}
-
 	// Prevents user code from instantiating BufferBase unless it's through a
 	// Buffer instantiation.
 	BufferBase()  {}
@@ -162,9 +154,10 @@ public:
 	*/
 	ElemTy pop()
 	{
-		wait_for_elements();
-
 		Locker w(protection);
+
+		while(numElems == 0)
+			queueHasElements.wait(w);
 
 		size_t newSize = numElems - 1;
 
