@@ -1,8 +1,11 @@
 #pragma once
 #include <cassert>
 #include <cstddef>
+#include <functional>
 
+#include <boost/bind/bind.hpp>
 #include <boost/thread.hpp>
+#include <boost/thread/condition_variable.hpp>
 #include <boost/thread/mutex.hpp>
 
 namespace reflex {
@@ -15,6 +18,7 @@ class BufferBase
 {
 protected:
 	typedef boost::mutex Lock;
+	typedef boost::condition_variable Condition;
 	typedef boost::unique_lock<Lock> Locker;
 
 	size_t minSize;
@@ -22,23 +26,19 @@ protected:
 	size_t numElems;
 
 	mutable Lock protection;
+	mutable Condition queueHasElements;
 
 	static bool is_power_of_two(size_t x)
 	{
 		return (x != 0) && ((x & (x - 1)) == 0);
 	}
 
-	bool is_queue_empty() const
-	{
-		Locker w(protection);
-		return numElems == 0;
-	}
-
-	// TODO: Empirically determine a less arbitrary amount of time to sleep by.
 	void wait_for_elements() const
 	{
-		while(is_queue_empty())
-			boost::this_thread::sleep(boost::posix_time::milliseconds(50));
+		Locker r(protection);
+
+		while(numElems == 0)
+			queueHasElements.wait(r);
 	}
 };
 
@@ -129,18 +129,22 @@ public:
 	*/
 	void push(const ElemTy& elem)
 	{
-		Locker w(protection);
+		{
+			Locker w(protection);
 
-		size_t newSize = numElems + 1;
+			size_t newSize = numElems + 1;
 
-		// If we hit the bursting point of the array, double the size.
-		if(newSize > capacity)
-			resize(capacity << 1);
+			// If we hit the bursting point of the array, double the size.
+			if(newSize > capacity)
+				resize(capacity << 1);
 
-		*tail = const_cast<ElemTy&>(elem);
-		tail = increment_internal_pointer(tail);
+			*tail = const_cast<ElemTy&>(elem);
+			tail = increment_internal_pointer(tail);
 
-		numElems = newSize;
+			numElems = newSize;
+		}
+
+		queueHasElements.notify_one();
 	}
 
 	/**
