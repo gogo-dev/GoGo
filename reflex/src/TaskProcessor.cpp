@@ -11,13 +11,9 @@ namespace detail {
 
 static void process_queue(Buffer<Task>& buf, bool& die)
 {
-	function<void ()> nextTask;
-
 	for(;;)
 	{
-		nextTask = buf.pop();
-
-		nextTask();
+		buf.pop()();
 
 		if(die)
 			return;
