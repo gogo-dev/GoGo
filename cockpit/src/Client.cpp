@@ -317,7 +317,7 @@ void Client::on_send(system::error_code err, size_t bytesTransferred, uint8_t* p
 	assert(bytesTransferred == packetLength);
 }
 
-void really_disconnect(tcp::socket& socket, Logger* logger)
+static void really_disconnect(tcp::socket& socket, Logger* logger)
 {
 	try {
 		socket.shutdown(socket_base::shutdown_both);
