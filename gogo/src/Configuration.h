@@ -36,7 +36,7 @@ public:
 	Configuration(std::istream& stream);
 	Configuration(const Configuration& rhs);
 
-#if BOOST_HAS_RVALUE_REFS
+#ifdef BOOST_HAS_RVALUE_REFS
 	Configuration(std::istream&& stream);
 	Configuration(const Configuration&& rhs);
 #endif

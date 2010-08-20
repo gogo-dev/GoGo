@@ -24,7 +24,6 @@
 
 #include <util/memory.h>
 
-using namespace std;
 using namespace boost;
 using namespace boost::asio;
 using namespace boost::asio::ip;
@@ -98,7 +97,7 @@ Client::Client(Logger* _logger, ClientHandlerFactory* factory, io_service* io)
 	connected = false;
 }
 
-string Client::get_ip() const
+std::string Client::get_ip() const
 {
 	if(!connected)
 		return "Not connected";

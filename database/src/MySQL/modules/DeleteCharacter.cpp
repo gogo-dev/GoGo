@@ -1,7 +1,8 @@
 #include <database/MySQLGunzDB.h>
+
+#include <boost/cstdint.hpp>
 #include <boost/bind/bind.hpp>
 
-using namespace std;
 using namespace boost;
 using namespace mysqlpp;
 
@@ -24,10 +25,10 @@ void MySQLGunzDB::DeleteCharacter(const AccountInfo& acc, uint32_t marker)
 		throw InvalidAccountInfo();
 
 	exec_query(
-		bind(make_delete_character_query, _1, acc.aid, marker)
+		boost::bind(make_delete_character_query, _1, acc.aid, marker)
 	);
 
 	exec_query(
-		bind(make_update_marker_info_query, _1, acc.aid, marker)
+		boost::bind(make_update_marker_info_query, _1, acc.aid, marker)
 	);
 }

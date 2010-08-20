@@ -56,7 +56,7 @@ void GoGoClient::OnCharInfo(uint8_t marker)
 	assert(myCharacter.equipment.size() == 12);
 
 	for(size_t i = 0; i < myCharacter.equipment.size(); ++i)
-		info.add_param(int32(myCharacter.equipment[i].itemid));
+		info.add_param(int32(static_cast<int32_t>(myCharacter.equipment[i].itemid)));
 
 	info
 		.add_param(int32(myAccount.access))

@@ -147,11 +147,11 @@ public:
   /// data - Return a pointer to the vector's buffer, even if empty().
   const_pointer data() const { return const_pointer(begin()); }
 
-  reference operator[](unsigned idx) {
+  reference operator[](size_t idx) {
     assert(begin() + idx < end());
     return begin()[idx];
   }
-  const_reference operator[](unsigned idx) const {
+  const_reference operator[](size_t idx) const {
     assert(begin() + idx < end());
     return begin()[idx];
   }

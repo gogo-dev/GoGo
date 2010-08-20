@@ -89,7 +89,7 @@ public:
 		return *this;
 	}
 
-#if BOOST_HAS_RVALUE_REFS
+#ifdef BOOST_HAS_RVALUE_REFS
 	Collection(Collection&& other)
 	{
 		ReadingLock rOther(other.protection);

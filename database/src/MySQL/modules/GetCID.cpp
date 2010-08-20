@@ -6,7 +6,6 @@
 #include <boost/bind/bind.hpp>
 #include <boost/function.hpp>
 
-using namespace std;
 using namespace boost;
 using namespace mysqlpp;
 
@@ -27,7 +26,7 @@ uint32_t MySQLGunzDB::GetCID(uint32_t aid, uint32_t marker)
 		throw InvalidAccountInfo();
 
 	return run_query<uint32_t>(
-		bind(make_get_cid_query, _1, aid, marker),
+		boost::bind(make_get_cid_query, _1, aid, marker),
 		handle_get_cid
 	);
 }

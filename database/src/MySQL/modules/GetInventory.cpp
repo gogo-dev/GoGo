@@ -43,7 +43,7 @@ static vector<Item> handle_get_inventory(const StoreQueryResult& result)
 vector<Item> MySQLGunzDB::GetInventory(uint32_t cid)
 {
 	return run_query<vector<Item> >(
-		bind(make_get_inventory_query, _1, cid),
+		boost::bind(make_get_inventory_query, _1, cid),
 		handle_get_inventory
 	);
 }

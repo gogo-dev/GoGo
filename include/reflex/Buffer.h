@@ -114,7 +114,7 @@ public:
 		if(_minSize < 2)
 			_minSize = 2;
 
-		capacity = 1 << _minSize;
+		capacity = size_t(1) << _minSize;
 		minSize =  capacity;
 
 		numElems = 0;

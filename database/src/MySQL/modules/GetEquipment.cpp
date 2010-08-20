@@ -39,7 +39,8 @@ static SmallVector<Item, 12> handle_get_equipment(const StoreQueryResult& result
 		temp.gender = 0xFF;
 		temp.weight = 0xFFFFFFFF;
 
-		temp.cid = row[i];
+		// Shittily designed library is shittily designed. operator[] takes an int. wtf.
+		temp.cid = row[static_cast<int>(i)];
 		ret.push_back(temp);
 	}
 
@@ -49,7 +50,7 @@ static SmallVector<Item, 12> handle_get_equipment(const StoreQueryResult& result
 SmallVector<Item, 12> MySQLGunzDB::GetEquipment(uint32_t cid)
 {
 	return run_query<SmallVector<Item, 12> >(
-		bind(make_get_equipment_query, _1, cid),
+		boost::bind(make_get_equipment_query, _1, cid),
 		handle_get_equipment
 	);
 }

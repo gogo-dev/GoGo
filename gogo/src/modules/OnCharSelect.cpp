@@ -79,5 +79,5 @@ void GoGoClient::OnCharSelect(boost::uint64_t /* uid */, uint8_t marker)
 
 	transmitter->send(Match_ResponseSelectChar(result, info, extra));
 
-	ModifyTraits(bind(convert_to_traits, myMUID, myCharacter, _1));
+	ModifyTraits(boost::bind(convert_to_traits, myMUID, myCharacter, _1));
 }

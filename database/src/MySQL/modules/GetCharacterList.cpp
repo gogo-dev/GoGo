@@ -6,7 +6,6 @@
 #include <boost/bind/bind.hpp>
 #include <boost/function.hpp>
 
-using namespace std;
 using namespace boost;
 using namespace mysqlpp;
 
@@ -30,7 +29,7 @@ static SmallVector<CharacterEntry, 4> handle_get_character_list(const StoreQuery
 		CharacterEntry character;
 		character.index = row["marker"];
 		character.level = row["level"];
-		character.name = string(row["name"]);
+		character.name = std::string(row["name"]);
 
 		charList.push_back(character);
 	}
@@ -44,7 +43,7 @@ SmallVector<CharacterEntry, 4> MySQLGunzDB::GetCharacterList(const AccountInfo& 
 		throw InvalidAccountInfo();
 
 	return run_query<SmallVector<CharacterEntry, 4> >(
-		bind(make_get_character_list_query, _1, (account.aid)),
+		boost::bind(make_get_character_list_query, _1, (account.aid)),
 		handle_get_character_list
 	);
 }

@@ -6,7 +6,6 @@
 #include <boost/bind/bind.hpp>
 #include <boost/function.hpp>
 
-using namespace std;
 using namespace boost;
 using namespace mysqlpp;
 
@@ -29,7 +28,7 @@ static CharacterInfo handle_get_character_info(const StoreQueryResult& result, u
 
 	charInfo.id = row["id"];
 	charInfo.marker= marker;
-	charInfo.name = string(row["name"]);
+	charInfo.name = std::string(row["name"]);
 	charInfo.clanid = row["clanid"];
 	charInfo.level = row["level"];
 	charInfo.gender = row["sex"];
@@ -63,7 +62,7 @@ static void handle_clan_info(const StoreQueryResult& result, CharacterInfo* char
 
 	if(rowCount == 1)
 	{
-		charInfo->clanName = string(row["name"]);
+		charInfo->clanName = std::string(row["name"]);
 		charInfo->clanScore = row["cwpoints"];
 	}
 }
@@ -75,13 +74,13 @@ CharacterInfo MySQLGunzDB::GetCharacterInfo(const AccountInfo& acc, uint8_t slot
 
 	// Normal, clan, equip, inventory.
 	CharacterInfo ret = run_query<CharacterInfo>(
-		bind(make_get_character_info_query, _1, acc.aid, static_cast<uint32_t>(slot)),
-		bind(handle_get_character_info, _1, slot)
+		boost::bind(make_get_character_info_query, _1, acc.aid, static_cast<uint32_t>(slot)),
+		boost::bind(handle_get_character_info, _1, slot)
 	);
 
 	run_query<void>(
-		bind(make_get_clan_info_query, _1, ret.clanid),
-		bind(handle_clan_info, _1, &ret)
+		boost::bind(make_get_clan_info_query, _1, ret.clanid),
+		boost::bind(handle_clan_info, _1, &ret)
 	);
 
 	ret.equipment = GetEquipment(ret.id);

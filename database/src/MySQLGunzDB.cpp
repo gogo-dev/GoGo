@@ -1,14 +1,11 @@
 #include <database/oopsies.h>
 #include <database/MySQLGunzDB.h>
 
-#include <exception>
-
 #include <cstddef>
 
 #include <boost/function.hpp>
 #include <boost/bind/bind.hpp>
 
-using namespace std;
 using namespace boost;
 using namespace cockpit;
 using namespace mysqlpp;

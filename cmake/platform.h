@@ -21,7 +21,7 @@
 	#define SynchronizedIncrement(name) InterlockedIncrement64(&name)
 
 #else
-	#warning "Your platform does not support 64-bit atomics. Falling back to mutexes."
+	#pragma message("Your platform does not support 64-bit atomics. Falling back to mutexes.")
 
 	#include <boost/thread/mutex.hpp>
 

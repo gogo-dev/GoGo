@@ -34,7 +34,7 @@ namespace cockpit {
 namespace packet {
 
 Parameter::Parameter()
-	: type(-1)
+	: type(static_cast<uint8_t>(-1))
 {
 }
 

@@ -543,7 +543,9 @@ ELSE (_boost_IN_CACHE)
     # NOTE: this is not perfect yet, if you experience any issues
     # please report them and use the Boost_COMPILER variable
     # to work around the problems.
-    if (MSVC90)
+    if (MSVC10)
+      SET (_boost_COMPILER "-vc100") # yes, this is correct
+    elseif (MSVC90)
       SET (_boost_COMPILER "-vc90")
     elseif (MSVC80)
       SET (_boost_COMPILER "-vc80")

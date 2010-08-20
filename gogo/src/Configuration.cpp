@@ -5,7 +5,6 @@
 #include <algorithm>
 #include <utility>
 
-#include <boost/tuple/tuple.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <boost/bind.hpp>
 
@@ -26,8 +25,8 @@ static const char whitespaceCharacters[] = {
 	'\n'
 };
 
-typedef tuple<size_t /* lineNumber */, string /* line */> Line;
-typedef tuple<string /* key */, string /* value */> MapElem;
+typedef pair<size_t /* lineNumber */, string /* line */> Line;
+typedef pair<string /* key */, string /* value */> MapElem;
 
 typedef SmallVector<Line, 128> VecOfLines;
 
@@ -65,15 +64,15 @@ static VecOfLines get_lines(istream& stream)
 	VecOfLines lines;
 
 	for(size_t i = 1; stream.good(); ++i)
-		lines.push_back(make_tuple(i, my_getline(stream, '\n')));
+		lines.push_back(make_pair(i, my_getline(stream, '\n')));
 
 	return lines;
 }
 
 static Line strip_comments(const Line& in)
 {
-	const string& str = get<1>(in);
-	return make_tuple(get<0>(in), str.substr(0, str.find(COMMENT_TOKEN)));
+	const string& str = in.second;
+	return make_pair(in.first, str.substr(0, str.find(COMMENT_TOKEN)));
 }
 
 static bool is_not_whitespace_char(char c)
@@ -86,7 +85,7 @@ static bool is_not_whitespace_char(char c)
 
 static Line strip_whitespace(const Line& in)
 {
-	return make_tuple(get<0>(in), filter(get<1>(in), is_not_whitespace_char));
+	return make_pair(in.first, filter(in.second, is_not_whitespace_char));
 }
 
 static void preprocess(VecOfLines& lines)
@@ -105,7 +104,7 @@ static MapElem parse_pure(const Line& toParse)
 	if(locOfSep == string::npos)
 		throw SyntaxError("No separator found!", lineNumber);
 
-	const MapElem ret = make_tuple(str.substr(0, locOfSep), str.substr(locOfSep + 1, string::npos));
+	const MapElem ret = make_pair(str.substr(0, locOfSep), str.substr(locOfSep + 1, string::npos));
 
 	if(get<0>(ret) == "")
 		throw SyntaxError("No key found!", lineNumber);
@@ -125,11 +124,10 @@ static void parse(const Line& toParse, unordered_map<string, string>* target)
 	if(is_blank(toParse))
 		return;
 
-	const MapElem e = parse_pure(toParse);
-	target->insert(make_pair(get<0>(e), get<1>(e)));
+	target->insert(parse_pure(toParse));
 }
 
-#if BOOST_HAS_RVALUE_REFS
+#ifdef BOOST_HAS_RVALUE_REFS
 static unordered_map<string, string> init_config(VecOfLines&& lines)
 #else
 static unordered_map<string, string> init_config(VecOfLines lines)
@@ -138,7 +136,7 @@ static unordered_map<string, string> init_config(VecOfLines lines)
 	unordered_map<string, string> values;
 
 	preprocess(lines);
-	map_func(lines, bind(parse, _1, &values));
+	map_func(lines, boost::bind(parse, _1, &values));
 
 	return values;
 }
@@ -153,7 +151,7 @@ Configuration::Configuration(const Configuration& rhs)
 {
 }
 
-#if BOOST_HAS_RVALUE_REFS
+#ifdef BOOST_HAS_RVALUE_REFS
 Configuration::Configuration(std::istream&& stream)
 	: values(init_config(get_lines(stream)))
 {

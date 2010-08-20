@@ -3,7 +3,6 @@
 
 #include <cassert>
 
-using namespace std;
 using namespace boost;
 using namespace cockpit;
 
@@ -18,9 +17,9 @@ GoGoFactory::GoGoFactory(Logger* _logger, GunzDB* _database, const function<void
 	initChannelList(&channelList, &santa);
 }
 
-auto_ptr<ClientHandler> GoGoFactory::create_client_handler()
+std::auto_ptr<ClientHandler> GoGoFactory::create_client_handler()
 {
-	return auto_ptr<ClientHandler>(
+	return std::auto_ptr<ClientHandler>(
 		new GoGoClient(
 			logger, &channelList, &santa, database
 		)

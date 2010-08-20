@@ -385,11 +385,17 @@
 #include <pthread.h>
 #endif
 
+#if defined(_MSC_VER) && _MSC_VER == 1600
+	#define GTEST_HAS_TR1_TUPLE 1
+	#include <tuple>
+	using std::tuple;
+#else
 #define GTEST_HAS_TR1_TUPLE 0
 
 // Determines whether Google Test's own tr1 tuple implementation
 // should be used.
 #include <gtest/internal/gtest-tuple.h>
+#endif
 
 // Determines whether clone(2) is supported.
 // Usually it will only be available on Linux, excluding

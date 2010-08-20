@@ -16,7 +16,6 @@
 #include <cockpit/packet/Registry.h>
 #include <cockpit/packet/protocol/all>
 
-using namespace std;
 using namespace boost;
 using namespace cockpit::detail;
 

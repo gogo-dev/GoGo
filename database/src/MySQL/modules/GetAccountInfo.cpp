@@ -6,7 +6,6 @@
 #include <boost/bind/bind.hpp>
 #include <boost/function.hpp>
 
-using namespace std;
 using namespace boost;
 using namespace mysqlpp;
 
@@ -40,7 +39,7 @@ static AccountInfo handle_account_info_query(const StoreQueryResult& result, con
 AccountInfo MySQLGunzDB::GetAccountInfo(const std::string& user, const std::string& password)
 {
 	return run_query<AccountInfo>(
-		bind(make_account_info_query, _1, user.c_str(), password.c_str()),
-		bind(handle_account_info_query, _1, user.c_str())
+		boost::bind(make_account_info_query, _1, user.c_str(), password.c_str()),
+		boost::bind(handle_account_info_query, _1, user.c_str())
 	);
 }

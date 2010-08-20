@@ -30,7 +30,7 @@ uint8_t* encrypt(uint8_t* toEncrypt, size_t length, size_t packetIndex, const ui
 	{
 		a = (*toEncrypt ^ key[packetIndex & 0x1F]) << 5;
 		b = static_cast<uint8_t>(a >> 8);
-		*toEncrypt = (b | a) ^ 0xF0;
+		*toEncrypt = static_cast<uint8_t>((b | a) ^ 0xF0);
 	}
 
 	return toEncrypt;

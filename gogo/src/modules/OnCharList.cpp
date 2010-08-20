@@ -26,7 +26,7 @@ void GoGoClient::OnCharList()
 		return transmitter->disconnect("Tried to get a char list without first logging in.");
 
 	CharList charList = database->GetCharacterList(myAccount);
-	blob charBlob(charList.size(), 34);
+	blob charBlob(static_cast<uint32_t>(charList.size()), 34);
 
 	if (charList.size() == 0)
 	{

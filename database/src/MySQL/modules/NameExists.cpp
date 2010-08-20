@@ -6,7 +6,6 @@
 #include <boost/bind/bind.hpp>
 #include <boost/function.hpp>
 
-using namespace std;
 using namespace boost;
 using namespace mysqlpp;
 
@@ -26,7 +25,7 @@ static bool handle_name_exists(const StoreQueryResult& result)
 bool MySQLGunzDB::NameExists(std::string name)
 {
 	return run_query<bool>(
-		bind(make_name_exists_query, _1, name.c_str()),
+		boost::bind(make_name_exists_query, _1, name.c_str()),
 		handle_name_exists
 	);
 }

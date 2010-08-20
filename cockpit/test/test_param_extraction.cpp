@@ -510,7 +510,7 @@ TEST(blob, clean_extraction)
 
 	try {
 		//    data    count    size
-		tuple<Buffer, size_t, size_t> blob(extract_blob(buffer, &ptr, sizeof(buffer)));
+		boost::tuple<Buffer, size_t, size_t> blob(extract_blob(buffer, &ptr, sizeof(buffer)));
 
 		EXPECT_EQ(blob.get<1>(), 2u);
 		EXPECT_EQ(blob.get<2>(), 4u);

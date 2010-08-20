@@ -14,7 +14,6 @@
 #include <cassert>
 #include <climits>
 
-using namespace std;
 using namespace boost;
 using namespace cockpit;
 
