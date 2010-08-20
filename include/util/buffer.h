@@ -18,11 +18,13 @@ public:
 	Buffer(const void* initialData, size_t length);
 	Buffer(const Buffer& other);
 
-#if BOOST_HAS_RVALUE_REFS
-	Buffer(const Buffer&& rhs)
+#ifdef BOOST_HAS_RVALUE_REFS
+	Buffer(Buffer&& rhs)
 	{
 		data_ = rhs.data_;
 		length_ = rhs.length_;
+
+		rhs.data_ = NULL;
 	}
 #endif
 
